@@ -680,8 +680,9 @@ def pan_lawyers_api(q: str = "", limit: int = Query(24, ge=1, le=60), db=Depends
         cond.append("(p.title LIKE ? OR p.summary LIKE ? OR p.body LIKE ?)")
         args.extend(["%" + q[:80] + "%"] * 3)
     rows = db.execute(
-        "SELECT p.id,p.title,p.summary,p.body,u.display_name "
+        "SELECT p.id,p.title,p.summary,p.body,u.display_name,v.status AS verify_status "
         "FROM posts p JOIN users u ON u.id=p.author_id JOIN boards b ON b.id=p.board_id "
+        "LEFT JOIN lawyer_verifications v ON v.user_id=p.author_id AND v.tenant=p.tenant "
         "WHERE "
         + " AND ".join(cond)
         + " ORDER BY p.updated_at DESC LIMIT ?",
@@ -704,6 +705,7 @@ def pan_lawyers_api(q: str = "", limit: int = Query(24, ge=1, le=60), db=Depends
                 "bio": (d.get("body") or "")[:240],
                 "author": d.get("display_name"),
                 "photo": imgs[i % len(imgs)],
+                "lawygo_verified": d.get("verify_status") == "approved",
             }
         )
     return {"items": items, "total": len(items)}
@@ -750,6 +752,8 @@ def pricing_page():return FileResponse(ROOT/'static'/'pricing.html')
 def payment_page():return FileResponse(ROOT/'static'/'payment.html')
 @app.get('/partnership')
 def partnership_page():return FileResponse(ROOT/'static'/'partnership.html')
+@app.get('/strategy')
+def strategy_page():return FileResponse(ROOT/'static'/'strategy.html')
 @app.get('/')
 def home():return FileResponse(ROOT/'static'/'index.html')
 @app.get('/dashboard')

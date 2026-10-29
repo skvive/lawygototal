@@ -201,7 +201,54 @@ def register(app, g):
         period=stamp()[:7]
         rows=db.execute('''SELECT p.product,e.event_type,count(*) count FROM growth_events e JOIN posts p ON p.id=e.post_id
             WHERE e.tenant=? AND e.day LIKE ? GROUP BY p.product,e.event_type''',(user['tenant'],period+'%')).fetchall()
-        return {'month':period,'events':[dict(r) for r in rows],'disclaimer':'중복 축소된 참고용 웹 이벤트입니다. 확정 상담·매출 실적이 아닙니다.'}
+        totals={}
+        for r in rows:
+            totals[r['event_type']]=totals.get(r['event_type'],0)+r['count']
+        return {'month':period,'events':[dict(r) for r in rows],'totals':totals,
+          'disclaimer':'중복 축소된 참고용 웹 이벤트입니다. 확정 상담·매출·수임 실적이 아닙니다.'}
+
+    @app.get('/api/growth/pan-dashboard')
+    def pan_dashboard(user=Depends(current),db=Depends(database)):
+        """Per-member PAN funnel: content views, profile opens, consult clicks, inquiries."""
+        period=stamp()[:7]
+        posts=db.execute(
+            "SELECT id FROM posts WHERE tenant=? AND author_id=? AND product='pan' AND deleted_at IS NULL",
+            (user['tenant'],user['id']),
+        ).fetchall()
+        ids=[r['id'] for r in posts]
+        funnel={k:0 for k in ('impression','content_open','profile_open','consult_click')}
+        if ids:
+            ph=','.join('?'*len(ids))
+            rows=db.execute(
+                f'''SELECT event_type,count(*) c FROM growth_events
+                    WHERE tenant=? AND day LIKE ? AND post_id IN ({ph}) GROUP BY event_type''',
+                [user['tenant'],period+'%',*ids],
+            ).fetchall()
+            for r in rows:
+                if r['event_type'] in funnel:
+                    funnel[r['event_type']]=r['c']
+        inquiries=db.execute(
+            "SELECT count(*) FROM pan_inquiries WHERE tenant=? AND recipient_id=? AND created_at LIKE ?",
+            (user['tenant'],user['id'],period+'%'),
+        ).fetchone()[0]
+        ver=db.execute(
+            'SELECT status FROM lawyer_verifications WHERE tenant=? AND user_id=?',
+            (user['tenant'],user['id']),
+        ).fetchone()
+        published=db.execute(
+            "SELECT count(*) FROM posts WHERE tenant=? AND author_id=? AND product='pan' AND status='published' AND deleted_at IS NULL",
+            (user['tenant'],user['id']),
+        ).fetchone()[0]
+        return {
+            'month':period,
+            'funnel':funnel,
+            'inquiries_received':inquiries,
+            'published_pan_posts':published,
+            'lawyer_verification':ver['status'] if ver else 'none',
+            'lawygo_verified':ver['status']=='approved',
+            'disclaimer':'서버 집계 이벤트·문의함 기준입니다. 광고 노출·자연 유입·수임 성과를 보장하지 않습니다.',
+            'positioning':'LAWYGO Verified는 로이고 자체 검수 상태이며 국가기관 인증이 아닙니다.',
+        }
 
     @app.get('/api/growth/feed')
     def feed(product:str='pan',db=Depends(database)):

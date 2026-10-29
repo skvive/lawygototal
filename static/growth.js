@@ -4,17 +4,33 @@ const growthBtn=(label,callback,cls='btn small secondary')=>{let b=growthText('b
 let growthCampaigns=[],growthOrdering=[],boardOrdering=[];
 function gErr(e){display(e?.message||'기능을 처리하지 못했습니다.',true)}
 async function loadGrowth(){
-  if(!me||!['admin','editor'].includes(me.role)){
-    $('growthBody').replaceChildren(growthText('p','마케팅 운영 권한이 없습니다.','error'));return;
-  }
+  if(!me){$('growthBody').replaceChildren(growthText('p','로그인이 필요합니다.','error'));return}
   try{
+    const panDash=await request('/api/growth/pan-dashboard').catch(()=>null);
+    const panEl=$('panMemberDashboard');
+    if(panDash&&panEl){
+      panEl.classList.remove('hidden');
+      $('panDashMonth').textContent=panDash.month;
+      $('panDashDisclaimer').textContent=panDash.disclaimer;
+      const f=panDash.funnel||{};
+      $('panImp').textContent=f.impression||0;
+      $('panContentOpen').textContent=f.content_open||0;
+      $('panProfileOpen').textContent=f.profile_open||0;
+      $('panConsultClick').textContent=f.consult_click||0;
+      $('panInquiries').textContent=panDash.inquiries_received||0;
+    }else if(panEl)panEl.classList.add('hidden');
+    if(!['admin','editor'].includes(me.role)){
+      $('growthBody').replaceChildren(growthText('p','운영 캠페인·심사는 admin/editor 전용입니다. 위 PAN 성장 지표는 본인 콘텐츠 기준입니다.','muted'));
+      return;
+    }
     const [campaigns,analytic,system,verification,entitlements]=await Promise.all([
       request('/api/growth/campaigns'),request('/api/growth/analytics'),request('/api/growth/system'),
       request('/api/pan/verification'),request('/api/growth/entitlements')]);
     growthCampaigns=campaigns.items;
     $('growthAds').textContent=growthCampaigns.length;
-    $('growthViews').textContent=analytic.events.filter(x=>x.event_type==='content_open').reduce((v,x)=>v+x.count,0);
-    $('growthConsult').textContent=analytic.events.filter(x=>x.event_type==='consult_click').reduce((v,x)=>v+x.count,0);
+    const totals=analytic.totals||{};
+    $('growthViews').textContent=totals.content_open||analytic.events.filter(x=>x.event_type==='content_open').reduce((v,x)=>v+x.count,0);
+    $('growthConsult').textContent=totals.consult_click||analytic.events.filter(x=>x.event_type==='consult_click').reduce((v,x)=>v+x.count,0);
     $('growthIdentity').textContent=verification.items.filter(x=>x.status==='pending').length;
     const status=$('growthSystem');status.replaceChildren();
     [['데이터베이스',system.database==='connected'],['Google OAuth',system.google_oauth],['Gemini',system.gemini],['운영 게시판',system.native_bridge],['구독 웹훅',system.billing_webhook]].forEach(([label,good])=>status.append(growthText('span',label+' · '+(good?'설정 확인':'설정 필요'),good?'tag':'tag sponsor')));

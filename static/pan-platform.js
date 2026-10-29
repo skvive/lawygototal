@@ -61,14 +61,25 @@ function renderLawyers(items) {
     card.append(img);
     const body = document.createElement("div");
     body.innerHTML = `<span class="tag demo">LAWYGO PAN</span>
+      ${L.lawygo_verified ? '<span class="tag verified" title="LAWYGO Verified — 로이고 자체 검수, 국가 인증 아님">LAWYGO Verified</span>' : ""}
       <h3>${esc(L.name)} <small class="muted">${esc(L.author || "")}</small></h3>
       <div><span class="tag">${esc(L.practice)}</span><span class="tag">${esc(L.region)}</span></div>
       <p>${esc(L.bio || L.practice)}</p>`;
     card.append(body);
+    panTrack(L.id, "profile_open");
     const end = document.createElement("div");
     end.className = "end";
-    end.innerHTML = `<a class="btn outline" href="/dashboard">프로필 보기</a>
-      <a class="btn primary" href="/dashboard">상담 신청</a>`;
+    const profileBtn = document.createElement("a");
+    profileBtn.className = "btn outline";
+    profileBtn.href = "/dashboard";
+    profileBtn.textContent = "프로필 보기";
+    profileBtn.addEventListener("click", () => panTrack(L.id, "profile_open"));
+    const consultBtn = document.createElement("a");
+    consultBtn.className = "btn primary";
+    consultBtn.href = "/dashboard";
+    consultBtn.textContent = "상담 신청";
+    consultBtn.addEventListener("click", () => panTrack(L.id, "consult_click"));
+    end.append(profileBtn, consultBtn);
     card.append(end);
     root.append(card);
   });
@@ -114,6 +125,10 @@ function renderContentGrid(items, rootId, mode) {
       const a = document.createElement("a");
       a.className = "pn-short";
       a.href = x.url;
+      if (x.id && x.approved) panTrack(x.id, "impression");
+      a.addEventListener("click", () => {
+        if (x.id && x.approved) panTrack(x.id, "content_open");
+      });
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       const img = document.createElement("img");
@@ -133,6 +148,10 @@ function renderContentGrid(items, rootId, mode) {
     const wrap = document.createElement("a");
     wrap.className = "pn-card";
     wrap.href = x.url;
+    if (x.id && x.approved) panTrack(x.id, "impression");
+    wrap.addEventListener("click", () => {
+      if (x.id && x.approved) panTrack(x.id, "content_open");
+    });
     wrap.target = "_blank";
     wrap.rel = "noopener noreferrer";
     const img = document.createElement("img");
@@ -166,6 +185,10 @@ function renderTabList(items) {
     const a = document.createElement("a");
     a.className = "image-card";
     a.href = x.url;
+    if (x.id && x.approved) panTrack(x.id, "impression");
+    a.addEventListener("click", () => {
+      if (x.id && x.approved) panTrack(x.id, "content_open");
+    });
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     const img = document.createElement("img");
