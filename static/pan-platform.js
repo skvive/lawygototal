@@ -1,8 +1,6 @@
 const FALLBACK_IMG = [
   "/static/img/editorial/pan-blog-1.png",
   "/static/img/editorial/pan-blog-2.png",
-  "/static/img/editorial/journal-lead.jpg",
-  "/static/img/editorial/journal-side.jpg",
 ];
 
 let activeTab = "all";
@@ -11,6 +9,17 @@ function esc(s) {
   const d = document.createElement("div");
   d.textContent = s || "";
   return d.innerHTML;
+}
+
+function bindImg(img) {
+  img.addEventListener("error", () => {
+    img.classList.add("pan-img-ph");
+    img.removeAttribute("src");
+  });
+}
+
+function thumbUrl(x, i) {
+  return x.thumb_url || FALLBACK_IMG[i % FALLBACK_IMG.length];
 }
 
 async function fetchContent(type, q) {
@@ -22,7 +31,7 @@ async function fetchContent(type, q) {
 }
 
 async function fetchLawyers(q) {
-  const params = new URLSearchParams({ limit: "8" });
+  const params = new URLSearchParams({ limit: "12" });
   if (q) params.set("q", q);
   const res = await fetch("/api/pan/lawyers?" + params);
   if (!res.ok) throw new Error("변호사 API 오류");
@@ -30,7 +39,7 @@ async function fetchLawyers(q) {
 }
 
 function renderLawyers(items) {
-  const root = document.getElementById("pan-lawyers");
+  const root = document.getElementById("pan-lawyers-grid");
   if (!root) return;
   root.replaceChildren();
   if (!items.length) {
@@ -38,22 +47,50 @@ function renderLawyers(items) {
       '<p class="muted">등록된 공개 프로필이 없습니다. <a href="/dashboard">대시보드</a>에서 PAN · 변호사 프로필을 발행하세요.</p>';
     return;
   }
-  items.forEach((L) => {
+  items.forEach((L, i) => {
     const card = document.createElement("article");
     card.className = "lawyer-card shadow";
-    card.innerHTML = `
-      <img alt="" loading="lazy" src="${esc(L.photo)}">
-      <div>
-        <span class="tag demo">LAWYGO PAN</span>
-        <h3>${esc(L.name)} <small class="muted">${esc(L.author || "")}</small></h3>
-        <div><span class="tag">${esc(L.practice)}</span><span class="tag">${esc(L.region)}</span></div>
-        <p>${esc(L.bio || L.practice)}</p>
-      </div>
-      <div class="end">
-        <a class="btn outline" href="/api/posts/${esc(L.id)}" target="_blank" rel="noopener">프로필 ↗</a>
-        <a class="btn primary" href="/dashboard">상담 연동</a>
-      </div>`;
+    card.dataset.search = `${L.name} ${L.practice} ${L.region} ${L.bio || ""}`.toLowerCase();
+    card.dataset.category = L.practice || "";
+    card.dataset.region = L.region || "";
+    const img = document.createElement("img");
+    img.alt = L.name || "";
+    img.loading = "lazy";
+    img.src = L.photo || FALLBACK_IMG[i % FALLBACK_IMG.length];
+    bindImg(img);
+    card.append(img);
+    const body = document.createElement("div");
+    body.innerHTML = `<span class="tag demo">LAWYGO PAN</span>
+      <h3>${esc(L.name)} <small class="muted">${esc(L.author || "")}</small></h3>
+      <div><span class="tag">${esc(L.practice)}</span><span class="tag">${esc(L.region)}</span></div>
+      <p>${esc(L.bio || L.practice)}</p>`;
+    card.append(body);
+    const end = document.createElement("div");
+    end.className = "end";
+    end.innerHTML = `<a class="btn outline" href="/dashboard">프로필 보기</a>
+      <a class="btn primary" href="/dashboard">상담 신청</a>`;
+    card.append(end);
     root.append(card);
+  });
+}
+
+function renderStory(lawyers) {
+  const root = document.getElementById("pan-story");
+  if (!root) return;
+  root.replaceChildren();
+  const list = lawyers.length ? lawyers : [{ name: "등록 대기", practice: "CMS", photo: "" }];
+  list.slice(0, 6).forEach((L, i) => {
+    const a = document.createElement("a");
+    a.href = "/dashboard";
+    const img = document.createElement("img");
+    img.alt = L.name || "";
+    img.src = L.photo || FALLBACK_IMG[i % FALLBACK_IMG.length];
+    bindImg(img);
+    a.append(img);
+    const span = document.createElement("span");
+    span.innerHTML = `${esc(L.name)}<br><small>${esc(L.practice)}</small>`;
+    a.append(span);
+    root.append(a);
   });
 }
 
@@ -68,38 +105,47 @@ function renderContentGrid(items, rootId, mode) {
     return true;
   });
   if (!filtered.length) {
-    root.innerHTML = '<p class="empty" style="display:block">해당 유형 콘텐츠가 없습니다. RSS 환경변수 또는 OAuth 동기화를 확인하세요.</p>';
+    root.innerHTML =
+      '<p class="empty" style="display:block">해당 유형 콘텐츠가 없습니다. RSS 환경변수 또는 OAuth 동기화를 확인하세요.</p>';
     return;
   }
-  filtered.slice(0, mode === "shorts" ? 10 : 9).forEach((x, i) => {
+  filtered.slice(0, mode === "shorts" ? 10 : 6).forEach((x, i) => {
     if (mode === "shorts") {
       const a = document.createElement("a");
       a.className = "pn-short";
       a.href = x.url;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
-      a.innerHTML = `
-        <img alt="" src="${esc(x.thumb_url || FALLBACK_IMG[i % FALLBACK_IMG.length])}">
-        <span class="play">▶</span>
-        <div class="overlay"><small>${esc(x.source)}</small><h3>${esc(x.title)}</h3></div>`;
+      const img = document.createElement("img");
+      img.alt = "";
+      img.src = thumbUrl(x, i);
+      bindImg(img);
+      const play = document.createElement("span");
+      play.className = "play";
+      play.textContent = "▶";
+      const overlay = document.createElement("div");
+      overlay.className = "overlay";
+      overlay.innerHTML = `<small>${esc(x.source)}</small><h3>${esc(x.title)}</h3>`;
+      a.append(img, play, overlay);
       root.append(a);
       return;
     }
     const wrap = document.createElement("a");
-    wrap.className = mode === "blog" ? "pn-card" : "image-card";
+    wrap.className = "pn-card";
     wrap.href = x.url;
     wrap.target = "_blank";
     wrap.rel = "noopener noreferrer";
-    const thumb = x.thumb_url || FALLBACK_IMG[i % FALLBACK_IMG.length];
-    if (mode === "blog") {
-      wrap.innerHTML = `<img alt="" loading="lazy" src="${esc(thumb)}"><div class="body"><span class="pn-tag">${
-        x.approved ? "CMS" : "RSS"
-      } · BLOG</span><h3>${esc(x.title)}</h3><p>${esc(x.summary)}</p><small>${esc(x.source)}</small></div>`;
-    } else {
-      wrap.innerHTML = `<img alt="" loading="lazy" src="${esc(thumb)}"><div class="body"><span class="meta">VIDEO</span><h3>${esc(
-        x.title,
-      )}</h3><p>${esc(x.summary)}</p></div>`;
-    }
+    const img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    img.src = thumbUrl(x, i);
+    bindImg(img);
+    wrap.append(img);
+    const body = document.createElement("div");
+    body.className = "body";
+    body.innerHTML = `<span class="pn-tag">${x.approved ? "CMS" : "RSS"} · BLOG</span>
+      <h3>${esc(x.title)}</h3><p>${esc(x.summary)}</p><small>${esc(x.source)}</small>`;
+    wrap.append(body);
     root.append(wrap);
   });
 }
@@ -109,24 +155,32 @@ function renderTabList(items) {
   if (!root) return;
   root.replaceChildren();
   const filtered =
-    activeTab === "all" ? items : items.filter((x) => x.content_type === activeTab || (activeTab === "video" && x.content_type === "video"));
+    activeTab === "all"
+      ? items
+      : items.filter((x) => x.content_type === activeTab || (activeTab === "video" && x.content_type === "video"));
   if (!filtered.length) {
     root.innerHTML = '<p class="empty" style="display:block;padding:24px">검색 결과가 없습니다.</p>';
     return;
   }
-  filtered.slice(0, 12).forEach((x, i) => {
+  filtered.slice(0, 9).forEach((x, i) => {
     const a = document.createElement("a");
     a.className = "image-card";
     a.href = x.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-    a.innerHTML = `
-      <img alt="" loading="lazy" src="${esc(x.thumb_url || FALLBACK_IMG[i % FALLBACK_IMG.length])}">
-      <div class="body">
-        <span class="meta">${esc(x.content_type.toUpperCase())}${x.approved ? "" : ' <span class="pan-wire-badge">RSS</span>'}</span>
-        <h3>${esc(x.title)}</h3>
-        <p>${esc(x.summary)}</p>
-      </div>`;
+    const img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    img.src = thumbUrl(x, i);
+    bindImg(img);
+    a.append(img);
+    const body = document.createElement("div");
+    body.className = "body";
+    body.innerHTML = `<span class="meta">${esc(x.content_type.toUpperCase())}${
+      x.approved ? "" : ' · RSS'
+    }</span><h3>${esc(x.title)}</h3><p>${esc(x.summary)}</p>
+      <span class="small" style="display:block;margin-top:16px;color:#a77b42;font-weight:750">자세히 보기 →</span>`;
+    a.append(body);
     root.append(a);
   });
 }
@@ -136,15 +190,22 @@ async function reloadAll() {
     document.getElementById("pan-hero-search")?.value ||
     new URLSearchParams(location.search).get("q") ||
     "";
+  if (document.getElementById("pan-hero-search") && q) {
+    document.getElementById("pan-hero-search").value = q;
+  }
   try {
-    const [{ items }, lawyers] = await Promise.all([fetchContent(activeTab === "all" ? "all" : activeTab, q), fetchLawyers(q)]);
-    renderLawyers(lawyers.items || []);
+    const [{ items }, lawyers] = await Promise.all([
+      fetchContent(activeTab === "all" ? "all" : activeTab, q),
+      fetchLawyers(q),
+    ]);
+    const lawyerItems = lawyers.items || [];
+    renderLawyers(lawyerItems);
+    renderStory(lawyerItems);
     renderTabList(items || []);
     renderContentGrid(items || [], "pan-shorts-grid", "shorts");
     renderContentGrid(items || [], "pan-blog-grid", "blog");
-    renderContentGrid(items || [], "pan-video-grid", "video");
     const stat = document.getElementById("pan-wire-stat");
-    if (stat) stat.textContent = (items || []).length + "건 · CMS+Google RSS";
+    if (stat) stat.textContent = String((items || []).length);
   } catch (e) {
     console.error(e);
   }
@@ -164,6 +225,7 @@ document.getElementById("pan-hero-search-form")?.addEventListener("submit", (e) 
   const q = document.getElementById("pan-hero-search")?.value || "";
   history.replaceState(null, "", q ? "?q=" + encodeURIComponent(q) : "/p/pan");
   reloadAll();
+  document.getElementById("pan-lawyers")?.scrollIntoView({ behavior: "smooth" });
 });
 
 document.getElementById("menu-toggle")?.addEventListener("click", () => {

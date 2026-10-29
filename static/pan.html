@@ -4,130 +4,118 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>좋은 변호사를, 더 가까이 | LAWYGO PAN</title>
-  <meta name="description" content="네이버 블로그형 변호사 마케팅 플랫폼 · Google Blogger·YouTube RSS + CMS">
+  <meta name="description" content="법률 블로그와 영상, 변호사 프로필을 하나의 검색 경험으로 연결합니다.">
+  <link rel="icon" href="/static/pan-ref/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/pan-ref/site.css">
   <link rel="stylesheet" href="/static/pan-ref/pan-expansion.css">
-  <link rel="stylesheet" href="/static/pan-ref/overrides.css">
+  <link rel="stylesheet" href="/static/pan-ref/pan-deploy.css">
+  <script defer src="/static/pan-ref/integrations.js"></script>
+  <script defer src="/static/pan-ref/site.js"></script>
 </head>
-<body class="pan-platform pan-with-global-nav">
-  <div class="lawygo-global-nav" data-lawygo-nav></div>
+<body class="pan-platform">
   <div class="headbar"><div class="wrap">
-    <span>LAWYGO PAN · LEGAL MARKETING PLATFORM</span>
-    <span>Linkr-style RSS 수집 + OAuth 동기화 · <a href="/dashboard" style="color:#dbb879">크리에이터 대시보드</a></span>
+    <span>LAWYGO / ECONOMY × LAW INTELLIGENCE</span>
+    <span>독립적인 법률 콘텐츠·전문가 연결 플랫폼 · lawygo.lexid.site</span>
   </div></div>
   <header class="header"><div class="wrap">
-    <a class="brand" href="/p/pan"><svg aria-hidden="true" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect fill="#f7f5ef" height="128" rx="28" width="128"/><path d="M30 22h26v64h52v24H30z" fill="#102a43"/><rect fill="#c83f56" height="25" rx="4" width="25" x="63" y="49"/></svg><span class="brand-name">LAWYGO <i>PAN</i></span></a>
-    <nav class="nav" aria-label="PAN 메뉴">
+    <a class="brand" href="/p/pan" aria-label="LAWYGO PAN 홈">
+      <svg aria-hidden="true" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect fill="#f7f5ef" height="128" rx="28" width="128"/><path d="M30 22h26v64h52v24H30z" fill="#102a43"/><rect fill="#c83f56" height="25" rx="4" width="25" x="63" y="49"/></svg>
+      <span class="brand-name">LAWYGO <i>PAN</i></span>
+    </a>
+    <nav class="nav" aria-label="주 메뉴">
       <a class="on" href="/p/pan">홈</a>
-      <a href="#pan-lawyers">변호사</a>
+      <a href="#pan-lawyers">변호사 찾기</a>
       <a href="#pan-content">콘텐츠</a>
       <a href="#pan-shorts">쇼츠</a>
       <a href="#pan-blogs">블로그</a>
-      <a href="/journal">저널</a>
+      <a href="/partnership">파트너십</a>
+      <a href="/pricing">요금제</a>
     </nav>
     <div class="actions">
-      <a class="btn primary" href="/dashboard">로그인 · 연동</a>
-      <button type="button" class="hamburger" id="menu-toggle" aria-label="메뉴">☰</button>
+      <button type="button" class="lang" aria-label="언어 전환">KO · English</button>
+      <a class="btn primary" href="/dashboard">무료 회원 · 연동</a>
+      <button type="button" class="hamburger" id="menu-toggle" aria-expanded="false" aria-label="모바일 메뉴">☰</button>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobile-nav">
-    <a href="/p/pan">PAN 홈</a><a href="/dashboard">Google 연동</a><a href="/journal">저널</a><a href="/p/wiki">위키</a><a href="/p/note">노트</a>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴">
+    <a href="/p/pan">PAN 홈</a>
+    <a href="#pan-lawyers">변호사 찾기</a>
+    <a href="#pan-shorts">쇼츠</a>
+    <a href="#pan-blogs">블로그</a>
+    <a href="/partnership">파트너십</a>
+    <a href="/pricing">요금제</a>
+    <a href="/dashboard">대시보드</a>
   </nav></header>
 
   <main id="main">
     <section class="hero"><div class="wrap"><div class="hero-content">
-      <div class="eyebrow rose">LAWYGO PAN · 변호사 마케팅 플랫폼</div>
+      <div class="eyebrow rose">LAWYGO PAN · LEGAL CONTENT &amp; EXPERTS</div>
       <h1>법이 필요한 순간,<br><span style="color:#a67848">더 가까운 전문가.</span></h1>
-      <p>구글블로그·유튜브(쇼츠·동영상)를 RSS로 수집하고, OAuth 동기화 후 CMS 검수까지 한 흐름으로 연결합니다. (Linkr discover/feed 이식)</p>
+      <p>검색으로 시작하고, 콘텐츠로 이해하고, 상담으로 연결하세요. Google Blogger·YouTube RSS와 CMS 승인 콘텐츠를 한 플랫폼에 모읍니다.</p>
       <form class="searchbox" id="pan-hero-search-form">
-        <input id="pan-hero-search" aria-label="법률 검색" placeholder="어떤 법률 문제가 궁금하신가요?">
-        <button class="btn primary" type="submit">검색 ↗</button>
+        <input id="pan-hero-search" aria-label="법률 문제 검색" placeholder="어떤 법률 문제가 궁금하신가요?">
+        <button class="btn primary" type="submit">변호사 찾기 ↗</button>
       </form>
       <div class="chips">
-        <a class="chip" href="?q=이혼">이혼</a><a class="chip" href="?q=상속">상속</a><a class="chip" href="?q=부동산">부동산</a><a class="chip" href="?q=형사">형사</a>
+        <a class="chip" href="?q=이혼">이혼</a>
+        <a class="chip" href="?q=상속">상속</a>
+        <a class="chip" href="?q=부동산">부동산</a>
+        <a class="chip" href="?q=기업 자문">기업 자문</a>
+        <a class="chip" href="?q=민사">민사</a>
+        <a class="chip" href="?q=형사">형사</a>
       </div>
+      <div class="notice" style="margin-top:26px;max-width:540px">※ 공개 프로필·RSS는 운영 설정에 따릅니다. 변호사 검증·상담 연결은 CMS 승인 및 파트너 계약 후 제공됩니다.</div>
     </div></div></section>
 
     <section class="stat-strip"><div class="wrap">
-      <div class="stat"><b>01</b><p>변호사 프로필</p></div>
-      <div class="stat"><b>02</b><p>Google Blogger</p></div>
-      <div class="stat"><b>03</b><p>YouTube · Shorts</p></div>
+      <div class="stat"><b>01</b><p>분야별 탐색</p></div>
+      <div class="stat"><b>02</b><p>프로필·콘텐츠 확인</p></div>
+      <div class="stat"><b>03</b><p>상담 문의</p></div>
       <div class="stat"><b id="pan-wire-stat">04</b><p>통합 피드</p></div>
     </div></section>
 
     <section class="section"><div class="wrap">
-      <div class="eyebrow">QUICK START</div>
-      <h2>판(PAN)은 독립 플랫폼입니다</h2>
+      <div class="eyebrow">DISCOVER</div>
+      <h2>필요한 법률 서비스를 빠르게 찾으세요.</h2>
       <div class="grid g4">
-        <a class="surface quick-card shadow" href="#pan-lawyers"><div class="circle-icon">⚖</div><h3>변호사 찾기</h3><p>공개 프로필</p></a>
-        <a class="surface quick-card shadow" href="#pan-blogs"><div class="circle-icon">▤</div><h3>구글 블로그</h3><p>RSS · OAuth</p></a>
+        <a class="surface quick-card shadow" href="#pan-lawyers"><div class="circle-icon">⚖</div><h3>변호사 찾기</h3><p>분야·지역별 프로필</p></a>
+        <a class="surface quick-card shadow" href="#pan-blogs"><div class="circle-icon">▤</div><h3>변호사 블로그</h3><p>Google Blogger RSS</p></a>
         <a class="surface quick-card shadow" href="#pan-shorts"><div class="circle-icon">▶</div><h3>유튜브·쇼츠</h3><p>채널 RSS</p></a>
-        <a class="surface quick-card shadow" href="/dashboard"><div class="circle-icon">⚙</div><h3>연동·동기화</h3><p>/api/sync</p></a>
+        <a class="surface quick-card shadow" href="/dashboard"><div class="circle-icon">✉</div><h3>연동·상담</h3><p>OAuth · CMS</p></a>
+      </div>
+    </div></section>
+
+    <section class="section bg-cream"><div class="wrap">
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:15px;flex-wrap:wrap">
+        <div><div class="eyebrow">PRACTICE AREAS</div><h2>분야별로 만나보는 법률 전문가</h2></div>
+        <a class="btn outline" href="?q=형사">전체 분야 검색</a>
+      </div>
+      <div class="grid g4">
+        <a class="surface pad" href="?q=이혼"><div class="circle-icon" style="margin:0 0 14px">♡</div><h3>이혼·가사</h3><p class="small muted">이혼, 양육권, 재산분할</p></a>
+        <a class="surface pad" href="?q=부동산"><div class="circle-icon" style="margin:0 0 14px">⌂</div><h3>부동산</h3><p class="small muted">임대차, 보증금, 매매</p></a>
+        <a class="surface pad" href="?q=기업"><div class="circle-icon" style="margin:0 0 14px">▣</div><h3>기업·계약</h3><p class="small muted">계약서, 인사, 스타트업</p></a>
+        <a class="surface pad" href="?q=형사"><div class="circle-icon" style="margin:0 0 14px">⚖</div><h3>형사·민사</h3><p class="small muted">고소, 분쟁, 손해배상</p></a>
       </div>
     </div></section>
 
     <section class="section bg-cream" id="pan-lawyers"><div class="wrap">
       <div class="eyebrow">EXPERT SHOWCASE</div>
-      <h2>네이버 블로그형 전문가 프로필</h2>
-      <p class="muted">CMS에 발행된 PAN · profile 글이 실데이터로 표시됩니다.</p>
-      <div class="grid g2" id="pan-lawyers"></div>
+      <h2>전문가 프로필을 먼저 둘러보세요.</h2>
+      <p class="muted">CMS에 발행된 PAN · profile 글이 표시됩니다.</p>
+      <div class="grid g2" id="pan-lawyers-grid"></div>
+      <p class="right" style="margin-top:17px"><a class="btn outline" href="#pan-lawyers">변호사 전체 보기 ↗</a></p>
     </div></section>
 
-    <section class="section" id="pan-content"><div class="wrap pn-layout">
-      <div>
-        <div class="eyebrow">LATEST LEGAL CONTENT</div>
-        <h2>최신 법률 콘텐츠</h2>
-        <div class="pn-tabs" id="pan-content-tabs">
-          <button type="button" class="active" data-kind="all">전체</button>
-          <button type="button" data-kind="blog">블로그</button>
-          <button type="button" data-kind="video">유튜브</button>
-          <button type="button" data-kind="shorts">쇼츠</button>
-        </div>
-        <div class="grid g3" id="pan-content-list"></div>
+    <section class="section" id="pan-content"><div class="wrap">
+      <div class="eyebrow">EDITORIAL &amp; VIDEO</div>
+      <h2>읽고 보는 법률 콘텐츠</h2>
+      <div class="pn-tabs" id="pan-content-tabs" style="margin-bottom:20px">
+        <button type="button" class="active" data-kind="all">전체</button>
+        <button type="button" data-kind="blog">블로그</button>
+        <button type="button" data-kind="video">유튜브</button>
+        <button type="button" data-kind="shorts">쇼츠</button>
       </div>
-      <aside>
-        <div class="pan-sync-panel">
-          <h3>Google Blog &amp; YouTube Auto-Sync</h3>
-          <p class="small muted">링커(Linkr) 엔진과 동일하게 <strong>서버에서만</strong> RSS/API 수집합니다.</p>
-          <ul>
-            <li>공개 RSS: <code>LAWYGO_PAN_BLOGGER_SITES</code></li>
-            <li>채널 RSS: <code>LAWYGO_PAN_YOUTUBE_CHANNEL_IDS</code></li>
-            <li>OAuth: <code>/api/google/connect/blogger</code> · <code>youtube</code></li>
-            <li>동기화: <code>POST /api/sync/sources/{id}/run</code></li>
-          </ul>
-          <p style="margin-top:14px"><a class="btn outline block" href="/dashboard">연동 설정 →</a></p>
-        </div>
-        <div class="pn-side">
-          <h3>운영 메모</h3>
-          <a href="/api/docs">OpenAPI</a>
-          <a href="/api/feed?kind=all">승인·RSS JSON</a>
-          <a href="/pro">LAWYGO PRO</a>
-        </div>
-      </aside>
-    </div></section>
-
-    <section class="pn-section" id="pan-shorts"><div class="wrap">
-      <h2>법률 쇼츠 · YouTube Shorts</h2>
-      <p>채널 RSS에서 #shorts·Shorts 제목을 쇼츠로 분류합니다.</p>
-      <div class="pn-short-grid" id="pan-shorts-grid"></div>
-    </div></section>
-
-    <section class="pn-section" id="pan-blogs"><div class="wrap">
-      <h2>구글블로그 · 전문 법률 칼럼</h2>
-      <p>Blogger JSON Feed (<code>?alt=json</code>) — 본문 요약만 저장, 원문 링크 아웃.</p>
-      <div class="pn-cards" id="pan-blog-grid"></div>
-    </div></section>
-
-    <section class="section"><div class="wrap">
-      <div class="eyebrow">VIDEO</div>
-      <h2>유튜브 롱폼</h2>
-      <div class="grid g3" id="pan-video-grid"></div>
-    </div></section>
-
-    <section class="pn-section"><div class="wrap">
-      <h2>승인 + RSS 통합 피드</h2>
-      <p><code>/api/feed</code> — CMS 승인글 우선, 이어서 공개 RSS.</p>
-      <div class="pn-cards" data-approved-feed="all"></div>
+      <div class="grid g3" id="pan-content-list"></div>
     </div></section>
 
     <section class="section bg-navy"><div class="wrap">
@@ -135,18 +123,95 @@
         <div>
           <p class="eyebrow">FOR LEGAL PROFESSIONALS</p>
           <h2>변호사의 전문성을<br>콘텐츠로 증명하세요.</h2>
-          <p class="muted-on-dark">Google Blogger와 YouTube를 LAWYGO PAN 프로필에 연결해 검색·상담 유입으로 이어지는 브랜드 페이지를 만듭니다.</p>
+          <p class="muted-on-dark">Google Blogger와 YouTube 게시물을 전문 프로필에 연결해 검색과 상담 유입으로 이어지는 브랜디드 페이지를 만듭니다.</p>
           <a class="btn gold" href="/dashboard">파트너 연동 시작 ↗</a>
         </div>
-        <img class="image-object" alt="" loading="lazy" src="/static/img/editorial/journal-side.jpg">
+        <div class="image-object pan-img-ph" role="img" aria-label="법률 전문가 업무 공간"></div>
       </div>
+    </div></section>
+
+    <section class="pn-section"><div class="wrap">
+      <h2>로판 콘텐츠가 이어지는 새로운 지면</h2>
+      <p>변호사별 블로그·쇼츠·프로필로 이어지는 채널형 홈입니다.</p>
+      <div class="pn-story" id="pan-story"></div>
+    </div></section>
+
+    <section class="pn-section" id="pan-shorts"><div class="wrap">
+      <h2>법률 쇼츠 · 전문가의 짧은 설명</h2>
+      <p>영상은 공개 YouTube RSS 또는 OAuth 동기화 원문으로 연결됩니다.</p>
+      <div class="pn-short-grid" id="pan-shorts-grid"></div>
+    </div></section>
+
+    <section class="pn-section" id="pan-blogs"><div class="wrap">
+      <h2>구글블로그 · 전문 법률 콘텐츠</h2>
+      <p>개별 블로그 글은 승인·RSS 수집 후 추천 영역에 노출됩니다.</p>
+      <div class="pn-cards" id="pan-blog-grid"></div>
+    </div></section>
+
+    <section class="pn-section"><div class="wrap">
+      <h2>후원 콘텐츠</h2>
+      <p>후원 콘텐츠를 광고로 표시하고 자연 콘텐츠와 분리합니다.</p>
+      <article class="pn-ad-slot">
+        <div>
+          <span class="pn-badge ad">광고 · 후원 콘텐츠</span>
+          <h3>기업 법무 콘텐츠를 준비하고 있다면</h3>
+          <p>계약과 분쟁 예방을 다룬 변호사 칼럼을 한곳에서 읽어보세요. 광고 표시는 추천 순위와 무관하게 명확히 구분합니다.</p>
+          <a class="btn primary" href="/partnership">파트너십 · 광고 기준</a>
+        </div>
+        <div class="pan-img-ph" style="min-height:200px;border-radius:8px" aria-hidden="true"></div>
+      </article>
+    </div></section>
+
+    <section class="pn-section"><div class="wrap">
+      <h2>무료회원으로 전문 채널을 시작하세요</h2>
+      <p>검색 가능한 지식과 콘텐츠를 축적해 자신만의 브랜드를 준비할 수 있습니다.</p>
+      <div class="pn-action">
+        <a href="/dashboard">무료 회원 · Google 연동</a>
+        <a class="alt" href="/dashboard" style="color:#102a43;border:1px solid #999">콘텐츠 등록 · CMS</a>
+      </div>
+    </div></section>
+
+    <section class="pn-section"><div class="wrap">
+      <h2>승인된 최신 전문가 콘텐츠</h2>
+      <p>운영자 검수를 통과한 계정·RSS 원문이 공개됩니다.</p>
+      <div class="pn-cards" data-approved-feed="all"></div>
     </div></section>
   </main>
 
   <footer class="footer"><div class="wrap">
-    <div class="foot-end">© LAWYGO PAN · Design: LAWYGO_PAN_60PAGES · Crawl: Linkr feed engine port · <a href="/" style="color:#e7cea7">lawygo.lexid.site</a></div>
+    <div class="footer-cols">
+      <div>
+        <a class="brand" href="/p/pan"><svg aria-hidden="true" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect fill="#f7f5ef" height="128" rx="28" width="128"/><path d="M30 22h26v64h52v24H30z" fill="#102a43"/><rect fill="#c83f56" height="25" rx="4" width="25" x="63" y="49"/></svg><span class="brand-name" style="color:white">LAWYGO <i>PAN</i></span></a>
+        <p style="max-width:320px;margin-top:18px;font-size:.83rem">경제와 법률을 연결하는 LAWYGO의 전문가 콘텐츠·마케팅 테마.</p>
+        <p class="small">국내 제휴: 대한에이전트협회 · 0505-248-2468 · shinkang888@gmail.com</p>
+      </div>
+      <div><strong>서비스</strong><a href="#pan-lawyers">변호사 찾기</a><a href="/dashboard">상담·연동</a><a href="#pan-blogs">법률 콘텐츠</a><a href="/">LAWYGO 브랜드</a></div>
+      <div><strong>변호사</strong><a href="/dashboard">전문가 등록</a><a href="/dashboard">마케팅 대시보드</a><a href="/pricing">요금제</a><a href="/partnership">파트너십</a></div>
+      <div><strong>안내</strong><a href="/journal">저널</a><a href="/p/wiki">위키</a><a href="/payment">Payment</a><a href="/api/docs">API</a></div>
+    </div>
+    <div class="foot-end">© 2026 LAWYGO PAN · Design: LAWYGO_PAN_60PAGES (LAWYGO_3판.zip) · RSS: Linkr feed port<br>
+      <span>본 사이트는 법률 자문이나 변호사 추천을 보증하지 않습니다.</span>
+    </div>
   </div></footer>
-  <script src="/static/site-nav.js"></script>
+
+  <button type="button" class="back-top" id="backtop" aria-label="맨 위로">↑</button>
+  <div id="google_translate_element" aria-hidden="true" style="position:absolute;left:-9999px"></div>
+  <div class="modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-head"><h2 id="modal-title">빠른 문의</h2><button type="button" class="close" data-close-modal aria-label="닫기">×</button></div>
+      <p class="muted small">메일 앱이 열립니다.</p>
+      <form data-email-form data-recipient="sk@terrabridge.us">
+        <input type="hidden" name="subject" id="modal-subject" value="LAWYGO PAN 문의">
+        <div class="form-row"><div class="form-item"><label>성함</label><input class="field" name="name" required></div>
+        <div class="form-item"><label>이메일</label><input class="field" name="email" type="email" required></div></div>
+        <div class="form-item"><label>문의</label><textarea class="field" name="message" required maxlength="2000"></textarea></div>
+        <label><input type="checkbox" name="consent" required value="1"> 이메일 전송 동의</label>
+        <button type="submit" class="btn primary block">메일 작성</button>
+      </form>
+    </div>
+  </div>
+  <div style="background:#102a43;color:#bbcbd9;text-align:center;font-size:11px;padding:12px">AI-generated imagery may be used for illustration · 일부 썸네일은 플레이스홀더입니다.</div>
+
   <script src="/static/pan-platform.js" defer></script>
   <script src="/static/pan-ref/pan-features.js" defer></script>
 </body>
