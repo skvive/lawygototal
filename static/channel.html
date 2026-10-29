@@ -4,26 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>LAWYGO CHANNEL · 미디어 데스크</title>
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/atlas/site.css">
   <link rel="stylesheet" href="/static/atlas/overrides.css">
   <link rel="stylesheet" href="/static/product-themes.css">
 </head>
 <body class="atlas-page">
-  <div data-lawygo-nav></div>
+  <div data-brand-shell="header"></div>
   <section class="subhero center"><div class="wrap">
     <span class="eyebrow">LAWYGO CHANNEL · CMS DESK</span>
-    <h1>뉴스 · 영상 · 인사이트 운영 게시판</h1>
-    <p>저널(<a href="/journal">/journal</a>)은 신문 편집면, 채널은 승인·발행 CMS입니다.</p>
+    <h1>뉴스 · 영상 · 인사이트<br><i>승인 후 발행</i></h1>
+    <p>저널(<a href="/journal">/journal</a>)은 편집면, 채널은 CMS·RSS·Google 동기화 게시판입니다.</p>
   </div></section>
   <section class="white"><div class="wrap">
     <div class="four-grid">
-      <div class="feature-card"><span>news</span><h3>경제·법률 뉴스</h3><a class="textlink" href="/p/channel">피드 열기 ↗</a></div>
+      <div class="feature-card"><span>news</span><h3>경제·법률 뉴스</h3><a class="textlink" href="/p/channel">피드 ↗</a></div>
       <div class="feature-card"><span>clips</span><h3>영상·쇼츠</h3><a class="textlink" href="/p/channel">목록 ↗</a></div>
-      <div class="feature-card"><span>insight</span><h3>전문가 인사이트</h3><a class="textlink" href="/dashboard">등록 ↗</a></div>
+      <div class="feature-card"><span>insight</span><h3>전문가 칼럼</h3><a class="textlink" href="/dashboard">등록 ↗</a></div>
       <div class="feature-card"><span>journal</span><h3>저널 연동</h3><a class="textlink" href="/journal">편집면 ↗</a></div>
     </div>
-    <p style="margin-top:28px"><a class="btn btn-navy" href="/p/channel">채널 CMS 상세 (product) →</a></p>
+    <p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn btn-navy" href="/p/channel">채널 CMS →</a>
+      <a class="btn btn-outline" href="/dashboard">Google·AI 연동 ↗</a>
+    </p>
   </div></section>
-  <script src="/static/site-nav.js"></script>
+  <div data-brand-shell="footer"></div>
+  <script src="/static/brand-shell.js"></script>
 </body>
 </html>

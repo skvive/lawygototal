@@ -1,0 +1,42 @@
+{
+  "root": {
+    "domain": "lawygo.com",
+    "purpose": "LAWYGO 브랜드·법률경제 플랫폼",
+    "site_relative": "index.html"
+  },
+  "journal": {
+    "domain": "journal.lawygo.com",
+    "purpose": "법률경제 저널·월 2회 무료 뉴스레터",
+    "site_relative": "journal/index.html"
+  },
+  "wiki": {
+    "domain": "wiki.lawygo.com",
+    "purpose": "법률백과·판례 정보",
+    "site_relative": "wiki/index.html"
+  },
+  "note": {
+    "domain": "note.lawygo.com",
+    "purpose": "AI 문서 분석·서식작성",
+    "site_relative": "note/index.html"
+  },
+  "pro": {
+    "domain": "pro.lawygo.com",
+    "purpose": "법률 송무 관리·무료 베타",
+    "site_relative": "pro/index.html"
+  },
+  "pan": {
+    "domain": "pan.lawygo.com",
+    "purpose": "변호사 큐레이션·마케팅",
+    "site_relative": "pan/index.html"
+  },
+  "partner": {
+    "domain": "lawygo.com/partnership",
+    "purpose": "법무법인 MOU 제휴 신청",
+    "site_relative": "partnership.html"
+  },
+  "payment": {
+    "domain": "lawygo.com/payment",
+    "purpose": "구독상품·결제 안내",
+    "site_relative": "payment.html"
+  }
+}

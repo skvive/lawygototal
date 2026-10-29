@@ -3,17 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LAWYGO PRO · 로이고 프로 송무</title>
-  <link rel="stylesheet" href="/static/wsj.css">
+  <meta name="description" content="LAWYGO PRO — 송무 운영 OS 베타">
+  <title>LAWYGO PRO · 송무 운영</title>
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/atlas/site.css">
+  <link rel="stylesheet" href="/static/atlas/overrides.css">
 </head>
-<body class="wsj-body">
-  <div data-lawygo-nav></div>
-  <main class="journal-shell"><div class="wsj-wrap">
-    <div class="journal-kicker">LITIGATION SUITE</div>
-    <h1 style="font-family:var(--wsj-serif);font-size:clamp(28px,4vw,40px)">LAWYGO PRO</h1>
-    <p style="max-width:680px;line-height:1.75">송무 프로그램(DESK · CASE · FLOW · WORK · HUB · SMART). Atlas 시안 기준 베타·구독 안내는 추후 연결됩니다.</p>
-    <p class="journal-meta">운영 CMS와 별도 SaaS · <a href="/dashboard">관리자</a>에서 테넌트 설정</p>
-  </div></main>
-  <script src="/static/site-nav.js"></script>
+<body class="atlas-page" data-page="pro">
+  <div data-brand-shell="header"></div>
+  <section class="hero hero-dark">
+    <div class="hero-bg hero-network"></div>
+    <div class="hero-over"></div>
+    <div class="wrap hero-content">
+      <div>
+        <div class="hero-kicker">LAWYGO PRO / LITIGATION SUITE</div>
+        <h1>사건·기일·문서·결재를<br><i>하나의 데스크로.</i></h1>
+        <p>DESK · CASE · FLOW · WORK · HUB · SMART 모듈 설계. 현재 lawygo.lexid.site에서는 베타 안내와 CMS 테넌트 연동만 제공합니다.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-gold" href="/pricing">구독·베타 안내 ↗</a>
+          <a class="btn btn-outline" href="/dashboard">관리자 ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="white">
+    <div class="wrap">
+      <div class="workflow">
+        <div><span>01</span><h3>기일 알림</h3><p>법원 일정 연동(로드맵)</p></div>
+        <div><span>02</span><h3>사건별 작업</h3><p>태스크·담당 배분</p></div>
+        <div><span>03</span><h3>문서·결재</h3><p>NOTE와 연계</p></div>
+        <div><span>04</span><h3>허브</h3><p>로펌 단위 권한</p></div>
+      </div>
+      <p class="micro" style="margin-top:24px">AI 생성 결과물은 변호사 검토와 구분 표시가 필요합니다(AI기본법). PRO SaaS 정식 출시 전까지 본 페이지는 기획·베타 안내용입니다.</p>
+    </div>
+  </section>
+  <div data-brand-shell="footer"></div>
+  <script src="/static/brand-shell.js"></script>
 </body>
 </html>

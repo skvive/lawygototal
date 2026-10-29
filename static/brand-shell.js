@@ -14,6 +14,7 @@
     <a class="${on('/p/pan')}" href="/p/pan">판</a>
     <a class="${on('/pricing')}" href="/pricing">구독 안내</a>
     <a class="${on('/partnership')}" href="/partnership">파트너십</a>
+    <a class="${on('/strategy')}" href="/strategy">성장 전략</a>
   </nav>
   <div class="header-actions">
     <a class="btn btn-outline btn-mini" href="/#newsletter">무료 뉴스레터</a>
@@ -23,7 +24,7 @@
 </div>
 <div class="wrap mobile-nav" id="mobileNav">
   <a href="/journal">저널</a><a href="/p/wiki">위키</a><a href="/p/note">노트</a><a href="/pro">로이고 PRO</a><a href="/p/pan">판</a>
-  <a href="/pricing">구독 안내</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/dashboard">관리자</a>
+  <a href="/pricing">구독 안내</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">관리자</a>
 </div></header>`;
   const footer = `
 <footer class="footer"><div class="wrap"><div class="footer-top"><div>
@@ -32,7 +33,7 @@
 </div><div><span class="eyebrow">THE ECOSYSTEM</span><p>JOURNAL / WIKI / NOTE / PRO / PAN</p>
   <p>미국 기술 협력 관련 사항: TerraBridge Capital LLC · 확인 필요</p></div></div>
 <div class="footer-links">
-  <a href="/journal">저널</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/dashboard">CMS</a>
+  <a href="/journal">저널</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">CMS</a>
 </div>
 <div class="footer-bottom"><span>© 2026 LAWYGO. All rights reserved.</span>
   <span>Stripe 실결제·운영 배포는 아직 활성화되지 않았습니다. PR #14 초안 참조. 개별 사안의 법률·투자 자문이 아닙니다.</span></div></div></footer>

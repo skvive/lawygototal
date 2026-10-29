@@ -11,3 +11,10 @@ body.pan-page { background: #f7f5ef; }
   background-image: linear-gradient(125deg, #0a1628 0%, #1a3a52 45%, #2d5a72 100%) !important;
 }
 .card-img, .feature-figure img { min-height: 200px; object-fit: cover; background: linear-gradient(145deg, #d8cfc0, #8fa4b8); }
+.public-feed-section { margin-bottom: 36px; }
+.public-feed-section h3 { font-family: var(--serif, Georgia, serif); margin-bottom: 16px; color: #102a43; }
+.public-feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.public-feed-card { background: #fff; border: 1px solid #e8e4dc; padding: 18px 20px; border-radius: 4px; }
+.public-feed-card h4 { margin: 8px 0; font-size: 16px; line-height: 1.35; }
+.public-feed-card .tag { display: inline-block; font-size: 11px; padding: 2px 8px; background: #eef2f5; }
+.public-feed-card .tag.sponsor { background: #fff3e0; color: #8a5a00; }

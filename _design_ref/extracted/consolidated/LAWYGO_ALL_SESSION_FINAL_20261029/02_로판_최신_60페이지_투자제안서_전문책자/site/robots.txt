@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /private-inquiry.html
+Disallow: /unsubscribe.html
+Sitemap: https://pan.lawygo.com/sitemap.xml

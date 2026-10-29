@@ -1,0 +1,219 @@
+{
+  "checked_page_count": 35,
+  "checked_internal_links_and_images": 970,
+  "broken_paths": [],
+  "desktop_1440x900_preview_count": 35,
+  "note": "정적 링크·이미지 존재 검사를 완료. 화면 이미지는 브라우저 set_content 렌더링으로 생성; 실제 서비스 백엔드/API 연동 시험은 포함하지 않음.",
+  "pages": [
+    {
+      "page": "index.html",
+      "links": 37,
+      "images": 5,
+      "broken": []
+    },
+    {
+      "page": "journal/index.html",
+      "links": 30,
+      "images": 2,
+      "broken": []
+    },
+    {
+      "page": "journal/us-markets.html",
+      "links": 26,
+      "images": 2,
+      "broken": []
+    },
+    {
+      "page": "journal/korea-economy.html",
+      "links": 27,
+      "images": 2,
+      "broken": []
+    },
+    {
+      "page": "journal/newsletter.html",
+      "links": 27,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "journal/issue-01.html",
+      "links": 25,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "journal/issue-02.html",
+      "links": 25,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "wiki/index.html",
+      "links": 31,
+      "images": 2,
+      "broken": []
+    },
+    {
+      "page": "wiki/search.html",
+      "links": 27,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "wiki/encyclopedia.html",
+      "links": 33,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "wiki/precedent.html",
+      "links": 26,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "note/index.html",
+      "links": 27,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "note/workspace.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pro/index.html",
+      "links": 34,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pro/dashboard.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pro/desk.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/case.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/flow.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/work.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/hub.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/smart.html",
+      "links": 26,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pro/beta.html",
+      "links": 26,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "journal/market-intelligence.html",
+      "links": 26,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pro/enterprise.html",
+      "links": 25,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pan/index.html",
+      "links": 29,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "pan/lawyer.html",
+      "links": 24,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "pricing.html",
+      "links": 28,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "technology.html",
+      "links": 27,
+      "images": 1,
+      "broken": []
+    },
+    {
+      "page": "about.html",
+      "links": 26,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "methodology.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "sources.html",
+      "links": 42,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "contact.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "legal/privacy.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "legal/terms.html",
+      "links": 23,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "page": "sitemap.html",
+      "links": 57,
+      "images": 0,
+      "broken": []
+    }
+  ]
+}

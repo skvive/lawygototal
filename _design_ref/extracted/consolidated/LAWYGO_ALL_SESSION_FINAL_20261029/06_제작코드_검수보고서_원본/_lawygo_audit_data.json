@@ -1,0 +1,27 @@
+{
+  "original_file_count": 384,
+  "all_files": 403,
+  "html_files": 160,
+  "images": 158,
+  "pdf_files": 2,
+  "pdf_pages": 6,
+  "docx_files": 1,
+  "html_relative_resources_checked": 4592,
+  "html_relative_images_checked": 157,
+  "broken_references": 0,
+  "invalid_images_or_svg": 0,
+  "original_files_changed_by_type": {
+    ".docx": 1,
+    ".html": 150,
+    ".jpg": 8,
+    ".json": 6,
+    ".md": 8,
+    ".pdf": 2,
+    ".png": 107,
+    ".py": 7
+  },
+  "original_files_unchanged": 95,
+  "original_files_missing": [],
+  "sample_broken": [],
+  "sample_invalid": []
+}

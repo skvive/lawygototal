@@ -37,7 +37,7 @@
 ## GitHub 운영 허브 (PR #37)
 
 - `github_integration/identity_route.ts` — Google `sub` → `site_users`
-- `github_integration/native_route.ts` — 승인 콘�ents CMS upsert
+- `github_integration/native_route.ts` — 승인 콘텐츠 CMS upsert
 - `github_integration/LAWYGO_NATIVE_CMS_BRIDGE.sql` — external_source/revision
 
 CMS Neon/SQLite 엔진과 Supabase 허브는 **별 DB**. 브리지는 스테이징에서만 검증.

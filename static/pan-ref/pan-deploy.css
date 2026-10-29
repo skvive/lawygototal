@@ -21,3 +21,4 @@ img.pan-img-ph {
   border-left: 3px solid #c83f56;
   padding-left: 12px;
 }
+.tag.verified { background: #102a43; color: #e8c872; font-weight: 700; margin-left: 6px; }

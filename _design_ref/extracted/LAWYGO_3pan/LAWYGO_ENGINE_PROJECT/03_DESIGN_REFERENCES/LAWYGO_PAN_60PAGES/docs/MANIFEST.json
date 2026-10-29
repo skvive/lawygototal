@@ -1,0 +1,632 @@
+[
+  {
+    "path": "404.html",
+    "bytes": 7205,
+    "sha256": "be2fea28f41e4348e167f22cbc777138a8b9d0236a5c7b61f91dff32f4e9b9c6"
+  },
+  {
+    "path": "README.md",
+    "bytes": 868,
+    "sha256": "19429f6abd49754eff97159474795650e8e0ec9d41c98ecc46936ec1cd72534d"
+  },
+  {
+    "path": "about.html",
+    "bytes": 8490,
+    "sha256": "122ac9486e83669f8adf17565d3c8bb562100f78776e054fc4f28ad55c67cda3"
+  },
+  {
+    "path": "assets/client-meeting.webp",
+    "bytes": 53454,
+    "sha256": "9978f357a8e29b4d85ca6900281bac516d2a8abb4060747d5ddb238c8b3066a1"
+  },
+  {
+    "path": "assets/conference-office.webp",
+    "bytes": 65920,
+    "sha256": "852a0b19fc7fbf33b080bedd2262ecb4164a42c5b3c344d7db64a32c0ea85aca"
+  },
+  {
+    "path": "assets/favicon.ico",
+    "bytes": 3017,
+    "sha256": "dd9c1599401f2d90920cd8bb95f05af6c4c065ef89b0a64b864418df495552eb"
+  },
+  {
+    "path": "assets/favicon.png",
+    "bytes": 1001,
+    "sha256": "20e895cadcf07f5497b7c27cb59dd9fbbe3b176d103540fa9635b9e5e200393c"
+  },
+  {
+    "path": "assets/favicon.svg",
+    "bytes": 238,
+    "sha256": "a20dad5f403da6dffbc67dc80565064823fcbfe8456364b98bb3a1b5a3c50af1"
+  },
+  {
+    "path": "assets/hero-attorney.webp",
+    "bytes": 44270,
+    "sha256": "eaf9e1b4b4f0205f24ecf08b02b8a60de2f417b9bed9b80f5f282cdceb4194e0"
+  },
+  {
+    "path": "assets/hero-photo.jpg",
+    "bytes": 70682,
+    "sha256": "ae55c0b86def211b4846b283b62952e84725ad045d0fa854894c049190cf9f6d"
+  },
+  {
+    "path": "assets/integrations.js",
+    "bytes": 353,
+    "sha256": "253c98da0241f05782a48532a1c7b4a654a633a76ae472d2af31bbdeed00cc1d"
+  },
+  {
+    "path": "assets/law-books.webp",
+    "bytes": 59908,
+    "sha256": "b5643d88ba6413149b57eac92fa820dc3d52e0717ea3f04cc5870181781fea1d"
+  },
+  {
+    "path": "assets/lawyer-video.webp",
+    "bytes": 49218,
+    "sha256": "41a2008fc3f75bc2ae8a63b3ec213b65a38bf1dfd01cd98b0aff45003c6984c3"
+  },
+  {
+    "path": "assets/lawygo-mark.svg",
+    "bytes": 238,
+    "sha256": "a20dad5f403da6dffbc67dc80565064823fcbfe8456364b98bb3a1b5a3c50af1"
+  },
+  {
+    "path": "assets/legal-consultant.webp",
+    "bytes": 34486,
+    "sha256": "c95bf17fda49b4ac2cf65ed460df797a8154aea1b02ac960c1c79b972ce33644"
+  },
+  {
+    "path": "assets/legal-podcast.webp",
+    "bytes": 46434,
+    "sha256": "095fd1a05d5e1a40291de420634bd4d7ab72e6f6a87bf34cd7f6366edf932aa5"
+  },
+  {
+    "path": "assets/male-attorney.webp",
+    "bytes": 44790,
+    "sha256": "9968b8a1ab9617eeaeec619cd891973837862ca067bfff97b9ef92c27018e564"
+  },
+  {
+    "path": "assets/og-image.jpg",
+    "bytes": 159286,
+    "sha256": "9bce12c22e9c4c81eb337025bd8d560a1d71cdd429948043c714670a28b4b96d"
+  },
+  {
+    "path": "assets/site.css",
+    "bytes": 13925,
+    "sha256": "e0963765c32542de6523adb03a491fe32d05fa95d6a8a2ceb6dc9eceb47b15fa"
+  },
+  {
+    "path": "assets/site.js",
+    "bytes": 7495,
+    "sha256": "7f694d21a2931b71434e9729e8f6dfa5e7a3b3ed778dba3465f1c8f1b6d9a750"
+  },
+  {
+    "path": "blog-detail.html",
+    "bytes": 8651,
+    "sha256": "e8b02482f8200769c0e054215c393f51ea56d9456fba1362dd1613916978a2ba"
+  },
+  {
+    "path": "blog.html",
+    "bytes": 11250,
+    "sha256": "9f2acdad15da442c60bb6761a544a57e859e2389da578275d6ff962c308454e2"
+  },
+  {
+    "path": "cases.html",
+    "bytes": 8366,
+    "sha256": "f5f51b8df13420ab5b03094b792b43e21c2c03269daf17dc83b2d5e3c6c785c5"
+  },
+  {
+    "path": "categories.html",
+    "bytes": 9166,
+    "sha256": "7ca726322567906c3c3beb12f22c8f5440a24c135cbd9a9909f9bfaa48d166b2"
+  },
+  {
+    "path": "category-business.html",
+    "bytes": 8514,
+    "sha256": "b2b5130c283e7c55e727633ce3d9b2ef54e8e4c3310d8d33e81699d6baf95790"
+  },
+  {
+    "path": "category-family.html",
+    "bytes": 8485,
+    "sha256": "5ba8387abaae4ec92316b723b64efaeb6e9e601f4e5d0e7e50fecabf3c485e8f"
+  },
+  {
+    "path": "consultation-guide.html",
+    "bytes": 8318,
+    "sha256": "92aa496ec5ce28f5a0c7d8be94983ab3531d039859d8ea37c965e915a1dd7f69"
+  },
+  {
+    "path": "consultation.html",
+    "bytes": 9789,
+    "sha256": "67d3fd7a3dbb266370ce971087e9177290437991bbd78ecfa0b3b8e72b8f27ce"
+  },
+  {
+    "path": "dashboard.html",
+    "bytes": 8515,
+    "sha256": "e753d5d3c0b7e4aeccdfb27b7eee152e8fc1cf95d902f8988b4a981a4fef1376"
+  },
+  {
+    "path": "disclaimer.html",
+    "bytes": 7742,
+    "sha256": "88198fa9ae3d87e9568922bb3291f6e7259e36f3806b296d5cd17e65f97c5753"
+  },
+  {
+    "path": "docs/INTEGRATION_GUIDE.md",
+    "bytes": 1508,
+    "sha256": "9290ae086910b04cfad3dfa1a92526dee8ff6346fb5aa87115f6d921e81c31a8"
+  },
+  {
+    "path": "docs/INTERACTION_QA.txt",
+    "bytes": 225,
+    "sha256": "35ad0c697bec02ec3124fd413ba736e3eecc6b184091466249ea56b68ddebc8d"
+  },
+  {
+    "path": "docs/MANIFEST.json",
+    "bytes": 18731,
+    "sha256": "7dbbcb93cddd446bc3f5fac4b739e490b6ac3d044e464fe973c16e459a38ec48"
+  },
+  {
+    "path": "docs/PAGE_INVENTORY.md",
+    "bytes": 4135,
+    "sha256": "dc58eac4728e1fd28ae773bd6335095a65ff1ed5267afdc2b4656bb9228b38bc"
+  },
+  {
+    "path": "docs/QA_AND_CHANGELOG.md",
+    "bytes": 4176,
+    "sha256": "b0677cc19249bb8cefcf55346587827e89354e4686daa43f574e93211c5f8e12"
+  },
+  {
+    "path": "docs/RENDER_QA.json",
+    "bytes": 7592,
+    "sha256": "0ee7bfe2058ac795edfb4ddd6e4d1d75c0c40646151e88aa3ce29a2a3b68ee5c"
+  },
+  {
+    "path": "docs/SOURCE_AND_DESIGN_AUDIT.md",
+    "bytes": 1758,
+    "sha256": "d3a18effdfdb5ca016e1e046acec3b81226ea228b1ee1902d0c92977c6c6da36"
+  },
+  {
+    "path": "docs/STATIC_AUDIT.json",
+    "bytes": 197,
+    "sha256": "51a41d5d95d26c18ff16d6b1568dd637f0817d2d483ec71f47423eec15520b02"
+  },
+  {
+    "path": "faq.html",
+    "bytes": 8897,
+    "sha256": "d93230d95e0169f31cce73919e9a7f4d401b3b100cec11b37718729fb9190251"
+  },
+  {
+    "path": "firm-profile.html",
+    "bytes": 10746,
+    "sha256": "85b94b3a416e0f02322b931fae3e732ab4045292a228ec0d3ee8ae104af51973"
+  },
+  {
+    "path": "index.html",
+    "bytes": 16049,
+    "sha256": "d0c802654250617423eb77d47583722069c53043de59cd021889d8351f5a1f9f"
+  },
+  {
+    "path": "integrations.html",
+    "bytes": 7835,
+    "sha256": "939000b7642c2ae205cc5863708bb372d76e4043f9a0cdabfdc1d6d151e65c32"
+  },
+  {
+    "path": "join.html",
+    "bytes": 8468,
+    "sha256": "d077d446421ec847ec4b95125a8238a9e909148c3bad35701a54646819642a40"
+  },
+  {
+    "path": "lawfirms.html",
+    "bytes": 8052,
+    "sha256": "9f2dc37b5c56c8328b1c51727e3b826dce79b3afb71eff7bbd1c1852b80b1e3e"
+  },
+  {
+    "path": "lawyer-jung.html",
+    "bytes": 10297,
+    "sha256": "95a29832c6e2a656e6babe0ea1a36d177d0b5fd3fbd983fd838f5eb6d9df5faf"
+  },
+  {
+    "path": "lawyer-kim.html",
+    "bytes": 10361,
+    "sha256": "f7979e03b3f82c85aa496fec7108dbd7dd8df01f5d96b32e431d65f52626ea68"
+  },
+  {
+    "path": "lawyer-lee.html",
+    "bytes": 10310,
+    "sha256": "bac92b0b3d928aca1795449455eef88fd80f4229c383d6acd06ceecba58de318"
+  },
+  {
+    "path": "lawyer-park.html",
+    "bytes": 10344,
+    "sha256": "a282729448c50b655fbfef6322c0a7df990a3fed740a8da9da86cebba176beee"
+  },
+  {
+    "path": "lawyers.html",
+    "bytes": 11782,
+    "sha256": "ac37d0bca2a5697c6c2d0c7d9343bb729a6f84f0d5910a586f51bee44ffb00be"
+  },
+  {
+    "path": "partnership.html",
+    "bytes": 8908,
+    "sha256": "a01945577e3e0d8dbcd02398801c9f98eb6dfbc3df6af1b47f6ce23482bf65b6"
+  },
+  {
+    "path": "previews/404-desktop.png",
+    "bytes": 148724,
+    "sha256": "c3bfc1c7e68e6bb7cd1257b222b758ed09bf0e596efe11006778c1af016d1184"
+  },
+  {
+    "path": "previews/404-mobile.png",
+    "bytes": 76151,
+    "sha256": "1ef1579bd1b9f6b227c0d7b40bcbad04a7c8a3e374b4a37b8afaaa81650dfe43"
+  },
+  {
+    "path": "previews/ALL_32_DESKTOP_PAGES.jpg",
+    "bytes": 461908,
+    "sha256": "70680c0459ec7043b0246bd10eacb1bfb1bfba6bda87d4f4ead8e036199a66f3"
+  },
+  {
+    "path": "previews/ALL_32_MOBILE_PAGES.jpg",
+    "bytes": 365852,
+    "sha256": "ea70bee768ae5692f481c9ca28588a722e90ecc983275534a4217ef22cdff6b7"
+  },
+  {
+    "path": "previews/about-desktop.png",
+    "bytes": 458068,
+    "sha256": "a6c006010a2adb1c6f013f5c1f87f34342c6b0fc4504abc1afa584ad7f8e2d1a"
+  },
+  {
+    "path": "previews/about-mobile.png",
+    "bytes": 128715,
+    "sha256": "bbf754a05c14ee5552b133b88f91b4e3531a80672502377ba884c2aaf3bc489d"
+  },
+  {
+    "path": "previews/blog-desktop.png",
+    "bytes": 524097,
+    "sha256": "6fe8ff4f9ac2dff4c895d78cc11dea86a7717d09b66710d02cc8c73181ad5edf"
+  },
+  {
+    "path": "previews/blog-detail-desktop.png",
+    "bytes": 569227,
+    "sha256": "aae0b2c7d160741076cd40134b686fdbc9534741b148aa0d104d610413002835"
+  },
+  {
+    "path": "previews/blog-detail-mobile.png",
+    "bytes": 215785,
+    "sha256": "716399b46dbe3bda7bd9b9d5b5d2bc7c4ca7cc700accb1238cc8dc9b0d596123"
+  },
+  {
+    "path": "previews/blog-mobile.png",
+    "bytes": 193332,
+    "sha256": "a9c85ff05308e444c8d90fcd893d8e1e28d181fdcde1d72b6ba552c628c113d3"
+  },
+  {
+    "path": "previews/cases-desktop.png",
+    "bytes": 541981,
+    "sha256": "116e8d7ea394d74f241f44a2626456c2378fbf5022664ed998dbfe43397abf8c"
+  },
+  {
+    "path": "previews/cases-mobile.png",
+    "bytes": 241241,
+    "sha256": "83281eb1fa61636e29d160a653329017ecac3710613bae6fbd3e661c8e2f2486"
+  },
+  {
+    "path": "previews/categories-desktop.png",
+    "bytes": 168126,
+    "sha256": "2b9b62429cc34953f5c9cff3b3c62cdccc8584bad969135abfb08a69e5ce8687"
+  },
+  {
+    "path": "previews/categories-mobile.png",
+    "bytes": 63502,
+    "sha256": "3d56cc170f6ffd14fbb6b9cc09d8e08c2e411b7ee0a2e338248c6c027b7da8cc"
+  },
+  {
+    "path": "previews/category-business-desktop.png",
+    "bytes": 450573,
+    "sha256": "0e237d09fcf1df8eb86fbb2b98ba6d8810d6ecb8906e5494642cad3394439f1f"
+  },
+  {
+    "path": "previews/category-business-mobile.png",
+    "bytes": 92172,
+    "sha256": "299007e7da74d5c78ef51703d24002349cf1572b8891c0f172bf1aae14fdae96"
+  },
+  {
+    "path": "previews/category-family-desktop.png",
+    "bytes": 448579,
+    "sha256": "09ad2d64979455fb4acabfe2f9754a059a92d6be1247308cb4b000aacea93d02"
+  },
+  {
+    "path": "previews/category-family-mobile.png",
+    "bytes": 93469,
+    "sha256": "6931bdf5b88c2b12ec716c72420136332529c46e0eb06dfbd0b86f6b823e8e2f"
+  },
+  {
+    "path": "previews/consultation-desktop.png",
+    "bytes": 190107,
+    "sha256": "4feca2f84ac198590622d3975fdfcbcdbf41ed511707fb69ea9fcb569779f0bd"
+  },
+  {
+    "path": "previews/consultation-guide-desktop.png",
+    "bytes": 170597,
+    "sha256": "7a383e54ec1e33b58129459893e5f780b50d40e179f18dc888296f026c2bb011"
+  },
+  {
+    "path": "previews/consultation-guide-mobile.png",
+    "bytes": 65603,
+    "sha256": "9384701e7683f0573a13b6a2871f87011830fecaebc99325a8f77e7624080adf"
+  },
+  {
+    "path": "previews/consultation-mobile.png",
+    "bytes": 74496,
+    "sha256": "c7ed3a6dcfe7ff8812dec6646fec0a8d702a8e28b78454cc6e42645c5ee04e13"
+  },
+  {
+    "path": "previews/dashboard-desktop.png",
+    "bytes": 165360,
+    "sha256": "74e4dfb6ea9525e98c4056293d949b8af535709f959d12101707147fe42cadbf"
+  },
+  {
+    "path": "previews/dashboard-mobile.png",
+    "bytes": 61767,
+    "sha256": "b5c0d2ac38de638d86c7e7b869dfd0e842c0a800e0828114c5bbf2a93f6dc801"
+  },
+  {
+    "path": "previews/disclaimer-desktop.png",
+    "bytes": 162277,
+    "sha256": "5ffde38ec41c7fbcdd863dd1fcede7bb3bacfedcc636c22e4a5ce7cb74d2ea72"
+  },
+  {
+    "path": "previews/disclaimer-mobile.png",
+    "bytes": 82817,
+    "sha256": "37bf41701dec682b5bcc3b7c0967fd0f0772d4eb2702d3627870ea96562e22e3"
+  },
+  {
+    "path": "previews/faq-desktop.png",
+    "bytes": 153567,
+    "sha256": "a71d2d6d116ddf77d7faae76fac9e366d5a964cffd47ab3cee3b2936cc8c4adc"
+  },
+  {
+    "path": "previews/faq-mobile.png",
+    "bytes": 72539,
+    "sha256": "b3889494877d5894815563de0160d2cce7baae8720173c854002505fa8d86788"
+  },
+  {
+    "path": "previews/firm-profile-desktop.png",
+    "bytes": 449259,
+    "sha256": "642b276232d0aa2cad35dfa9b9fe3fa09ccaca66be2a0678fd65397161914dd3"
+  },
+  {
+    "path": "previews/firm-profile-mobile.png",
+    "bytes": 190856,
+    "sha256": "158a454e0149c64e7c971a50806cbbb1ac17a5fbccafa7630b535407fbefa045"
+  },
+  {
+    "path": "previews/index-desktop.png",
+    "bytes": 625682,
+    "sha256": "69ce3b952e034cdf7d2a44f3462eec20551170a802f0f06cb027954dcbfe3816"
+  },
+  {
+    "path": "previews/index-mobile.png",
+    "bytes": 153669,
+    "sha256": "89fb5eb3b63e928da82abff90b6f7e9e1a9e0adc902c6927e409064cb6071e75"
+  },
+  {
+    "path": "previews/integrations-desktop.png",
+    "bytes": 175137,
+    "sha256": "51319e56de6606fbdfeefcbd29ece2877a7ec10bd79a9f3b6de98c39ea292d03"
+  },
+  {
+    "path": "previews/integrations-mobile.png",
+    "bytes": 77394,
+    "sha256": "bf6dd82843229768abf195b1b2af8b12ab599a79105204c7a09c43d1dd42dba4"
+  },
+  {
+    "path": "previews/join-desktop.png",
+    "bytes": 381508,
+    "sha256": "61af0f8d5b50fc65bd412cc845dfb3f4b371e41ddaf10023724760459d124454"
+  },
+  {
+    "path": "previews/join-mobile.png",
+    "bytes": 121323,
+    "sha256": "269a036e80166c15c58f1a67adb934b2cf904968ac04033188a143bcddf7090a"
+  },
+  {
+    "path": "previews/lawfirms-desktop.png",
+    "bytes": 549636,
+    "sha256": "fba430728377b1ac8c4330185831a533911d15f161a8a1b66b9e27044ab8d3a1"
+  },
+  {
+    "path": "previews/lawfirms-mobile.png",
+    "bytes": 209706,
+    "sha256": "594521b1800c71de47f8e6d00479360869dd7bd1d1525da27f61da65dbfe91de"
+  },
+  {
+    "path": "previews/lawyer-jung-desktop.png",
+    "bytes": 277707,
+    "sha256": "3cab8a321f577955ab03358a536a4ccceec41f1b12cff83aa9b27e2f0e41f666"
+  },
+  {
+    "path": "previews/lawyer-jung-mobile.png",
+    "bytes": 205787,
+    "sha256": "8ece5e4e1bdac7620dc258531df070a2a47b017562cba9912972ad14fd979321"
+  },
+  {
+    "path": "previews/lawyer-kim-desktop.png",
+    "bytes": 260935,
+    "sha256": "f8f5b1ff650ca69a3f5d42461426cda7f008011c74a22c48a9b685e0fdd991cc"
+  },
+  {
+    "path": "previews/lawyer-kim-mobile.png",
+    "bytes": 180543,
+    "sha256": "16a0c5eb4165f3e73c63e2fba0096d76ad2fa9a275e8f0dd6ffb93a4902fe031"
+  },
+  {
+    "path": "previews/lawyer-lee-desktop.png",
+    "bytes": 290151,
+    "sha256": "9cb8b802c32a60b62ef2045e9220a45ec9592b092339576e4c4c707edbdcfc9d"
+  },
+  {
+    "path": "previews/lawyer-lee-mobile.png",
+    "bytes": 218402,
+    "sha256": "d751883a7a24317cddce1ed575bbe7d0d976cbc413c9ea44349d90c1568e0cc5"
+  },
+  {
+    "path": "previews/lawyer-park-desktop.png",
+    "bytes": 277521,
+    "sha256": "19925b99433d1c72fc24b169b3f396c0a411b1c09e45d9388e959d21c4add56d"
+  },
+  {
+    "path": "previews/lawyer-park-mobile.png",
+    "bytes": 204203,
+    "sha256": "10a2d0a474389c9e8f795880c1dc5b6978e26c48d9a3315de76d7cab661c3ae9"
+  },
+  {
+    "path": "previews/lawyers-desktop.png",
+    "bytes": 209206,
+    "sha256": "3c3da3660898801511e4eaac6df744d1c27cbbb4a69fb5f663ce36b4bf65065f"
+  },
+  {
+    "path": "previews/lawyers-mobile.png",
+    "bytes": 67197,
+    "sha256": "63e33fef9adc3379ed60944988f3df52c0f1375a60ea380cad5c5966ad6f2be9"
+  },
+  {
+    "path": "previews/partnership-desktop.png",
+    "bytes": 436284,
+    "sha256": "bc4a5f13ac995abfef9ffdb477dd562881b5f4d9fbe297634d977583732d1481"
+  },
+  {
+    "path": "previews/partnership-mobile.png",
+    "bytes": 177173,
+    "sha256": "2d33a5647f3c60f4df58040f7c13da40c70d4bdeb0f47b95a791d44833c61def"
+  },
+  {
+    "path": "previews/pricing-desktop.png",
+    "bytes": 182118,
+    "sha256": "9ea13e28abc830b08bc2dc90c8fee6a8d83fa60ab55b3caebf8e277099a1870a"
+  },
+  {
+    "path": "previews/pricing-mobile.png",
+    "bytes": 67452,
+    "sha256": "fe1b52dbe59c55866ae9b0bccea2c25423fd2099f15dff2639997d863f1b6a7d"
+  },
+  {
+    "path": "previews/privacy-desktop.png",
+    "bytes": 168289,
+    "sha256": "b92233b05d6df6fd800b98af066bebcea9fe10c64a595f431720ac955a55dcec"
+  },
+  {
+    "path": "previews/privacy-mobile.png",
+    "bytes": 81885,
+    "sha256": "77ad363aa474baf32ca447073e9fb81400806d4faf747782549a315ea758a312"
+  },
+  {
+    "path": "previews/question-detail-desktop.png",
+    "bytes": 182398,
+    "sha256": "1746eddd55308430c47ac3e33059b35f7ffa4b2918493c0acce5736175c7d583"
+  },
+  {
+    "path": "previews/question-detail-mobile.png",
+    "bytes": 94088,
+    "sha256": "4780c6a6c8852f34420486f91fa4b7d2cb49916c68c9dfaa493a0fe8a1c6d6a3"
+  },
+  {
+    "path": "previews/questions-desktop.png",
+    "bytes": 178549,
+    "sha256": "bbfa7ff3e672cf278d7cc0ef68796d2c6ade2998d88510dd3dcd347e1ffc6d79"
+  },
+  {
+    "path": "previews/questions-mobile.png",
+    "bytes": 80404,
+    "sha256": "37a59b749431bb9a965792d023971e33a882cd166a136935f196c063c4415c85"
+  },
+  {
+    "path": "previews/sitemap-desktop.png",
+    "bytes": 153956,
+    "sha256": "192a3960dfdb4e4d42a278480ae3ea8e2bfa3b3631aba25800365392d03216b9"
+  },
+  {
+    "path": "previews/sitemap-mobile.png",
+    "bytes": 58719,
+    "sha256": "7cf645b92ce7bf4c63a49dec4e32a5fff02711662594380a0573665822e7478c"
+  },
+  {
+    "path": "previews/terms-desktop.png",
+    "bytes": 167605,
+    "sha256": "861a6e4a7860e13447617703070638d6595279eb79adaa658ecb24758a1a1276"
+  },
+  {
+    "path": "previews/terms-mobile.png",
+    "bytes": 84355,
+    "sha256": "4950b59004abe68254923799d913db541487b6a21f05bc29421b6217e8f92d64"
+  },
+  {
+    "path": "previews/video-detail-desktop.png",
+    "bytes": 439213,
+    "sha256": "3692ffc3cd9731149bd7ead05fe7beef753207599a6d620664b39d685fb4fdcf"
+  },
+  {
+    "path": "previews/video-detail-mobile.png",
+    "bytes": 188900,
+    "sha256": "0fc7a1f740dfd1fd59005d511c75891774389c6e4d095d3e30a19c73103b6568"
+  },
+  {
+    "path": "previews/videos-desktop.png",
+    "bytes": 464927,
+    "sha256": "3636be8ed5efdfef1b6877657033b718f4fd606fff7dcfe4acd4bbf348461e8b"
+  },
+  {
+    "path": "previews/videos-mobile.png",
+    "bytes": 185166,
+    "sha256": "d6d021aeac035e2a521260d212e887980a12b1a3a10f51fd5302c200a3181b43"
+  },
+  {
+    "path": "pricing.html",
+    "bytes": 9273,
+    "sha256": "82eeb76dc88a44f7807137fad828d4b0da216afbdd887c0b322129fc602378de"
+  },
+  {
+    "path": "privacy.html",
+    "bytes": 7934,
+    "sha256": "2683ab8e19c47f500fdc2490fb7b23c741b73b09f34b8c4ca48bfcac599eb761"
+  },
+  {
+    "path": "question-detail.html",
+    "bytes": 7920,
+    "sha256": "d3e2ee29666da6eac469d59fb728dd548917c6306f6855b9b99a52200e45bb78"
+  },
+  {
+    "path": "questions.html",
+    "bytes": 8507,
+    "sha256": "a3d5debced8fd8234d04cbb0adce2015652223746cd477d9baafb0de203012d4"
+  },
+  {
+    "path": "robots.txt",
+    "bytes": 126,
+    "sha256": "08ed074b745781dfed51d40c2c8f543438d81e29e98723ba27d3ba0530f13107"
+  },
+  {
+    "path": "sitemap.html",
+    "bytes": 9620,
+    "sha256": "aa99c01631da358fd9f57b2b7348361da005bf201141386e23d3ad1a89296712"
+  },
+  {
+    "path": "terms.html",
+    "bytes": 7926,
+    "sha256": "8f044f3e094917848b1150ab980d699c6758cb16bbd9098024e411625cbfef87"
+  },
+  {
+    "path": "vercel.json",
+    "bytes": 409,
+    "sha256": "054d32eba66cbba4af52bbf1405a147b0ab634aeb8df001aef518adcee603d1a"
+  },
+  {
+    "path": "video-detail.html",
+    "bytes": 7866,
+    "sha256": "4b4bc07bd909324f11fdd5432c8e75f4b43a6edbe7fadea291f1377e7a98ae94"
+  },
+  {
+    "path": "videos.html",
+    "bytes": 10059,
+    "sha256": "ebd7da3a8e0709785f1b69fc62195cdf46d27c626a7ed6f29a3fa3e03b5b726d"
+  }
+]

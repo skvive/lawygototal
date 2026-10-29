@@ -15,6 +15,7 @@ from argon2.exceptions import VerifyMismatchError, VerificationError
 from fastapi import FastAPI, Request, HTTPException, Depends, Response, UploadFile, File, Query
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel, Field, field_validator
 
 ROOT=Path(__file__).resolve().parent
@@ -110,6 +111,18 @@ async def lifespan(_app):
     yield
 
 app=FastAPI(title='LAWYGO · Content Management Engine',version='1.0.0',docs_url='/api/docs',openapi_url='/api/openapi.json',lifespan=lifespan)
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404 and not request.url.path.startswith('/api/'):
+        return FileResponse(ROOT/'static'/'404.html', status_code=404)
+    detail = exc.detail if isinstance(exc.detail, str) else 'Error'
+    if request.url.path.startswith('/api/') or 'application/json' in request.headers.get('accept', ''):
+        return JSONResponse({'detail': detail}, status_code=exc.status_code)
+    return JSONResponse({'detail': detail}, status_code=exc.status_code)
+
+@app.get('/favicon.ico')
+def favicon():return FileResponse(ROOT/'static'/'logo.svg', media_type='image/svg+xml')
 app.mount('/static',StaticFiles(directory=ROOT/'static'),name='static')
 
 

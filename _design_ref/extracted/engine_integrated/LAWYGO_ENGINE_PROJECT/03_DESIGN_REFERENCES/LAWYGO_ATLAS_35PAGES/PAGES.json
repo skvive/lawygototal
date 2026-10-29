@@ -1,0 +1,177 @@
+[
+  {
+    "path": "index.html",
+    "title": "경제를 읽는 법률, LAWYGO",
+    "category": "홈"
+  },
+  {
+    "path": "journal/index.html",
+    "title": "LAWYGO JOURNAL — 경제법률 저널",
+    "category": "저널"
+  },
+  {
+    "path": "journal/us-markets.html",
+    "title": "미국 증권규제를 읽는 법",
+    "category": "저널"
+  },
+  {
+    "path": "journal/korea-economy.html",
+    "title": "한국 경제와 기업 규율",
+    "category": "저널"
+  },
+  {
+    "path": "journal/newsletter.html",
+    "title": "무료 뉴스레터 신청",
+    "category": "저널"
+  },
+  {
+    "path": "journal/issue-01.html",
+    "title": "LAWYGO 저널 Vol.01",
+    "category": "저널"
+  },
+  {
+    "path": "journal/issue-02.html",
+    "title": "LAWYGO 저널 Vol.02",
+    "category": "저널"
+  },
+  {
+    "path": "wiki/index.html",
+    "title": "LAWYGO WIKI 온라인 법률백과",
+    "category": "위키"
+  },
+  {
+    "path": "wiki/search.html",
+    "title": "위키 통합검색",
+    "category": "위키"
+  },
+  {
+    "path": "wiki/encyclopedia.html",
+    "title": "공시의무 — 온라인 법률백과",
+    "category": "위키"
+  },
+  {
+    "path": "wiki/precedent.html",
+    "title": "판례정보 상세카드",
+    "category": "위키"
+  },
+  {
+    "path": "note/index.html",
+    "title": "LAWYGO NOTE 법률문서 AI 작업공간",
+    "category": "노트"
+  },
+  {
+    "path": "note/workspace.html",
+    "title": "LAWYGO NOTE 워크스페이스",
+    "category": "노트"
+  },
+  {
+    "path": "pro/index.html",
+    "title": "LAWYGO PRO 전문 송무관리",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/dashboard.html",
+    "title": "LAWYGO PRO DESK 송무 대시보드 데모",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/desk.html",
+    "title": "LAWYGO PRO DESK — 운영 대시보드",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/case.html",
+    "title": "LAWYGO PRO CASE — 사건 관리",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/flow.html",
+    "title": "LAWYGO PRO FLOW — 송무 프로세스",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/work.html",
+    "title": "LAWYGO PRO WORK — 업무·문서 관리",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/hub.html",
+    "title": "LAWYGO PRO HUB — 로펌 협업·보안 ERP",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/smart.html",
+    "title": "LAWYGO PRO SMART — AI 송무 지원",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pro/beta.html",
+    "title": "LAWYGO PRO 무료 베타 안내",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "journal/market-intelligence.html",
+    "title": "LAWYGO JOURNAL 미국·국내 경제 인텔리전스",
+    "category": "저널"
+  },
+  {
+    "path": "pro/enterprise.html",
+    "title": "LAWYGO PRO 엔터프라이즈·보안 ERP",
+    "category": "로이고 PRO"
+  },
+  {
+    "path": "pan/index.html",
+    "title": "LAWYGO PAN 변호사 큐레이션",
+    "category": "판"
+  },
+  {
+    "path": "pan/lawyer.html",
+    "title": "변호사 프로필 시안",
+    "category": "판"
+  },
+  {
+    "path": "pricing.html",
+    "title": "LAWYGO 제품별 구독 및 PRO 무료 베타",
+    "category": "구독안내"
+  },
+  {
+    "path": "technology.html",
+    "title": "기술·특허·미국 연구 네트워크",
+    "category": ""
+  },
+  {
+    "path": "about.html",
+    "title": "회사소개 및 브랜드 철학",
+    "category": ""
+  },
+  {
+    "path": "methodology.html",
+    "title": "편집·검증 원칙",
+    "category": ""
+  },
+  {
+    "path": "sources.html",
+    "title": "벤치마킹 조사 출처",
+    "category": ""
+  },
+  {
+    "path": "contact.html",
+    "title": "상담·파트너십 문의",
+    "category": ""
+  },
+  {
+    "path": "legal/privacy.html",
+    "title": "개인정보 처리방침 시안",
+    "category": ""
+  },
+  {
+    "path": "legal/terms.html",
+    "title": "이용약관 시안",
+    "category": ""
+  },
+  {
+    "path": "sitemap.html",
+    "title": "전체 상세페이지 사이트맵",
+    "category": ""
+  }
+]

@@ -1,0 +1,630 @@
+{
+  "scope": {
+    "html_files": 160,
+    "docx_files": 1,
+    "other_text_files": 68
+  },
+  "files_changed": 171,
+  "replace_total": 908,
+  "changes": [
+    {
+      "before": "미국 기술 협력 구상: TerraBridge Capital LLC · 검증 전",
+      "after": "미국 기술 협력 관련 사항: TerraBridge Capital LLC · 확인 필요",
+      "count": 132,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/sources.html",
+        "01_최종완성_웹사이트_Partnership_MOU/methodology.html"
+      ]
+    },
+    {
+      "before": "구독안내",
+      "after": "구독 안내",
+      "count": 112,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py"
+      ]
+    },
+    {
+      "before": "판례정보",
+      "after": "판례 정보",
+      "count": 59,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "04_개발_빌드_QA_스크립트/update_lawygo_korea_contact.py"
+      ]
+    },
+    {
+      "before": "법률정보",
+      "after": "법률 정보",
+      "count": 52,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/technology.html"
+      ]
+    },
+    {
+      "before": "전문서식",
+      "after": "전문 서식",
+      "count": 44,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py"
+      ]
+    },
+    {
+      "before": "송무관리",
+      "after": "송무 관리",
+      "count": 42,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py"
+      ]
+    },
+    {
+      "before": "사건정보",
+      "after": "사건 정보",
+      "count": 33,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/BRAND_ARCHITECTURE.md"
+      ]
+    },
+    {
+      "before": "미국 경제·증권제도",
+      "after": "미국 경제·증권 제도",
+      "count": 30,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html"
+      ]
+    },
+    {
+      "before": "사건관리",
+      "after": "사건 관리",
+      "count": 25,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/sources.html"
+      ]
+    },
+    {
+      "before": "경제법률",
+      "after": "경제·법률",
+      "count": 25,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/about.html",
+        "01_최종완성_웹사이트_Partnership_MOU/sitemap.html"
+      ]
+    },
+    {
+      "before": "사건검색",
+      "after": "사건 검색",
+      "count": 23,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html"
+      ]
+    },
+    {
+      "before": "한국 자본시장 정책을 기업의 언어로 다시 읽다",
+      "after": "한국 자본시장 정책을 기업의 관점에서 다시 읽다",
+      "count": 21,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/korea-economy.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/market-intelligence.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/law-section.html"
+      ]
+    },
+    {
+      "before": "정보저널",
+      "after": "정보 저널",
+      "count": 21,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/methodology.html",
+        "01_최종완성_웹사이트_Partnership_MOU/about.html",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html"
+      ]
+    },
+    {
+      "before": "법률정보백과",
+      "after": "법률 정보 백과",
+      "count": 20,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/BRAND_ARCHITECTURE.md",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/BRAND_ARCHITECTURE.md"
+      ]
+    },
+    {
+      "before": "법률용어",
+      "after": "법률 용어",
+      "count": 20,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/encyclopedia.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/index.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/search.html"
+      ]
+    },
+    {
+      "before": "미국 증권규제 변화가",
+      "after": "미국 증권 규제 변화가",
+      "count": 19,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/korea-economy.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/market-intelligence.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/law-section.html"
+      ]
+    },
+    {
+      "before": "접근권한",
+      "after": "접근 권한",
+      "count": 15,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/index.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/hub.html"
+      ]
+    },
+    {
+      "before": "단순 보도인가, 법적 구속력 있는 문서인가?",
+      "after": "단순 보도인가, 법적 구속력이 있는 문서인가?",
+      "count": 13,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/korea-economy.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/market-intelligence.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/us-markets.html"
+      ]
+    },
+    {
+      "before": "베타서비스",
+      "after": "베타 서비스",
+      "count": 11,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/INTEGRATION_PLAN.md"
+      ]
+    },
+    {
+      "before": "미국 증권규제의 변화",
+      "after": "미국 증권 규제의 변화",
+      "count": 9,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/index.html"
+      ]
+    },
+    {
+      "before": "공시·지배구조·기업금융 정책",
+      "after": "공시·지배구조·기업 금융 정책",
+      "count": 9,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/korea-economy.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/law-section.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html"
+      ]
+    },
+    {
+      "before": "판례검색",
+      "after": "판례 검색",
+      "count": 9,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+        "01_최종완성_웹사이트_Partnership_MOU/payment.html"
+      ]
+    },
+    {
+      "before": "송무프로그램",
+      "after": "송무 프로그램",
+      "count": 8,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/contact.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/contact.html"
+      ]
+    },
+    {
+      "before": "시장뉴스 분석",
+      "after": "시장 뉴스 분석",
+      "count": 7,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/market-intelligence.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html",
+        "01_최종완성_웹사이트_Partnership_MOU/journal/market-intelligence.html"
+      ]
+    },
+    {
+      "before": "경제정보",
+      "after": "경제 정보",
+      "count": 7,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/technology.html",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html"
+      ]
+    },
+    {
+      "before": "문서작성",
+      "after": "문서 작성",
+      "count": 7,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/note/index.html"
+      ]
+    },
+    {
+      "before": "베타체험",
+      "after": "베타 체험",
+      "count": 6,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/index.html"
+      ]
+    },
+    {
+      "before": "베타기간",
+      "after": "베타 기간",
+      "count": 6,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pricing.html"
+      ]
+    },
+    {
+      "before": "로펌 전용 협업·보안 업무 인프라",
+      "after": "법무법인용 협업·보안 업무 인프라",
+      "count": 6,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html"
+      ]
+    },
+    {
+      "before": "국제 정보서비스의 인상을 흉내내는 대신 같은 수준의 검증 프로세스를 구축합니다.",
+      "after": "국제 정보 서비스의 외형을 모방하기보다, 이에 걸맞은 검증 절차를 구축합니다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/technology.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/technology.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/technology.html"
+      ]
+    },
+    {
+      "before": "그 차이를 배달합니다.",
+      "after": "그 차이를 설명합니다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "그 경제를 움직이는 제도를 해석하는 것입니다.",
+      "after": "그 경제를 움직이는 제도를 이해하는 데 있습니다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "투자관련 이해상충과 유료 홍보 표시",
+      "after": "투자 관련 이해상충과 유료 홍보 표시",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/technology.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/technology.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/technology.html"
+      ]
+    },
+    {
+      "before": "서식·버전관리",
+      "after": "서식·버전 관리",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pricing.html"
+      ]
+    },
+    {
+      "before": "법률정보사전",
+      "after": "법률 정보 사전",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/technology.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/technology.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/technology.html"
+      ]
+    },
+    {
+      "before": "법률정보를",
+      "after": "법률 정보를",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/index.html"
+      ]
+    },
+    {
+      "before": "법률정보의",
+      "after": "법률 정보의",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/index.html"
+      ]
+    },
+    {
+      "before": "법률정보와",
+      "after": "법률 정보와",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/precedent.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/precedent.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/precedent.html"
+      ]
+    },
+    {
+      "before": "법률뉴스",
+      "after": "법률 뉴스",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "판례카드",
+      "after": "판례 카드",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/search.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/search.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/search.html"
+      ]
+    },
+    {
+      "before": "구독정보",
+      "after": "구독 정보",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/legal/privacy.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/legal/privacy.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/legal/privacy.html"
+      ]
+    },
+    {
+      "before": "전문업무",
+      "after": "전문 업무",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pricing.html"
+      ]
+    },
+    {
+      "before": "전문성에 구독하다.",
+      "after": "전문 지식에 투자하다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pricing.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pricing.html"
+      ]
+    },
+    {
+      "before": "독립적으로 재생성한 경제·법률 인텔리전스 시각 자료",
+      "after": "경제·법률 인텔리전스를 표현한 독자 제작 시각 자료",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "LAWYGO는 단순한 법률 뉴스 모음이 아닙니다.",
+      "after": "LAWYGO는 법률 뉴스만 모아 전달하는 서비스가 아닙니다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "경제를 이해하는 가장 깊은 방법은,",
+      "after": "경제를 깊이 이해하려면",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "‘확인 가능한 사실’과 ‘LAWYGO의 전망/해석’",
+      "after": "‘확인 가능한 사실’과 ‘LAWYGO의 전망·해석’",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/methodology.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/methodology.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/methodology.html"
+      ]
+    },
+    {
+      "before": "매월 1일과 15일을 기본 발송일로 제안합니다.",
+      "after": "매월 1일과 15일 발행을 기본 일정으로 제안합니다.",
+      "count": 5,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo.py",
+        "01_최종완성_웹사이트_Partnership_MOU/index.html",
+        "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+        "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html"
+      ]
+    },
+    {
+      "before": "법률적 검증을 거친 경제 인텔리전스의 새로운 기준.",
+      "after": "법률적 검증을 바탕으로 경제 정보를 해석하는 관점입니다.",
+      "count": 3,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html",
+        "01_최종완성_웹사이트_Partnership_MOU/journal/index.html"
+      ]
+    },
+    {
+      "before": "경제의 움직임을 법률로 읽다.",
+      "after": "경제의 변화를 법률의 관점에서 읽다.",
+      "count": 3,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+        "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html",
+        "01_최종완성_웹사이트_Partnership_MOU/journal/index.html"
+      ]
+    },
+    {
+      "before": "변호사 스스로 승인한 전문지식·프로필 콘텐츠",
+      "after": "변호사가 직접 승인한 전문지식·프로필 콘텐츠",
+      "count": 3,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/mou.html",
+        "01_최종완성_웹사이트_Partnership_MOU/MOU_CLAUSES.json"
+      ]
+    },
+    {
+      "before": "법률상 허용되지 않는 법률사무 제공",
+      "after": "법률상 허용되지 않는 법률사무의 제공",
+      "count": 3,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/mou.html",
+        "01_최종완성_웹사이트_Partnership_MOU/MOU_CLAUSES.json"
+      ]
+    },
+    {
+      "before": "제휴 법무법인은 자신의 전문성과 독립적인 판단을 유지하면서",
+      "after": "제휴 법무법인은 전문성과 독립적인 판단을 유지하면서",
+      "count": 2,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html"
+      ]
+    },
+    {
+      "before": "LAWYGO는 국내 법무법인과의 업무협약(MOU)을 통해",
+      "after": "LAWYGO는 국내 법무법인과 업무협약(MOU)을 체결하여",
+      "count": 2,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html"
+      ]
+    },
+    {
+      "before": "법률전문성과 기술의 혁신이 만나는 곳.",
+      "after": "법률 전문성과 기술 혁신이 만나는 곳.",
+      "count": 2,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html"
+      ]
+    },
+    {
+      "before": "송무운영",
+      "after": "송무 운영",
+      "count": 2,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html"
+      ]
+    },
+    {
+      "before": "보호조치",
+      "after": "보호 조치",
+      "count": 2,
+      "sample_files": [
+        "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+        "01_최종완성_웹사이트_Partnership_MOU/partnership.html"
+      ]
+    }
+  ],
+  "word_changes": [
+    {
+      "file": "01_최종완성_웹사이트_Partnership_MOU/documents/LAWYGO_법무법인_MOU_약정서.docx",
+      "replacements": 4
+    }
+  ]
+}

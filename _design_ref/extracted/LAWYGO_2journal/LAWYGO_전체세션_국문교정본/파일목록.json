@@ -1,0 +1,1942 @@
+[
+  {
+    "path": "00_읽어주세요.md",
+    "bytes": 1806,
+    "sha256": "1ea3219c096aaaafbdf1263464525d1f4bbc899ba85e8f46bbe2e10a29fb2ed8"
+  },
+  {
+    "path": "00_한글_문법_이미지_검수보고서.md",
+    "bytes": 4869,
+    "sha256": "c39642fd30f09a9ceb3f3206abe0c6d953f3b9c0855ac9302c8985de2552f74e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/BRAND_ARCHITECTURE.md",
+    "bytes": 2658,
+    "sha256": "527e11fd558bd3fbac0faddd51e69616f8534a5c42aa1efd2193b631f1e3a707"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/DOMAIN_DEPLOYMENT_PLAN.md",
+    "bytes": 2947,
+    "sha256": "057cccf2c5385326fa6a7645aa42bde4808da93d5f2288019e3541abac7b3bda"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/DOMAIN_MAP.json",
+    "bytes": 1144,
+    "sha256": "e06514741d6e4937fb5a53b389c6291be785e00be38a7cf93aec00496f8d2479"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/INTEGRATION_PLAN.md",
+    "bytes": 4993,
+    "sha256": "f7ddad90112becb83ddf8b2c35f77f09352d2cdfbe282eee2642a4d92e69751d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/MOU_CLAUSES.json",
+    "bytes": 6234,
+    "sha256": "3ac07f844c5ef64a807e3c0c76dcb3cc525ffd873389be63afa3a6739a400246"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/PAGES.json",
+    "bytes": 4098,
+    "sha256": "c4e784b4671ba6d369e0225b9af53b0d4fdbd3078004b055016507d30fcf6e13"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/PARTNERSHIP_GUIDE.md",
+    "bytes": 1313,
+    "sha256": "25c54c79af7db2b86b73128bb3493e7b8c33a56830fdcf40bab5170b0486899c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/PARTNERSHIP_QA.json",
+    "bytes": 1238,
+    "sha256": "4d0bad377bf80cfc5168acd64885903faff3b5b16507f84c212fd83dbda7dc6d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/QA_FINAL.json",
+    "bytes": 1239,
+    "sha256": "6f68a7d9ab4740bea9b014077c9ce3c3cc258c2829a6fc41fee5431e948cb860"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/QA_REPORT.json",
+    "bytes": 4008,
+    "sha256": "bd7c709c723a8940d54bad2b5b87b00c2543094957965f9d6e66c12aad39be35"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/README.md",
+    "bytes": 3012,
+    "sha256": "45f2e527b8498d11086e5a17bf7fab9dc3ec4eb5d4ec586265c0e40089c169a7"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/TEXT_IMAGE_QA.json",
+    "bytes": 12812,
+    "sha256": "d24d5c8f4782aa9602a09755e86bf793ccd30c6795d5ecc90a1c940926fc5fef"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/WSJ_DESIGN_RESEARCH.md",
+    "bytes": 960,
+    "sha256": "b9509bc620f96563c8f3756bb43dfc9d3879e5b6310ea539ae78b5d37d5f4a17"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/WSJ_QA.json",
+    "bytes": 53,
+    "sha256": "44cea56867fb9b93edda19698ea557de419c8e8d71207deddc696013ee46654d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/about.html",
+    "bytes": 6759,
+    "sha256": "69ec8b595dccff38ef7c4ca152b767c4596e1c27d0e3d7b46ab4427a3a577064"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/brand-concept.jpg",
+    "bytes": 228139,
+    "sha256": "9bd53684431bb821be33a7632b4270d12025091b79af146a1ae8d92224f9742f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/editorial-architecture-ai-new.jpg",
+    "bytes": 92639,
+    "sha256": "d1aa66c8d7dbd7bfc810f92e9df7616e8740ae696dcc43a6b2cb8e4a654c178e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/hero-city.jpg",
+    "bytes": 242527,
+    "sha256": "5e50e95e1230a1f925a33ddeea27946434973a1de7fa6c25b409dfeb8180b76d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/hero-finance.jpg",
+    "bytes": 190114,
+    "sha256": "a19729dbf327d6132cd51a13a6b0cbe30abe4beb5728c781ba3564884968334f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/hero-global.jpg",
+    "bytes": 456379,
+    "sha256": "6930a39d620d948287a5893f5642c5f2e0b60427b68828dff4111f52c2d88693"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/hero-law.jpg",
+    "bytes": 290074,
+    "sha256": "9e65f564443491db9dc00f0803f3372eeaabf0b7eea2b1af955f8394e8d31a71"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/hero-network.jpg",
+    "bytes": 171138,
+    "sha256": "bc0fa99aa703a86ad6181818ac8e36ce2eb944a1201f7cfdf2ba7d42a6cf5458"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/journal-editorial.css",
+    "bytes": 10113,
+    "sha256": "f0e022afc526fdccd27d69af422d65be3ae64aa3b552c66f393ee8ff244b735d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/journal-editorial.js",
+    "bytes": 2007,
+    "sha256": "428980a4c8e23363c7a4a25b584c11057d1f41a2c315e6bb8ca60ed7d36bd075"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/korea-contact.css",
+    "bytes": 1473,
+    "sha256": "00c9c3c15fb0144c6203d3a43899991f9f1fa56c5a10decdbfca83d080630bf4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-ai-logo-concept.png",
+    "bytes": 206573,
+    "sha256": "6895e4f9ba5a762cd4479032a9199b699400f5b83e6473461e945b1c72ffffca"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-logo-1024.png",
+    "bytes": 67651,
+    "sha256": "d18f6ee4e299257713fe6fb774fd02efcc3add6bddbbfddc0c5427f432e9c17c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-logo-dark.png",
+    "bytes": 41528,
+    "sha256": "83d298508497adc195de102b2c5a7cd2a714866a9538785b69da90a116d8dbea"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-logo-dark.svg",
+    "bytes": 1266,
+    "sha256": "c8fdb07d7c5d9c0a476a80a3b28140e211b34f887426a7bc68bd09ec98bef48a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-logo.svg",
+    "bytes": 1267,
+    "sha256": "553ce49cf587097a1a38230b37877a4ef5151a7a89aab0fea4b71f20a7bd6102"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-partnership-concept.jpg",
+    "bytes": 177224,
+    "sha256": "89d309664976ea30d1508a2b10a56dedd1171feba37dd2573e1d69c10cd0a09d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-wordmark.png",
+    "bytes": 28717,
+    "sha256": "dbcd68f2356606da644570f8f34b402103426a0d20823e0f583df8a287430fb0"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/lawygo-wordmark.svg",
+    "bytes": 1614,
+    "sha256": "9d378885879e939f3eaa280e381fba396c695053ca87021a776d2e6dd87aff37"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/partnership-form.css",
+    "bytes": 2148,
+    "sha256": "5ecf92258bda3359ea1c55799c92af49da50e57de9c0ff1cef5f8936d2c3cb2e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/partnership.css",
+    "bytes": 4801,
+    "sha256": "78fbd10d479aeec321aa9b80ff204b761459a83b55607050a1c50b4726f5514f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/partnership.js",
+    "bytes": 1656,
+    "sha256": "28953bed64df7624a97e42cf4babd250dfc05cb60b1ab91fae74a02031228da3"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/site.css",
+    "bytes": 31710,
+    "sha256": "33fe27ef7caca594d7531b0034f405a8ac29cdd3da14a89456651c6c5a7ffb7f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/assets/site.js",
+    "bytes": 4703,
+    "sha256": "7d7a3aa68c6b2d8b34b9e3846c9cad1bb195d1223cd672178530e0d8c0a3c353"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/contact.html",
+    "bytes": 5438,
+    "sha256": "c991d601b95445a3fda2b3c594ae0731694d52c170508cf76a1c5289a6744432"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/documents/LAWYGO_법무법인_MOU_약정서.docx",
+    "bytes": 89193,
+    "sha256": "bd9603ed50866774ecf93952638a0b61b91ceaada2a6da812f73bd907ed0d091"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/documents/LAWYGO_법무법인_MOU_약정서.pdf",
+    "bytes": 233087,
+    "sha256": "81c48df625f1eca37dbd413766660c8493fbbf787e9bd28b7e7543d973db9b61"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/index.html",
+    "bytes": 13380,
+    "sha256": "cc10079ccfcc8f225dd38190f0122838fa62b10c4d4ac9cdb001927c28899031"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/index.html",
+    "bytes": 8364,
+    "sha256": "b8e3abe8c8c7d7b91cf635fb86eb691fe8e6db81c5f17b621ad64057cf0775e2"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/issue-01.html",
+    "bytes": 8601,
+    "sha256": "610b7df76ae393e223f33bd4f06681295a87dffc70d315d8a33440d8ad147f18"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/issue-02.html",
+    "bytes": 8606,
+    "sha256": "5bfddc2722b811df55a6f986688023299f5cb770c243c9fa7bed7153ca63dbb1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/korea-economy.html",
+    "bytes": 8608,
+    "sha256": "74b75bcb8dce307da1b66a7a4c93f27986ee71e6c53dade07e179deab9926435"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/law-section.html",
+    "bytes": 4169,
+    "sha256": "d3ef49bb627d0243411edb67015a27ee21f9f2d87bedcd4a2666d2c08fe31a4b"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/legal-intelligence.html",
+    "bytes": 8589,
+    "sha256": "e411bc995664fe162f86e03330fc5e1343259282de182ebcb38c90ba384fa4ad"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/market-intelligence.html",
+    "bytes": 8611,
+    "sha256": "8317ac4cc0170c6aa380925e006de9069e48ab6b79c5d5e820727f86414bc3fb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/newsletter.html",
+    "bytes": 5496,
+    "sha256": "cd04301d68be6ad3b5c823951cd99d0bc723538e72b1d350a0f2b7c9ddbcdf2f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/journal/us-markets.html",
+    "bytes": 8635,
+    "sha256": "099be227104a370ec92e52a472cfeebc39df4a668335b8c4ad8dd306236d7430"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/legal/privacy.html",
+    "bytes": 5045,
+    "sha256": "b27e94a6cc36435b9602f26d257aba326b46cb070ac584f8af3b0de2ffe6977f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/legal/terms.html",
+    "bytes": 5060,
+    "sha256": "756bec32e60e1e788a8f34deb1a839ed33fdfd0256c5f62d36f08ac1ec9bd672"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/litigation/dashboard.html",
+    "bytes": 290,
+    "sha256": "8ac9ebcd2df602a31f7989f41a9097a652c6f74fe120a8362a82529775710405"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/litigation/index.html",
+    "bytes": 282,
+    "sha256": "aa061554058d62c9f75b71d7f07a6a037d7b774c5749e515e5079aaa3ebe9ffd"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/methodology.html",
+    "bytes": 5918,
+    "sha256": "6160229bab09f267e4f54e1fcd6be90f1544a1172a6973ccf9d05b4841bb09b4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/mou.html",
+    "bytes": 10735,
+    "sha256": "020f1c49b85d43ac3a390e2f49e0f5a25af36b7513871666fceffd9709958a31"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/note/index.html",
+    "bytes": 7238,
+    "sha256": "9d6a57c882c5033de5646f9c0b3c06df9e5ac50d8c7694a5c29c13c7764c4fbb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/note/workspace.html",
+    "bytes": 6376,
+    "sha256": "d3162e32fe0989252abff0aa48da9562ec6163e022b4bf3505708d6caa398850"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pan/index.html",
+    "bytes": 7792,
+    "sha256": "e156f5446a966107a248c2594ab93d4f8f3403a295f282d78a4f14844dfa222b"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pan/lawyer.html",
+    "bytes": 5975,
+    "sha256": "d833683527fd8c95e14c331d8ed5d9ec99c9f052a5c34cd106d4a361f565bad1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/partnership-inquiry.html",
+    "bytes": 3786,
+    "sha256": "363131a341f59a12b5d5d34a5dd8b5ba43e74f5dcb300cf59878267d8a1dc7f8"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/partnership.html",
+    "bytes": 14113,
+    "sha256": "28db4022324be32a86eb8b2917f9781272bd82e1f7fe6a13da1a1b4d6662cd94"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/payment.html",
+    "bytes": 11908,
+    "sha256": "59b5cf393ec3a5570822514a5191c82b1df2eaa57ebca2b49b2214a15ff6e3ad"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/ALL_PAGES_CONTACT_SHEET.jpg",
+    "bytes": 734568,
+    "sha256": "37ba446d48785eaf0a9382a59a57cb963729b5cbe312b2a286a876af3a93e6d8"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--index.png",
+    "bytes": 2044426,
+    "sha256": "55b2ecebc5fc68a60961b6ba5c990ae16f3c2bc6b12cb6a92703dec3e272db81"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--journal--index.png",
+    "bytes": 1652917,
+    "sha256": "8b97907c689c6b6ff6fd6711158c676bce7eafac45dc6d39d4d961c0b538bd49"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--journal--market-intelligence.png",
+    "bytes": 1411557,
+    "sha256": "17d7d59e4dee60921cf9b15b924b9a335e42a71f18a9836886361d15cce9c156"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--note--index.png",
+    "bytes": 465989,
+    "sha256": "3c8220e908300852c1828572be69063113dabb917997b5f32ac5bbf42b0d11fc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--pan--index.png",
+    "bytes": 458500,
+    "sha256": "7633948d757f257ff5e658078c294d3ef27ffdb4ab36481b26667918e556c0c6"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--pricing.png",
+    "bytes": 272908,
+    "sha256": "dd4dc4fd345244c38fb01632f94c750522e68867e5804154b1971f9c44e81adc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--pro--beta.png",
+    "bytes": 483441,
+    "sha256": "753df1bcb8225d0e216fcb408e1d7f1496baa34936fd76796afe2e88fa6ebfb1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--pro--enterprise.png",
+    "bytes": 415354,
+    "sha256": "d0f463d26b7da64b08f4a9071c4093926062cb1591c41feef85f0cfb272bc8fd"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--pro--index.png",
+    "bytes": 605996,
+    "sha256": "ea3069a350984cc229752ed11f240559f33ea4329aee34bc54f9ec9cc71aef38"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/FULL--wiki--index.png",
+    "bytes": 1065262,
+    "sha256": "a1f145c105f7e24dcdfdc628c15a681fc2fceb54ea3a03fbf565a463deda1de0"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/MOBILE--index.png",
+    "bytes": 82811,
+    "sha256": "43b8936096bbb5a855ee7b74d94c53751778b980a598e4d4fa1c6ec60268fd27"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/MOBILE--journal--index.png",
+    "bytes": 204139,
+    "sha256": "72ec81cf68cb1898fe548fff81813eeb22cc5a1efcb8c3ed16ad6f114fae2215"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/MOBILE--pro--beta.png",
+    "bytes": 90557,
+    "sha256": "01a1a688006c39941746a9f97f80c6882db61c5879bf77ea5d01b81bcfdadddc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/MOBILE--pro--index.png",
+    "bytes": 88187,
+    "sha256": "48834b99ca1d5c9967ca68495f140023488887dbefad369643710a6296ab48d4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/MOBILE--wiki--index.png",
+    "bytes": 83796,
+    "sha256": "5640469bb2d34df217a67cd35157669cd1609192045e3965f97cc5ca79c48efe"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/about.png",
+    "bytes": 271006,
+    "sha256": "cb5b6c1a9f16b53332a84db2ce65debd4c38c43d4b5d4391787bcf3236d29306"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/contact.png",
+    "bytes": 86481,
+    "sha256": "2c9ae0ff0235a906cfdbdf1cf9211d5bdcc97c45fee8259dd85834a8a02f9187"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/index.png",
+    "bytes": 272714,
+    "sha256": "a74b0f08eb9279bd47cb76f900625badfe76385629b16b19978d7eff17fcb78b"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--index.png",
+    "bytes": 415869,
+    "sha256": "5a23c390187cd78ebf9b1b37a3072c1059569b0540163ef71579dbb26e003fe0"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--issue-01.png",
+    "bytes": 622786,
+    "sha256": "d3a46370fb523f35db4b49826962937176943138c67fddb9a812a2570658a3b1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--issue-02.png",
+    "bytes": 550355,
+    "sha256": "73e2ecf0dee37d4caf21cd5c6a86d715019d3d536e0a136016516325c850ef27"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--korea-economy.png",
+    "bytes": 555605,
+    "sha256": "a60c64e4626e64bbfd1230f2c56ea91b32c1fc750cc8f2b5e1a359a00c4554cb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--market-intelligence.png",
+    "bytes": 588341,
+    "sha256": "0b1b5d902d3928028ae9db9ab6efd98409356de31229f94546144846a910bd2a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--newsletter.png",
+    "bytes": 475995,
+    "sha256": "83cf23923e8869cde3d0e7f888a1d435698c6418fdc9efe67d3df1db14954aa4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/journal--us-markets.png",
+    "bytes": 630044,
+    "sha256": "313bfea418f4a93bf7b61f6762068fc5aa7807062f4c1a19d5a591593835458e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/legal--privacy.png",
+    "bytes": 91029,
+    "sha256": "cdf26ef2410c828eb70bd6b601b7a611321760f107607d0dec8551e5433d4dae"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/legal--terms.png",
+    "bytes": 77605,
+    "sha256": "3eff1b99569b9a5813de202e93971333a6b4da86244164126a1366758013c757"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/methodology.png",
+    "bytes": 100613,
+    "sha256": "a0536080239f7af18b65857a130d858f689e092842f712f746cfac4313d041a0"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/note--index.png",
+    "bytes": 273089,
+    "sha256": "6881f8ae5c85942e2a8e4d6c50101d1f40ff96e26dd565878cb4a283a934d5cc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/note--workspace.png",
+    "bytes": 111117,
+    "sha256": "c14454a334188b4d8e6f1f915467fdd16bfd162ec0fcb899989b4524924030a9"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pan--index.png",
+    "bytes": 279452,
+    "sha256": "b3eea6f7026d8dc5e16970f5cbc5a95bbc3736a1482265704be6a865f78761fc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pan--lawyer.png",
+    "bytes": 109237,
+    "sha256": "58d5f8b8260d26868ff34b6e539f7a558d05b7499a1785f344081db52e2ca9dd"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pricing.png",
+    "bytes": 104701,
+    "sha256": "422a6bd70a3c9961d87509673aa715a7669bd5f6d96a6bd88e3da435438cc7e4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--beta.png",
+    "bytes": 284318,
+    "sha256": "ca549c0537850d0d6c2b626bb30718069ea25a07157cbb2a4a2684d7a523c668"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--case.png",
+    "bytes": 242724,
+    "sha256": "153e1f60f4f832fa993965e7328bf1a45e673ddb4d146562a6c83ac8e0d31ae5"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--dashboard.png",
+    "bytes": 77909,
+    "sha256": "386c4573a7b7bbe7bd9294330ae4d03a44fd99f029d4312252dd477b50656694"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--desk.png",
+    "bytes": 232502,
+    "sha256": "03ee60dd4d2e9ca1c1ed875af0fa8714fafb16a209a319b2270aa34d18854244"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--enterprise.png",
+    "bytes": 282395,
+    "sha256": "d25a441716b6d25fa9beda7184167a311816783ed395d38cc78d33fa1937ec94"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--flow.png",
+    "bytes": 242821,
+    "sha256": "d8013eb276510dc23dc4386c64d4e54ee7fabbc0623f0275fc2a6b963589eb42"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--hub.png",
+    "bytes": 245245,
+    "sha256": "2b5078f27cc41d183aa4abbcf3e90fedd657b2f6d9aa6187734452d7de7a691a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--index.png",
+    "bytes": 283001,
+    "sha256": "5b3014720cd5a081b1f41647249364a45019c552d56205eaf5fc3794da3577fb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--smart.png",
+    "bytes": 241402,
+    "sha256": "c954420afdacc6d27409794f3d4622bf3be0e9550dbc7a5910820efce45bf781"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/pro--work.png",
+    "bytes": 236385,
+    "sha256": "3a245933c585dc152468cc624e8be9b68148a3afe018eaa56ad450af5e983c7e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/sitemap.png",
+    "bytes": 81725,
+    "sha256": "df742785a8fa6879eec55123540b5bfed4cd6c92a58885e343c583eef21a9cfc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/sources.png",
+    "bytes": 85984,
+    "sha256": "443e560dfded5cb762694436702ce65643c607486b256fa8d32382e6c39de158"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/technology.png",
+    "bytes": 245749,
+    "sha256": "a603a33a7ad9fe5e9fe0b0e2702419b5214481388bf246da4d3c96ca50c2e742"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/wiki--encyclopedia.png",
+    "bytes": 95302,
+    "sha256": "210e5c6f03ecedb055104e69bd110aaf49f55c3f8bccbbe4083d14bea385811c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/wiki--index.png",
+    "bytes": 271314,
+    "sha256": "cd1880a0826c4f9b0a85362ae1936d796de9825d44d6df0880fecf6d08d93bcc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/wiki--precedent.png",
+    "bytes": 94246,
+    "sha256": "0b2374562e5e5bc2d61d42eccc417b3c011b79cc44c21501b8e862e433007432"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews/wiki--search.png",
+    "bytes": 89058,
+    "sha256": "bb4b74f606942e844602ff89e7a767d41dfcc70dda47de7c275b361ccb295c48"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/CONTACT--DESKTOP.png",
+    "bytes": 86481,
+    "sha256": "2c9ae0ff0235a906cfdbdf1cf9211d5bdcc97c45fee8259dd85834a8a02f9187"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/CONTACT--MOBILE.png",
+    "bytes": 52805,
+    "sha256": "94776a984db1049e4901e8a5899605be84c617446416d1524d48ec9355df891c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/HOME--DESKTOP.png",
+    "bytes": 272714,
+    "sha256": "a74b0f08eb9279bd47cb76f900625badfe76385629b16b19978d7eff17fcb78b"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/HOME--MOBILE.png",
+    "bytes": 82811,
+    "sha256": "43b8936096bbb5a855ee7b74d94c53751778b980a598e4d4fa1c6ec60268fd27"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/INQUIRY--DESKTOP.png",
+    "bytes": 88598,
+    "sha256": "6d397d196c302f9e37e37f3bf81f282e04635dfc2bde593877c778adced09d89"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/INQUIRY--MOBILE.png",
+    "bytes": 41460,
+    "sha256": "8575dbd34c9331fbfc4fc4eeaf12d4213aa963698899b6ed1338d494980c8968"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/MOU--DESKTOP.png",
+    "bytes": 103803,
+    "sha256": "3b150676435a9d1c0260193f86a88763e738b568c0e8193e8fc03663e8c0529c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/MOU--MOBILE.png",
+    "bytes": 58292,
+    "sha256": "07337bc5b4ea14698a64cb31cc6a1048bcf8bba09232a0d01f7c632acf1dd850"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/PARTNERSHIP--DESKTOP.png",
+    "bytes": 1087740,
+    "sha256": "186e68559394081a3d5dc53ae3017e479b1d29c3dbe87d900bfa381ac29e2aca"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/PARTNERSHIP--FULL.png",
+    "bytes": 1985035,
+    "sha256": "5ff8ecaa4f42b6e0aaf78615fbea30c32716cad4cee548cfbf3033eb79252eb5"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_partnership/PARTNERSHIP--MOBILE.png",
+    "bytes": 272704,
+    "sha256": "7590d51cffd5acf55f13b6b43c014f27e9b984e7f3024b6b9a1ef3b74e9b1b8e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--index--DESKTOP.png",
+    "bytes": 415869,
+    "sha256": "5a23c390187cd78ebf9b1b37a3072c1059569b0540163ef71579dbb26e003fe0"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--index--FULL.png",
+    "bytes": 1652917,
+    "sha256": "8b97907c689c6b6ff6fd6711158c676bce7eafac45dc6d39d4d961c0b538bd49"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--index--MOBILE.png",
+    "bytes": 204139,
+    "sha256": "72ec81cf68cb1898fe548fff81813eeb22cc5a1efcb8c3ed16ad6f114fae2215"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--issue-01--DESKTOP.png",
+    "bytes": 622786,
+    "sha256": "d3a46370fb523f35db4b49826962937176943138c67fddb9a812a2570658a3b1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--issue-01--MOBILE.png",
+    "bytes": 227763,
+    "sha256": "b45f7a899126ccf232e3c50d7d82774372ce22b85c9bafae9efacc9c65808787"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--issue-02--DESKTOP.png",
+    "bytes": 550355,
+    "sha256": "73e2ecf0dee37d4caf21cd5c6a86d715019d3d536e0a136016516325c850ef27"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--issue-02--MOBILE.png",
+    "bytes": 222274,
+    "sha256": "02fd3f967b9a3fd6336e6c146cf829c90d1c067faad81297216c49678942243d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--korea-economy--DESKTOP.png",
+    "bytes": 555605,
+    "sha256": "a60c64e4626e64bbfd1230f2c56ea91b32c1fc750cc8f2b5e1a359a00c4554cb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--korea-economy--MOBILE.png",
+    "bytes": 196152,
+    "sha256": "cd6e54f98a216fd0069804df20dcd222b4c4a1f2f836ac77def907a20071b2bc"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--law-section--DESKTOP.png",
+    "bytes": 628521,
+    "sha256": "1b737b5968bc8d1881979fdbe77df0bc0b581ea6f4ada89367a8ec3f22a7dd0d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--law-section--MOBILE.png",
+    "bytes": 209258,
+    "sha256": "545ca7d2cd6cfc6c73a4441b85875d1dca238b4d76219f4151080d9ca704188d"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--legal-intelligence--DESKTOP.png",
+    "bytes": 657868,
+    "sha256": "a1c4f94a2e3865e7afcb307f42ac7647334f06929408221a63e0b6e162430fa6"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--legal-intelligence--MOBILE.png",
+    "bytes": 243657,
+    "sha256": "729e9fa8c5ef2e990193d68a293816583cca9aae4202ef1c8bc78651295c0c26"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--market-intelligence--DESKTOP.png",
+    "bytes": 588341,
+    "sha256": "0b1b5d902d3928028ae9db9ab6efd98409356de31229f94546144846a910bd2a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--market-intelligence--MOBILE.png",
+    "bytes": 201057,
+    "sha256": "535fe09f6f123c34cd8ade0543f5e5065bdf2b574bedfd4a0b94077f33666d28"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--newsletter--DESKTOP.png",
+    "bytes": 475995,
+    "sha256": "83cf23923e8869cde3d0e7f888a1d435698c6418fdc9efe67d3df1db14954aa4"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--newsletter--FULL.png",
+    "bytes": 1310403,
+    "sha256": "db1b844e08709e6a1ec6084240d4ffedd366404d4eabb824f62aa9273f114225"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--newsletter--MOBILE.png",
+    "bytes": 199581,
+    "sha256": "df0e73c92526cad8a9c96322015ecade045a3ea05e82f7e92e1e8a2caf39ed0a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--us-markets--DESKTOP.png",
+    "bytes": 630044,
+    "sha256": "313bfea418f4a93bf7b61f6762068fc5aa7807062f4c1a19d5a591593835458e"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--us-markets--FULL.png",
+    "bytes": 1394689,
+    "sha256": "fc24f248bb99c548b139a595c6f614fbf54d3960e04cf568d70bda063c9eb8c6"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/previews_wsj/JOURNAL--us-markets--MOBILE.png",
+    "bytes": 204690,
+    "sha256": "2ecaf01a8ea7d3a44ed385b3db8dc644a6c257214f8d19de6f5392cb81195145"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pricing.html",
+    "bytes": 7830,
+    "sha256": "3b7afbc3b180a6ca75087268f679e2b8d66895b7dc8a1fdb513a27175f830dea"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/beta.html",
+    "bytes": 7747,
+    "sha256": "24c48c3f54c2a86901dc597a2abd0162fa955fbc1fda4d4f86cec54722e25e0f"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/case.html",
+    "bytes": 6548,
+    "sha256": "37de97152043c07e527a46e69fcdfddd6e99ebfe74a5800a6ac1b64229922a92"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/dashboard.html",
+    "bytes": 5698,
+    "sha256": "ca96a06ccb0ecb825afde667111d8c1e8405bf4f9cdec636b966fc57f2fc09a6"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/desk.html",
+    "bytes": 6462,
+    "sha256": "711f609f871e33d9e2d55767c5e0102bfcb7586bc5a5a3ab20be374c43a56238"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/enterprise.html",
+    "bytes": 6541,
+    "sha256": "1d20bfb38f1e8cef747fd4aa5a1f8d3c7031b9e457a974cccfd7684a3f767b0c"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/flow.html",
+    "bytes": 6464,
+    "sha256": "e89b35a2787144d0bea2b76ede9994f32737dfbcf2d4128f6934f881153af4d1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/hub.html",
+    "bytes": 6583,
+    "sha256": "6a513f0fdab19f5d2717f386d600a4ac60848a3f04d7ce0c2e056b8cdd8edca2"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/index.html",
+    "bytes": 9917,
+    "sha256": "868339fb4fb66d55a8b39b90e65505424a01d6449d1d5fec2faa54c876e231cb"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/smart.html",
+    "bytes": 6533,
+    "sha256": "f4975510e99a33cb8d741ce44c1c2e237bc8630e4d16b84b1c2b544bb116ef52"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/pro/work.html",
+    "bytes": 6489,
+    "sha256": "3a09ef5627362ebc4fd6f7f416282c01150956d1888c73505351a733d16fe356"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/sitemap.html",
+    "bytes": 8291,
+    "sha256": "d9c0f984cf013077656bbc7d79468a51e2b977404c163875fdfe5769d8fc6409"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/sources.html",
+    "bytes": 8452,
+    "sha256": "58f5805455f5c9ec1c6a530501639ddaa2c8964c8be434f78703364fd828fe50"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/technology.html",
+    "bytes": 7981,
+    "sha256": "7045874a14f746b896ad2d722f329d09f583653423172ae6d16749008f46dd46"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/wiki/encyclopedia.html",
+    "bytes": 6566,
+    "sha256": "8637ee45ac74ff4e22d0a30d357c83c8ee297c1f8f18410f64eb6c1f0733aca1"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/wiki/index.html",
+    "bytes": 7655,
+    "sha256": "bd55b401b4f13d89320c2c9030ae82a8a701f3d1c57a066c26a649c2876d9e3a"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/wiki/precedent.html",
+    "bytes": 6302,
+    "sha256": "9378b8bdc1990d1b9833218237d7e4b3523ccb86322762975743aba817fbea33"
+  },
+  {
+    "path": "01_최종완성_웹사이트_Partnership_MOU/wiki/search.html",
+    "bytes": 6541,
+    "sha256": "81af597ae0ecfb485d04939c80afada6c06af230525c22afadbeae48dd7f70e5"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/BRAND_ARCHITECTURE.md",
+    "bytes": 2347,
+    "sha256": "9ff00d9e16780f5302ff268021a457948c7bdd66dafd19aaeecd8cdf36ee721f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/INTEGRATION_PLAN.md",
+    "bytes": 4993,
+    "sha256": "f7ddad90112becb83ddf8b2c35f77f09352d2cdfbe282eee2642a4d92e69751d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/PAGES.json",
+    "bytes": 4098,
+    "sha256": "c4e784b4671ba6d369e0225b9af53b0d4fdbd3078004b055016507d30fcf6e13"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/QA_REPORT.json",
+    "bytes": 4008,
+    "sha256": "bd7c709c723a8940d54bad2b5b87b00c2543094957965f9d6e66c12aad39be35"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/README.md",
+    "bytes": 2539,
+    "sha256": "6366b488eec76ff51c5f8ce5974ea7a3c7a0a21f2a0296831131d5583b8a5242"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/about.html",
+    "bytes": 6027,
+    "sha256": "35eb7ed26a73f8dc6887ba3f963d38db42b3546c64478f3ce0d945c43a39b59f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/brand-concept.jpg",
+    "bytes": 228139,
+    "sha256": "9bd53684431bb821be33a7632b4270d12025091b79af146a1ae8d92224f9742f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/hero-city.jpg",
+    "bytes": 242527,
+    "sha256": "5e50e95e1230a1f925a33ddeea27946434973a1de7fa6c25b409dfeb8180b76d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/hero-finance.jpg",
+    "bytes": 190114,
+    "sha256": "a19729dbf327d6132cd51a13a6b0cbe30abe4beb5728c781ba3564884968334f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/hero-global.jpg",
+    "bytes": 456379,
+    "sha256": "6930a39d620d948287a5893f5642c5f2e0b60427b68828dff4111f52c2d88693"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/hero-law.jpg",
+    "bytes": 290074,
+    "sha256": "9e65f564443491db9dc00f0803f3372eeaabf0b7eea2b1af955f8394e8d31a71"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/hero-network.jpg",
+    "bytes": 171138,
+    "sha256": "bc0fa99aa703a86ad6181818ac8e36ce2eb944a1201f7cfdf2ba7d42a6cf5458"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/site.css",
+    "bytes": 30925,
+    "sha256": "b012e264a3e02746a1645d22838ccb1ab31f5172f628f037c2ec5c84589a7831"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/assets/site.js",
+    "bytes": 4703,
+    "sha256": "7d7a3aa68c6b2d8b34b9e3846c9cad1bb195d1223cd672178530e0d8c0a3c353"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/contact.html",
+    "bytes": 4650,
+    "sha256": "16ab123d616d179c0752b268242d34f2baeb9f380597ae3db0a46e6fcb69944e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/index.html",
+    "bytes": 11964,
+    "sha256": "cbbd841b346872c7624b8f95a7f7a4d93604c110855f76bdcd81d1249d4c5835"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/index.html",
+    "bytes": 7519,
+    "sha256": "b7afcf310449dc5d17ef5c8af4baffa6ee2cc925537d4b72bfa06f6086715363"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/issue-01.html",
+    "bytes": 4962,
+    "sha256": "d64a74061287aa81a292573ed67bc0bf73fdd00171a7f9306ca5890f28ee9d5d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/issue-02.html",
+    "bytes": 4979,
+    "sha256": "35ef01c6aaa1c4350ded0317a865c9d368ad0e7be997b01d548cf6576dbfbef1"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/korea-economy.html",
+    "bytes": 7079,
+    "sha256": "d5643b162734144b7dd987cd06e59f4cce8c29e9fab4c147eb7ceab237e61a6f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/market-intelligence.html",
+    "bytes": 6699,
+    "sha256": "adcfcb164a0ec90390390e249f19e30b3ef47402f67baf7e44677761ba618844"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/newsletter.html",
+    "bytes": 5843,
+    "sha256": "6ede733cf2bb9ac3e27bfbd864daff0bb7123c86042fed2def2c71c1b7e7b766"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/journal/us-markets.html",
+    "bytes": 7618,
+    "sha256": "3014c72f44c09c0871bd5ea9c6fac391611017067dcdec707a91a6960f73c4b5"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/legal/privacy.html",
+    "bytes": 4298,
+    "sha256": "b05060dddc6d6af2e894f953fe50afa53df3293aa86df9cb2741960c7a405c32"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/legal/terms.html",
+    "bytes": 4313,
+    "sha256": "b986133bb6423ab7e3b22cca7a9f804629f1ef8878b5c817c23dee0192a9ab95"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/litigation/dashboard.html",
+    "bytes": 290,
+    "sha256": "8ac9ebcd2df602a31f7989f41a9097a652c6f74fe120a8362a82529775710405"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/litigation/index.html",
+    "bytes": 282,
+    "sha256": "aa061554058d62c9f75b71d7f07a6a037d7b774c5749e515e5079aaa3ebe9ffd"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/methodology.html",
+    "bytes": 5186,
+    "sha256": "acf6dcd59167306a5516f9f46b43bc21dd0a0f554f8451381c7aed30bcc15a7f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/note/index.html",
+    "bytes": 6491,
+    "sha256": "80151d7d6ac78f90993730a761c8e47b1200220070f34cea6426e6a4eeb0a0ef"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/note/workspace.html",
+    "bytes": 5629,
+    "sha256": "e3f23a51687944a8d2cbc3ab9888d06041e52b7a40d452f7f5245a1f5e8fc6bb"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pan/index.html",
+    "bytes": 7153,
+    "sha256": "81268594cec478ffab2cdc6ae6b1eb2c21c566e9b1c915b7ab7ded29d04a4d33"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pan/lawyer.html",
+    "bytes": 5336,
+    "sha256": "f52f70c983c0abf8bc177fe7f5c7507618117b466f7f75450dfb533d5b99b773"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/ALL_PAGES_CONTACT_SHEET.jpg",
+    "bytes": 734568,
+    "sha256": "37ba446d48785eaf0a9382a59a57cb963729b5cbe312b2a286a876af3a93e6d8"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/FULL--journal--index.png",
+    "bytes": 1171319,
+    "sha256": "632ee5fb834a9e8270366fdc9c1e924326301342b02339b9b588eccacbaf26b6"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/MOBILE--pro--index.png",
+    "bytes": 88253,
+    "sha256": "536ab7dc7cf78037c0e98b55b59d69222c675edf385acae2134dffae271203dc"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/index.png",
+    "bytes": 271678,
+    "sha256": "917511c85c7d3c1b77f258666c168b1e5a61874f9b35031a785ecc282dc3f1a9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/journal--index.png",
+    "bytes": 278427,
+    "sha256": "d419ab49a161fd469017147c663c7b0b152b7fca4b7134ca56a06ed159393938"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/previews/pro--index.png",
+    "bytes": 281646,
+    "sha256": "42fa644def5a7a8f2c0ccee94f9c9edd9c2e7764f6af38736bcf6821eb990728"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pricing.html",
+    "bytes": 6877,
+    "sha256": "645ce7001b28715abe0e0ffc4eebb4d445d59e8016ab4ad65229d9cc6fedeaae"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/beta.html",
+    "bytes": 7000,
+    "sha256": "1a401447541e012da81e948c0c6dc7ebfa10d01c989e2b7f8c26e38876b6a8da"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/case.html",
+    "bytes": 5801,
+    "sha256": "e6a26fef0174bfea69d2f391f707b04559e2c3fb4b8658fa3e17ea9d17282361"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/dashboard.html",
+    "bytes": 4951,
+    "sha256": "af59016d6e5bb54ebb705b91727be164738c58731c5dbdb3cabc630fe69e8f80"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/desk.html",
+    "bytes": 5715,
+    "sha256": "4d7ed6b05b191117f9b5e5aa2e61862f24efa5f4f1032f5fa758373cef5a66a9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/enterprise.html",
+    "bytes": 5794,
+    "sha256": "71e2c1d45ed75c0c5cdc9ba76019ba565f33befd5e4e48897fe27ff50b1429c4"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/flow.html",
+    "bytes": 5717,
+    "sha256": "a54d790db4da644bec3333a2525f2fe9de4be848497e617626c4a5b1c001b426"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/hub.html",
+    "bytes": 5836,
+    "sha256": "8e349dec22272c38694aeceaa7fad071ec700be90052b2e3b71e94deedf23d15"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/index.html",
+    "bytes": 9170,
+    "sha256": "07c7c7074180a1a8e8d96bdd9a04fcbb2bc413dee3f51e6bf9da73ed03936abf"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/smart.html",
+    "bytes": 5786,
+    "sha256": "9deb0466cad498ad0174212bead397236af9c74831b1497d7e6fd147631a946f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/pro/work.html",
+    "bytes": 5742,
+    "sha256": "188cb11b3b49bc4055d1102f7e5ca84e0459d282af2af1d74515184fd20864cb"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/sitemap.html",
+    "bytes": 7559,
+    "sha256": "52429f1d9a9fec829c1e06b6d9e6c43cabd3adaf3fc32b78033a2d81b76f1d68"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/sources.html",
+    "bytes": 7720,
+    "sha256": "e33d6d7826e9aa17a9bc807ac3d15fb9f28e70f9d76139306cba0c405a13bc63"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/technology.html",
+    "bytes": 7249,
+    "sha256": "2a4b86d267ccf0aeccf56351bbbc31cebb221f48107c2becb38cf6d740a1d070"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/encyclopedia.html",
+    "bytes": 5819,
+    "sha256": "c10d712f55b2d5553187a5adc976e53419c5a56b2cb241a86ef48d0529e526e7"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/index.html",
+    "bytes": 6908,
+    "sha256": "7caedd0382dc299b07f00cbea66ed111588de3bd89aecad456243cec0ebc5140"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/precedent.html",
+    "bytes": 5555,
+    "sha256": "2ca9e0aebe018721487024364c555027e58e70f7a62ef19519252d1046a47292"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_ATLAS_SITE/wiki/search.html",
+    "bytes": 5794,
+    "sha256": "200c83e0381b618ceb71cc9530897bf60132dfb6157da97e26cf420ee6224092"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/BRAND_ARCHITECTURE.md",
+    "bytes": 2347,
+    "sha256": "9ff00d9e16780f5302ff268021a457948c7bdd66dafd19aaeecd8cdf36ee721f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/INTEGRATION_PLAN.md",
+    "bytes": 4993,
+    "sha256": "f7ddad90112becb83ddf8b2c35f77f09352d2cdfbe282eee2642a4d92e69751d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/PAGES.json",
+    "bytes": 4098,
+    "sha256": "c4e784b4671ba6d369e0225b9af53b0d4fdbd3078004b055016507d30fcf6e13"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/QA_REPORT.json",
+    "bytes": 4008,
+    "sha256": "bd7c709c723a8940d54bad2b5b87b00c2543094957965f9d6e66c12aad39be35"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/README.md",
+    "bytes": 3012,
+    "sha256": "45f2e527b8498d11086e5a17bf7fab9dc3ec4eb5d4ec586265c0e40089c169a7"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/about.html",
+    "bytes": 6015,
+    "sha256": "534833bfe0b58b0b388a7dda2b7a8278245da9c6513f425876c51280c6346ded"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/brand-concept.jpg",
+    "bytes": 228139,
+    "sha256": "9bd53684431bb821be33a7632b4270d12025091b79af146a1ae8d92224f9742f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/hero-city.jpg",
+    "bytes": 242527,
+    "sha256": "5e50e95e1230a1f925a33ddeea27946434973a1de7fa6c25b409dfeb8180b76d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/hero-finance.jpg",
+    "bytes": 190114,
+    "sha256": "a19729dbf327d6132cd51a13a6b0cbe30abe4beb5728c781ba3564884968334f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/hero-global.jpg",
+    "bytes": 456379,
+    "sha256": "6930a39d620d948287a5893f5642c5f2e0b60427b68828dff4111f52c2d88693"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/hero-law.jpg",
+    "bytes": 290074,
+    "sha256": "9e65f564443491db9dc00f0803f3372eeaabf0b7eea2b1af955f8394e8d31a71"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/hero-network.jpg",
+    "bytes": 171138,
+    "sha256": "bc0fa99aa703a86ad6181818ac8e36ce2eb944a1201f7cfdf2ba7d42a6cf5458"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/site.css",
+    "bytes": 30925,
+    "sha256": "b012e264a3e02746a1645d22838ccb1ab31f5172f628f037c2ec5c84589a7831"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/assets/site.js",
+    "bytes": 4703,
+    "sha256": "7d7a3aa68c6b2d8b34b9e3846c9cad1bb195d1223cd672178530e0d8c0a3c353"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/contact.html",
+    "bytes": 4638,
+    "sha256": "1deee057da2907537c45fd6242744b26a7b97527c36518b2babc307cfe5cfd70"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/index.html",
+    "bytes": 11952,
+    "sha256": "15e238fc782921ba04244c7dc0f56907d777f9360629412c66c00ef924e7c216"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/index.html",
+    "bytes": 7507,
+    "sha256": "12307baf0e463115e973eeae6df1cca9d1e7f27c52a5a2d301c378353aeedcca"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/issue-01.html",
+    "bytes": 4950,
+    "sha256": "b0f834bda47f7137c880bd8fe32169781c66fbc55d29d22f6ccdd53673b7eea6"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/issue-02.html",
+    "bytes": 4967,
+    "sha256": "47f590540c701d89a858f0b48745adfa902ed236886fddb70c957cc17b3c19a3"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/korea-economy.html",
+    "bytes": 7067,
+    "sha256": "0bc64e009887075f5ddbe2ed42398b4de56b411d305af0039dca198e28ce9f65"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/market-intelligence.html",
+    "bytes": 6687,
+    "sha256": "dae28ee64293b22cbe654db46d83d1234171715bcde9bebbdd7e629a2d974e54"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/newsletter.html",
+    "bytes": 5831,
+    "sha256": "ee8446de704c8986759da462ca5e3a90c9c71d3e03683dbf12c05cab8c2a65b6"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/journal/us-markets.html",
+    "bytes": 7606,
+    "sha256": "5cecd7a345912876f7ea352b0eb3a43f3012a8511d98f56008ead6f103630060"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/legal/privacy.html",
+    "bytes": 4286,
+    "sha256": "fc0a1e315f906d7b5280149497be5ab872b864909d4d42eee55d7bcb01c3e05e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/legal/terms.html",
+    "bytes": 4301,
+    "sha256": "f7a6eed393baea71bca58b1879ca92f891a26b01e75766cb65bfb4cc87ce924b"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/litigation/dashboard.html",
+    "bytes": 290,
+    "sha256": "8ac9ebcd2df602a31f7989f41a9097a652c6f74fe120a8362a82529775710405"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/litigation/index.html",
+    "bytes": 282,
+    "sha256": "aa061554058d62c9f75b71d7f07a6a037d7b774c5749e515e5079aaa3ebe9ffd"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/methodology.html",
+    "bytes": 5174,
+    "sha256": "59c5067d820dac3dae85a525750873a676d1ecf2e1cc2fcfef97b02af5f4349e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/note/index.html",
+    "bytes": 6479,
+    "sha256": "82fb4b60d2fce066adf09b54ea04d6c8486ea4e1ce19014728b9ebf0e3ba9f15"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/note/workspace.html",
+    "bytes": 5617,
+    "sha256": "08d852a95eaadd2e73efc57820abce02c2621ec1d9ffc38549a6498d228445c6"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pan/index.html",
+    "bytes": 7141,
+    "sha256": "33aea630b8718fbac9632532291b00bc4e470d228c8f2989059508098772bc4d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pan/lawyer.html",
+    "bytes": 5324,
+    "sha256": "3845911903e6ae41a27d4066910532d4ec349853fc13f3a9cb62ad64445dd799"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/payment.html",
+    "bytes": 11164,
+    "sha256": "8b1b5ccbcaa2a72a256dd0912c12c603a177784ea4ced330152e551ed3cb21da"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/ALL_PAGES_CONTACT_SHEET.jpg",
+    "bytes": 734568,
+    "sha256": "37ba446d48785eaf0a9382a59a57cb963729b5cbe312b2a286a876af3a93e6d8"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/FULL--journal--index.png",
+    "bytes": 1171558,
+    "sha256": "8bc22f99db058e6a34e122dacc1278a2e7ccb8761a8071c7647530d5fc5187d4"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/MOBILE--pro--index.png",
+    "bytes": 88253,
+    "sha256": "536ab7dc7cf78037c0e98b55b59d69222c675edf385acae2134dffae271203dc"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/index.png",
+    "bytes": 271936,
+    "sha256": "03bcce7fa6052965eb922bcf19b453ecd02d75db307884815ba6c19575d34e80"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/journal--index.png",
+    "bytes": 278683,
+    "sha256": "320874cf0a9c4127776dfeaee77eeb370cb93e1200f803e0616dff1e2920a883"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/previews/pro--index.png",
+    "bytes": 281912,
+    "sha256": "c5c55e23350b3a5c7f477e227a58f725da48467622d22a561f632f4c5bc00640"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pricing.html",
+    "bytes": 7086,
+    "sha256": "ad654fbd195ef63d848b73aa718d49235ed0f60fdd8db04f7ff7f29d744d94a9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/beta.html",
+    "bytes": 6988,
+    "sha256": "5c29063fd2b4a2af6dcb3552a83166b070149fc7c5fd30b02e33a2c292f793d4"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/case.html",
+    "bytes": 5789,
+    "sha256": "957d19ff760796189f571da24e413a3136d78b937158ee847591aed89a24e4ba"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/dashboard.html",
+    "bytes": 4939,
+    "sha256": "13c8f4b6b9ccd4636c388cb5146391236c6e7a57d99e88f50e4ab49c22de5137"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/desk.html",
+    "bytes": 5703,
+    "sha256": "3078468af4ab1ad7f6c2688f2d5a2ab4a19d9a8e742a467f1ae2ee37c9efda7e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/enterprise.html",
+    "bytes": 5782,
+    "sha256": "017fa14cba5eeea0381c0317529c9204aaf56eae0ef36c24dd86d2ac38c3beb1"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/flow.html",
+    "bytes": 5705,
+    "sha256": "03b8497fb2d060c74dca1e8f34ac92d15ac44e1e81e93d29fc15e9e8ae79e082"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/hub.html",
+    "bytes": 5824,
+    "sha256": "52dd3ddf67a946c745a293b8a4d526eca7defdd45ead9954d372115c0ab54608"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/index.html",
+    "bytes": 9158,
+    "sha256": "070b8393113dd51f8474d4d112372887c9013187f73d5124401aaaa1005dcbd9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/smart.html",
+    "bytes": 5774,
+    "sha256": "8ce4e55590af143fdf7b8996907851748e443249be0339d1597c9191d4bc9611"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/pro/work.html",
+    "bytes": 5730,
+    "sha256": "526d68c81f46133fbbd720cd518551b7d7e6841e6d92a778db8bec87c77eb08a"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/sitemap.html",
+    "bytes": 7547,
+    "sha256": "d725902b823d5f9ad92729c7edd9ae6830ce5d846df1eec1f76ede7a8bf8cb38"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/sources.html",
+    "bytes": 7708,
+    "sha256": "0507a9637712cecfe38a945981473c1404afa278a1f97b2f143ba321c07f4325"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/technology.html",
+    "bytes": 7237,
+    "sha256": "cbc3f35c08fe684ece34a4517cad180b247cfcbc7b8ffe303ef3a109cc2e35e0"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/encyclopedia.html",
+    "bytes": 5807,
+    "sha256": "2518561d945771825adf215e4fc21038e513ceb3436267bd3fb1eb0f36e14930"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/index.html",
+    "bytes": 6896,
+    "sha256": "da01faebc38dfec94d774e3b0c619ffe49e68301e7f764ae59944b7a7f3f5d69"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/precedent.html",
+    "bytes": 5543,
+    "sha256": "5d1dc7ad938dc5e5e3637d84b79955894d3651b37eee804304d638e6b188c3dd"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_PAYMENT_COMPLETE_SITE/wiki/search.html",
+    "bytes": 5782,
+    "sha256": "144237ca5f4e95ef75e37e6269922b17f88558861555f9729718744513b7bf5e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/BRAND_ARCHITECTURE.md",
+    "bytes": 2347,
+    "sha256": "9ff00d9e16780f5302ff268021a457948c7bdd66dafd19aaeecd8cdf36ee721f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/INTEGRATION_PLAN.md",
+    "bytes": 4993,
+    "sha256": "f7ddad90112becb83ddf8b2c35f77f09352d2cdfbe282eee2642a4d92e69751d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/PAGES.json",
+    "bytes": 4098,
+    "sha256": "c4e784b4671ba6d369e0225b9af53b0d4fdbd3078004b055016507d30fcf6e13"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/QA_REPORT.json",
+    "bytes": 4008,
+    "sha256": "bd7c709c723a8940d54bad2b5b87b00c2543094957965f9d6e66c12aad39be35"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/README.md",
+    "bytes": 3012,
+    "sha256": "45f2e527b8498d11086e5a17bf7fab9dc3ec4eb5d4ec586265c0e40089c169a7"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/WSJ_DESIGN_RESEARCH.md",
+    "bytes": 960,
+    "sha256": "b9509bc620f96563c8f3756bb43dfc9d3879e5b6310ea539ae78b5d37d5f4a17"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/WSJ_QA.json",
+    "bytes": 53,
+    "sha256": "44cea56867fb9b93edda19698ea557de419c8e8d71207deddc696013ee46654d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/about.html",
+    "bytes": 6015,
+    "sha256": "534833bfe0b58b0b388a7dda2b7a8278245da9c6513f425876c51280c6346ded"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/brand-concept.jpg",
+    "bytes": 228139,
+    "sha256": "9bd53684431bb821be33a7632b4270d12025091b79af146a1ae8d92224f9742f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/hero-city.jpg",
+    "bytes": 242527,
+    "sha256": "5e50e95e1230a1f925a33ddeea27946434973a1de7fa6c25b409dfeb8180b76d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/hero-finance.jpg",
+    "bytes": 190114,
+    "sha256": "a19729dbf327d6132cd51a13a6b0cbe30abe4beb5728c781ba3564884968334f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/hero-global.jpg",
+    "bytes": 456379,
+    "sha256": "6930a39d620d948287a5893f5642c5f2e0b60427b68828dff4111f52c2d88693"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/hero-law.jpg",
+    "bytes": 290074,
+    "sha256": "9e65f564443491db9dc00f0803f3372eeaabf0b7eea2b1af955f8394e8d31a71"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/hero-network.jpg",
+    "bytes": 171138,
+    "sha256": "bc0fa99aa703a86ad6181818ac8e36ce2eb944a1201f7cfdf2ba7d42a6cf5458"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/journal-editorial.css",
+    "bytes": 9801,
+    "sha256": "2b6ed91ea259e2b3663ce566285fdb052f725d8c44dfd82fd59ccae130207ff8"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/journal-editorial.js",
+    "bytes": 2007,
+    "sha256": "428980a4c8e23363c7a4a25b584c11057d1f41a2c315e6bb8ca60ed7d36bd075"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/site.css",
+    "bytes": 30925,
+    "sha256": "b012e264a3e02746a1645d22838ccb1ab31f5172f628f037c2ec5c84589a7831"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/assets/site.js",
+    "bytes": 4703,
+    "sha256": "7d7a3aa68c6b2d8b34b9e3846c9cad1bb195d1223cd672178530e0d8c0a3c353"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/contact.html",
+    "bytes": 4638,
+    "sha256": "1deee057da2907537c45fd6242744b26a7b97527c36518b2babc307cfe5cfd70"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/index.html",
+    "bytes": 11952,
+    "sha256": "15e238fc782921ba04244c7dc0f56907d777f9360629412c66c00ef924e7c216"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/index.html",
+    "bytes": 8176,
+    "sha256": "4e62d07bd37b47a90b97ec23c576b8498e2a505ef2b78d42b6e8a0c263b0314f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/issue-01.html",
+    "bytes": 8413,
+    "sha256": "7976fb4e1ee893b8e98dcc7ffb6e214b035a5d3770708ebd8faa6966a1ba9a3f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/issue-02.html",
+    "bytes": 8418,
+    "sha256": "834674b357fd0761c5a050b79dfe2b71e76cf7a5db72e7d14487000e699f26c1"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/korea-economy.html",
+    "bytes": 8420,
+    "sha256": "1c44bb8dfccd1439a415722c0d03f7c95d27ed0cac446fccde3ef705389a7f05"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/law-section.html",
+    "bytes": 3981,
+    "sha256": "c96a1cd92148a4143700a78b87c0d251fe5fbe7b161f1418d833efc0e0249a30"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/legal-intelligence.html",
+    "bytes": 8401,
+    "sha256": "75b4d5556afa24a96a594452c7ac141987ecf5e5a470a83d57c8b8da5e7efe0d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/market-intelligence.html",
+    "bytes": 8423,
+    "sha256": "c5af7d6eb10fc939e0fdf46cc7d754ae9fdbb2c4d990d8f265713d2418222eac"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/newsletter.html",
+    "bytes": 5308,
+    "sha256": "1d9ce2272031295fcc99840d90fc7a69880be2814e5cfd33f276e22fa492d83f"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/journal/us-markets.html",
+    "bytes": 8447,
+    "sha256": "26eb4a547b7dab135f2c2d58f3f9e36e55ad01df930571e5d755db9417dc8255"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/legal/privacy.html",
+    "bytes": 4286,
+    "sha256": "fc0a1e315f906d7b5280149497be5ab872b864909d4d42eee55d7bcb01c3e05e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/legal/terms.html",
+    "bytes": 4301,
+    "sha256": "f7a6eed393baea71bca58b1879ca92f891a26b01e75766cb65bfb4cc87ce924b"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/litigation/dashboard.html",
+    "bytes": 290,
+    "sha256": "8ac9ebcd2df602a31f7989f41a9097a652c6f74fe120a8362a82529775710405"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/litigation/index.html",
+    "bytes": 282,
+    "sha256": "aa061554058d62c9f75b71d7f07a6a037d7b774c5749e515e5079aaa3ebe9ffd"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/methodology.html",
+    "bytes": 5174,
+    "sha256": "59c5067d820dac3dae85a525750873a676d1ecf2e1cc2fcfef97b02af5f4349e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/note/index.html",
+    "bytes": 6479,
+    "sha256": "82fb4b60d2fce066adf09b54ea04d6c8486ea4e1ce19014728b9ebf0e3ba9f15"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/note/workspace.html",
+    "bytes": 5617,
+    "sha256": "08d852a95eaadd2e73efc57820abce02c2621ec1d9ffc38549a6498d228445c6"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pan/index.html",
+    "bytes": 7141,
+    "sha256": "33aea630b8718fbac9632532291b00bc4e470d228c8f2989059508098772bc4d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pan/lawyer.html",
+    "bytes": 5324,
+    "sha256": "3845911903e6ae41a27d4066910532d4ec349853fc13f3a9cb62ad64445dd799"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/payment.html",
+    "bytes": 11164,
+    "sha256": "8b1b5ccbcaa2a72a256dd0912c12c603a177784ea4ced330152e551ed3cb21da"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/ALL_PAGES_CONTACT_SHEET.jpg",
+    "bytes": 734568,
+    "sha256": "37ba446d48785eaf0a9382a59a57cb963729b5cbe312b2a286a876af3a93e6d8"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/FULL--journal--index.png",
+    "bytes": 1649353,
+    "sha256": "5d0d9cc4b4aa694301cd6ac2442bc6a23301b35eadf7965484ec55ceee0e9bdb"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/MOBILE--pro--index.png",
+    "bytes": 88253,
+    "sha256": "536ab7dc7cf78037c0e98b55b59d69222c675edf385acae2134dffae271203dc"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/index.png",
+    "bytes": 271936,
+    "sha256": "03bcce7fa6052965eb922bcf19b453ecd02d75db307884815ba6c19575d34e80"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/journal--index.png",
+    "bytes": 414591,
+    "sha256": "fa578b85ba616ecef69518d3fb9724c90489bcf375798d265a00d41b9188106d"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/previews/pro--index.png",
+    "bytes": 281912,
+    "sha256": "c5c55e23350b3a5c7f477e227a58f725da48467622d22a561f632f4c5bc00640"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pricing.html",
+    "bytes": 7086,
+    "sha256": "ad654fbd195ef63d848b73aa718d49235ed0f60fdd8db04f7ff7f29d744d94a9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/beta.html",
+    "bytes": 6988,
+    "sha256": "5c29063fd2b4a2af6dcb3552a83166b070149fc7c5fd30b02e33a2c292f793d4"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/case.html",
+    "bytes": 5789,
+    "sha256": "957d19ff760796189f571da24e413a3136d78b937158ee847591aed89a24e4ba"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/dashboard.html",
+    "bytes": 4939,
+    "sha256": "13c8f4b6b9ccd4636c388cb5146391236c6e7a57d99e88f50e4ab49c22de5137"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/desk.html",
+    "bytes": 5703,
+    "sha256": "3078468af4ab1ad7f6c2688f2d5a2ab4a19d9a8e742a467f1ae2ee37c9efda7e"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/enterprise.html",
+    "bytes": 5782,
+    "sha256": "017fa14cba5eeea0381c0317529c9204aaf56eae0ef36c24dd86d2ac38c3beb1"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/flow.html",
+    "bytes": 5705,
+    "sha256": "03b8497fb2d060c74dca1e8f34ac92d15ac44e1e81e93d29fc15e9e8ae79e082"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/hub.html",
+    "bytes": 5824,
+    "sha256": "52dd3ddf67a946c745a293b8a4d526eca7defdd45ead9954d372115c0ab54608"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/index.html",
+    "bytes": 9158,
+    "sha256": "070b8393113dd51f8474d4d112372887c9013187f73d5124401aaaa1005dcbd9"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/smart.html",
+    "bytes": 5774,
+    "sha256": "8ce4e55590af143fdf7b8996907851748e443249be0339d1597c9191d4bc9611"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/pro/work.html",
+    "bytes": 5730,
+    "sha256": "526d68c81f46133fbbd720cd518551b7d7e6841e6d92a778db8bec87c77eb08a"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/sitemap.html",
+    "bytes": 7547,
+    "sha256": "d725902b823d5f9ad92729c7edd9ae6830ce5d846df1eec1f76ede7a8bf8cb38"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/sources.html",
+    "bytes": 7708,
+    "sha256": "0507a9637712cecfe38a945981473c1404afa278a1f97b2f143ba321c07f4325"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/technology.html",
+    "bytes": 7237,
+    "sha256": "cbc3f35c08fe684ece34a4517cad180b247cfcbc7b8ffe303ef3a109cc2e35e0"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/encyclopedia.html",
+    "bytes": 5807,
+    "sha256": "2518561d945771825adf215e4fc21038e513ceb3436267bd3fb1eb0f36e14930"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/index.html",
+    "bytes": 6896,
+    "sha256": "da01faebc38dfec94d774e3b0c619ffe49e68301e7f764ae59944b7a7f3f5d69"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/precedent.html",
+    "bytes": 5543,
+    "sha256": "5d1dc7ad938dc5e5e3637d84b79955894d3651b37eee804304d638e6b188c3dd"
+  },
+  {
+    "path": "02_이전버전_원본소스/LAWYGO_WSJ_EDITORIAL_SITE/wiki/search.html",
+    "bytes": 5782,
+    "sha256": "144237ca5f4e95ef75e37e6269922b17f88558861555f9729718744513b7bf5e"
+  },
+  {
+    "path": "02_이전버전_원본소스/lawygo_journal/README.md",
+    "bytes": 2462,
+    "sha256": "5177b71894198bd858ef57a8cfbb1e353d3b2c88a06674186934f523e6646c9a"
+  },
+  {
+    "path": "02_이전버전_원본소스/lawygo_journal/index.html",
+    "bytes": 48685,
+    "sha256": "dca2ed7d7688bbca3fa7e57a9d5627bfecc48f2af4fda4e8f06d7e31682a8ed4"
+  },
+  {
+    "path": "02_이전버전_원본소스/lawygo_journal/newsletter-email.html",
+    "bytes": 4757,
+    "sha256": "8a16adcf4e55472596e13938d6871726e72f11f79b299f086a8718917629b310"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_WSJ_ALL_PAGES.jpg",
+    "bytes": 239085,
+    "sha256": "e55c6201f03ce55f2c4e4144047a7ae77602a1451ffad55f558b81f42d9d0856"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_cover_preview.png",
+    "bytes": 393537,
+    "sha256": "c25e023e40c96fba3ad0586b8cac555c1cb6232038da148bc6ef271c1319bedf"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_desktop_preview.png",
+    "bytes": 410982,
+    "sha256": "207e16c6d691528dba94f74d52b4e28dcd0af6b245cbffa7351534c8e45f10ee"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_hero_preview.png",
+    "bytes": 470966,
+    "sha256": "a05de664233df5a936979f0799a1d25a8a784939f50a3c62dcf69bb7134bf7eb"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_mobile_preview.png",
+    "bytes": 203990,
+    "sha256": "8844b81c4f543a72a013805a7cac806b89b5a178cdffa1f4f3929d9e7079ceaa"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_JOURNAL_mobile_small.png",
+    "bytes": 203990,
+    "sha256": "8844b81c4f543a72a013805a7cac806b89b5a178cdffa1f4f3929d9e7079ceaa"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_PARTNERSHIP_PREVIEW.jpg",
+    "bytes": 239085,
+    "sha256": "e55c6201f03ce55f2c4e4144047a7ae77602a1451ffad55f558b81f42d9d0856"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_PRO_BRAND_PREVIEW.jpg",
+    "bytes": 239085,
+    "sha256": "e55c6201f03ce55f2c4e4144047a7ae77602a1451ffad55f558b81f42d9d0856"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/LAWYGO_교정완료_6개주요화면.jpg",
+    "bytes": 258183,
+    "sha256": "ad150e58c9cf7149ab95e60044797ea872751dff7c4885e8ab3895c1e5f80a06"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/a_clean_corporate_website_mockup_landing_page_de.png",
+    "bytes": 561688,
+    "sha256": "9d89cfaba17398b0b4f3f2823b7011dd26d1c7fa1b288fecaa525de093a955d6"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/a_clean_professional_corporate_brand_and_website.png",
+    "bytes": 561688,
+    "sha256": "9d89cfaba17398b0b4f3f2823b7011dd26d1c7fa1b288fecaa525de093a955d6"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/a_wide_infographic_portfolio_style_promotional_pos.png",
+    "bytes": 561688,
+    "sha256": "9d89cfaba17398b0b4f3f2823b7011dd26d1c7fa1b288fecaa525de093a955d6"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/logo_crop_test.png",
+    "bytes": 43523,
+    "sha256": "831dab3c84843c3cedb48eb9bf028c81dc17b5448f3edf32e84625607f118d93"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/partnership_hero_crop_test.png",
+    "bytes": 182090,
+    "sha256": "2b515febb673954222873d389b235eb3eeeea7e5ce87d69234999b6e7dc42e11"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/preview_small.png",
+    "bytes": 100511,
+    "sha256": "f00a61bdb45eb94ca817b1575be8b0e0ab2840cd9c25123a435da95e950450f2"
+  },
+  {
+    "path": "03_별도_AI_이미지_대표_미리보기/wide_cinematic_futuristic_composite_illustration.png",
+    "bytes": 2669174,
+    "sha256": "4f0039165a1a40e5e6af0d123dfb76304d68b6cfb01e3f8cd73d163f39b7aade"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/add_payment_lawygo.py",
+    "bytes": 9436,
+    "sha256": "b5f7fd2b236815354604c9420a998efb4e9dd0704fb35b43412fe919aab6f372"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/build_lawygo.py",
+    "bytes": 88861,
+    "sha256": "b8bc88fb07e8e51d990a1e1e4a51cd1a438fd0a874b3f4e4083f5ba9e870910e"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/build_lawygo_partnership.py",
+    "bytes": 40629,
+    "sha256": "17bb012c2303454c74b9dda234144bccfa1931222b5facffddfc39482c8a3cbb"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/create_lawygo_mou.py",
+    "bytes": 4874,
+    "sha256": "12aa0decd11f358ad303d926fcbe201c9930f84e4f934b178034ec36e0e6ecf4"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/extra_preview.py",
+    "bytes": 1235,
+    "sha256": "100cb35475e1e1e5f0a8fe28b232f220c769ab6c58b1e744837d99c585789b13"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/finalize_lawygo_atlas.py",
+    "bytes": 12952,
+    "sha256": "850e8ce2ce18ce2ecd44a90070409feae8def1fd06481de15233d6713ccae554"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/patch_lawygo_pro.py",
+    "bytes": 22522,
+    "sha256": "0ac50907047de114cd4a61584ad7f31233da32509eff182d3c526f180edf548b"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/render_lawygo_inline.py",
+    "bytes": 4994,
+    "sha256": "2c6e265160a4db13f235bda0990dbca467adbaa408da5d71810dd75165ffed26"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/render_wsj.py",
+    "bytes": 2662,
+    "sha256": "311158fee0532d027ab8849f4f0521ef3216ce28d05fcdb2877a04ae71cb1323"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/test_lawygo_interaction.py",
+    "bytes": 2151,
+    "sha256": "43f97f1319abf4761258fdb9ba4dfecc097c698d767109771b89c605a25df3b5"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/test_lawygo_mobile.py",
+    "bytes": 1086,
+    "sha256": "60cc6d6c722b8046074dbbba7eff149fb062c892283e169d8b3097a2ca3eee74"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/test_lawygo_render.py",
+    "bytes": 2501,
+    "sha256": "d631cb84d121264f90ec9700bbbf35946a01354280e5e023f6f76ebc4120ce14"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/update_lawygo_korea_contact.py",
+    "bytes": 12325,
+    "sha256": "6528db914d55107dcb33c66980a8613071e33c3c946732442b51631901c0fb63"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/upgrade_journal_wsj.py",
+    "bytes": 30163,
+    "sha256": "72bf6ce2387875da9708dd896bcedd8c6607da3fb77dc0955301e691fb4d6420"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/verify_lawygo_atlas.py",
+    "bytes": 4881,
+    "sha256": "2fcafd09317dde9da030420c76778c274c73d05e2e1b4e7550225d82842d7dbd"
+  },
+  {
+    "path": "04_개발_빌드_QA_스크립트/verify_lawygo_partnership.py",
+    "bytes": 3177,
+    "sha256": "2815958da8a034e0cda5ba3bf0ba1e99bf9baf819f867a7416f978d05a1c5ce3"
+  },
+  {
+    "path": "05_사용자_원본_참고이미지/1793206761151.jpeg",
+    "bytes": 260735,
+    "sha256": "66d453f13185fdb8614fa885d8b72bb6230f4b65a752d725805bcbb26fc6f295"
+  },
+  {
+    "path": "05_사용자_원본_참고이미지/1793207959751.jpeg",
+    "bytes": 268955,
+    "sha256": "684ac83ce6f39d187fdb3b8d0b02d9acb3ca7caeaf3afdee69a526f718f15000"
+  },
+  {
+    "path": "05_사용자_원본_참고이미지/1793210107739.jpeg",
+    "bytes": 267822,
+    "sha256": "aaaf458c452a9719c176f96add546d03a4124d1d6758cc2752790ba7d43b90ff"
+  },
+  {
+    "path": "05_사용자_원본_참고이미지/27939.jpg",
+    "bytes": 317810,
+    "sha256": "a37cf6d570d27e99d4b11506d6ae5667c391a0af6421f3356dab168de76187fe"
+  },
+  {
+    "path": "05_사용자_원본_참고이미지/27943.jpg",
+    "bytes": 47930,
+    "sha256": "313bdb390538944cd244685855b2357500c3cc07fb1d5beff935a5c7130ad2cc"
+  },
+  {
+    "path": "06_MOU_렌더검수/LAWYGO_법무법인_MOU_약정서.pdf",
+    "bytes": 233087,
+    "sha256": "81c48df625f1eca37dbd413766660c8493fbbf787e9bd28b7e7543d973db9b61"
+  },
+  {
+    "path": "06_MOU_렌더검수/page-1.png",
+    "bytes": 376251,
+    "sha256": "9f939637a26ce340fa3e9d3aa9d4d2cf9106bc4e6a22192cc8c1de0f71715e6a"
+  },
+  {
+    "path": "06_MOU_렌더검수/page-2.png",
+    "bytes": 426167,
+    "sha256": "46267b0132727054e47f696825f2643013bbe9b72d24a44dbed3c11d32fa7eed"
+  },
+  {
+    "path": "06_MOU_렌더검수/page-3.png",
+    "bytes": 374456,
+    "sha256": "c4626e9c7532bbc61a8258f92ced282a024cf68b83526ba0d8e597c394d4d9b3"
+  },
+  {
+    "path": "한글_문법_이미지_검수_결과.json",
+    "bytes": 12812,
+    "sha256": "d24d5c8f4782aa9602a09755e86bf793ccd30c6795d5ecc90a1c940926fc5fef"
+  }
+]
