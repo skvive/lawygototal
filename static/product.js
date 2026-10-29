@@ -41,8 +41,8 @@ const JOURNAL_IMGS = [
 const PAN_IMGS = [
   '/static/img/editorial/pan-blog-1.png',
   '/static/img/editorial/pan-blog-2.png',
-  '/static/img/editorial/pan-hero.png',
   '/static/img/editorial/journal-side.jpg',
+  '/static/img/editorial/journal-lead.jpg',
 ];
 
 const api = async (url) => {
@@ -99,7 +99,7 @@ function injectChrome() {
       <section class="pan-hero"><div class="wrap">
         <div><div class="eyebrow">LAWYGO PAN</div><h1>변호사 블로그</h1>
         <p>쉽게 읽는 법률 정보와 변호사의 전문 콘텐츠를 한곳에서 만나보세요.</p></div>
-        <img class="pan-hero-visual" src="/static/img/editorial/pan-hero.png" alt="LAWYGO PAN 블로그 허브">
+        <img class="pan-hero-visual" src="/static/img/editorial/pan-blog-1.png" alt="LAWYGO PAN 블로그 허브">
       </div></section>`;
     const toolbar = document.querySelector('.toolbar');
     const chips = el('div', '', 'pan-chips');

@@ -556,6 +556,38 @@ def health(db=Depends(database)):
     db.execute('SELECT 1').fetchone()
     return {'ok':True,'storage':storage_label(),'engine':'LAWYGO CMS','public_url':os.environ.get('LAWYGO_PUBLIC_URL','')}
 
+import journal_feed
+
+@app.get('/api/journal/feed')
+async def journal_feed_api(db=Depends(database)):
+    tenant=DEFAULT_TENANT
+    rows=db.execute(
+        '''SELECT p.id,p.kind,p.title,p.summary,p.updated_at FROM posts p
+           JOIN boards b ON p.board_id=b.id
+           WHERE p.tenant=? AND b.deleted_at IS NULL AND p.deleted_at IS NULL
+           AND p.product='channel' AND p.status='published' AND p.visibility='public'
+           ORDER BY p.updated_at DESC LIMIT 12''',
+        (tenant,),
+    ).fetchall()
+    editorial=journal_feed.editorial_from_posts([dict(x) for x in rows])
+    wire=await journal_feed.load_wire_items()
+    us=[x for x in wire if x['region']=='us'][:20]
+    kr=[x for x in wire if x['region']=='kr'][:20]
+    lead=(editorial[:1] or us[:1] or kr[:1] or [])
+    return {
+        'lead':lead[0] if lead else None,
+        'editorial':editorial,
+        'us':us,
+        'kr':kr,
+        'disclaimer':'RSS 헤드라인·요약만 표시합니다. 전문은 각 언론사 원문에서 확인하세요. LAWYGO는 제3자 기사의 편집자가 아닙니다.',
+    }
+
+@app.get('/journal')
+def journal_page():return FileResponse(ROOT/'static'/'journal.html')
+@app.get('/channel')
+def channel_hub():return FileResponse(ROOT/'static'/'channel.html')
+@app.get('/pro')
+def pro_page():return FileResponse(ROOT/'static'/'pro.html')
 @app.get('/')
 def home():return FileResponse(ROOT/'static'/'index.html')
 @app.get('/dashboard')
