@@ -12,7 +12,7 @@ LAWYGO CMS v3 is a **multi-product content engine** for the LAWYGO legal platfor
 | **NOTE** | 비공개 연구·초안(테넌트 격리) | `note.lawygo.com` → `/p/note` |
 | **Hub / bridge** | 메인 SaaS·연동 API | `lawygo.com` | 
 
-Staging on LexID maps the same four products to **one FastAPI deployment** at `https://rerand.lexid.site` (paths above). Newsletter and OG defaults use `LAWYGO_NEWSLETTER_BASE_URL`.
+Staging on LexID maps the same four products to **one FastAPI deployment** at `https://lawygo.lexid.site` (paths above). Newsletter and OG defaults use `LAWYGO_NEWSLETTER_BASE_URL`.
 
 ## Required Vercel environment variables
 
@@ -39,7 +39,7 @@ vercel env add DATABASE_URL production
 vercel env add LAWYGO_BOOTSTRAP_EMAIL production
 vercel env add LAWYGO_BOOTSTRAP_PASSWORD production
 vercel --prod
-vercel domains add rerand.lexid.site
+vercel domains add lawygo.lexid.site lawygototal-rerand
 ```
 
 After first deploy, open `/api/health` and sign in at `/dashboard`.

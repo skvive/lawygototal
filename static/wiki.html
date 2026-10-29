@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LAWYGO WIKI · 온라인 법률백과</title>
+  <link rel="stylesheet" href="/static/atlas/site.css">
+  <link rel="stylesheet" href="/static/atlas/overrides.css">
+</head>
+<body class="atlas-page" data-product="wiki">
+  <div data-lawygo-nav></div>
+  <section class="hero hero-dark">
+    <div class="hero-bg hero-law"></div>
+    <div class="hero-over"></div>
+    <div class="wrap hero-content">
+      <div>
+        <div class="hero-kicker">LAWYGO WIKI / LEGAL KNOWLEDGE GRAPH</div>
+        <h1>찾는 것을 넘어,<br><i>법리를 연결합니다.</i></h1>
+        <p>Atlas wiki/index.html · 판례·법령·백과 검색</p>
+      </div>
+    </div>
+  </section>
+  <section class="cream"><div class="wrap">
+    <form class="knowledge-search" id="wiki-search-form">
+      <span class="eyebrow">EXPLORE THE LAW</span>
+      <label for="wikiq">어떤 법률정보를 찾고 계신가요?</label>
+      <div><input id="wikiq" name="q" placeholder="예: 공시의무, 손해배상" required><button type="submit">지식 검색 →</button></div>
+    </form>
+    <div class="search-layout" style="margin-top:32px">
+      <div class="facet-panel"><h3>결과</h3><small id="wiki-count">0건</small></div>
+      <div id="wiki-results"></div>
+    </div>
+  </div></section>
+  <section class="white"><div class="wrap">
+    <div class="sec-heading"><div><span class="eyebrow">ENCYCLOPEDIA FEED</span><h2>공개 위키 글</h2></div></div>
+    <div class="editorial-grid" id="wiki-feed"></div>
+  </div></section>
+  <script src="/static/site-nav.js"></script>
+  <script src="/static/wiki-page.js" defer></script>
+</body>
+</html>

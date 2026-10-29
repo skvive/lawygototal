@@ -595,7 +595,9 @@ def dashboard_page():return FileResponse(ROOT/'static'/'dashboard.html')
 @app.get('/p/{product}')
 def product_page(product:str):
     if product not in PRODUCTS:err(404,'서비스가 없습니다.')
-    return FileResponse(ROOT/'static'/'product.html')
+    shells={'wiki':'wiki.html','pan':'pan.html','note':'note.html','channel':'product.html'}
+    name=shells.get(product,'product.html')
+    return FileResponse(ROOT/'static'/name)
 
 import integrations_v2
 integrations_v2.register(app, globals())

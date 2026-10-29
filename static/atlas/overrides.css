@@ -1,0 +1,7 @@
+.hero-bg.hero-finance { background-image: url(/static/img/journal/hero-markets.jpg) !important; }
+.hero-bg.hero-law { background-image: url(/static/img/editorial/journal-lead.jpg) !important; }
+.hero-bg.hero-network { background-image: url(/static/img/editorial/journal-side.jpg) !important; }
+.hero-bg.hero-city { background-image: url(/static/img/editorial/journal-side.jpg) !important; }
+body.atlas-page { background: var(--ivory, #f7f5ef); }
+body.pan-page { background: #f7f5ef; }
+.hidden { display: none !important; }

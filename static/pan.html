@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>변호사 블로그 · LAWYGO PAN</title>
+  <link rel="stylesheet" href="/static/pan-ref/site.css">
+  <link rel="stylesheet" href="/static/pan-ref/pan-expansion.css">
+  <link rel="stylesheet" href="/static/atlas/overrides.css">
+</head>
+<body class="pan-page">
+  <div data-lawygo-nav></div>
+  <main id="main">
+    <section class="page-hero"><div class="wrap">
+      <p class="breadcrumb"><a href="/">홈</a> / 변호사 블로그</p>
+      <div class="eyebrow">LAWYGO PAN · blog.html</div>
+      <h1>변호사 블로그</h1>
+      <p>PAN 60p 정본 blog.html + blogger-feed 카드 그리드 · CMS 연동</p>
+    </div></section>
+    <section class="section"><div class="wrap">
+      <div class="filterbar" id="pan-chips">
+        <button type="button" class="chip active" data-kind="">전체</button>
+        <button type="button" class="chip" data-kind="blog">칼럼</button>
+        <button type="button" class="chip" data-kind="column">전문칼럼</button>
+        <button type="button" class="chip" data-kind="profile">프로필</button>
+      </div>
+      <input class="field" id="pan-search" placeholder="제목 또는 내용 검색" style="width:100%;max-width:520px;margin:12px 0 20px;padding:12px">
+      <div class="grid g3" id="pan-feed"></div>
+      <p class="empty hidden" id="pan-empty">검색 결과가 없습니다.</p>
+    </div></section>
+    <section class="pn-section"><div class="wrap">
+      <h2>구글블로그 연동 (blogger-feed)</h2>
+      <p>승인된 Blogger RSS는 대시보드 연동 후 표시됩니다.</p>
+      <a class="btn primary" href="/dashboard">연동 설정 →</a>
+    </div></section>
+  </main>
+  <div class="modal" id="reader"><div class="modal-box"><button class="close" id="readerClose" type="button">×</button><h2 id="readerTitle"></h2><p id="readerBody" class="read-body"></p></div></div>
+  <script src="/static/site-nav.js"></script>
+  <script src="/static/pan-page.js" defer></script>
+</body>
+</html>
