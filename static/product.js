@@ -146,7 +146,7 @@ function renderChannel(posts, wrap) {
   wrap.className = 'journal-rack';
   const [lead, ...rest] = posts;
   const leadEl = el('article', '', 'journal-lead');
-  leadEl.innerHTML = `<img src="${JOURNAL_IMGS[0]}" alt=""><div class="copy"><span class="section-label">${lead.is_sponsored ? '광고 · ' : ''}${boardLabel(lead.board_slug || lead.kind)}</span><h2>${lead.title}</h2><p>${lead.summary || lead.title}</p><span class="meta">${lead.updated_at.slice(0, 10)}</span></div>`;
+    leadEl.innerHTML = `<img src="${JOURNAL_IMGS[0]}" alt=""><div class="copy"><span class="section-label">${lead.is_sponsored ? '광고 · ' : ''}${boardLabel(lead.kind)}</span><h2>${lead.title}</h2><p>${lead.summary || lead.title}</p><span class="meta">${lead.updated_at.slice(0, 10)}</span></div>`;
   leadEl.onclick = () => openReader(lead);
   wrap.append(leadEl);
   rest.slice(0, 4).forEach((post, i) => {

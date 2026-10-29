@@ -3,4 +3,6 @@ __pycache__/
 .pytest_cache/
 .env
 LAWYGO_V3_FULL_RELEASE/
+_design_ref/
 ../_lawygo_extract/
+tests/_test_instance/
