@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="LAWYGO JOURNAL·WIKI·NOTE·PRO·PAN 월 구독 결제 안내">
+  <title>LAWYGO PAYMENT — 전문지식 월 구독</title>
+  <link rel="icon" href="/static/favicon.ico">
+  <link rel="stylesheet" href="/static/atlas/site.css">
+  <link rel="stylesheet" href="/static/atlas/overrides.css">
+  <style>
+    .billhero{position:relative;padding:95px 0 85px;background:linear-gradient(112deg,#09192b 0%,#14334d 65%,#214761 100%);color:white;overflow:hidden}
+    .billhero h1{font:normal clamp(43px,5vw,76px)/1.2 Georgia,'Noto Serif KR',serif;letter-spacing:-.04em}
+    .billhero h1 em{color:#e6c493}
+    .billhero p{max-width:620px;color:#cad7e3;font-size:17px}
+    .paytags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+    .paytags span{border:1px solid #a2b7c155;padding:9px 16px;font-size:11px;border-radius:40px;color:#e6d8be}
+    .billingwrap{padding:75px 0 100px}
+    .billinggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:35px}
+    .billcard{padding:30px;background:#fff;border:1px solid #ddd9cf;box-shadow:0 18px 55px #162a4210;display:flex;flex-direction:column;min-height:370px}
+    .billcard.featured{background:#11283c;color:white;border-color:#cba673}
+    .billcard h3{font:normal 30px Georgia,serif;margin:20px 0 10px}
+    .billcard .amount{font:700 40px Arial,sans-serif;letter-spacing:-.05em}
+    .billcard .amount small{font:normal 13px;color:#7c8c9b}
+    .billcard ul{padding-left:18px;font-size:12px;line-height:2;color:#546675;flex:1}
+    .billcard a{display:flex;align-items:center;justify-content:center;min-height:49px;background:#cfae78;color:#0b2135;font-size:13px;font-weight:800;margin-top:18px;text-decoration:none}
+    .billcard a.disabled{background:#ded9d2;color:#717e83;pointer-events:none}
+    .billingnote{margin-top:22px;padding:24px;border:1px solid #dacda9;background:#fffaf0;font-size:13px;color:#725c40;line-height:1.7}
+    .billfree{background:#eae5d8;padding:32px;display:flex;gap:30px;justify-content:space-between;align-items:center;margin-bottom:28px}
+    @media(max-width:900px){.billinggrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:580px){.billinggrid{grid-template-columns:1fr}.billfree{display:block}.billfree a{margin-top:18px}}
+  </style>
+</head>
+<body class="atlas-page" data-page="payment">
+  <div data-brand-shell="header"></div>
+  <section class="billhero">
+    <div class="wrap">
+      <span class="eyebrow" style="color:#d0ae77">LAWYGO PAYMENT / TERRABRIDGE</span>
+      <h1>경제를 읽는 법률,<br><em>전문성을 구독하다.</em></h1>
+      <p>투자와 경제가 움직이는 제도의 언어부터 판례 리서치, 문서 작성, 송무 관리, 전문가 네트워크까지. 매월 필요한 영역만 구독하세요.</p>
+      <div class="paytags"><span>Google 계정 인증</span><span>Stripe 보안 결제</span><span>월 단위 구독</span><span>내 계정에서 해지</span></div>
+    </div>
+  </section>
+  <section class="white billingwrap">
+    <div class="wrap">
+      <span class="eyebrow">MONTHLY SUBSCRIPTIONS</span>
+      <div class="sec-heading"><h2>서비스별 구독 요금</h2><p>정식 운영 전 요금 제안안입니다. 라이브 결제는 별도 운영 승인 후 활성화됩니다.</p></div>
+      <div class="billfree">
+        <div><span class="eyebrow">ALWAYS FREE</span><h3>LAWYGO JOURNAL — 무료</h3><p>월 2회 미국·한국 경제·법률 뉴스레터 · 로이고 PRO 무료 베타 제공</p></div>
+        <a href="/#newsletter" class="btn btn-navy">무료 뉴스레터 ↗</a>
+      </div>
+      <div class="billinggrid">
+        <article class="billcard"><span class="eyebrow">LAWYGO / SUBSCRIPTION</span><h3>JOURNAL PLUS</h3><div class="amount">₩9,900<small> / month</small></div><p><strong>미국·한국 경제법률 심층 아카이브</strong></p><ul><li>심층 제도 해설</li><li>산업별 자료집</li><li>월 2회 무료 뉴스레터 포함</li></ul><a class="disabled" href="#" aria-disabled="true">운영 승인 전 · 결제 비활성</a></article>
+        <article class="billcard"><span class="eyebrow">LAWYGO / SUBSCRIPTION</span><h3>WIKI</h3><div class="amount">₩49,000<small> / month</small></div><p><strong>전문가용 판례 정보 백과</strong></p><ul><li>판례검색</li><li>법령 연관 분석</li><li>리서치 프로젝트</li></ul><a class="disabled" href="#" aria-disabled="true">운영 승인 전 · 결제 비활성</a></article>
+        <article class="billcard featured"><span class="eyebrow">LAWYGO / SUBSCRIPTION</span><h3>NOTE</h3><div class="amount">₩119,000<small> / month</small></div><p><strong>법률문서 분석 및 전문 서식 초안</strong></p><ul><li>문서·판결문 분석 설계</li><li>법률 의견서</li><li>전문 서식</li></ul><a class="disabled" href="#" aria-disabled="true">운영 승인 전 · 결제 비활성</a></article>
+        <article class="billcard"><span class="eyebrow">LAWYGO / SUBSCRIPTION</span><h3>PAN</h3><div class="amount">₩59,000<small> / month</small></div><p><strong>변호사 전문 브랜드·고객 연결</strong></p><ul><li>전문가 페이지</li><li>구글블로그 큐레이션</li><li>상담 유입</li></ul><a class="disabled" href="#" aria-disabled="true">운영 승인 전 · 결제 비활성</a></article>
+        <article class="billcard"><span class="eyebrow">LAWYGO / SUITE</span><h3>INTELLIGENCE SUITE</h3><div class="amount">₩179,000<small> / month</small></div><p><strong>리서치부터 전문가 채널까지 통합</strong></p><ul><li>JOURNAL PLUS · WIKI · NOTE · PAN</li></ul><a class="disabled" href="#" aria-disabled="true">운영 승인 전 · 결제 비활성</a></article>
+        <article class="billcard"><span class="eyebrow">LAWYGO / FREE BETA</span><h3>PRO</h3><div class="amount">₩0<small> / 베타</small></div><p><strong>사건·기일·업무 송무 프로그램</strong></p><ul><li>구글 계정 체험</li><li>베타 3~6개월 예정</li><li>정식 월 79,000원 예정 (현재 미청구)</li></ul><a href="/pro">무료 베타 ↗</a></article>
+      </div>
+      <div class="billingnote">
+        <b>결제 안내</b>
+        <p>이 페이지는 ALL SESSION ZIP 기준 마케팅 시안입니다. Stripe 연동 코드는 GitHub PR #14(draft)에만 있으며 lawygo.lexid.site에는 아직 배포되지 않았습니다. LAWYGO_BILLING_ENABLED 설정 전 카드 청구는 실행되지 않습니다. 최종 요금·판매자·자동갱신·해지·환불·세금 안내 확인 후 운영 승인이 필요합니다.</p>
+      </div>
+    </div>
+  </section>
+  <div data-brand-shell="footer"></div>
+  <script src="/static/brand-shell.js"></script>
+</body>
+</html>

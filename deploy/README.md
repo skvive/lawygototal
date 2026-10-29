@@ -27,6 +27,7 @@ Staging on LexID maps the same four products to **one FastAPI deployment** at `h
 | `GEMINI_API_KEY` | Optional; user opt-in only |
 | `LAWYGO_PAN_BLOGGER_SITES` | Comma-separated public Blogger/blogspot URLs (server RSS crawl, Linkr-style) |
 | `LAWYGO_PAN_YOUTUBE_CHANNEL_IDS` | Comma-separated YouTube channel IDs for `/feeds/videos.xml` |
+| `LAWYGO_CRON_SECRET` | Bearer token for Vercel Cron `GET /api/cron/google-sync` (6h Google sync) |
 | `LAWYGO_PUBLIC_URL` | e.g. `https://lawygo.lexid.site` (OG, callbacks) |
 
 Local dev: omit `DATABASE_URL`, use `LAWYGO_DB_PATH=./data/lawygo.db`, run `RUN_WINDOWS.bat`.

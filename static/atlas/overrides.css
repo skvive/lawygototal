@@ -4,4 +4,10 @@
 .hero-bg.hero-city { background-image: url(/static/img/editorial/journal-side.jpg) !important; }
 body.atlas-page { background: var(--ivory, #f7f5ef); }
 body.pan-page { background: #f7f5ef; }
+body.pan-page { background: #f7f5ef; }
 .hidden { display: none !important; }
+.hero-bg.hero-global,
+.hero-bg:not(.hero-finance):not(.hero-law):not(.hero-network):not(.hero-city) {
+  background-image: linear-gradient(125deg, #0a1628 0%, #1a3a52 45%, #2d5a72 100%) !important;
+}
+.card-img, .feature-figure img { min-height: 200px; object-fit: cover; background: linear-gradient(145deg, #d8cfc0, #8fa4b8); }

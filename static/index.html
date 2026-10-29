@@ -3,48 +3,101 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="LAWYGO JOURNAL — 미국·한국 경제·법률 인터넷 신문">
-  <title>LAWYGO JOURNAL</title>
+  <meta name="description" content="법률·경제 전문 정보저널과 법률백과, AI 문서, 송무, 변호사 네트워크">
+  <title>경제를 읽는 법률, LAWYGO</title>
   <link rel="icon" href="/static/favicon.ico">
-  <link rel="stylesheet" href="/static/wsj.css">
+  <link rel="stylesheet" href="/static/atlas/site.css">
+  <link rel="stylesheet" href="/static/atlas/overrides.css">
 </head>
-<body class="wsj-body">
-  <div data-lawygo-nav></div>
-  <div class="wsj-edition-bar"><div class="wsj-wrap wsj-edition-inner">
-    <span><strong>Digital Edition</strong> · WSJ-inspired layout</span>
-    <a href="/journal">전체 저널면 →</a>
-  </div></div>
-  <main class="journal-shell"><div class="wsj-wrap">
-    <div class="journal-lead-block">
-      <div class="journal-kicker">FRONT PAGE</div>
-      <h1>경제를 읽는 법률,<br>제도를 해석하는 저널.</h1>
-      <p>연합뉴스·한국경제·BBC·NPR 등 RSS 헤드라인과 LAWYGO 편집 콘텐츠를 한 편집면에 배치합니다.</p>
-      <a class="wsj-btn wsj-btn-admin" href="/journal" style="display:inline-flex;margin-top:16px">오늘의 저널 읽기</a>
+<body class="atlas-page" data-page="home">
+  <div data-brand-shell="header"></div>
+  <section class="hero hero-dark">
+    <div class="hero-bg hero-global"></div>
+    <div class="hero-over"></div>
+    <div class="wrap hero-content">
+      <div>
+        <div class="hero-kicker">LEGAL INTELLIGENCE / AMERICA &amp; KOREA</div>
+        <h1>경제를 읽는 법률,<br><i>세상을 바꾸는 통찰.</i></h1>
+        <p>미국과 한국의 경제·제도 변화를 법률적 관점에서 해석합니다. 무료 경제법률 뉴스레터에서 특허 기술 기반 판례 정보, AI 문서 분석, 송무 운영, 전문가 네트워크까지.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-gold" href="/journal">저널 살펴보기 <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-outline" href="/pricing">5개 서비스 보기 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
     </div>
-    <div id="home-journal-preview" class="journal-columns"></div>
-  </div></main>
-  <section class="journal-shell" id="newsletter" style="background:var(--wsj-cream);padding-top:40px">
-    <div class="wsj-wrap">
-      <h2 class="journal-section-title">NEWSLETTER</h2>
-      <p>월 2회 무료 뉴스레터 — <a href="/journal">저널</a>과 동일 편집 기준.</p>
-      <form id="newsletterSignup" style="max-width:480px;margin-top:16px;display:grid;gap:10px">
-        <input type="email" id="newsletterEmail" required placeholder="email@example.com" style="padding:12px;border:1px solid #ccc">
-        <label><input type="checkbox" id="newsletterConsent" required> 수신 동의</label>
-        <button type="submit" class="wsj-btn wsj-btn-admin">구독</button>
-        <p id="newsletterResult"></p>
+    <div class="hero-edge">LAW / MARKET / POLICY <span>2026 — THE INTELLIGENCE EDITION</span></div>
+  </section>
+  <section class="cream">
+    <div class="wrap">
+      <div class="sec-heading">
+        <div><span class="eyebrow">OUR PURPOSE</span><h2>The legal mind behind the market.</h2></div>
+        <p>경제를 이해하는 가장 깊은 방법은, 그 경제를 움직이는 제도를 해석하는 것입니다.</p>
+      </div>
+      <div class="statement-grid">
+        <div class="statement-big">시장에는 숫자가 있습니다.<br><em>그 숫자 뒤에는 제도가 있습니다.</em></div>
+        <div>
+          <p>LAWYGO는 단순한 법률뉴스 모음이 아닙니다. SEC 공시 체계, 금리 정책, 한국 기업지배구조와 판례의 변화를 연결해 실무에 도움이 되는 의미를 추출하는 전문 정보 플랫폼을 지향합니다.</p>
+          <p>저널은 열린 입구, 위키는 지식의 원천, 노트는 업무의 도구, 송무는 실행 인프라, 판은 전문가와 의뢰인을 연결하는 접점입니다.</p>
+          <a class="textlink" href="/partnership">법무법인 파트너십 · MOU 안내 ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="white">
+    <div class="wrap">
+      <div class="sec-heading">
+        <div><span class="eyebrow">THE LAWYGO NETWORK</span><h2>하나의 철학, 다섯 개의 전문 서비스.</h2></div>
+        <p>콘텐츠 발견부터 리서치, 문서 작성, 사건 관리, 전문가 연결까지.</p>
+      </div>
+      <div class="product-grid">
+        <a class="product-tile" href="/journal"><span class="product-index">01</span><span class="prod-name">LAWYGO <em>JOURNAL</em></span><p>THE EDITORIAL INTELLIGENCE</p><div class="prod-bottom"><span>무료 · 월 2회 발행</span><span class="circle-arr">↗</span></div><div class="prod-line">US / KR ECONOMY &amp; LAW</div></a>
+        <a class="product-tile" href="/p/wiki"><span class="product-index">02</span><span class="prod-name">LAWYGO <em>WIKI</em></span><p>THE LEGAL KNOWLEDGE</p><div class="prod-bottom"><span>월 구독 · 판례/법률백과</span><span class="circle-arr">↗</span></div><div class="prod-line">PATENT-BASED RESEARCH</div></a>
+        <a class="product-tile" href="/p/note"><span class="product-index">03</span><span class="prod-name">LAWYGO <em>NOTE</em></span><p>THE DOCUMENT INTELLIGENCE</p><div class="prod-bottom"><span>월 구독 · 분석/전문 서식</span><span class="circle-arr">↗</span></div><div class="prod-line">AI-ASSISTED LEGAL WRITING</div></a>
+        <a class="product-tile" href="/pro"><span class="product-index">04</span><span class="prod-name">LAWYGO <em>PRO</em></span><p>THE LEGAL OPERATING SYSTEM</p><div class="prod-bottom"><span>구글 로그인 · 무료 베타</span><span class="circle-arr">↗</span></div><div class="prod-line">DESK / CASE / FLOW / HUB</div></a>
+        <a class="product-tile" href="/p/pan"><span class="product-index">05</span><span class="prod-name">LAWYGO <em>PAN</em></span><p>THE EXPERT NETWORK</p><div class="prod-bottom"><span>전문가 홍보·상담 연결</span><span class="circle-arr">↗</span></div><div class="prod-line">VERIFIED EXPERT CONTENT</div></a>
+      </div>
+    </div>
+  </section>
+  <section class="soft">
+    <div class="wrap">
+      <div class="sec-heading">
+        <div><span class="eyebrow">LIVE FROM CMS</span><h2>검수·발행된 공개 콘텐츠</h2></div>
+        <p>아래는 Neon CMS에서 승인된 채널·위키·판 피드 미리보기입니다.</p>
+      </div>
+      <div id="livePublicFeed"></div>
+    </div>
+  </section>
+  <section class="newsletter-section" id="newsletter">
+    <div class="wrap newsletter-grid">
+      <div>
+        <span class="eyebrow gold-label">TWICE A MONTH. ALWAYS FREE.</span>
+        <h2>아는 것과 해석하는 것 사이.<br><em>그 차이를 배달합니다.</em></h2>
+        <p>매월 1일과 15일을 기본 발송일로 제안합니다. 미국 경제·증권제도, 국내 경제 트렌드, 판례와 법령의 의미를 정리합니다.</p>
+      </div>
+      <form class="subscribe-form" id="newsletterSignup">
+        <label for="newsletterEmail">무료 뉴스레터 신청</label>
+        <div class="input-combo">
+          <input id="newsletterEmail" required type="email" placeholder="이메일 주소를 입력하세요">
+          <button type="submit">무료 구독 신청 →</button>
+        </div>
+        <label class="checklabel"><input id="newsletterConsent" type="checkbox" required> 개인정보 수집·이용 및 뉴스레터 수신 동의</label>
+        <p id="newsletterResult" class="micro"></p>
       </form>
     </div>
   </section>
-  <footer class="wsj-footer"><div class="wsj-wrap">© 2026 LAWYGO · Neon CMS · <a href="/dashboard">관리자 로그인</a></div></footer>
-  <script src="/static/site-nav.js"></script>
+  <section class="band">
+    <div class="wrap band-in">
+      <div>
+        <span class="eyebrow">CAPITAL × TECHNOLOGY</span>
+        <h2>Research-led intelligence.</h2>
+        <p>미국 TerraBridge Capital LLC와의 기술 협력 구상을 반영했습니다. 법인 소재·연구진 경력·소속·특허 사용권은 정식 공개 전 증빙 확인이 필요합니다.</p>
+      </div>
+      <a class="btn btn-gold" href="/payment">구독·Payment 안내 <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+  <div data-brand-shell="footer"></div>
+  <script src="/static/brand-shell.js"></script>
+  <script src="/static/brand-home.js" defer></script>
   <script src="/static/marketing.js" defer></script>
-  <script defer>
-    fetch('/api/journal/feed').then(r=>r.json()).then(d=>{
-      const root=document.getElementById('home-journal-preview');
-      if(!root)return;
-      const mk=(title,items)=>{const c=document.createElement('div');c.innerHTML='<h2 class="journal-section-title">'+title+'</h2>';items.slice(0,4).forEach(it=>{const s=document.createElement('a');s.className='journal-story';s.href='/journal';s.innerHTML='<h3>'+it.title+'</h3><p class="src">'+it.source+'</p>';c.append(s)});return c};
-      root.append(mk('U.S.',d.us||[]),mk('KOREA',d.kr||[]));
-    });
-  </script>
 </body>
 </html>

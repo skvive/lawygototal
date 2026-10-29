@@ -17,6 +17,8 @@
       <a class="${active('/p/pan')}" href="/p/pan">판</a>
       <a class="${active('/p/note')}" href="/p/note">노트</a>
       <a class="${active('/pro')}" href="/pro">PRO</a>
+      <a class="${active('/pricing')}" href="/pricing">구독</a>
+      <a class="${active('/partnership')}" href="/partnership">파트너십</a>
     </nav>
     <div class="wsj-actions">
       <a class="wsj-btn wsj-btn-ghost" href="/#newsletter">뉴스레터</a>

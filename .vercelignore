@@ -4,5 +4,6 @@ __pycache__/
 .env
 LAWYGO_V3_FULL_RELEASE/
 _design_ref/
+_integration_v2_ref/
 ../_lawygo_extract/
 tests/_test_instance/
