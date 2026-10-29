@@ -11,6 +11,12 @@ import integrations_v2 as v2
 
 @pytest.fixture
 def c(tmp_path,monkeypatch):
+    monkeypatch.delenv('DATABASE_URL', raising=False)
+    monkeypatch.delenv('NEON_DATABASE_URL', raising=False)
+    import db_engine
+    monkeypatch.setattr(db_engine, 'DATABASE_URL', '')
+    monkeypatch.setattr(db_engine, 'USE_POSTGRES', False)
+    monkeypatch.setattr(core, 'USE_POSTGRES', False)
     monkeypatch.setattr(core,'DB_FILE',tmp_path/'cms.db')
     monkeypatch.setattr(core,'FILES',tmp_path/'uploads')
     monkeypatch.setenv('LAWYGO_TOKEN_ENCRYPTION_KEY',Fernet.generate_key().decode())
