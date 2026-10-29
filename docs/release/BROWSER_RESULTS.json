@@ -1,0 +1,84 @@
+[
+  {
+    "page": "home",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "channel",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "wiki",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "pan",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "note",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "growth",
+    "viewport": "desktop",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "test": "drag-and-drop-board",
+    "viewport": "desktop",
+    "changed": true
+  },
+  {
+    "page": "home",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "channel",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "wiki",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "pan",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "note",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "page": "growth",
+    "viewport": "mobile",
+    "overflow": false,
+    "js_errors": []
+  },
+  {
+    "test": "drag-and-drop-board",
+    "viewport": "mobile",
+    "changed": true
+  }
+]

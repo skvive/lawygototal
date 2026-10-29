@@ -1,0 +1,10 @@
+{
+  "html_count": 3,
+  "image_count": 7,
+  "js_count": 4,
+  "path_references_checked": 76,
+  "local_assets_checked": 12,
+  "errors": [],
+  "text_qa": "운영 HTML은 한글 텍스트로 렌더링; 이미지 내부 한국어 자산 없음",
+  "scope": "current runnable CMS pages only, not every historical archive page"
+}

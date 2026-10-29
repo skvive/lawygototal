@@ -1,0 +1,7 @@
+data/
+__pycache__/
+.pytest_cache/
+.env
+.deploy-secrets.local
+LAWYGO_V3_FULL_RELEASE/
+../_lawygo_extract/

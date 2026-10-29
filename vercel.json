@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.py"
+    }
+  ],
+  "env": {
+    "ENVIRONMENT": "production",
+    "LAWYGO_SECURE_COOKIES": "1",
+    "LAWYGO_PUBLIC_URL": "https://rerand.lexid.site",
+    "LAWYGO_NEWSLETTER_BASE_URL": "https://rerand.lexid.site",
+    "GOOGLE_REDIRECT_URI": "https://rerand.lexid.site/api/google/callback"
+  }
+}
