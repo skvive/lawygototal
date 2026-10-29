@@ -246,6 +246,51 @@ def _sync_source(db,source):
     db.execute('INSERT INTO sync_runs VALUES(?,?,?,?,?,?,?)',(run,source['id'],'ok',created,updated,_now(),None))
     return {'run_id':run,'created':created,'updated':updated,'fetched':len(items),'status':'ok'}
 
+SYNC_INTERVAL_SEC = 6 * 3600
+
+
+def run_scheduled_syncs(db, *, force: bool = False) -> dict:
+    """Run Google sync for all registered sources (cron/worker). Respects 6h interval unless force."""
+    summary = {'sources': 0, 'created': 0, 'updated': 0, 'skipped': 0, 'errors': 0, 'details': []}
+    rows = db.execute('SELECT * FROM sync_sources ORDER BY created_at').fetchall()
+    for row in rows:
+        source = dict(row)
+        if not force and source.get('last_sync_at'):
+            try:
+                elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(source['last_sync_at'])).total_seconds()
+                if elapsed < SYNC_INTERVAL_SEC:
+                    summary['skipped'] += 1
+                    continue
+            except ValueError:
+                pass
+        summary['sources'] += 1
+        try:
+            result = _sync_source(db, source)
+            summary['created'] += result['created']
+            summary['updated'] += result['updated']
+            summary['details'].append({'source_id': source['id'], 'title': source['title'], **result})
+        except Exception as exc:
+            summary['errors'] += 1
+            rid = uuid.uuid4().hex
+            db.execute(
+                'INSERT INTO sync_runs(id,source_id,status,created_count,updated_count,created_at,error) VALUES(?,?,?,?,?,?,?)',
+                (rid, source['id'], 'error', 0, 0, _now(), type(exc).__name__),
+            )
+            summary['details'].append({'source_id': source['id'], 'status': 'error', 'error': type(exc).__name__})
+    return summary
+
+
+def integration_flags():
+    return {
+        'google_oauth': bool(os.getenv('GOOGLE_CLIENT_ID') and os.getenv('GOOGLE_CLIENT_SECRET')),
+        'token_encryption': bool(os.getenv('LAWYGO_TOKEN_ENCRYPTION_KEY')),
+        'gemini': bool(os.getenv('GEMINI_API_KEY')),
+        'native_bridge': bool(os.getenv('LAWYGO_NATIVE_BRIDGE_URL') and len(os.getenv('LAWYGO_NATIVE_BRIDGE_SECRET', '')) >= 32),
+        'native_membership': bool(os.getenv('LAWYGO_NATIVE_IDENTITY_URL') or os.getenv('LAWYGO_REQUIRE_NATIVE_MEMBERSHIP') != 'true'),
+        'cron_configured': bool(os.getenv('LAWYGO_CRON_SECRET')),
+        'sync_interval_hours': SYNC_INTERVAL_SEC // 3600,
+    }
+
 
 def _gemini_analyze(source_text,refs):
     key=os.getenv('GEMINI_API_KEY','')
@@ -563,3 +608,64 @@ def register(app,g):
         if user['role'] not in ('admin','editor'):err(403,'권한이 없습니다.')
         rows=db.execute('SELECT post_id,action,status,revision,attempts,updated_at FROM native_publish_outbox WHERE tenant=? ORDER BY updated_at DESC LIMIT 50',(user['tenant'],)).fetchall()
         return {'items':[dict(r) for r in rows]}
+
+    @app.get('/api/integrations/hub')
+    def integrations_hub(user=Depends(current_user),db=Depends(database)):
+        flags=integration_flags()
+        connections=db.execute(
+            'SELECT provider,updated_at FROM google_tokens WHERE user_id=? ORDER BY provider',
+            (user['id'],),
+        ).fetchall()
+        sources=db.execute(
+            'SELECT id,provider,title,external_id,last_sync_at,created_at FROM sync_sources WHERE user_id=? AND tenant=? ORDER BY created_at DESC',
+            (user['id'],user['tenant']),
+        ).fetchall()
+        pending_google=db.execute(
+            '''SELECT count(*) FROM posts p
+               WHERE p.tenant=? AND p.status='pending' AND p.deleted_at IS NULL
+               AND p.external_url IS NOT NULL AND p.product IN ('pan','channel')''',
+            (user['tenant'],),
+        ).fetchone()[0]
+        runs=db.execute(
+            '''SELECT r.id,r.status,r.created_count,r.updated_count,r.created_at,r.error,s.title AS source_title
+               FROM sync_runs r JOIN sync_sources s ON s.id=r.source_id
+               WHERE s.user_id=? AND s.tenant=? ORDER BY r.created_at DESC LIMIT 20''',
+            (user['id'],user['tenant']),
+        ).fetchall()
+        outbox=[]
+        if user['role'] in ('admin','editor'):
+            outbox=db.execute(
+                'SELECT post_id,action,status,revision,attempts,updated_at FROM native_publish_outbox WHERE tenant=? ORDER BY updated_at DESC LIMIT 20',
+                (user['tenant'],),
+            ).fetchall()
+        ai_runs=db.execute(
+            'SELECT count(*) FROM ai_analysis_runs WHERE user_id=?',
+            (user['id'],),
+        ).fetchone()[0]
+        return {
+            'flags':flags,
+            'connections':[dict(x) for x in connections],
+            'sync_sources':[dict(x) for x in sources],
+            'pending_from_sync':pending_google,
+            'sync_runs':[dict(x) for x in runs],
+            'native_outbox':[dict(x) for x in outbox],
+            'ai_analysis_total':ai_runs,
+        }
+
+    @app.post('/api/sync/run-all')
+    def sync_run_all(user=Depends(csrf),db=Depends(database)):
+        if user['role'] not in ('admin','editor','contributor'):err(403,'동기화 권한이 없습니다.')
+        with transaction(db):
+            result=run_scheduled_syncs(db,force=True)
+            audit(db,user,'sync','batch','all',{'created':result['created'],'updated':result['updated']})
+        return result
+
+    @app.get('/api/cron/google-sync')
+    def cron_google_sync(req:Request,db=Depends(database)):
+        secret=os.getenv('LAWYGO_CRON_SECRET','')
+        auth=req.headers.get('Authorization','')
+        if not secret or auth!=f'Bearer {secret}':
+            err(401,'예약 작업 인증이 올바르지 않습니다.')
+        with transaction(db):
+            result=run_scheduled_syncs(db,force=False)
+        return {'ok':True,**result}

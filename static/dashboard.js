@@ -8,7 +8,12 @@ async function loginRefresh(){try{me=await request('/api/me');$('loginPanel').cl
 $('loginForm').onsubmit=async e=>{e.preventDefault();try{const data=await request('/api/auth/login',{method:'POST',body:JSON.stringify({email:$('email').value,password:$('password').value})});$('loginError').textContent='';$('password').value='';await loginRefresh()}catch(err){$('loginError').textContent=err.message}};
 $('logoutBtn').onclick=async()=>{try{await request('/api/auth/logout',{method:'POST'})}finally{me=null;await loginRefresh()}};
 function showView(v){currentView=v;for(const id of ['postsPanel','boardsPanel','trashPanel','auditPanel','inquiriesPanel','integrationsPanel','growthPanel'])$(id).classList.add('hidden');$(v+'Panel').classList.remove('hidden');if(v==='boards')renderBoards();if(v==='audit')loadAudit();if(v==='trash')loadTrash();if(v==='inquiries')loadInquiries();if(v==='integrations')loadIntegrations();if(v==='growth'){fillCampaignPosts();loadGrowth();}}
-async function loadAll(){let [b,stats]=await Promise.all([request('/api/boards'),request('/api/dashboard/stats')]);boards=b.items||[];const counts=stats.posts||[];let sum=x=>counts.filter(p=>x?x(p):true).reduce((s,p)=>s+p.count,0);$('kpiAll').textContent=sum();$('kpiPublished').textContent=sum(p=>p.status==='published');$('kpiPending').textContent=sum(p=>p.status==='pending');$('kpiBoards').textContent=boards.length;populateBoards();await loadPosts();if(currentView==='boards')renderBoards()}
+async function loadAll(){let [b,stats]=await Promise.all([request('/api/boards'),request('/api/dashboard/stats')]);boards=b.items||[];const counts=stats.posts||[];let sum=x=>counts.filter(p=>x?x(p):true).reduce((s,p)=>s+p.count,0);$('kpiAll').textContent=sum();$('kpiPublished').textContent=sum(p=>p.status==='published');$('kpiPending').textContent=sum(p=>p.status==='pending');$('kpiBoards').textContent=boards.length;populateBoards();await loadPosts();await loadIntegrationStrip();if(currentView==='boards')renderBoards()}
+function renderStatusPill(label,on,detail){const d=box('div','int-pill '+(on?'on':'off'));d.append(text('strong',label));d.append(text('span',detail|| (on?'연결됨':'미설정')));return d}
+async function loadIntegrationStrip(){const el=$('integrationHubStrip');if(!me||!el)return;try{const hub=await request('/api/integrations/hub');el.classList.remove('hidden');el.replaceChildren();const f=hub.flags||{};el.append(renderStatusPill('Google OAuth',f.google_oauth));el.append(renderStatusPill('Gemini AI',f.gemini));el.append(renderStatusPill('운영 DB 브리지',f.native_bridge));el.append(renderStatusPill('자동 수집 '+((f.sync_interval_hours)||6)+'h',f.cron_configured,'Cron '+(f.cron_configured?'설정':'로컬 worker')));if(hub.pending_from_sync)el.append(text('a','Google 동기화 승인 대기 '+hub.pending_from_sync+'건 →','int-pill link'))}catch{el.classList.add('hidden')}}
+function renderIntegrationCards(flags){const root=$('integrationStatusCards');if(!root)return;root.replaceChildren();const items=[['Google Blogger/YouTube',flags.google_oauth&&flags.token_encryption,'OAuth + 토큰 암호화'],['법률 AI (Gemini)',flags.gemini,'노트·PDF 근거 분석 · 출처 검증'],['Neon/Supabase 브리지',flags.native_bridge,'승인 콘텐츠 upsert/retract'],['6시간 자동 수집',flags.cron_configured||true,'Cron 또는 sync_worker.py']];for(const [t,on,sub] of items){const c=box('div','int-card');c.append(text('h4',t));c.append(text('p',sub,'muted'));c.append(text('span',on?'● 활성':'○ 대기','int-state '+(on?'on':'off')));root.append(c)}}
+function renderSyncRunsTable(runs){const root=$('syncRunsTable');root.replaceChildren();if(!runs?.length){root.append(text('p','아직 동기화 기록이 없습니다.','muted'));return}const t=box('table','tbl');const hr=box('tr');['시각','채널','상태','생성','업데이트','오류'].forEach(h=>hr.append(text('th',h)));t.append(hr);const tb=box('tbody');for(const r of runs){const tr=box('tr');[(r.created_at||'').slice(0,16),r.source_title||'-',r.status,String(r.created_count),String(r.updated_count),r.error||'-'].forEach(v=>tr.append(text('td',v)));tb.append(tr)}t.append(tb);root.append(t)}
+function renderOutboxTable(items){const root=$('nativeOutbox');root.replaceChildren();if(!items?.length){root.append(text('p','발행 큐가 비어 있습니다.','muted'));return}const t=box('table','tbl');const hr=box('tr');['게시글','동작','상태','revision','갱신'].forEach(h=>hr.append(text('th',h)));t.append(hr);const tb=box('tbody');for(const x of items){const tr=box('tr');[x.post_id.slice(0,12)+'…',x.action,x.status,String(x.revision),(x.updated_at||'').slice(0,16)].forEach(v=>tr.append(text('td',v)));tb.append(tr)}t.append(tb);root.append(t)}
 function populateBoards(){let b=$('boardFilter');let old=b.value;b.replaceChildren();let all=text('option','모든 게시판');all.value='';b.append(all);const sel=$('postBoard');sel.replaceChildren();for(const x of boards){const label=PRODUCT_LABELS[x.product]+' / '+x.name;for(const elem of [b,sel]){const o=text('option',label);o.value=x.id;elem.append(o)}}b.value=old||'';sel.onchange=()=>updateKind(sel.value);}
 function updateKind(boardId){const b=boards.find(x=>x.id===boardId);if(!b)return;let kind=$('postKind');const old=kind.value;kind.replaceChildren();for(const k of KINDS[b.product]){let o=text('option',k);o.value=k;kind.append(o)}kind.value=KINDS[b.product].includes(old)?old:KINDS[b.product][0];const note=b.product==='note';$('postVisibility').value=note?'private':'public';$('postVisibility').disabled=note;$('postStatus').querySelector('option[value="published"]').disabled=note;$('postSponsored').disabled=note;if(note)$('postSponsored').checked=false;if(note)$('postStatus').value='draft';}
 async function loadPosts(){let qs=new URLSearchParams({limit:100,q:$('postSearch').value||''});if(filter!=='all'&&filter!=='pending')qs.set('product',filter);if(filter==='pending')qs.set('status','pending');if($('boardFilter').value)qs.set('board_id',$('boardFilter').value);const data=await request('/api/posts?'+qs);posts=data.items||[];renderPosts()}
@@ -38,27 +43,33 @@ async function loadInquiries(){const root=$('inquiriesTable');root.replaceChildr
 
 // External connectors are opt-in, scoped, and never receive the local session cookie.
 async function loadIntegrations(){
- const owned=$('ownedChannels'),sources=$('syncSources'),outbox=$('nativeOutbox');
- [owned,sources,outbox].forEach(e=>e.replaceChildren());
+ const owned=$('ownedChannels'),sources=$('syncSources');
+ [owned,sources].forEach(e=>e&&e.replaceChildren());
  try{
+   const hub=await request('/api/integrations/hub');
+   renderIntegrationCards(hub.flags||{});
+   $('integrationSummary').textContent='Google 연결 '+((hub.connections||[]).length)+' · 동기화 채널 '+(hub.sync_sources||[]).length+' · AI 분석 실행 '+hub.ai_analysis_total+'회 · Google 유입 승인 대기 '+hub.pending_from_sync+'건';
+   renderSyncRunsTable(hub.sync_runs||[]);
+   renderOutboxTable(hub.native_outbox||[]);
    const connected=await request('/api/google/connections');
    const providers=new Set(connected.items.map(x=>x.provider));
    if(!providers.size)owned.append(text('p','먼저 Google Blogger 또는 YouTube 읽기 권한을 연결하세요.','muted'));
    for(const provider of providers){
      const data=await request('/api/google/owned/'+provider);
-     owned.append(text('h4',provider==='blogger'?'내 Google 블로그':'내 YouTube 채널'));
-     for(const ch of data.items){const line=box('div','actions');line.append(text('strong',ch.name+' · '+ch.id));line.append(button('콘텐츠 수집 채널로 추가',async()=>{
-       try{await request('/api/sync/sources',{method:'POST',body:JSON.stringify({provider,external_id:ch.id,title:ch.name})});await loadIntegrations();display('채널이 연결됐습니다. 수집을 실행해 주세요.')}catch(e){display(e.message,true)}
+     owned.append(text('h4',provider==='blogger'?'내 Google 블로그':'내 YouTube 업로드 플레이리스트'));
+     for(const ch of data.items){const line=box('div','actions');line.append(text('strong',ch.name+' · '+ch.id));line.append(button('동기화 채널로 등록',async()=>{
+       try{await request('/api/sync/sources',{method:'POST',body:JSON.stringify({provider,external_id:ch.id,title:ch.name})});await loadIntegrations();await loadIntegrationStrip();display('채널이 등록됐습니다. 수집을 실행하세요.')}catch(e){display(e.message,true)}
      }));owned.append(line)}
      owned.append(button(provider+' 연결 해제',async()=>{if(!confirm('Google 동기화 토큰을 삭제하시겠습니까?'))return;try{await request('/api/google/connections/'+provider,{method:'DELETE'});await loadIntegrations()}catch(e){display(e.message,true)}},'btn small danger'));
    }
-   const channels=await request('/api/sync/sources');
-   if(!channels.items.length)sources.append(text('p','등록된 채널이 없습니다.','muted'));
-   for(const x of channels.items){const line=box('div','actions');line.append(text('span',x.provider+' · '+x.title+' · 최근 동기화: '+(x.last_sync_at?.slice(0,16)||'없음')));line.append(button('지금 수집',async()=>{try{const d=await request('/api/sync/sources/'+x.id+'/run',{method:'POST'});await loadAll();await loadIntegrations();display('승인 대기 콘텐츠 '+d.created+'개 생성 · '+d.updated+'개 업데이트')}catch(e){display(e.message,true)}}));sources.append(line)}
-   if(['admin','editor'].includes(me.role)){const o=await request('/api/native/outbox');for(const x of o.items)outbox.append(text('p',x.post_id.slice(0,12)+' · '+x.status+' · revision '+x.revision,'muted'));}
- }catch(e){owned.append(text('p',e.message,'error'))}
+   const channels=hub.sync_sources||[];
+   if(!channels.length)sources.append(text('p','등록된 채널이 없습니다.','muted'));
+   for(const x of channels){const line=box('div','actions');line.append(text('span',x.provider+' · '+x.title+' · 최근: '+(x.last_sync_at?.slice(0,16)||'없음')));line.append(button('지금 수집',async()=>{try{const d=await request('/api/sync/sources/'+x.id+'/run',{method:'POST'});await loadAll();await loadIntegrations();display('승인 대기 '+d.created+'건 생성 · '+d.updated+'건 업데이트')}catch(e){display(e.message,true)}}));sources.append(line)}
+ }catch(e){owned&&owned.append(text('p',e.message,'error'))}
 }
-$('refreshIntegrations').onclick=loadIntegrations;
+$('refreshIntegrations').onclick=()=>{loadIntegrations();loadIntegrationStrip()};
+$('syncAllBtn')?.addEventListener('click',async()=>{if(!confirm('등록된 모든 Google 채널을 지금 수집하시겠습니까?'))return;try{const d=await request('/api/sync/run-all',{method:'POST'});await loadAll();await loadIntegrations();display('일괄 수집 완료 · 생성 '+d.created+' · 업데이트 '+d.updated+' · 오류 '+d.errors)}catch(e){display(e.message,true)}});
+$('gotoPendingSync')?.addEventListener('click',e=>{e.preventDefault();document.querySelector('.side a[data-filter="pending"]')?.click()});
 async function analyzeWithAI(id){
  if(!confirm('비공개 노트 본문·추출된 PDF 텍스트를 외부 Gemini AI 서버로 전송해 분석하시겠습니까? 기밀정보 여부를 확인하고 동의한 경우에만 진행해 주세요.'))return;
  try{const d=await request('/api/note/'+id+'/ai-analyze',{method:'POST',body:JSON.stringify({consent:true})});

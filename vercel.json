@@ -22,5 +22,11 @@
     "LAWYGO_UPLOAD_PATH": "/tmp/lawygo_uploads",
     "LAWYGO_NEWSLETTER_BASE_URL": "https://lawygo.lexid.site",
     "GOOGLE_REDIRECT_URI": "https://lawygo.lexid.site/api/google/callback"
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/google-sync",
+      "schedule": "0 */6 * * *"
+    }
+  ]
 }
