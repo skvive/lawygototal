@@ -556,8 +556,31 @@ def register(app,g):
     def ai_runs(post_id:str,user=Depends(current_user),db=Depends(database)):
         p=get_post(db,post_id,user['tenant'])
         if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 노트가 아닙니다.')
-        rows=db.execute('SELECT id,provider,status,created_at FROM ai_analysis_runs WHERE post_id=? AND user_id=? ORDER BY created_at DESC LIMIT 50',(post_id,user['id'])).fetchall()
-        return {'items':[dict(x) for x in rows]}
+        rows=db.execute('SELECT id,provider,status,created_at,result_json FROM ai_analysis_runs WHERE post_id=? AND user_id=? ORDER BY created_at DESC LIMIT 50',(post_id,user['id'])).fetchall()
+        items=[]
+        for row in rows:
+            d={k:row[k] for k in ('id','provider','status','created_at')}
+            if row['result_json']:
+                try:
+                    obj=json.loads(row['result_json'])
+                    d['summary']=(obj.get('summary') or '')[:240]
+                    d['issue_count']=len(obj.get('issues') or [])
+                except json.JSONDecodeError:
+                    d['summary']=''
+            items.append(d)
+        return {'items':items}
+
+    @app.get('/api/note/{post_id}/ai-runs/{run_id}')
+    def ai_run_detail(post_id:str,run_id:str,user=Depends(current_user),db=Depends(database)):
+        p=get_post(db,post_id,user['tenant'])
+        if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 노트가 아닙니다.')
+        row=db.execute('SELECT id,provider,status,created_at,result_json,consent_at FROM ai_analysis_runs WHERE id=? AND post_id=? AND user_id=?',(run_id,post_id,user['id'])).fetchone()
+        if not row:err(404,'분석 기록이 없습니다.')
+        result=None
+        if row['result_json']:
+            try:result=json.loads(row['result_json'])
+            except json.JSONDecodeError:pass
+        return {'id':row['id'],'provider':row['provider'],'status':row['status'],'created_at':row['created_at'],'consent_at':row['consent_at'],'result':result}
 
     @app.post('/api/native/queue/{post_id}')
     def queue_native(post_id:str,user=Depends(csrf),db=Depends(database)):

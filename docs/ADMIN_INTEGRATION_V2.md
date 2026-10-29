@@ -1,6 +1,6 @@
 # 관리자 대시보드 · Google/AI V2 반영 (2026-10-29)
 
-정본 ZIP: `LAWYGO_AI_GOOGLE_NATIVE_INTEGRATION_V2_20261029.zip`
+정본 ZIP: `LAWYGO_5 AI엔진.zip` → `LAWYGO_AI_GOOGLE_NATIVE_V2` (상세: `docs/LAWYGO_AI_ENGINE_ZIP5.md`)
 
 ## 기획 요약 (mockup → 구현)
 

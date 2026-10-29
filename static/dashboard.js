@@ -32,6 +32,24 @@ async function loadAll(){let [b,stats]=await Promise.all([request('/api/boards')
 function renderStatusPill(label,on,detail){const d=box('div','int-pill '+(on?'on':'off'));d.append(text('strong',label));d.append(text('span',detail|| (on?'연결됨':'미설정')));return d}
 async function loadIntegrationStrip(){const el=$('integrationHubStrip');if(!me||!el)return;try{const hub=await request('/api/integrations/hub');el.classList.remove('hidden');el.replaceChildren();const f=hub.flags||{};el.append(renderStatusPill('Google OAuth',f.google_oauth));el.append(renderStatusPill('Gemini AI',f.gemini));el.append(renderStatusPill('운영 DB 브리지',f.native_bridge));el.append(renderStatusPill('자동 수집 '+((f.sync_interval_hours)||6)+'h',f.cron_configured,'Cron '+(f.cron_configured?'설정':'로컬 worker')));if(hub.pending_from_sync)el.append(text('a','Google 동기화 승인 대기 '+hub.pending_from_sync+'건 →','int-pill link'))}catch{el.classList.add('hidden')}}
 function renderIntegrationCards(flags){const root=$('integrationStatusCards');if(!root)return;root.replaceChildren();const items=[['Google Blogger/YouTube',flags.google_oauth&&flags.token_encryption,'OAuth + 토큰 암호화'],['법률 AI (Gemini)',flags.gemini,'노트·PDF 근거 분석 · 출처 검증'],['Neon/Supabase 브리지',flags.native_bridge,'승인 콘텐츠 upsert/retract'],['6시간 자동 수집',flags.cron_configured||true,'Cron 또는 sync_worker.py']];for(const [t,on,sub] of items){const c=box('div','int-card');c.append(text('h4',t));c.append(text('p',sub,'muted'));c.append(text('span',on?'● 활성':'○ 대기','int-state '+(on?'on':'off')));root.append(c)}}
+function renderAiFeatureGrid(){
+ const root=$('aiFeatureGrid');if(!root)return;root.replaceChildren();
+ const rows=[
+  ['법률 AI 분석','Gemini API · 노트·PDF 근거 · source_ids 출처 검증 · POST 동의(consent) 필수'],
+  ['Blogger 동기화','본인 블로그 OAuth · 게시글 수집 · content_hash 중복 방지 · 수정 시 pending'],
+  ['YouTube 동기화','본인 업로드 플레이리스트 · 영상 메타 수집 · 신규는 승인 대기 등록'],
+ ];
+ const t=box('table','tbl');const hr=box('tr');['기능','구현'].forEach(h=>hr.append(text('th',h)));t.append(hr);
+ for(const [a,b] of rows){const tr=box('tr');tr.append(text('td',a));tr.append(text('td',b));t.append(tr)}root.append(t);
+}
+function formatAiResult(obj){
+ if(!obj||typeof obj!=='object')return String(obj||'');
+ let out='요약\n'+(obj.summary||'-')+'\n\n쟁점\n';
+ (obj.issues||[]).forEach((x,i)=>{out+=`${i+1}. ${x.issue||''} [${(x.source_ids||[]).join(', ')}]\n`;});
+ if(obj.evidence_gaps?.length){out+='\n부족한 근거\n';obj.evidence_gaps.forEach(g=>out+='· '+g+'\n');}
+ if(obj.questions?.length){out+='\n확인 질문\n';obj.questions.forEach(q=>out+='· '+q+'\n');}
+ out+='\n'+(obj.disclaimer||'전문가 검토 필요');return out;
+}
 function renderSyncRunsTable(runs){const root=$('syncRunsTable');root.replaceChildren();if(!runs?.length){root.append(text('p','아직 동기화 기록이 없습니다.','muted'));return}const t=box('table','tbl');const hr=box('tr');['시각','채널','상태','생성','업데이트','오류'].forEach(h=>hr.append(text('th',h)));t.append(hr);const tb=box('tbody');for(const r of runs){const tr=box('tr');[(r.created_at||'').slice(0,16),r.source_title||'-',r.status,String(r.created_count),String(r.updated_count),r.error||'-'].forEach(v=>tr.append(text('td',v)));tb.append(tr)}t.append(tb);root.append(t)}
 function renderOutboxTable(items){const root=$('nativeOutbox');root.replaceChildren();if(!items?.length){root.append(text('p','발행 큐가 비어 있습니다.','muted'));return}const t=box('table','tbl');const hr=box('tr');['게시글','동작','상태','revision','갱신'].forEach(h=>hr.append(text('th',h)));t.append(hr);const tb=box('tbody');for(const x of items){const tr=box('tr');[x.post_id.slice(0,12)+'…',x.action,x.status,String(x.revision),(x.updated_at||'').slice(0,16)].forEach(v=>tr.append(text('td',v)));tb.append(tr)}t.append(tb);root.append(t)}
 function populateBoards(){let b=$('boardFilter');let old=b.value;b.replaceChildren();let all=text('option','모든 게시판');all.value='';b.append(all);const sel=$('postBoard');sel.replaceChildren();for(const x of boards){const label=PRODUCT_LABELS[x.product]+' / '+x.name;for(const elem of [b,sel]){const o=text('option',label);o.value=x.id;elem.append(o)}}b.value=old||'';sel.onchange=()=>updateKind(sel.value);}
@@ -39,7 +57,25 @@ function updateKind(boardId){const b=boards.find(x=>x.id===boardId);if(!b)return
 async function loadPosts(){let qs=new URLSearchParams({limit:100,q:$('postSearch').value||''});if(filter!=='all'&&filter!=='pending')qs.set('product',filter);if(filter==='pending')qs.set('status','pending');if($('boardFilter').value)qs.set('board_id',$('boardFilter').value);const data=await request('/api/posts?'+qs);posts=data.items||[];renderPosts()}
 function renderPosts(){const root=$('postTable');root.replaceChildren();if(!posts.length){root.append(text('div','등록된 콘텐츠가 없습니다. 오른쪽 위의 새 콘텐츠 버튼을 눌러 작성해 보세요.','empty'));return;}let t=box('table','tbl');let thead=box('thead');let hr=box('tr');['서비스','글 제목','분류','상태','편집일','관리'].forEach(h=>hr.append(text('th',h)));thead.append(hr);t.append(thead);let tb=box('tbody');for(const p of posts){let tr=box('tr');let prod=text('td',PRODUCT_LABELS[p.product]);tr.append(prod);let title=box('td');title.append(text('strong',p.title));if(p.is_sponsored)title.append(text('span',' 광고','tag sponsor'));tr.append(title);tr.append(text('td',p.kind));tr.append(text('td',statusName(p.status)));tr.append(text('td',p.updated_at.slice(0,10)));let actions=box('td','actions-cell');actions.append(button('편집',()=>editPost(p.id)));if(p.status==='pending'&&me.role!=='viewer'){actions.append(button('승인',()=>approvePost(p.id),'btn small gold'))}if(p.product==='note'){actions.append(button('원문 발췌',()=>analyzeNote(p.id),'btn small gold'));actions.append(button('AI 분석',()=>analyzeWithAI(p.id),'btn small secondary'));}else if(p.status==='published'&&['admin','editor'].includes(me.role))actions.append(button('운영 게시판 발행',()=>publishNative(p.id),'btn small gold'));actions.append(button('삭제',()=>deletePost(p.id),'btn small danger'));tr.append(actions);tb.append(tr);}t.append(tb);root.append(t)}
 async function editPost(id){try{const p=await request('/api/posts/'+id);openPost(p)}catch(e){display(e.message,true)}}
-function openPost(p=null){const form=$('postForm');form.reset();$('postError').textContent='';$('postModalTitle').textContent=p?'콘텐츠 수정':'새 콘텐츠 작성';const f=form.elements;f.namedItem('postId').value=p?.id||'';f.namedItem('version').value=p?.version||'';f.namedItem('board_id').disabled=Boolean(p);f.namedItem('board_id').value=p?.board_id||boards[0]?.id||'';updateKind(f.namedItem('board_id').value);f.namedItem('kind').value=p?.kind||f.namedItem('kind').value;f.namedItem('title').value=p?.title||'';f.namedItem('summary').value=p?.summary||'';f.namedItem('body').value=p?.body||'';f.namedItem('external_url').value=p?.external_url||'';f.namedItem('status').value=p?.status||'draft';f.namedItem('visibility').value=p?.visibility||f.namedItem('visibility').value;f.namedItem('is_sponsored').checked=Boolean(p?.is_sponsored);$('uploadBlock').classList.toggle('hidden',!p);$('postMetaBlock').classList.toggle('hidden',!p);if(p)loadPostMeta(p.id);else{$('postRevisions').replaceChildren();$('postComments').replaceChildren();}showModal('postModal')}
+function openPost(p=null){const form=$('postForm');form.reset();$('postError').textContent='';$('postModalTitle').textContent=p?'콘텐츠 수정':'새 콘텐츠 작성';const f=form.elements;f.namedItem('postId').value=p?.id||'';f.namedItem('version').value=p?.version||'';f.namedItem('board_id').disabled=Boolean(p);f.namedItem('board_id').value=p?.board_id||boards[0]?.id||'';updateKind(f.namedItem('board_id').value);f.namedItem('kind').value=p?.kind||f.namedItem('kind').value;f.namedItem('title').value=p?.title||'';f.namedItem('summary').value=p?.summary||'';f.namedItem('body').value=p?.body||'';f.namedItem('external_url').value=p?.external_url||'';f.namedItem('status').value=p?.status||'draft';f.namedItem('visibility').value=p?.visibility||f.namedItem('visibility').value;f.namedItem('is_sponsored').checked=Boolean(p?.is_sponsored);$('uploadBlock').classList.toggle('hidden',!p);$('postMetaBlock').classList.toggle('hidden',!p);const isOwnNote=p&&p.product==='note'&&p.author_id===me?.id;$('noteAiBlock')?.classList.toggle('hidden',!isOwnNote);if($('aiConsentCheck'))$('aiConsentCheck').checked=false;if(isOwnNote)loadNoteAiHistory(p.id);else $('noteAiHistory')?.replaceChildren();if(p)loadPostMeta(p.id);else{$('postRevisions').replaceChildren();$('postComments').replaceChildren();}showModal('postModal')}
+async function loadNoteAiHistory(postId){
+ const root=$('noteAiHistory');if(!root)return;root.replaceChildren();
+ try{
+  const d=await request('/api/note/'+postId+'/ai-runs');
+  if(!d.items?.length){root.append(text('span','아직 Gemini 분석 기록이 없습니다.'));return}
+  root.append(text('strong','최근 분석: '));
+  for(const r of d.items.slice(0,5)){
+   const btn=button((r.created_at||'').slice(0,16)+' · '+((r.summary||'').slice(0,60)||r.status),async()=>{
+    try{const full=await request('/api/note/'+postId+'/ai-runs/'+r.id);$('analysisModalTitle').textContent='Gemini 근거 분석';$('analysisModalDesc').textContent='동의 시각 '+full.consent_at+' · 출처 ID 검증 완료';$('analysisText').textContent=formatAiResult(full.result);showModal('analysisModal')}catch(e){display(e.message,true)}
+   },'btn small secondary');root.append(btn);root.append(document.createTextNode(' '));
+  }
+ }catch(e){root.append(text('span',e.message))}
+}
+$('noteAiAnalyzeBtn')?.addEventListener('click',async()=>{
+ const id=$('postForm').elements.namedItem('postId').value;if(!id)return;
+ if(!$('aiConsentCheck')?.checked){$('postError').textContent='Gemini 전송 동의 체크가 필요합니다.';return}
+ await runNoteAiAnalyze(id);
+});
 async function loadPostMeta(postId){
  const revRoot=$('postRevisions'),comRoot=$('postComments');
  revRoot.replaceChildren();comRoot.replaceChildren();
@@ -70,7 +106,19 @@ const [posts,boards]=await Promise.all([request('/api/trash'),request('/api/admi
 root.append(text('h3','게시글 휴지통'));const t=box('table','tbl');for(const item of posts.items){const tr=box('tr');tr.append(text('td',PRODUCT_LABELS[item.product]));tr.append(text('td',item.title));tr.append(text('td',item.deleted_at?.slice(0,10)));const cell=box('td');cell.append(button('복구',async()=>{await request('/api/posts/'+item.id+'/restore',{method:'POST'});await loadTrash();await loadAll()}));tr.append(cell);t.append(tr)}root.append(t);root.append(text('h3','게시판 휴지통'));const bt=box('table','tbl');for(const b of boards.items){const tr=box('tr');tr.append(text('td',PRODUCT_LABELS[b.product]));tr.append(text('td',b.name));const td=box('td');td.append(button('복구',async()=>{await request('/api/boards/'+b.id+'/restore',{method:'POST'});await loadTrash();await loadAll()}));tr.append(td);bt.append(tr)}root.append(bt);
 }catch(e){root.append(text('div',e.message,'error'))}}
 
-async function analyzeNote(id){try{const d=await request('/api/note/'+id+'/extract');$('analysisText').textContent='제목: '+d.title+'\n\n추출한 글자 수: '+d.extracted_chars+'\n\n원문 발췌:\n'+d.extractive_preview+'\n\n※ '+d.notice;showModal('analysisModal')}catch(e){display(e.message,true)}}
+async function analyzeNote(id){try{const d=await request('/api/note/'+id+'/extract');$('analysisModalTitle').textContent='원문 발췌 (로컬)';$('analysisModalDesc').textContent='외부 AI 미사용 · PDF/본문 텍스트만 추출';$('analysisText').textContent='제목: '+d.title+'\n\n추출한 글자 수: '+d.extracted_chars+'\n\n원문 발췌:\n'+d.extractive_preview+'\n\n※ '+d.notice;showModal('analysisModal')}catch(e){display(e.message,true)}}
+async function runNoteAiAnalyze(id){
+ try{
+  const d=await request('/api/note/'+id+'/ai-analyze',{method:'POST',body:JSON.stringify({consent:true})});
+  $('analysisModalTitle').textContent='Gemini 근거 분석';$('analysisModalDesc').textContent=d.notice||'전문가 검토 필요';
+  $('analysisText').textContent=formatAiResult(d.result)+'\n\n근거 자료: '+d.sources.map(x=>x.title).join(', ');
+  showModal('analysisModal');if($('postForm').elements.namedItem('postId').value===id)await loadNoteAiHistory(id);display('AI 분석을 저장했습니다.');
+ }catch(e){display(e.message,true)}
+}
+async function analyzeWithAI(id){
+ if(!confirm('비공개 노트 본문·PDF 발췌를 Gemini로 전송합니다. 기밀정보를 확인했습니까?'))return;
+ await runNoteAiAnalyze(id);
+}
 async function loadInquiries(){const root=$('inquiriesTable');root.replaceChildren();try{const d=await request('/api/pan/inquiries');if(!d.items.length){root.append(text('div','본인 전문가 프로필에 접수된 상담 문의가 없습니다.','empty'));return}const table=box('table','tbl');const head=box('tr');['접수일','문의자 이메일(비공개)','문의 내용','상태'].forEach(x=>head.append(text('th',x)));table.append(head);for(const x of d.items){const tr=box('tr');[x.created_at.slice(0,16),x.sender_email,x.body,x.status].forEach(v=>tr.append(text('td',v)));table.append(tr)}root.append(table)}catch(e){root.append(text('div',e.message,'error'))}}
 
 // External connectors are opt-in, scoped, and never receive the local session cookie.
@@ -80,6 +128,7 @@ async function loadIntegrations(){
  try{
    const hub=await request('/api/integrations/hub');
    renderIntegrationCards(hub.flags||{});
+   renderAiFeatureGrid();
    $('integrationSummary').textContent='Google 연결 '+((hub.connections||[]).length)+' · 동기화 채널 '+(hub.sync_sources||[]).length+' · AI 분석 실행 '+hub.ai_analysis_total+'회 · Google 유입 승인 대기 '+hub.pending_from_sync+'건';
    renderSyncRunsTable(hub.sync_runs||[]);
    renderOutboxTable(hub.native_outbox||[]);
@@ -102,12 +151,6 @@ async function loadIntegrations(){
 $('refreshIntegrations').onclick=()=>{loadIntegrations();loadIntegrationStrip()};
 $('syncAllBtn')?.addEventListener('click',async()=>{if(!confirm('등록된 모든 Google 채널을 지금 수집하시겠습니까?'))return;try{const d=await request('/api/sync/run-all',{method:'POST'});await loadAll();await loadIntegrations();display('일괄 수집 완료 · 생성 '+d.created+' · 업데이트 '+d.updated+' · 오류 '+d.errors)}catch(e){display(e.message,true)}});
 $('gotoPendingSync')?.addEventListener('click',e=>{e.preventDefault();document.querySelector('.side a[data-filter="pending"]')?.click()});
-async function analyzeWithAI(id){
- if(!confirm('비공개 노트 본문·추출된 PDF 텍스트를 외부 Gemini AI 서버로 전송해 분석하시겠습니까? 기밀정보 여부를 확인하고 동의한 경우에만 진행해 주세요.'))return;
- try{const d=await request('/api/note/'+id+'/ai-analyze',{method:'POST',body:JSON.stringify({consent:true})});
- $('analysisText').textContent='AI 법률 자료 분석 (전문가 검토 필요)\n\n'+JSON.stringify(d.result,null,2)+'\n\n근거 자료: '+d.sources.map(x=>x.title).join(', ');showModal('analysisModal')}
- catch(e){display(e.message,true)}
-}
 async function publishNative(id){if(!confirm('이 승인된 게시글을 기존 LAWYGO 운영 게시판으로 전달하시겠습니까?'))return;
  try{const x=await request('/api/native/publish/'+id,{method:'POST'});display('운영 게시판 동기화 완료. 게시글 '+String(x.remote.postId||'') )}catch(e){display(e.message,true)}
 }
