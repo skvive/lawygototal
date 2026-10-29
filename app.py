@@ -17,11 +17,28 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
-ROOT=Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().resolve()
 from dotenv import load_dotenv
 load_dotenv(ROOT/".env",override=False)
-DB_FILE=Path(os.environ.get('LAWYGO_DB_PATH', str(ROOT/'data'/'lawygo.db')))
-FILES=Path(os.environ.get('LAWYGO_UPLOAD_PATH', str(ROOT/'data'/'uploads')))
+
+def _serverless_runtime() -> bool:
+    return bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+
+def _default_db_path() -> Path:
+    if USE_POSTGRES or _serverless_runtime():
+        return Path("/tmp/lawygo.db")
+    return ROOT / "data" / "lawygo.db"
+
+def _default_upload_path() -> Path:
+    explicit = os.environ.get("LAWYGO_UPLOAD_PATH", "").strip()
+    if explicit:
+        return Path(explicit)
+    if _serverless_runtime():
+        return Path("/tmp/lawygo_uploads")
+    return ROOT / "data" / "uploads"
+
+DB_FILE=Path(os.environ.get('LAWYGO_DB_PATH', str(_default_db_path())))
+FILES=_default_upload_path()
 COOKIE='lawygo_cms_session'
 CSRF_COOKIE='lawygo_cms_csrf'
 DEFAULT_TENANT=os.environ.get('LAWYGO_DEFAULT_TENANT','demo')
