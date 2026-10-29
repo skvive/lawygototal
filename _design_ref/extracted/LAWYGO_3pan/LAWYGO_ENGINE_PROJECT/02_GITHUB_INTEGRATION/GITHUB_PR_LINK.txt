@@ -1,5 +1,0 @@
-Repository: https://github.com/shinkangteam/lawygo
-Draft pull request: https://github.com/shinkangteam/lawygo/pull/37
-Branch: feature/lawygo-content-products-20261029
-Changes in GitHub: boardConfig.ts + product hub page + authenticated status route + review documentation.
-No merge, deployment, Stripe activity, or production DB changes have been performed.
