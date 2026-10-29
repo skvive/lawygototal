@@ -5,3 +5,6 @@ __pycache__/
 .deploy-secrets.local
 LAWYGO_V3_FULL_RELEASE/
 ../_lawygo_extract/
+
+.vercel
+.env*

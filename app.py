@@ -17,7 +17,7 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
-ROOT=Path(__file__).resolve().resolve()
+ROOT=Path(__file__).resolve().parent
 from dotenv import load_dotenv
 load_dotenv(ROOT/".env",override=False)
 
