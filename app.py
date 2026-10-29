@@ -557,8 +557,164 @@ def health(db=Depends(database)):
     return {'ok':True,'storage':storage_label(),'engine':'LAWYGO CMS','public_url':os.environ.get('LAWYGO_PUBLIC_URL','')}
 
 import journal_feed
+import pan_public_feed
 
-@app.get('/api/journal/feed')
+def _pan_content_type(row: dict) -> str:
+    if row.get("board_slug") == "shorts" and row.get("kind") == "video":
+        return "shorts"
+    if row.get("kind") in ("blog", "column"):
+        return "blog"
+    if row.get("kind") == "video":
+        return "video"
+    return "blog"
+
+
+def _pan_db_contents(db, tenant: str, kind: str, q: str, limit: int = 48) -> list[dict]:
+    cond = [
+        "p.tenant=?",
+        "p.deleted_at IS NULL",
+        "p.product='pan'",
+        "p.status='published'",
+        "p.visibility='public'",
+        "p.kind IN ('blog','column','video')",
+    ]
+    args: list = [tenant]
+    if kind == "blog":
+        cond.append("p.kind IN ('blog','column')")
+    elif kind == "video":
+        cond.append("(p.kind='video' AND b.slug!='shorts')")
+    elif kind == "shorts":
+        cond.append("(p.kind='video' AND b.slug='shorts')")
+    if q:
+        cond.append("(p.title LIKE ? OR p.summary LIKE ? OR p.body LIKE ?)")
+        args.extend(["%" + q[:80] + "%"] * 3)
+    sql = (
+        "SELECT p.id,p.kind,p.title,p.summary,p.external_url,p.published_at,p.updated_at,b.slug AS board_slug "
+        "FROM posts p JOIN boards b ON p.board_id=b.id WHERE "
+        + " AND ".join(cond)
+        + " ORDER BY p.updated_at DESC LIMIT ?"
+    )
+    args.append(limit)
+    rows = db.execute(sql, args).fetchall()
+    out: list[dict] = []
+    for r in rows:
+        d = dict(r)
+        ctype = _pan_content_type(d)
+        if kind != "all" and ctype != kind:
+            continue
+        url = d.get("external_url") or f"/api/posts/{d['id']}"
+        out.append(
+            {
+                "id": d["id"],
+                "content_type": ctype,
+                "title": d["title"],
+                "summary": d.get("summary") or "",
+                "url": url,
+                "thumb_url": None,
+                "source": "LAWYGO PAN · CMS",
+                "published": (d.get("published_at") or d.get("updated_at") or "")[:10],
+                "approved": True,
+            }
+        )
+    return out
+
+
+def _merge_pan_contents(cms: list[dict], wire: list[dict], limit: int) -> list[dict]:
+    seen: set[str] = set()
+    merged: list[dict] = []
+    for item in cms + wire:
+        key = item.get("url") or item.get("id") or ""
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        merged.append(item)
+        if len(merged) >= limit:
+            break
+    return merged
+
+
+@app.get("/api/feed")
+async def pan_public_feed_api(kind: str = "all", db=Depends(database)):
+    if kind not in ("all", "blog", "video", "shorts"):
+        err(400, "올바르지 않은 콘텐츠 유형입니다.")
+    wire_kind = kind if kind != "all" else "all"
+    cms = _pan_db_contents(db, DEFAULT_TENANT, kind, "", 40)
+    wire = await pan_public_feed.load_wire_items(wire_kind)
+    for w in wire:
+        w["approved"] = False
+    return {"contents": _merge_pan_contents(cms, wire, 50)}
+
+
+@app.get("/api/pan/content")
+async def pan_content_api(
+    type: str = "all",
+    q: str = "",
+    limit: int = Query(48, ge=1, le=100),
+    db=Depends(database),
+):
+    kind = type if type in ("all", "blog", "video", "shorts") else "all"
+    cms = _pan_db_contents(db, DEFAULT_TENANT, kind, q, limit)
+    wire = await pan_public_feed.load_wire_items(kind if kind != "all" else "all")
+    if q:
+        ql = q.lower()
+        wire = [
+            x
+            for x in wire
+            if ql in (x.get("title") or "").lower() or ql in (x.get("summary") or "").lower()
+        ]
+    return {"items": _merge_pan_contents(cms, wire, limit), "sources": {"cms": len(cms), "wire": len(wire)}}
+
+
+@app.get("/api/pan/lawyers")
+def pan_lawyers_api(q: str = "", limit: int = Query(24, ge=1, le=60), db=Depends(database)):
+    cond = [
+        "p.tenant=?",
+        "p.deleted_at IS NULL",
+        "p.product='pan'",
+        "p.kind='profile'",
+        "p.status='published'",
+        "p.visibility='public'",
+    ]
+    args: list = [DEFAULT_TENANT]
+    if q:
+        cond.append("(p.title LIKE ? OR p.summary LIKE ? OR p.body LIKE ?)")
+        args.extend(["%" + q[:80] + "%"] * 3)
+    rows = db.execute(
+        "SELECT p.id,p.title,p.summary,p.body,u.display_name "
+        "FROM posts p JOIN users u ON u.id=p.author_id JOIN boards b ON b.id=p.board_id "
+        "WHERE "
+        + " AND ".join(cond)
+        + " ORDER BY p.updated_at DESC LIMIT ?",
+        args + [limit],
+    ).fetchall()
+    imgs = [
+        "/static/img/editorial/pan-blog-1.png",
+        "/static/img/editorial/pan-blog-2.png",
+        "/static/img/editorial/journal-lead.jpg",
+    ]
+    items = []
+    for i, row in enumerate(rows):
+        d = dict(row)
+        items.append(
+            {
+                "id": d["id"],
+                "name": d["title"],
+                "practice": d.get("summary") or "법률 전문",
+                "region": "대한민국",
+                "bio": (d.get("body") or "")[:240],
+                "author": d.get("display_name"),
+                "photo": imgs[i % len(imgs)],
+            }
+        )
+    return {"items": items, "total": len(items)}
+
+
+@app.get("/pan")
+def pan_redirect():
+    return RedirectResponse("/p/pan", status_code=302)
+
+
+@app.get("/api/journal/feed")
 async def journal_feed_api(db=Depends(database)):
     tenant=DEFAULT_TENANT
     rows=db.execute(

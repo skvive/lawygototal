@@ -1,0 +1,25 @@
+/* PAN platform asset paths + LAWYGO nav coexistence */
+.hero {
+  background: linear-gradient(90deg, #f4f1e9 0%, #f4f1e9 35%, rgba(244, 241, 233, 0.9) 49%, rgba(244, 241, 233, 0) 65%),
+    url(/static/img/editorial/journal-lead.jpg) right center / auto 100% no-repeat #e8e4dc !important;
+}
+.pan-with-global-nav .header { top: 0; }
+.pan-sync-panel {
+  border: 1px solid #dbe2ea;
+  border-radius: 16px;
+  padding: 20px;
+  background: linear-gradient(145deg, #f8fafc, #fff);
+}
+.pan-sync-panel h3 { margin: 0 0 8px; font-size: 1rem; }
+.pan-sync-panel ul { margin: 12px 0 0; padding-left: 18px; color: #5a7085; font-size: 0.84rem; line-height: 1.7; }
+.pan-tab-panel.hidden { display: none !important; }
+.pan-wire-badge {
+  font-size: 0.68rem;
+  background: #eef4ff;
+  color: #2b4a7a;
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-left: 6px;
+}
+body.pan-platform { background: #fbfcfd; }
+.lawygo-global-nav { border-bottom: 1px solid #edf0f2; }

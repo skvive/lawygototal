@@ -25,6 +25,9 @@ Staging on LexID maps the same four products to **one FastAPI deployment** at `h
 | `LAWYGO_BILLING_WEBHOOK_KEY` | ≥32 chars HMAC for subscription events |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Optional; set `GOOGLE_REDIRECT_URI` to production callback |
 | `GEMINI_API_KEY` | Optional; user opt-in only |
+| `LAWYGO_PAN_BLOGGER_SITES` | Comma-separated public Blogger/blogspot URLs (server RSS crawl, Linkr-style) |
+| `LAWYGO_PAN_YOUTUBE_CHANNEL_IDS` | Comma-separated YouTube channel IDs for `/feeds/videos.xml` |
+| `LAWYGO_PUBLIC_URL` | e.g. `https://lawygo.lexid.site` (OG, callbacks) |
 
 Local dev: omit `DATABASE_URL`, use `LAWYGO_DB_PATH=./data/lawygo.db`, run `RUN_WINDOWS.bat`.
 
