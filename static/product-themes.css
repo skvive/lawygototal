@@ -1,0 +1,382 @@
+/* LAWYGO product public themes — Phase 1: JOURNAL (channel) + PAN blog */
+
+.product-page.theme-channel,
+.product-page.theme-pan {
+  background: var(--bg);
+}
+
+.product-page.theme-channel .product-generic-head,
+.product-page.theme-pan .product-generic-head {
+  display: none;
+}
+
+/* —— LAWYGO JOURNAL (channel) —— */
+.journal-utility {
+  background: #0b1a2c;
+  color: #adb9c4;
+  border-bottom: 1px solid #223348;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+}
+
+.journal-utility .wrap {
+  max-width: 1280px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.journal-masthead {
+  background: #fff;
+  border-bottom: 3px double #10263c;
+  padding: 20px 0 18px;
+}
+
+.journal-masthead .wrap {
+  max-width: 1280px;
+  text-align: center;
+}
+
+.journal-masthead .kicker {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: #9b7846;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.journal-masthead h1 {
+  font: 600 clamp(28px, 4vw, 44px) "Noto Serif KR", Georgia, serif;
+  letter-spacing: -0.04em;
+  margin: 0 0 6px;
+  color: #10263c;
+}
+
+.journal-masthead .dateline {
+  font-size: 12px;
+  color: #627187;
+  border-top: 1px solid #e0e6ec;
+  margin-top: 14px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.journal-desks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0 0 22px;
+}
+
+.journal-desk {
+  background: #f4f2ed;
+  border: 1px solid #e4e1d9;
+  padding: 14px 16px;
+  font-size: 11px;
+}
+
+.journal-desk strong {
+  display: block;
+  font-family: Georgia, "Noto Serif KR", serif;
+  font-size: 15px;
+  margin: 6px 0 4px;
+  color: #132b40;
+}
+
+.journal-rack {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.journal-lead {
+  grid-row: span 2;
+  background: #fff;
+  border: 1px solid #e4e1da;
+  overflow: hidden;
+  box-shadow: 0 8px 28px #132b4010;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.journal-lead:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px #132b4018;
+}
+
+.journal-lead img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.journal-lead .copy {
+  padding: 22px 24px 26px;
+}
+
+.journal-lead .section-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #9b7846;
+}
+
+.journal-lead h2 {
+  font: 600  clamp(22px, 2.5vw, 32px) "Noto Serif KR", Georgia, serif;
+  line-height: 1.35;
+  margin: 10px 0 12px;
+}
+
+.journal-lead p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #546372;
+  margin: 0;
+}
+
+.journal-brief {
+  background: #fff;
+  border: 1px solid #e4e1da;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.journal-brief:hover {
+  border-color: #b59262;
+}
+
+.journal-brief img {
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.journal-brief h3 {
+  font: 600 17px "Noto Serif KR", Georgia, serif;
+  margin: 0 0 6px;
+  line-height: 1.35;
+}
+
+.journal-brief .meta {
+  font-size: 11px;
+  color: #738094;
+}
+
+.journal-issue-list {
+  margin-top: 28px;
+  border-top: 2px solid #10263c;
+}
+
+.journal-issue-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 8px;
+  border-bottom: 1px solid #e0e6ec;
+}
+
+.journal-issue-row b {
+  font-size: 10px;
+  color: #ac8655;
+  letter-spacing: 0.12em;
+}
+
+.journal-issue-row h3 {
+  font: 600 20px "Noto Serif KR", Georgia, serif;
+  margin: 6px 0 0;
+}
+
+.product-page.theme-channel .product-main {
+  padding-top: 28px;
+}
+
+.product-page.theme-channel .toolbar {
+  margin-bottom: 16px;
+}
+
+/* —— LAWYGO PAN (blog) —— */
+.pan-hero {
+  background: linear-gradient(135deg, #f7f5ef 0%, #edeae1 100%);
+  border-bottom: 1px solid #e0ddd6;
+  padding: 36px 0 32px;
+}
+
+.pan-hero .wrap {
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: 1fr min(340px, 38%);
+  gap: 28px;
+  align-items: center;
+}
+
+.pan-hero h1 {
+  font: 600 clamp(32px, 3.5vw, 48px) "Noto Serif KR", Georgia, serif;
+  margin: 8px 0 12px;
+  letter-spacing: -0.03em;
+}
+
+.pan-hero p {
+  color: #546372;
+  max-width: 520px;
+  line-height: 1.75;
+}
+
+.pan-hero-visual {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px #102a4318;
+}
+
+.pan-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.pan-chip {
+  border: 1px solid #ddd6ca;
+  background: #f3f1eb;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.pan-chip.active {
+  background: #132c43;
+  color: #fff;
+  border-color: #132c43;
+}
+
+.pan-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.pan-image-card {
+  background: #fff;
+  border: 1px solid #e2e0d9;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.16s, box-shadow 0.16s;
+  box-shadow: 0 4px 18px #112b400a;
+}
+
+.pan-image-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px #112b4014;
+}
+
+.pan-image-card img {
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+}
+
+.pan-image-card .body {
+  padding: 18px 20px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pan-image-card .meta {
+  font-size: 11px;
+  font-weight: 700;
+  color: #a77b42;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pan-image-card h3 {
+  font: 700 18px "Noto Serif KR", Georgia, serif;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pan-image-card p {
+  font-size: 13px;
+  color: #586d7d;
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.pan-image-card .readmore {
+  font-size: 12px;
+  font-weight: 750;
+  color: #a77b42;
+  margin-top: 8px;
+}
+
+.pan-image-card.sponsored {
+  outline: 2px solid #f2ddb8;
+  outline-offset: -2px;
+}
+
+.product-page.theme-pan .product-main {
+  padding-top: 36px;
+}
+
+@media (max-width: 900px) {
+  .journal-rack {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-lead {
+    grid-row: auto;
+  }
+
+  .journal-desks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pan-hero .wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .pan-blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .journal-desks {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-brief {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-brief img {
+    width: 100%;
+    height: 140px;
+  }
+
+  .pan-blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
