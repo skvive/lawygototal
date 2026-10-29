@@ -3,67 +3,120 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LAWYGO JOURNAL · 로이고 저널</title>
-  <meta name="description" content="Atlas 정본 journal/index · issue 레이아웃 + 실시간 RSS">
+  <meta name="color-scheme" content="light">
+  <title>경제를 읽는 법률·독립 저널 | LAWYGO JOURNAL</title>
+  <meta name="description" content="미국 경제·증권 제도와 한국 경제를 법률적 시각으로 읽는 LAWYGO JOURNAL">
   <link rel="icon" href="/static/favicon.ico">
-  <link rel="stylesheet" href="/static/atlas/site.css">
-  <link rel="stylesheet" href="/static/atlas/overrides.css">
-  <link rel="stylesheet" href="/static/wsj.css">
+  <link rel="stylesheet" href="/static/journal/journal-editorial.css">
+  <link rel="stylesheet" href="/static/journal/journal-deploy.css">
+  <link rel="stylesheet" href="/static/journal/korea-contact.css">
+  <script defer src="/static/journal/journal-editorial.js"></script>
 </head>
-<body class="atlas-page" data-product="journal">
-  <div data-lawygo-nav></div>
-  <section class="hero hero-dark">
-    <div class="hero-bg hero-finance"></div>
-    <div class="hero-over"></div>
-    <div class="wrap hero-content">
-      <div>
-        <div class="hero-kicker">LAWYGO JOURNAL / THE EDITORIAL DESK</div>
-        <h1>숫자 너머의 제도,<br><i>시장의 법률적 해석.</i></h1>
-        <p>Atlas 시안 journal/index.html · 연합·한경·BBC·NPR RSS와 편집국 글을 편집면에 배치합니다.</p>
-        <div class="hero-buttons">
-          <a class="btn btn-gold" href="/#newsletter">무료 뉴스레터 ↗</a>
-          <a class="btn btn-outline" href="/channel">채널 데스크 ↗</a>
-        </div>
+<body>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <div class="topline">
+    <div class="page">
+      <span>LAWYGO JOURNAL / ECONOMY × LEGAL INTELLIGENCE</span>
+      <a href="/#newsletter">월 2회 무료 뉴스레터 · Subscribe ↗</a>
+    </div>
+  </div>
+  <header class="mast">
+    <div class="page">
+      <div class="mastlabel">INDEPENDENT ECONOMIC &amp; LEGAL PERSPECTIVE<br>U.S. · KOREA · GLOBAL MARKETS</div>
+      <a class="mastbrand" href="/journal">
+        <img class="lawygo-journal-mark" src="/static/journal/lawygo-logo.svg" alt="LAWYGO 로고">
+        LAWYGO <span>JOURNAL</span>
+      </a>
+      <div class="right">
+        <a href="/payment" class="headbtn">Subscribe · Payment</a>
       </div>
     </div>
-    <div class="hero-edge">LAW / MARKET / POLICY <span id="journal-edition"></span></div>
-  </section>
-  <section class="white"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">TOP STORIES</span><h2>오늘의 헤드라인</h2></div></div>
-    <div class="editorial-grid feature-one" id="journal-top-grid"></div>
-  </div></section>
-  <section class="cream"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">OUR FOUR DESKS</span><h2>편집국의 네 가지 전문 데스크</h2></div></div>
-    <div class="four-grid">
-      <div class="feature-card"><span>01 / WASHINGTON</span><h3>미국 경제·증권</h3><p id="desk-us-count">RSS 데스크</p></div>
-      <div class="feature-card"><span>02 / SEOUL</span><h3>한국 경제·제도</h3><p id="desk-kr-count">공인 통신</p></div>
-      <div class="feature-card"><span>03 / CHANNEL</span><h3>영상·칼럼</h3><p><a href="/p/channel">CMS 채널 피드 ↗</a></p></div>
-      <div class="feature-card"><span>04 / INSIGHT</span><h3>리걸마인드</h3><p>편집국 검수 글</p></div>
+  </header>
+  <nav class="navline" aria-label="저널 분야 메뉴">
+    <div class="page">
+      <a href="/journal" class="on">저널 홈</a>
+      <a href="#section-us">미국 경제·증권</a>
+      <a href="#section-kr">국내 경제</a>
+      <a href="/channel">경제 인텔리전스</a>
+      <a href="/p/wiki">법률·판례</a>
+      <a href="#newsletter">뉴스레터</a>
+      <a href="/p/wiki">로이고 위키</a>
+      <a href="/pricing">구독 안내</a>
     </div>
-  </div></section>
-  <section class="white"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">WIRE · KOREA</span><h2>국내 공인 뉴스</h2></div></div>
-    <div id="journal-kr-list"></div>
-  </div></section>
-  <section class="cream"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">WIRE · U.S.</span><h2>미국·글로벌</h2></div></div>
-    <div id="journal-us-list"></div>
-  </div></section>
-  <section class="white"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">THE ISSUE ARCHIVE</span><h2>저널 호 · 편집국</h2></div></div>
-    <div id="journal-issues"></div>
-  </div></section>
-  <section class="issue-cover hidden" id="journal-issue-view"><div class="wrap letter-wrap">
-    <button type="button" class="btn btn-outline btn-mini" id="journal-issue-back">← 목록</button>
-    <span class="eyebrow" id="issue-kicker"></span>
-    <div class="issue-stamp" id="issue-stamp"></div>
-    <h1 id="issue-title"></h1>
-    <div class="prose read-body" id="issue-body"></div>
-    <a class="btn btn-gold" id="issue-source" href="#" target="_blank" rel="noopener">원문 ↗</a>
-  </div></section>
-  <p class="wrap demo-note" id="journal-disclaimer" style="margin:24px auto"></p>
-  <footer class="footer"><div class="wrap"><div class="footer-bottom"><span>© 2026 LAWYGO JOURNAL · Atlas journal/index + issue-01</span></div></div></footer>
-  <script src="/static/site-nav.js"></script>
-  <script src="/static/journal-atlas.js" defer></script>
+  </nav>
+  <main>
+    <div class="page">
+      <div class="edition">
+        <span><strong>THE INTELLIGENCE EDITION</strong> &nbsp; 법률로 경제를 읽는 독립 저널</span>
+        <span id="journal-edition-meta">LIVE · RSS + CMS</span>
+      </div>
+      <div class="spacer"></div>
+      <div class="rubric">TOP STORIES / ECONOMY MEETS LAW</div>
+      <div class="front-grid">
+        <section id="journal-front-left"></section>
+        <article class="lead" id="journal-lead"></article>
+        <aside class="rightcol" id="journal-right"></aside>
+      </div>
+      <div class="markets">
+        <strong>THE MARKET &amp; POLICY LENS</strong>
+        <p>RSS 헤드라인과 LAWYGO 편집국 글을 실시간으로 불러옵니다. 전문은 각 출처 원문에서 확인하세요.</p>
+        <a href="/channel">경제 인텔리전스 ↗</a>
+      </div>
+      <div class="ed-head"><h2>Live wire</h2><p>공인 통신·글로벌 매체</p></div>
+      <div class="wire-grid">
+        <div class="wire-col" id="section-kr"><h3>KOREA</h3><div id="journal-wire-kr"></div></div>
+        <div class="wire-col" id="section-us"><h3>U.S. &amp; GLOBAL</h3><div id="journal-wire-us"></div></div>
+      </div>
+      <div class="ed-head"><h2>Editor's selection</h2><p>편집국·CMS 발행</p></div>
+      <div class="storyrow" id="journal-row-editors"></div>
+      <div class="ed-head"><h2>Law &amp; Policy Review</h2><p>제도·판례 트래킹</p></div>
+      <div class="storyrow" id="journal-row-law"></div>
+      <div class="subscribe-banner" id="newsletter">
+        <div>
+          <div class="rubric">LAWYGO / THE BIWEEKLY BRIEF</div>
+          <h2>월 두 번 받아보는 경제·법률 브리핑</h2>
+          <p>미국 경제·증권 제도, 국내 정책 변화, 법률의 시선.</p>
+        </div>
+        <form class="newsletter" id="newsletterSignupJournal" style="min-width:280px">
+          <label for="journal-nl-email">이메일</label>
+          <input id="journal-nl-email" type="email" required placeholder="email@example.com">
+          <label style="font-weight:400;margin-top:10px"><input type="checkbox" id="journal-nl-consent" required> 수신 동의</label>
+          <button type="submit" class="cta" style="width:100%;margin-top:14px">뉴스레터 구독 →</button>
+          <p role="status" id="journal-nl-status" class="sample"></p>
+        </form>
+      </div>
+      <p class="demo-note" id="journal-disclaimer"></p>
+    </div>
+  </main>
+  <footer class="foot">
+    <div class="page">
+      <div>
+        <strong>LAWYGO JOURNAL</strong>
+        <p>경제를 읽는 법률. 제도를 해석하는 인텔리전스.</p>
+        <p>© 2026 LAWYGO. 편집·기술 제휴 등 실제 법인 관계는 확인된 법적 표시를 따릅니다.</p>
+      </div>
+      <div class="footnav">
+        <a href="/">LAWYGO 브랜드</a>
+        <a href="/partnership">Partnership</a>
+        <a href="/p/wiki">WIKI</a>
+        <a href="/p/note">NOTE</a>
+        <a href="/pro">PRO</a>
+        <a href="/p/pan">PAN</a>
+        <a href="/payment">Payment</a>
+        <a href="/dashboard">CMS</a>
+      </div>
+    </div>
+  </footer>
+  <div class="issue-overlay" id="journal-issue-overlay" aria-hidden="true">
+    <div class="issue-panel" role="dialog" aria-labelledby="issue-title">
+      <button type="button" class="close" id="journal-issue-close">닫기</button>
+      <span class="rubric" id="issue-kicker"></span>
+      <h2 id="issue-title" style="font:700 32px var(--serif);margin:12px 0"></h2>
+      <p class="byline" id="issue-meta"></p>
+      <div class="story-body" id="issue-body" style="font-size:17px"></div>
+      <a class="cta" id="issue-source" href="#" target="_blank" rel="noopener" style="margin-top:20px">원문 ↗</a>
+    </div>
+  </div>
+  <script src="/static/journal-editorial-live.js" defer></script>
 </body>
 </html>

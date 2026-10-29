@@ -1,0 +1,29 @@
+/* Hero / tile placeholders when ZIP JPGs are not bundled */
+.lead-photo.ph-finance,
+.tile img.ph-finance { background: linear-gradient(135deg, #1a3a52, #4a6741); min-height: 200px; }
+.lead-photo.ph-city,
+.tile img.ph-city { background: linear-gradient(135deg, #2c3e50, #7f8c8d); min-height: 200px; }
+.lead-photo.ph-global,
+.tile img.ph-global { background: linear-gradient(135deg, #0d243b, #5c6bc0); min-height: 200px; }
+.lead-photo.ph-law,
+.tile img.ph-law { background: linear-gradient(135deg, #3d2c1e, #8b7355); min-height: 200px; }
+.lead-photo:not([src]),
+.tile img:not([src]) { object-fit: cover; }
+.key-issues { margin-bottom: 18px; }
+.key-issues ol { list-style: none; margin: 0; padding: 0; }
+.key-issues li { border-top: 1px solid var(--line); padding: 14px 0; display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; cursor: pointer; }
+.key-issues li:first-child { border-top: 3px solid var(--ink); }
+.key-issues .num { font: 700 24px var(--serif); color: #b28753; line-height: 1; }
+.key-issues h4 { margin: 0; font: 700 16px/1.35 var(--serif); }
+.key-issues p { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
+.wire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 40px 0; }
+.wire-col h3 { font: 700 22px var(--serif); border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+.wire-item { display: block; border-bottom: 1px solid var(--line); padding: 14px 0; }
+.wire-item small { display: block; font-size: 10px; letter-spacing: .12em; color: #a07b46; margin-bottom: 6px; }
+.wire-item strong { font: 700 17px/1.35 var(--serif); }
+.issue-overlay { position: fixed; inset: 0; z-index: 400; background: #14253499; display: none; align-items: center; justify-content: center; padding: 20px; }
+.issue-overlay.open { display: flex; }
+.issue-panel { background: var(--paper); max-width: 720px; width: 100%; max-height: 90vh; overflow: auto; padding: 32px; box-shadow: 0 24px 80px #0003; }
+.issue-panel .close { float: right; border: 1px solid #999; background: #fff; padding: 6px 12px; }
+.demo-note { font-size: 12px; color: var(--muted); padding: 20px 0 40px; border-top: 1px solid var(--line); }
+@media (max-width: 690px) { .wire-grid { grid-template-columns: 1fr; } }
