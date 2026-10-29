@@ -18,9 +18,9 @@
   "env": {
     "ENVIRONMENT": "production",
     "LAWYGO_SECURE_COOKIES": "1",
-    "LAWYGO_PUBLIC_URL": "https://rerand.lexid.site",
+    "LAWYGO_PUBLIC_URL": "https://lawygo.lexid.site",
     "LAWYGO_UPLOAD_PATH": "/tmp/lawygo_uploads",
-    "LAWYGO_NEWSLETTER_BASE_URL": "https://rerand.lexid.site",
-    "GOOGLE_REDIRECT_URI": "https://rerand.lexid.site/api/google/callback"
+    "LAWYGO_NEWSLETTER_BASE_URL": "https://lawygo.lexid.site",
+    "GOOGLE_REDIRECT_URI": "https://lawygo.lexid.site/api/google/callback"
   }
 }

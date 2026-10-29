@@ -1,4 +1,4 @@
-# LAWYGO CMS — Neon + Vercel (rerand.lexid.site)
+# LAWYGO CMS — Neon + Vercel (lawygo.lexid.site)
 
 ## Site purpose
 
