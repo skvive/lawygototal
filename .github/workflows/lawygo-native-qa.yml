@@ -1,0 +1,56 @@
+name: LAWYGO Total Android QA (non-production)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - qa/lawygo-accessibility-android-20261101
+    paths:
+      - android_native/**
+      - .github/workflows/lawygo-native-qa.yml
+  pull_request:
+    paths:
+      - android_native/**
+      - .github/workflows/lawygo-native-qa.yml
+
+permissions:
+  contents: read
+
+jobs:
+  native-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate native source contracts (18 tests)
+        working-directory: android_native/LAWYGO_ANDROID_NATIVE_20261031
+        run: python -m unittest discover -s qa -p test_native_project_contract.py -v
+
+  android-debug:
+    needs: native-contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: android_native/LAWYGO_ANDROID_NATIVE_20261031
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Install Android 16 / SDK 36
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'platform-tools'
+      - name: Android compilation and JVM unit tests
+        run: gradle --no-daemon --stacktrace :app:testSuiteDebugUnitTest :app:assembleSuiteDebug
+      - name: Upload suite debug APK (unsigned for release)
+        uses: actions/upload-artifact@v4
+        with:
+          name: lawygo-total-suite-debug-apk
+          path: android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/*.apk
+          if-no-files-found: error
