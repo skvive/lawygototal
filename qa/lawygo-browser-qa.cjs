@@ -68,7 +68,10 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   try {
     await w.locator('#wiki-results button.delivery-textlink').first().click({timeout:12000});
     const dlg=w.locator('#wikiReader');
-    interactions.push({test:'wiki-public-article-detail-dialog',pass:await dlg.isVisible()&&await dlg.locator('#wikiReaderBody').textContent()==='본문 열기 정상 검증'});
+    await w.waitForFunction(() => document.querySelector('#wikiReaderBody')?.textContent === '본문 열기 정상 검증',null,{timeout:8000});
+    const readerBody=await dlg.locator('#wikiReaderBody').textContent();
+    console.log('WIKI_READER_BODY',readerBody);
+    interactions.push({test:'wiki-public-article-detail-dialog',pass:await dlg.isVisible()&&readerBody==='본문 열기 정상 검증'});
     await w.locator('.delivery-reader-close').click();
     interactions.push({test:'wiki-reader-close-button',pass:!(await dlg.isVisible())});
   }catch(e){interactions.push({test:'wiki-reader-click',pass:false,error:String(e).slice(0,250)})}
