@@ -99,30 +99,7 @@ jobs:
           emulator-boot-timeout: 600
           disable-linux-hw-accel: false
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: |
-            set -eu
-            APK=android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/app-suite-debug.apk
-            adb wait-for-device
-            adb devices -l
-            adb shell getprop sys.boot_completed
-            adb install -r "$APK"
-            echo "--- Diagnostics: installed packages ---"
-            adb shell pm list packages | grep -i lawygo || true
-            adb shell pm path site.lexid.lawygo || true
-            echo "--- Launch LAWYGO explicitly (never mask launch failure) ---"
-            adb shell am force-stop site.lexid.lawygo || true
-            adb shell am start -W -n site.lexid.lawygo/.MainActivity > lawygo-emulator-launch.txt 2>&1 || true
-            cat lawygo-emulator-launch.txt
-            sleep 10
-            echo "--- Capture evidence before checking success ---"
-            adb exec-out screencap -p > lawygo-emulator-first-launch.png || true
-            adb logcat -d -v brief -t 3000 > lawygo-emulator-logcat.txt || true
-            adb shell dumpsys activity activities > lawygo-emulator-activity.txt || true
-            test -s lawygo-emulator-first-launch.png
-            APP_PID=$(adb shell pidof site.lexid.lawygo | tr -d '\r' || true)
-            echo "LAWYGO app PID: $APP_PID"
-            test -n "$APP_PID"
-            grep -q site.lexid.lawygo lawygo-emulator-activity.txt
+          script: bash qa/lawygo-android-emulator-smoke.sh
       - name: Export emulator evidence (screenshot, activity, logcat)
         uses: actions/upload-artifact@v4
         if: always()
@@ -133,4 +110,7 @@ jobs:
             lawygo-emulator-logcat.txt
             lawygo-emulator-activity.txt
             lawygo-emulator-launch.txt
+            lawygo-emulator-packages.txt
+            lawygo-emulator-last.png
+            lawygo-emulator-screens/
           if-no-files-found: warn
