@@ -43,10 +43,11 @@ for idx in 0 1 2 3 4; do
   test -s "lawygo-emulator-screens/${TAB}.png"
   echo "Captured $TAB"
 done
-adb shell input tap "$((WIDTH * 94 / 100))" "$((HEIGHT * 5 / 100))"
+adb shell input tap "$((WIDTH * 90 / 100))" "$((HEIGHT * 8 / 100))"
 sleep 2
 adb exec-out screencap -p > lawygo-emulator-screens/settings.png
 test -s lawygo-emulator-screens/settings.png
+if cmp -s lawygo-emulator-screens/note.png lawygo-emulator-screens/settings.png; then echo "FAIL: settings button did not change the screen" >&2; exit 1; fi
 PID="$(adb shell pidof "$PKG" | tr -d '\r' || true)"
 test -n "$PID"
 echo "PASS: emulator installation, first launch, app PID and 6 UI screenshots."
