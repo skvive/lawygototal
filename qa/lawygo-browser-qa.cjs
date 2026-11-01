@@ -32,6 +32,9 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc.slice(0,160)),
             images:imgs.length,
             main:!!document.querySelector('main,[role=main]'),
+            homeHeroImage:document.body.dataset.page==='home' ? getComputedStyle(document.querySelector('.hero-bg.hero-global')).backgroundImage : null,
+            homeFirstContentGap:document.body.dataset.page==='home' ? Math.round(document.querySelector('.cream .sec-heading').getBoundingClientRect().top-document.querySelector('.cream').getBoundingClientRect().top) : null,
+            homeHeroHeight:document.body.dataset.page==='home' ? Math.round(document.querySelector('.hero').getBoundingClientRect().height) : null,
             h1:document.querySelectorAll('h1').length,
             unlabeledFields:fields.filter(x=>!x.labels?.length&&!x.getAttribute('aria-label')&&!x.getAttribute('placeholder')).map(x=>x.outerHTML.slice(0,120))
           };
@@ -55,7 +58,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await p.close();await context.close();
   }
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||!x.main||x.h1<1||x.unlabeledFields?.length);
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-korea.jpg')||x.homeFirstContentGap>85||(x.view==='mobile'&&x.homeHeroHeight>540))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
