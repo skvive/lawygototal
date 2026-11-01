@@ -7,6 +7,7 @@ on:
       - qa/lawygo-emulator-kvm-20261102
     paths:
       - android_native/**
+      - qa/lawygo-android-emulator-smoke.sh
       - .github/workflows/lawygo-native-qa.yml
   pull_request:
     paths:
