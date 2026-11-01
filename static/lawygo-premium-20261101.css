@@ -149,3 +149,7 @@ body:has(.pagehead) :is(.panel,.tile,.post){border-radius:15px;overflow:hidden;b
 body[data-product="wiki"].atlas-page .hero-bg.hero-law{background-image:url('/static/img/design/ai-wiki-visual.svg')!important;background-position:center}
 body[data-product="note"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-note-visual.svg')!important;background-position:center}
 body[data-page="pro"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-pro-visual.svg')!important;background-position:center}
+
+/* Use the unchanged canonical brand mark, not a redrawn derivative. */
+.logo .brand-logo-original,.pan-platform .brand .brand-logo-original{width:38px;height:38px;display:block;object-fit:contain;flex:none;border-radius:8px}
+.mastbrand .lawygo-journal-mark{width:38px;height:38px;object-fit:contain;display:inline-block;vertical-align:middle;flex:none}
