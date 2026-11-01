@@ -176,3 +176,14 @@ body:has(.mastbrand) .rubric{color:#694b2a!important}
 body:has(.mastbrand) :is(.rubric,.ed-head,.byline,.caption){text-shadow:none}
 body:has(.dashboard-layout) #loginPanel .eyebrow{color:#3e5266!important}
 body:has(.pagehead) :is(.kicker,#product-help,#result-count){color:#3e5266!important}
+
+
+/* Contrast follow-up for dark bands / featured cards. */
+body.atlas-page :is(.band,.footer,.footer-top,.newsletter-section) .eyebrow{color:#f9dfaf!important}
+body.atlas-page :is(.band,.footer,.footer-top) a{color:#eaf0f5}
+body.atlas-page .featured-price .eyebrow,body.atlas-page .featured-price .price small{color:#f9e0b7!important}
+body.atlas-page .billcard.featured :is(.eyebrow,.amount small,p strong){color:#f5e5ca!important}
+body.atlas-page .billcard.featured .amount{color:#fff!important}
+body.pan-platform :is(.section,.bg-cream,.surface,.pad) .muted,body.pan-platform #pan-lawyers-grid>.muted{color:#3d5061!important}
+body.pan-platform :is(.section,.bg-cream) .muted a{color:#24435b!important;text-decoration:underline}
+body.pan-platform .bg-navy .muted,body.pan-platform .bg-navy .muted a{color:#f4e5ce!important}
