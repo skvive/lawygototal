@@ -191,3 +191,7 @@ body.pan-platform .bg-navy .muted,body.pan-platform .bg-navy .muted a{color:#f4e
 /* Final WCAG AA contrasts for empty-state text and PAN footer brand */
 body.pan-platform #pan-shorts-grid>.empty{color:#334b60!important}
 body.pan-platform .footer .brand-name i{color:#f6dda8!important}
+
+/* Use the unchanged canonical brand mark, not a redrawn derivative. */
+.logo .brand-logo-original,.pan-platform .brand .brand-logo-original{width:38px;height:38px;display:block;object-fit:contain;flex:none;border-radius:8px}
+.mastbrand .lawygo-journal-mark{width:38px;height:38px;object-fit:contain;display:inline-block;vertical-align:middle;flex:none}
