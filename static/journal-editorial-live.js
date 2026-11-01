@@ -118,7 +118,18 @@ async function boot() {
 
   const leadNode = document.getElementById("journal-lead");
   leadNode.replaceChildren();
-  if (lead) leadNode.append(leadBlock(lead));
+  if (lead) {
+    leadNode.append(leadBlock(lead));
+  } else {
+    const placeholder = el('div', '', 'journal-empty-lead');
+    const photo = el('img');
+    photo.src='/static/img/design/ai-channel-desk.svg';
+    photo.alt='경제·법률 편집 데스크를 표현한 일러스트';
+    const heading=el('h2', '경제와 법률의 연결을 읽는 저널');
+    const desc=el('p', '승인된 오늘의 헤드라인을 준비 중입니다. 공개 콘텐츠가 등록되면 이 영역에 업데이트됩니다.');
+    placeholder.append(photo,heading,desc);
+    leadNode.append(placeholder);
+  }
 
   const right = document.getElementById("journal-right");
   right.replaceChildren();
