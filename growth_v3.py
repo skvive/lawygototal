@@ -251,8 +251,10 @@ def register(app, g):
         }
 
     @app.get('/api/growth/feed')
-    def feed(product:str='pan',db=Depends(database)):
+    def feed(response:Response,product:str='pan',db=Depends(database)):
         if product not in ('channel','wiki','pan'):err(422,'지원하지 않는 공개 서비스입니다.')
+        # Read-only, published public articles only; never cache authenticated/private endpoints.
+        response.headers['Cache-Control']='public, max-age=15, s-maxage=60, stale-while-revalidate=120'
         tm=stamp()
         sponsored=db.execute('''SELECT p.id,p.product,p.title,p.summary,p.kind,p.external_url,p.updated_at,p.is_sponsored
          FROM growth_campaigns c JOIN posts p ON c.post_id=p.id WHERE c.tenant=? AND c.product=? AND c.status='active'
