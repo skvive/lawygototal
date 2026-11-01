@@ -1,0 +1,11 @@
+............................./usr/lib/python3.13/threading.py:303: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7ff8062d5210>
+  def __enter__(self):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.13/threading.py:303: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x7ff806241f30>
+  def __enter__(self):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.....
+----------------------------------------------------------------------
+Ran 34 tests in 0.328s
+
+OK

@@ -8,3 +8,5 @@ LAWYGO_V3_FULL_RELEASE/
 
 .vercel
 .env*
+.venv/
+debug-*

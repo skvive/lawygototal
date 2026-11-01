@@ -1,0 +1,17 @@
+.gradle/
+.idea/
+build/
+**/build/
+*.apk
+*.aab
+*.jks
+*.keystore
+.env
+.env.*
+!*.env.example
+local.properties
+google-services.json
+*.db
+.DS_Store
+__pycache__/
+.pytest_cache/

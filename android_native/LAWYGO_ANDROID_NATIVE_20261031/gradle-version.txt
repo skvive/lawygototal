@@ -1,0 +1,1 @@
+Gradle 8.13 (Android Gradle Plugin 8.13.2 / Kotlin 2.2.20 / target API 36)

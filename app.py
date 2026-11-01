@@ -200,7 +200,7 @@ def login(data:Login,response:Response,db=Depends(database)):
     with transaction(db):
         db.execute('DELETE FROM sessions WHERE expires_at<?',(int(time.time()),))
         db.execute('INSERT INTO sessions VALUES(?,?,?,?)',(hashlib.sha256(raw.encode()).hexdigest(),row['id'],hashlib.sha256(token.encode()).hexdigest(),int(time.time())+3600*8))
-    secure=os.environ.get('LAWYGO_SECURE_COOKIES')=='true'
+    secure=os.environ.get('LAWYGO_SECURE_COOKIES','').strip().lower() in {'1','true','yes','on'}
     response.set_cookie(COOKIE,raw,httponly=True,secure=secure,samesite='lax',max_age=8*3600)
     response.set_cookie(CSRF_COOKIE,token,httponly=False,secure=secure,samesite='lax',max_age=8*3600)
     return {'id':row['id'],'name':row['display_name'],'role':row['role'],'tenant':row['tenant']}

@@ -1,0 +1,485 @@
+{
+  "file_count": 120,
+  "entries": [
+    {
+      "path": ".github/workflows/android-native-build.yml",
+      "sha256": "86fe7e2137d0dac9f93da84ecb217e91e3169e78a053de7007eaee8903a498c8"
+    },
+    {
+      "path": ".github/workflows/google-play-internal.yml",
+      "sha256": "339552975a12309eb56187b48de0691265f0e21f98daba06d4da49721302e7d8"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "a56a4a93e7a62810f0a24f1a76239d4c9246ce430aa20faecfb30444f7df84f1"
+    },
+    {
+      "path": "BUILD_ANDROID_WINDOWS.cmd",
+      "sha256": "f4f9b454f213d1ca3f25b63959a90808de7021f19bae6576851f76c1aa42be40"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/channel-mobile.png",
+      "sha256": "b705c4e6f5b8ac287d73770cf5c2407f0f13c9ce46f2b8ed443772cf8765ce75"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/home-mobile.png",
+      "sha256": "690d1064b23391479d41e5afc1f5a3621cd6a1a9e110cca2c02b6109527c4957"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/journal-mobile.png",
+      "sha256": "81ee3bbbf0f2794b5f8cf9c869c765d2d97f8e7b2e9c06430b3a290e65bda83c"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/note-mobile.png",
+      "sha256": "4fa894118269eecad632f9249bf426ba03246ddc1cad63438ebb8a534ba2c9d6"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/pan-mobile.png",
+      "sha256": "620d62207ff9ae08d10838d6260b4a832679d69ca1d08755cae989e876138b8e"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/pro-mobile.png",
+      "sha256": "3323485e680119e99c2b38f8a24e1804ef48cbe17c7df36ffb162487eb231ed0"
+    },
+    {
+      "path": "DESIGN_REFERENCES_WEB_ONLY/wiki-mobile.png",
+      "sha256": "9ed3c2b070f2b3455aa972bd1b5cad7caa70dc11f1bc3e7bdc30c5ba4920d035"
+    },
+    {
+      "path": "DOCS/ANDROID_QA_REPORT_KO.md",
+      "sha256": "ffa796625f82c9a5f7ece638a216728b32e68beb92e6a4d8f6dce4c07df50aad"
+    },
+    {
+      "path": "DOCS/ARCHITECTURE_AND_ROADMAP_KO.md",
+      "sha256": "d33bbff27f262511351dbc2d5c04c5930a0747e58e097971e0b7d3bbe83d5681"
+    },
+    {
+      "path": "DOCS/PLAY_STORE_RELEASE_GUIDE_KO.md",
+      "sha256": "e627d24e3bec7b42294a0853864192b64777581ad0d8ef98b143292ca145ae72"
+    },
+    {
+      "path": "PLAY_STORE_ASSETS/lawygo_store_icon_512.png",
+      "sha256": "cfbdeefb6abe46b0b94ad8173665ccb6c06bec7e5d9654ba2fa428d84ace1dfb"
+    },
+    {
+      "path": "QA_EVIDENCE/LEGACY_BACKEND_92_TESTS.txt",
+      "sha256": "06db4bd1cdff731ab900f9730581f79ff6ddb3aee523ddccebd56668f6e1cbd6"
+    },
+    {
+      "path": "QA_EVIDENCE/MOBILE_NEW_34_TESTS.txt",
+      "sha256": "b17874d50ac41be93e4f298183b50de46dba5b1d2918f19e7031e714a7dbbdcb"
+    },
+    {
+      "path": "QA_EVIDENCE/QA_STATUS.json",
+      "sha256": "173ba855492356934ddfbcbd5e8c40a83431b9dd99bc89c1d89100264a85d797"
+    },
+    {
+      "path": "README_FIRST_KO.md",
+      "sha256": "4b51d129cb64274d9edbdb1d45816c7d56c3e04dfe3b6f845dec79cdf6e32ae7"
+    },
+    {
+      "path": "START_BACKEND_WINDOWS.cmd",
+      "sha256": "7ee1222509ae41fce9e47f660870e383377e53f5a0eeca6fc48b6c22e23ab42a"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "sha256": "b964c461c899a466b0c17ae6a3cba7afcb8b51f3bbec88b8e6c0c3dccee0d51c"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "sha256": "1ff87f86eeddca096b24abe3cc105c0035e8223b2577e3cb5768a0e9a01f8b87"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/ApiClient.kt",
+      "sha256": "93815de7efa2dfa13d31c656ab69ef8cc5750037526847ffecf0ffdd44d405d3"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/GoogleAuth.kt",
+      "sha256": "956e15e5023b48c483d9a8487db462d341ad80b6765bca23e96c2433a2233e5f"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/LocalCache.kt",
+      "sha256": "8051ea9075d47fcbb6574d0a2b481b48363241dd12371515d6f73c00f4e13bc2"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/MainActivity.kt",
+      "sha256": "ceacee9a0c45304f8834827d6d1f57f33568e4d485fbca97515161d452c9c418"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/NewsSyncWorker.kt",
+      "sha256": "a2fbc5996c5a1557cd9bc53c24b10a50ba180d48db0a84b32d698d6438a95b32"
+    },
+    {
+      "path": "app/src/main/java/site/lexid/lawygo/Product.kt",
+      "sha256": "48c827b3f68b966538f76034abe051913684aa75f1188ab0650b36eec197d5e8"
+    },
+    {
+      "path": "app/src/main/res/drawable/ic_lawygo.xml",
+      "sha256": "99d957e9bc5769bde1b2baed487318f5d9271886bb3fa013341125c48088f2dd"
+    },
+    {
+      "path": "app/src/main/res/values/strings.xml",
+      "sha256": "4a8e7429f281b54ea973f439d75427a4b5833ce5bc32c67326114f3c72d26330"
+    },
+    {
+      "path": "backend_patch/app.py",
+      "sha256": "dcbd9284d5b9ee81756937e508453dcc1ead4b99163fc6463683b3d1479ca8a9"
+    },
+    {
+      "path": "backend_patch/mobile_auth.py",
+      "sha256": "c887545d9ce1182736b49cd0a280327f7662855d1a30105f0fc24f89b9a5971c"
+    },
+    {
+      "path": "backend_server/.env.example",
+      "sha256": "e50314c631350d7545f8b8bc5e14ac357872ac1ca9b3706aae0e9a50a05f7e3e"
+    },
+    {
+      "path": "backend_server/.gitignore",
+      "sha256": "f5b1b8214c5ef9b8947c7c1b5c0db6c681483c4f5c2fd829df9b5986e2daf821"
+    },
+    {
+      "path": "backend_server/INSTALL_DAILY_TASK_WINDOWS.ps1",
+      "sha256": "8fa6f56d04934f1749ca48b98f55f222dffadf2b904b98e0166cbcda00c64fb4"
+    },
+    {
+      "path": "backend_server/RUN_DAILY_EDITORIAL_WINDOWS.bat",
+      "sha256": "fabd26601375aa7461728a35180f246b2f10c5c73ce382787eda8c0916567952"
+    },
+    {
+      "path": "backend_server/RUN_LINUX_MAC.sh",
+      "sha256": "1e34855ad6ea240591c9e4a86ff7534034eda0d0065df6f0ef66b0aa1c8301c3"
+    },
+    {
+      "path": "backend_server/RUN_SYNC_ONCE_WINDOWS.bat",
+      "sha256": "6ee979def4159aff1cb0a879a2a5a47ee626a1ee79838d909d22b6429e6c3da9"
+    },
+    {
+      "path": "backend_server/RUN_WINDOWS.bat",
+      "sha256": "c62fd7e5e2e485e41d20688055b6fe148ad472ae32b063c9f3de6c1291ee43a3"
+    },
+    {
+      "path": "backend_server/app.py",
+      "sha256": "dcbd9284d5b9ee81756937e508453dcc1ead4b99163fc6463683b3d1479ca8a9"
+    },
+    {
+      "path": "backend_server/backup_data.py",
+      "sha256": "2304be992a9536ed525cdedcf961b3e63802ed7a6e73b9611324addd1dc3aef9"
+    },
+    {
+      "path": "backend_server/bootstrap_admin.py",
+      "sha256": "88979ba70f4fa042979b547e59930867974f4d1cc0e9b97cbbf7682aeaca3dce"
+    },
+    {
+      "path": "backend_server/diagnose.py",
+      "sha256": "bf41e957d5bbec627c57f198cb6174ce0821a339491436fbdf0e8180f3bb496a"
+    },
+    {
+      "path": "backend_server/docs/GITHUB_ENGINE_MAPPING.md",
+      "sha256": "32ad7adf27b8bce3d276e64f0e6470b17384142e99c25e9a6fdd1f0943547b0b"
+    },
+    {
+      "path": "backend_server/editorial_v5.py",
+      "sha256": "84b8811199ea3c32fb4675e175ca682e2f713add7cbc61aff2eecb9a76fd4500"
+    },
+    {
+      "path": "backend_server/growth_v3.py",
+      "sha256": "1d614570862d5ee916c39f93fad6c57b17cba07fcc4121586bd85a627ed74b59"
+    },
+    {
+      "path": "backend_server/hub_v4.py",
+      "sha256": "54d1861dd228cba9e60904e12d54229d6b7df5b194f9eccbd89bb4dc057dcd1a"
+    },
+    {
+      "path": "backend_server/integrations/lawygo_native_product_api.ts",
+      "sha256": "caca0b70f79688720a7b8b1c889b1aad66cca57178f2fc303adee2210e7d14f6"
+    },
+    {
+      "path": "backend_server/integrations/lawygo_native_workspace.tsx",
+      "sha256": "312f0266bcdb25beaac84d1d5633e2fda8207770768d8262456be8ee1d12f804"
+    },
+    {
+      "path": "backend_server/integrations_v2.py",
+      "sha256": "a82355d5a30e69073c523ab23cb36feb73f314bfb4a75375572244e3acaa95df"
+    },
+    {
+      "path": "backend_server/launcher.py",
+      "sha256": "149c8a473a3f0d2ce3ff28575c370b7b0f1c1c831438545608110fe61bcc3092"
+    },
+    {
+      "path": "backend_server/mobile_auth.py",
+      "sha256": "c887545d9ce1182736b49cd0a280327f7662855d1a30105f0fc24f89b9a5971c"
+    },
+    {
+      "path": "backend_server/newsletter_v3.py",
+      "sha256": "4936f79aa49bc24c7f78d02931d5497e46200889b7c9690dd4358c93f334d3c8"
+    },
+    {
+      "path": "backend_server/requirements-qa.txt",
+      "sha256": "dd5a5ae541f4bd1370daa649106c12f2d5ad3f70c5182762378fa9a19c652a8f"
+    },
+    {
+      "path": "backend_server/requirements.txt",
+      "sha256": "ff2476890f784cc35c43332875b66c254bc2a83c27eed096b886a87c1170f9cd"
+    },
+    {
+      "path": "backend_server/run_daily_editorial.py",
+      "sha256": "a1a3ab16e3836fb39a9aac237ff6ec6c2fdef94c39d2e93f7efb4df86452ed5b"
+    },
+    {
+      "path": "backend_server/setup_admin.py",
+      "sha256": "c5e09332816e9d14db706828502f6620d7cc49dc3990982a497fa5fb0d5d745e"
+    },
+    {
+      "path": "backend_server/static/channel-v5.html",
+      "sha256": "26db57b2cbf6b565c83a8fd3ea0561233236be3a355e51e6f38b5a0e6d7c62c5"
+    },
+    {
+      "path": "backend_server/static/dashboard.html",
+      "sha256": "9f59b4ac126e7e57a1d5b05e0b40d23968d05217543687face40355a32863325"
+    },
+    {
+      "path": "backend_server/static/dashboard.js",
+      "sha256": "60972f32e12e57e350973a3f603e76444101613cd5ac02c72504d91c08845c0a"
+    },
+    {
+      "path": "backend_server/static/editor-v5.html",
+      "sha256": "3d69bfc62b32da83d4245b409352a7f9d0d9bbbed362b33ed01fb422205bc82a"
+    },
+    {
+      "path": "backend_server/static/editorial-site.js",
+      "sha256": "191bb7fc3732ec96cf6dc03324b059252c1334ebfd3b6b1b4871e7c614b372fd"
+    },
+    {
+      "path": "backend_server/static/editorial.css",
+      "sha256": "3799430a8e297bdf9ec725318b355b74193affdae4a7b9692cea96ed0d1ddeff"
+    },
+    {
+      "path": "backend_server/static/favicon.ico",
+      "sha256": "817a2077104de48e8478a30f54cc149688dd62c64da2ecd4c1e532f99eca35c9"
+    },
+    {
+      "path": "backend_server/static/growth.js",
+      "sha256": "692eb40d69d7d22d50dd7e0767493c091192e932572e28b111d55960892505f7"
+    },
+    {
+      "path": "backend_server/static/hub.css",
+      "sha256": "b764897e3e4f749e4552b3b81274873cc73ffa0fa1066dbdafcd986f04712fa7"
+    },
+    {
+      "path": "backend_server/static/hub.html",
+      "sha256": "8e191b4a477d823d98bc1a1f92fddb013fb8191c3f002db0c89a1815f52d9ae6"
+    },
+    {
+      "path": "backend_server/static/hub.js",
+      "sha256": "bf985c9618b3e3bcf3b3be0985116cd15a343e96f5efc0cb1a8392413a53a3d2"
+    },
+    {
+      "path": "backend_server/static/icon-256.png",
+      "sha256": "fdce809458b01d4c075681d801432f55c3c46d98f3f4276cceed1b34851ffe7b"
+    },
+    {
+      "path": "backend_server/static/img/channel.webp",
+      "sha256": "5448def384b13983fcbc9e40137163c4298a14c6b25a04226a8c7ccf116a1821"
+    },
+    {
+      "path": "backend_server/static/img/note.webp",
+      "sha256": "120c690f5bf78398454c09f50c0a70d4c181ba598ad6e344a531c2c729aa2a3f"
+    },
+    {
+      "path": "backend_server/static/img/pan.webp",
+      "sha256": "90e3b313d101e5f952eda47a79bd86af59ee8e02ef62d65e6f61ea75c196ab01"
+    },
+    {
+      "path": "backend_server/static/img/wiki.webp",
+      "sha256": "42a0160402eba85e58260075a1a5ee582aa11e2b8c330e5c5c59b19e0e9c8363"
+    },
+    {
+      "path": "backend_server/static/index-v5.html",
+      "sha256": "a8b55758a4d521544145c79d15adb728cea2945fc0032f8a86471bdc9828ba82"
+    },
+    {
+      "path": "backend_server/static/index.html",
+      "sha256": "cecadd2bd3bf8c2f414a85aba152a8b25795c42b6f6059a8e6fb9158a7f21f0a"
+    },
+    {
+      "path": "backend_server/static/journal.html",
+      "sha256": "10ef2373f9eea86d5921ef5feb76e5b4fdbaace7c9a7af3bce568328f8e0736c"
+    },
+    {
+      "path": "backend_server/static/logo.svg",
+      "sha256": "075378afa89498cdad6dd719d0b6bfc1b8bdff6b0faa288e7df181282bc3a987"
+    },
+    {
+      "path": "backend_server/static/marketing.js",
+      "sha256": "4fd4f508108b9168cf4b00619d50896a6c8afa28493e71e518efc3365c429b0b"
+    },
+    {
+      "path": "backend_server/static/note-v5.html",
+      "sha256": "932963ac4ffb931496a1f31a2ce30d63b1774f9c329a1a9dfd2cd6ead7ea71d8"
+    },
+    {
+      "path": "backend_server/static/og-image.jpg",
+      "sha256": "574f497f68b1d50cc14a7a940dcde8a8bbf2f87e98b254b52a1812609831ec55"
+    },
+    {
+      "path": "backend_server/static/pan-v5.html",
+      "sha256": "b80a6de60577af98351eeb7a0ef7d5c8695e0f728a0043c58d5743e7e20988b2"
+    },
+    {
+      "path": "backend_server/static/pro-v5.html",
+      "sha256": "0e0c965ad4684839852a33772228036d80ac9cca8df2db1debead60f25bccdc3"
+    },
+    {
+      "path": "backend_server/static/product.html",
+      "sha256": "0fdbc26b24ff296e2dc0e44b994d33cc016afc0776308af4f4329eead9b874b2"
+    },
+    {
+      "path": "backend_server/static/product.js",
+      "sha256": "7ff0fc46b6227309c0528b0654bda24cc77f6c900254064f2790307af5f61cf1"
+    },
+    {
+      "path": "backend_server/static/style.css",
+      "sha256": "cd9a1ded265b533b7e2841c1449202afee8be1686e9c425904849bca2da6d540"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-1.webp",
+      "sha256": "6abeb381501c6c30ef072b5986b61bd5bbf172a3247050ceeea8f4845b792849"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-2.webp",
+      "sha256": "817543e06d21bab800ba94fd647c137a88186f709e918b9be1adad9a9fd57a04"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-3.webp",
+      "sha256": "8966fa7fb7f385cec8c557f27160e796d846d0c36ed5b94072043cec7897a8e0"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-4.webp",
+      "sha256": "c10d041e39d6d2b26367ef44e5bc23abc11bd85b87944b0d21cfb88d4b379a8e"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-5.webp",
+      "sha256": "8ba9fa6bbc3e5ba9805509500add7d7e3ae23c9880d97e541647aaced894a4aa"
+    },
+    {
+      "path": "backend_server/static/visuals/visual-6.webp",
+      "sha256": "9d40cfaeeb1a07176fd7a8f862b9ad836a1d287e89e8f433d7503ef286bfe46b"
+    },
+    {
+      "path": "backend_server/static/wiki-v5.html",
+      "sha256": "14f48da0d39787cef93828b399ea06512397434ebcad9c2d46278da50e42042e"
+    },
+    {
+      "path": "backend_server/sync_worker.py",
+      "sha256": "9ccac15e27274a9fada341630b58213b04af5cc95806cfaccf710722b57c7328"
+    },
+    {
+      "path": "backend_server/tests/_test_instance/uploads/0bbe7925556e496087273a5d6cdd29c3.pdf",
+      "sha256": "d0e049a9a686bcbd034c728e200ffc77f7c346c37997ddc76016fb6410aa5914"
+    },
+    {
+      "path": "backend_server/tests/_test_instance/uploads/cf38c864ba2242f190c92a74622ace6c.pdf",
+      "sha256": "d0e049a9a686bcbd034c728e200ffc77f7c346c37997ddc76016fb6410aa5914"
+    },
+    {
+      "path": "backend_server/tests/_test_instance/uploads/d8ee49683231483489612df188e828ca.pdf",
+      "sha256": "d0e049a9a686bcbd034c728e200ffc77f7c346c37997ddc76016fb6410aa5914"
+    },
+    {
+      "path": "backend_server/tests/browser_e2e.py",
+      "sha256": "e363cf8d9a1550403ce4e9956f003c3edd13d1c2d113bde6fd598ea9d6da4ce0"
+    },
+    {
+      "path": "backend_server/tests/browser_v2_e2e.py",
+      "sha256": "82b37d8478eadb179562edde6f21f4d1aa30db058bf0519b432a03fc18fa0ac3"
+    },
+    {
+      "path": "backend_server/tests/http_smoke.py",
+      "sha256": "7238c88dadf414efcf90e123ef06db821098a0a47b7a73964ba953128daf525d"
+    },
+    {
+      "path": "backend_server/tests/qa_v6_http_matrix.py",
+      "sha256": "3602bc3da0789163ba12e7660887e5e8a3151c0030b37d1d4af906d83342fd5f"
+    },
+    {
+      "path": "backend_server/tests/qa_v6_live_browser.py",
+      "sha256": "de2d29e678ae28c27d965802d99e4f0c4545c6d87e846b612bb6ab36bef03045"
+    },
+    {
+      "path": "backend_server/tests/qa_v6_offline_visual.py",
+      "sha256": "6e144426f9fc01efbdc682f8f691ac4839c772f2c5753bc64ff86826aa3d3b6e"
+    },
+    {
+      "path": "backend_server/tests/render_offline_v2.py",
+      "sha256": "cc20acc893c4d83f217d254302a01ea4833f9c4143e0890266d5c43953cb0d33"
+    },
+    {
+      "path": "backend_server/tests/test_ai_editorial_v5.py",
+      "sha256": "44cf05584d4e6a1b0999890ed6f012703d3f11412edd532e725bf8e74dd0c113"
+    },
+    {
+      "path": "backend_server/tests/test_editorial_v5.py",
+      "sha256": "a81e405b847951a3b2748fc686021187edc25ea874beb26d9927778aa4a54161"
+    },
+    {
+      "path": "backend_server/tests/test_engine.py",
+      "sha256": "c27e188390e2d1682307fe6ec3386dbd0c947c879a5d54b7c092d6b096bacc93"
+    },
+    {
+      "path": "backend_server/tests/test_extra.py",
+      "sha256": "b1af0d84df4515374e7de5dd212a21526929d24658465a2933fc51950baf2061"
+    },
+    {
+      "path": "backend_server/tests/test_growth_v3.py",
+      "sha256": "1399b8e6af81f9c8353e285fc6ec1c661ddd26a7cd9b56c8c5b679f6f1af6fd1"
+    },
+    {
+      "path": "backend_server/tests/test_hub_v4.py",
+      "sha256": "17f8938016c257c3ed8fa15172bc55045afcf70f4b8771b26715d937f44f4ad1"
+    },
+    {
+      "path": "backend_server/tests/test_integrations_v2.py",
+      "sha256": "8fc42602df0addb471c6629b9d97c3ebf8489c6b8b979635b92c7809a5f68b40"
+    },
+    {
+      "path": "backend_server/tests/test_modules.py",
+      "sha256": "4820fd9ee5e08b16faf591d8c6516889eb857a51bc6485b0031d1420712611b1"
+    },
+    {
+      "path": "backend_server/tests/test_newsletter_v3.py",
+      "sha256": "0e785af9579e714f8f07a60233afcce97127e14c50b4dff152562105c4aea83c"
+    },
+    {
+      "path": "backend_server/tests/test_v6_failures.py",
+      "sha256": "09ce56ef57664653a24e6a965147318cbf334318590613d56a08a6a64f685bb5"
+    },
+    {
+      "path": "build.gradle.kts",
+      "sha256": "b7e8343ad7c348e87a1dbdcb0736e92416771bdb70490acd5f543249beba8a70"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "e0d4d0d0ac0721415c6661e9713ab4ab0ef9d0b687b006574a089dcda5a81ec2"
+    },
+    {
+      "path": "gradle-version.txt",
+      "sha256": "b95a7a2d50bb82e8e859185d1fc976085aa47e29156615fcad86588cfc21cfae"
+    },
+    {
+      "path": "gradle.properties",
+      "sha256": "2694880d770a6a050e55e5742f178350e4217d5bbf3a6d40515de7a7911f35f4"
+    },
+    {
+      "path": "qa/test_mobile_integration.py",
+      "sha256": "b18c894b09458cda0891a3bfbabc30ffb6aea7de76304adfca90e33796f8df29"
+    },
+    {
+      "path": "qa/test_native_project_contract.py",
+      "sha256": "d6cc7ae5d11aec0c5811ce8051c81420b4e7eaa49ae2e8c0c3c38066dd4cf8f6"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "sha256": "1733aa64e9f64b8c37eaaa7b37e4276f3e0f723005d9bee035eb43269572928e"
+    }
+  ]
+}

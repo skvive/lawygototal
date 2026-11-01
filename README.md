@@ -9,6 +9,14 @@
 5. 관리자 사이드바 **광고·마케팅·운영 분석**에서 캠페인, 변호사 인증 심사, 게시판 드래그앤드롭, 연동 상태를 확인합니다.
 6. 테스트 종료 후에는 테스트 데이터베이스를 삭제하고 운영 전용 데이터베이스를 별도로 생성합니다.
 
+## Android 네이티브 패키지
+
+`android_native/LAWYGO_ANDROID_NATIVE_20261031/`에 첨부된 Android 네이티브 소스와 FastAPI 연동 패키지 전체를 보존했습니다. 패키지의 `README_FIRST_KO.md`는 빌드·실기기 검증에 필요한 납품 안내이며, Android SDK/JDK와 서명 키가 준비된 환경에서 별도로 빌드합니다.
+
+## Neon DB · Neon Auth
+
+운영 Vercel 환경은 `DATABASE_URL`에 Neon pooled PostgreSQL 연결 문자열을 주입해 사용합니다. Managed Neon Auth(Better Auth)는 `lawygototal-rerand` 기본 브랜치에 프로비저닝되어 있으며 `https://lawygo.lexid.site`가 trusted domain으로 등록되어 있습니다. 실제 연결 문자열과 비밀값은 Vercel 환경변수에만 저장하고 Git에는 넣지 않습니다.
+
 ## 현재 포함된 기능
 
 - 4개 제품, 게시판/게시글/댓글 CRUD, 이력, 승인·복원, PDF·이미지 첨부, 비공개 노트 분리.
