@@ -69,17 +69,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
+      - name: Reuse the exact APK built in android-debug
+        uses: actions/download-artifact@v4
         with:
-          gradle-version: '8.13'
-      - name: Install Android 36 build SDK
+          name: lawygo-total-suite-debug-apk
+          path: android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug
+      - name: Verify APK exists before starting the emulator
         run: |
-          export PATH="/usr/local/lib/android/sdk/cmdline-tools/latest/bin:$PATH"
-          yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'platform-tools'
-      - name: Build suite debug for emulator
-        working-directory: android_native/LAWYGO_ANDROID_NATIVE_20261031
-        run: gradle --no-daemon :app:assembleSuiteDebug
+          APK=android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/app-suite-debug.apk
+          ls -lh "$APK"
+          test -s "$APK"
       - name: Enable KVM hardware acceleration for emulator
         run: |
           if [ -c /dev/kvm ]; then
@@ -102,17 +101,25 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
             set -eu
+            APK=android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/app-suite-debug.apk
+            adb wait-for-device
             adb devices -l
-            adb install -r android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/app-suite-debug.apk
-            adb shell pm path site.lexid.lawygo
+            adb shell getprop sys.boot_completed
+            adb install -r "$APK"
+            echo "--- Diagnostics: installed packages ---"
+            adb shell pm list packages | grep -i lawygo || true
+            adb shell pm path site.lexid.lawygo || true
+            echo "--- Launch LAWYGO explicitly (never mask launch failure) ---"
             adb shell am force-stop site.lexid.lawygo || true
-            adb shell am start -W -n site.lexid.lawygo/.MainActivity
-            sleep 8
-            adb exec-out screencap -p > lawygo-emulator-first-launch.png
+            adb shell am start -W -n site.lexid.lawygo/.MainActivity > lawygo-emulator-launch.txt 2>&1 || true
+            cat lawygo-emulator-launch.txt
+            sleep 10
+            echo "--- Capture evidence before checking success ---"
+            adb exec-out screencap -p > lawygo-emulator-first-launch.png || true
             adb logcat -d -v brief -t 3000 > lawygo-emulator-logcat.txt || true
             adb shell dumpsys activity activities > lawygo-emulator-activity.txt || true
             test -s lawygo-emulator-first-launch.png
-            APP_PID=$(adb shell pidof site.lexid.lawygo | tr -d '\r')
+            APP_PID=$(adb shell pidof site.lexid.lawygo | tr -d '\r' || true)
             echo "LAWYGO app PID: $APP_PID"
             test -n "$APP_PID"
             grep -q site.lexid.lawygo lawygo-emulator-activity.txt
@@ -125,4 +132,5 @@ jobs:
             lawygo-emulator-first-launch.png
             lawygo-emulator-logcat.txt
             lawygo-emulator-activity.txt
+            lawygo-emulator-launch.txt
           if-no-files-found: warn
