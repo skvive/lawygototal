@@ -2,7 +2,7 @@
 # Emulated LAWYGO UI QA; always run as ONE command inside android-emulator-runner.
 set -Eeuo pipefail
 APK="android_native/LAWYGO_ANDROID_NATIVE_20261031/app/build/outputs/apk/suite/debug/app-suite-debug.apk"
-PKG="site.lexid.lawygo"
+PKG="site.lexid.lawygo.debug"
 mkdir -p lawygo-emulator-screens
 collect_diagnostics() {
   adb logcat -d -v brief -t 3000 > lawygo-emulator-logcat.txt 2>&1 || true
@@ -21,7 +21,7 @@ adb shell pm path "$PKG" || true
 adb shell pm list packages | grep -i lawygo || true
 echo "=== Launch LAWYGO ==="
 adb shell am force-stop "$PKG" || true
-adb shell am start -W -n "$PKG/.MainActivity" 2>&1 | tee lawygo-emulator-launch.txt
+adb shell am start -W -n "$PKG/site.lexid.lawygo.MainActivity" 2>&1 | tee lawygo-emulator-launch.txt
 sleep 10
 adb exec-out screencap -p > lawygo-emulator-first-launch.png
 test -s lawygo-emulator-first-launch.png
