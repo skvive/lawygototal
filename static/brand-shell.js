@@ -5,7 +5,7 @@
   const header = `
 <div class="utility"><div class="wrap utility-inner"><span>ECONOMY × LAW × INTELLIGENCE</span><span>대한민국 · 미국을 잇는 제도적 통찰</span><span class="utility-right">U.S. &amp; KOREA · LEGAL INTELLIGENCE</span></div></div>
 <header class="header"><div class="wrap header-main">
-  <a href="/" class="logo" aria-label="LAWYGO 메인"><span class="logo-mark"><b>L</b><i></i></span><span class="logo-word">LAWYGO<span class="logo-sub">LEGAL INTELLIGENCE</span></span></a>
+  <a href="/" class="logo" aria-label="LAWYGO 메인"><img class="brand-logo-original" src="/static/logo.svg" width="38" height="38" alt="" aria-hidden="true"><span class="logo-word">LAWYGO<span class="logo-sub">LEGAL INTELLIGENCE</span></span></a>
   <nav class="desktop-nav" aria-label="주 메뉴">
     <a class="${on('/journal')}" href="/journal">저널</a>
     <a class="${on('/p/wiki')}" href="/p/wiki">위키</a>
