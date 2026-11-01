@@ -26,7 +26,11 @@ const slug = s => s === '/' ? 'home' : s.slice(1).replaceAll('/','-');
       try {
         const response=await page.goto(BASE+routePath,{waitUntil:'domcontentloaded',timeout:40000});
         status=response?.status()||0;
-        await page.waitForLoadState('networkidle',{timeout:7000}).catch(()=>{});
+        await page.waitForTimeout(700);
+        // Analytics requests can prevent networkidle forever. Wait only for visible images.
+        await page.evaluate(() => Promise.all([...document.images].map(img => img.complete
+          ? Promise.resolve()
+          : Promise.race([img.decode().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,1600))]))));
       }catch(e){error=String(e).slice(0,250)}
       let info={};
       if(!error){
