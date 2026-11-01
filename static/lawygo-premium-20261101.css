@@ -305,3 +305,15 @@ body:has(.mastbrand) .journal-empty-lead img{width:100%;aspect-ratio:16/9;object
  body.atlas-page[data-page=partnership] .subhero::before{width:100%;right:-40%;opacity:.08}
 }
 @media(max-width:360px){body[data-product=note] .workflow{grid-template-columns:1fr}body[data-product=note] .workflow>div{min-height:115px}}
+
+/* 360px JOURNAL masthead overrun caught by real Chromium run 41346839465. */
+@media(max-width:380px){
+ body:has(.mastbrand) .mast .page{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 12px;min-width:0;padding:10px 12px}
+ body:has(.mastbrand) .mastbrand{font-size:clamp(20px,6.5vw,25px);line-height:1.1;white-space:normal;max-width:100%;min-width:0}
+ body:has(.mastbrand) .mastbrand .lawygo-journal-mark{width:24px;height:24px;margin-right:4px}
+ body:has(.mastbrand) .mast .right{display:flex;justify-content:center;width:100%}
+ body:has(.mastbrand) .headbtn{font-size:11px;min-height:32px}
+ body:has(.mastbrand) .navline .page{overflow-x:auto;max-width:100%}
+ body:has(.mastbrand) .page{padding-left:12px;padding-right:12px}
+ body:has(.mastbrand) .edition{flex-wrap:wrap;gap:6px;overflow-wrap:anywhere}
+}
