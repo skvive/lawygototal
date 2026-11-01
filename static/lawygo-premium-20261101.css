@@ -143,3 +143,9 @@ body:has(.pagehead) :is(.panel,.tile,.post){border-radius:15px;overflow:hidden;b
  body:has(.dashboard-layout) .topline{flex-wrap:wrap}
 }
 @media(max-width:420px){body:has(.dashboard-layout) .kpis{grid-template-columns:1fr}body.pan-platform .hero h1{font-size:33px}body.atlas-page .hero h1{font-size:36px}}
+
+
+/* Original AI-authored legal visual assets; text always remains native, selectable HTML. */
+body[data-product="wiki"].atlas-page .hero-bg.hero-law{background-image:url('/static/img/design/ai-wiki-visual.svg')!important;background-position:center}
+body[data-product="note"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-note-visual.svg')!important;background-position:center}
+body[data-page="pro"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-pro-visual.svg')!important;background-position:center}
