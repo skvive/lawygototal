@@ -129,7 +129,7 @@ fun LawygoApp(api: ApiClient) {
         Scaffold(
             topBar = {
                 Surface(color=Navy) {
-                    Row(Modifier.fillMaxWidth().height(60.dp).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
+                    Row(Modifier.fillMaxWidth().statusBarsPadding().height(60.dp).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
                         Text("L",color=Gold,fontSize=30.sp,fontWeight=FontWeight.Black)
                         Spacer(Modifier.width(10.dp));Column(Modifier.weight(1f)) {
                             Text("LAWYGO",color=Color.White,fontSize=16.sp,fontWeight=FontWeight.Bold,letterSpacing=2.sp)
