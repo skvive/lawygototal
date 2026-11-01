@@ -1,0 +1,50 @@
+name: LAWYGO website visual regression (local staging)
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['static/**', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
+  push:
+    branches: [master, qa/lawygo-accessibility-android-20261101]
+    paths: ['static/**', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
+permissions:
+  contents: read
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install isolated FastAPI test server
+        run: python -m pip install -r requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and browser
+        run: |
+          npm install --no-save --no-audit playwright@1.64.1
+          npx playwright install --with-deps chromium
+      - name: Start local SQLite test server
+        env:
+          LAWYGO_DB_PATH: /tmp/lawygo-web-qa.db
+          LAWYGO_UPLOAD_PATH: /tmp/lawygo-web-qa-uploads
+          LAWYGO_SECURE_COOKIES: 'false'
+        run: |
+          nohup python -m uvicorn app:app --host 127.0.0.1 --port 8018 > /tmp/lawygo-uvicorn.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl --fail -s http://127.0.0.1:8018/api/health >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/lawygo-uvicorn.log
+          exit 1
+      - name: Capture 26 page screenshots and assert UI contracts
+        run: node qa/lawygo-browser-qa.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lawygo-website-26-screenshots-and-qa
+          path: qa-output/
+          retention-days: 14
+          if-no-files-found: warn

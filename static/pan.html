@@ -202,9 +202,9 @@
       <p class="muted small">메일 앱이 열립니다.</p>
       <form data-email-form data-recipient="sk@terrabridge.us">
         <input type="hidden" name="subject" id="modal-subject" value="LAWYGO PAN 문의">
-        <div class="form-row"><div class="form-item"><label>성함</label><input class="field" name="name" required></div>
-        <div class="form-item"><label>이메일</label><input class="field" name="email" type="email" required></div></div>
-        <div class="form-item"><label>문의</label><textarea class="field" name="message" required maxlength="2000"></textarea></div>
+        <div class="form-row"><div class="form-item"><label for="pan-contact-name">성함</label><input class="field" id="pan-contact-name" name="name" autocomplete="name" required></div>
+        <div class="form-item"><label for="pan-contact-email">이메일</label><input class="field" id="pan-contact-email" name="email" type="email" autocomplete="email" required></div></div>
+        <div class="form-item"><label for="pan-contact-message">문의</label><textarea class="field" id="pan-contact-message" name="message" required maxlength="2000"></textarea></div>
         <label><input type="checkbox" name="consent" required value="1"> 이메일 전송 동의</label>
         <button type="submit" class="btn primary block">메일 작성</button>
       </form>
