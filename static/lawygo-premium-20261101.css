@@ -152,3 +152,27 @@ body[data-page="pro"].atlas-page .hero-bg.hero-network{background-image:url('/st
 
 /* Accessible document heading (kept in DOM for assistive technology). */
 .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+
+/* QA contrast corrections: small text must reach WCAG AA 4.5:1 on light surfaces */
+body.atlas-page :is(.cream,.white,.soft,.surface,.subhero,.knowledge-search,.feature-card,.price-card,.billfree,.billingwrap) .eyebrow,
+body.atlas-page .sec-heading .eyebrow{color:#65502c!important}
+body.atlas-page :is(.cream,.white,.soft,.surface,.subhero,.feature-card,.price-card) .textlink{color:#70471e!important}
+body.atlas-page .workflow span,body.atlas-page .feature-card>span{color:#685029!important}
+body.atlas-page :is(.cream,.white,.soft,.surface,.subhero) :is(small,.muted){color:#435469}
+body.atlas-page .knowledge-search .eyebrow{color:#574729!important}
+body.atlas-page #wiki-count{color:#33485b!important}
+body.atlas-page .btn-outline,body.atlas-page .btn-mini.btn-outline{background:#fdf9f0!important;color:#102b40!important;border-color:#85663d!important}
+body.atlas-page .hero .btn-outline,body.atlas-page .band .btn-outline{background:rgba(8,27,42,.78)!important;color:#fff!important;border-color:#ddbd83!important}
+body.atlas-page .price-card :is(.price small,.muted){color:#425166}
+body.atlas-page .price-card.featured :is(.price small,.muted){color:#e4ecf3}
+body.atlas-page .billfree>.eyebrow,body.atlas-page .billfree .eyebrow{color:#64502c!important}
+body.atlas-page .billingwrap .eyebrow{color:#654b28!important}
+body.pan-platform :is(.section,.bg-cream,.surface,.pad) .eyebrow{color:#6b3d32!important}
+body.pan-platform :is(.section,.bg-cream) .eyebrow.rose{color:#95263e!important}
+body.pan-platform .bg-navy .eyebrow{color:#f6dcae!important}
+body:has(.mastbrand) .navline a.on{color:#253d52!important}
+body:has(.mastbrand) .rubric{color:#694b2a!important}
+body:has(.mastbrand) :is(.rubric,.ed-head,.byline,.caption){text-shadow:none}
+body:has(.dashboard-layout) #loginPanel .eyebrow{color:#3e5266!important}
+body:has(.pagehead) :is(.kicker,#product-help,#result-count){color:#3e5266!important}
