@@ -187,3 +187,7 @@ body.atlas-page .billcard.featured .amount{color:#fff!important}
 body.pan-platform :is(.section,.bg-cream,.surface,.pad) .muted,body.pan-platform #pan-lawyers-grid>.muted{color:#3d5061!important}
 body.pan-platform :is(.section,.bg-cream) .muted a{color:#24435b!important;text-decoration:underline}
 body.pan-platform .bg-navy .muted,body.pan-platform .bg-navy .muted a{color:#f4e5ce!important}
+
+/* Final WCAG AA contrasts for empty-state text and PAN footer brand */
+body.pan-platform #pan-shorts-grid>.empty{color:#334b60!important}
+body.pan-platform .footer .brand-name i{color:#f6dda8!important}
