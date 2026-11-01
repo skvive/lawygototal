@@ -1,0 +1,32 @@
+name: LAWYGO LIVE production read-only browser QA
+on:
+  pull_request:
+    paths: ['qa/lawygo-live-visual.cjs', '.github/workflows/lawygo-live-browser-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install real Chromium browser
+        run: |
+          npm install --no-save --no-audit playwright@1.64.1
+          npx playwright install --with-deps chromium
+      - name: Capture 52 live production screenshots in GET-only mode
+        env:
+          LIVE_BASE_URL: https://lawygo.lexid.site
+          QA_OUT_DIR: live-browser-qa
+        run: node qa/lawygo-live-visual.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lawygo-live-production-52-screenshots
+          path: live-browser-qa/
+          retention-days: 14
+          if-no-files-found: warn
