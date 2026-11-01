@@ -36,7 +36,7 @@
   <a href="/journal">저널</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">CMS</a>
 </div>
 <div class="footer-bottom"><span>© 2026 LAWYGO. All rights reserved.</span>
-  <span>Stripe 실결제·운영 배포는 아직 활성화되지 않았습니다. PR #14 초안 참조. 개별 사안의 법률·투자 자문이 아닙니다.</span></div></div></footer>
+  <span>웹사이트는 운영 중이며 유료 결제는 별도 승인 전까지 비활성 상태입니다. 개별 사안의 법률·투자 자문이 아닙니다.</span></div></div></footer>
 <div class="toast" role="status" aria-live="polite"></div>`;
   document.querySelectorAll('[data-brand-shell="header"]').forEach((el) => { el.innerHTML = header; });
   document.querySelectorAll('[data-brand-shell="footer"]').forEach((el) => { el.innerHTML = footer; });

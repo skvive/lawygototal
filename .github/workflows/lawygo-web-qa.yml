@@ -39,12 +39,12 @@ jobs:
           done
           cat /tmp/lawygo-uvicorn.log
           exit 1
-      - name: Capture 26 page screenshots and assert UI contracts
+      - name: Capture 52 responsive screenshots and test public reader interactions
         run: node qa/lawygo-browser-qa.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lawygo-website-26-screenshots-and-qa
+          name: lawygo-website-52-screenshots-and-qa
           path: qa-output/
           retention-days: 14
           if-no-files-found: warn

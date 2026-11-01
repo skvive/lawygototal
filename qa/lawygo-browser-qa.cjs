@@ -6,7 +6,7 @@ const path = require('node:path');
 const BASE = process.env.QA_BASE_URL || 'http://127.0.0.1:8018';
 const OUT = process.env.QA_OUT_DIR || 'qa-output';
 const ROUTES = ['/', '/journal', '/p/wiki', '/p/note', '/pro', '/p/pan', '/channel', '/pricing', '/partnership', '/payment', '/dashboard', '/strategy', '/p/channel'];
-const SCREENS = [{name:'desktop',width:1440,height:900},{name:'mobile',width:390,height:844}];
+const SCREENS = [{name:'desktop',width:1440,height:900},{name:'tablet',width:768,height:1024},{name:'mobile',width:390,height:844},{name:'mobile-small',width:360,height:780}];
 const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').replace(/\//g,'-');
 (async () => {
   fs.mkdirSync(path.join(OUT,'screens'),{recursive:true});
@@ -31,6 +31,9 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             overflow:document.documentElement.scrollWidth>w+3,
             brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc.slice(0,160)),
             images:imgs.length,
+            deliveryCards:document.querySelectorAll('.delivery-feature').length,
+            tinyDeliveryMedia:[...document.querySelectorAll('.delivery-feature-media')].filter(e=>e.getBoundingClientRect().height<112).length,
+            primaryButtons:[...document.querySelectorAll('.hero-buttons .btn')].filter(e=>e.getBoundingClientRect().height<40).length,
             main:!!document.querySelector('main,[role=main]'),
             homeHeroImage:document.body.dataset.page==='home' ? getComputedStyle(document.querySelector('.hero-bg.hero-global')).backgroundImage : null,
             homeFirstContentGap:document.body.dataset.page==='home' ? Math.round(document.querySelector('.cream .sec-heading').getBoundingClientRect().top-document.querySelector('.cream').getBoundingClientRect().top) : null,
@@ -57,8 +60,30 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     interactions.push({test:screen.name+'-login-empty-required',pass:!(await p.locator('#email').evaluate(e=>e.checkValidity()))});
     await p.close();await context.close();
   }
+  // User-facing links and mocked public reader: no transactions or production writes.
+  const w = await browser.newPage({viewport:{width:390,height:844}});
+  await w.route('**/api/wiki/search**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({items:[{id:'qa-reader-article',title:'공개 법률정보 테스트',summary:'검색 결과에서 상세내용을 열어야 합니다.',kind:'encyclopedia'}]})}));
+  await w.route('**/api/posts/qa-reader-article',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'qa-reader-article',title:'공개 법률정보 테스트',body:'본문 열기 정상 검증',kind:'encyclopedia',updated_at:'2026-11-02'})}));
+  await w.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
+  try {
+    await w.locator('#wiki-results button.delivery-textlink').first().click({timeout:12000});
+    const dlg=w.locator('#wikiReader');
+    await w.waitForFunction(() => document.querySelector('#wikiReaderBody')?.textContent === '본문 열기 정상 검증',null,{timeout:8000});
+    const readerBody=await dlg.locator('#wikiReaderBody').textContent();
+    console.log('WIKI_READER_BODY',readerBody);
+    interactions.push({test:'wiki-public-article-detail-dialog',pass:await dlg.isVisible()&&readerBody==='본문 열기 정상 검증'});
+    await w.locator('.delivery-reader-close').click();
+    interactions.push({test:'wiki-reader-close-button',pass:!(await dlg.isVisible())});
+  }catch(e){interactions.push({test:'wiki-reader-click',pass:false,error:String(e).slice(0,250)})}
+  await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
+  try {
+    const tabs=w.locator('#pan-content-tabs button');
+    const target=tabs.filter({hasText:'블로그'}).first();
+    if(await target.count()) {await target.click(); interactions.push({test:'pan-blog-tab-click',pass:await target.evaluate(e=>e.classList.contains('active'))})}
+  }catch(e){interactions.push({test:'pan-blog-tab-click',pass:false,error:String(e).slice(0,250)})}
+  await w.close();
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-korea.jpg')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.tinyDeliveryMedia||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-korea.jpg')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
