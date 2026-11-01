@@ -1,0 +1,151 @@
+/* LAWYGO TOTAL — Premium Visual System / 2026-11-01
+   Visual-only: no API, Neon Auth, DB, payment or Android changes. */
+:root{--premium-ink:#102539;--premium-navy:#0b2034;--premium-gold:#c6a16d;--premium-radius:17px;--premium-shadow:0 14px 42px rgba(17,39,60,.10)}
+html{scroll-padding-top:94px}
+body{-webkit-font-smoothing:antialiased;overflow-wrap:break-word}
+:where(a,button,input,select,textarea,[role=button]):focus-visible{outline:3px solid #c6a16d!important;outline-offset:3px!important}
+:where(button,.btn,[type=submit],a.btn){min-height:44px;touch-action:manipulation;transition:transform .2s ease,box-shadow .2s ease}
+:where(button,.btn,[type=submit],a.btn):not(:disabled):not(.disabled):hover{transform:translateY(-2px)}
+:where(button,input,select,textarea,img){max-width:100%}
+:where(.muted,.micro,.small){line-height:1.7}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Editorial / Atlas shared foundation */
+body.atlas-page{background:#f8f9fb;color:#183046}
+body.atlas-page .wrap{max-width:1240px}
+body.atlas-page .header{box-shadow:0 9px 30px rgba(12,32,52,.075);border-bottom:1px solid #e5e9ec}
+body.atlas-page .header-main{min-height:80px;height:auto}
+body.atlas-page .hero{min-height:580px;height:auto;padding:80px 0;isolation:isolate}
+body.atlas-page .hero-content{position:relative;padding-bottom:0}
+body.atlas-page .hero h1{font-size:clamp(38px,5vw,75px);max-width:900px;text-wrap:balance}
+body.atlas-page .hero p{font-size:clamp(15px,1.5vw,18px);max-width:640px;color:#edf2f6}
+body.atlas-page .hero-over{background:linear-gradient(90deg,rgba(5,20,35,.98),rgba(8,29,49,.88) 42%,rgba(9,35,54,.47) 77%,rgba(8,26,45,.13))}
+body.atlas-page .hero-bg.hero-global{background-image:url('/static/img/journal/hero-korea.jpg')!important;background-position:center 44%}
+body.atlas-page .hero-bg.hero-law{background-image:url('/static/img/editorial/journal-lead.jpg')!important}
+body.atlas-page .hero-bg.hero-network{background-image:url('/static/img/editorial/journal-side.jpg')!important}
+body[data-page=pro].atlas-page .hero-bg.hero-network{background-image:url('/static/img/journal/hero-markets.jpg')!important}
+body.atlas-page .hero-kicker{color:#f5d4a0;letter-spacing:.16em}
+body.atlas-page .btn{border-radius:12px;min-height:48px;padding:12px 20px;white-space:normal;text-align:center}
+body.atlas-page .btn-gold{color:#11243a;background:linear-gradient(115deg,#e5c18e,#f7e0b9)}
+body.atlas-page .btn-outline{color:#fff;background:rgba(8,27,42,.28);border-color:#e0c298}
+body.atlas-page .btn-outline:hover{background:#173b54}
+body.atlas-page .hero-buttons{display:flex;flex-wrap:wrap;gap:12px}
+body.atlas-page .sec-heading h2{line-height:1.28;text-wrap:balance}
+body.atlas-page .subhero{position:relative;overflow:hidden;background:linear-gradient(118deg,#f7f4ed 0%,#e7edf0 100%);padding:85px 0 83px}
+body.atlas-page .subhero::before{content:"";position:absolute;right:-9%;top:-60px;width:46%;height:calc(100% + 120px);background:url('/static/img/editorial/journal-side.jpg') center/cover no-repeat;opacity:.14;mask-image:linear-gradient(90deg,transparent,#000 45%)}
+body.atlas-page .subhero>.wrap{position:relative}
+body.atlas-page .subhero h1{font-size:clamp(34px,4vw,58px);text-wrap:balance}
+body.atlas-page :is(.knowledge-search,.facet-panel,.public-feed-card,.billcard){border-radius:var(--premium-radius);box-shadow:var(--premium-shadow);border-color:#e4e8ec}
+body.atlas-page .knowledge-search{margin-top:0;margin-bottom:30px}
+body.atlas-page .knowledge-search input{min-height:48px}
+body.atlas-page :is(.knowledge-search button,.subscribe-form button){min-height:48px;border-radius:10px}
+body.atlas-page .tbl :is(th,td){padding:16px 17px;text-align:left;line-height:1.65;border-bottom:1px solid #e5e9ec}
+body.atlas-page .growth-kpis>div{border-radius:14px;background:white;padding:18px;border:1px solid #e2e9ef;box-shadow:0 5px 19px #0d223611}
+body.atlas-page .growth-kpis strong{display:block;overflow-wrap:anywhere}
+body.atlas-page .billhero{background:linear-gradient(95deg,rgba(7,23,39,.97),rgba(9,35,58,.82),rgba(11,45,70,.45)),url('/static/img/journal/hero-markets.jpg') center/cover}
+body.atlas-page .billcard{min-height:350px}
+body.atlas-page .billcard.featured{background:#112b43;color:#fff}
+body.atlas-page .billcard.featured li{color:#e4edf1}
+body.atlas-page .billcard a:not(.disabled){border-radius:10px}
+body.atlas-page .billfree{border-radius:14px}
+body.atlas-page .input-combo{display:flex;flex-wrap:wrap}
+body.atlas-page .input-combo input{flex:1;min-width:180px}
+/* Five product cards with contextual legal, news and market photography */
+body[data-page=home] .product-grid{gap:15px}
+body[data-page=home] .product-tile{min-height:345px;border-radius:17px;overflow:hidden;padding:142px 19px 22px;box-shadow:0 9px 32px #102c4017;isolation:isolate}
+body[data-page=home] .product-tile::before{content:"";position:absolute;inset:0 0 auto;height:116px;background:center/cover url('/static/img/journal/hero-korea.jpg');filter:saturate(.84);transition:transform .35s}
+body[data-page=home] .product-tile:nth-child(2)::before{background-image:url('/static/img/editorial/journal-lead.jpg')}
+body[data-page=home] .product-tile:nth-child(3)::before{background-image:url('/static/img/editorial/journal-side.jpg')}
+body[data-page=home] .product-tile:nth-child(4)::before{background-image:url('/static/img/journal/hero-markets.jpg')}
+body[data-page=home] .product-tile:nth-child(5)::before{background-image:url('/static/img/editorial/pan-blog-1.png')}
+body[data-page=home] .product-tile:hover::before{transform:scale(1.05)}
+body[data-page=home] .product-tile .prod-name{margin-top:17px}
+body[data-page=home] .product-tile .prod-bottom{margin-top:auto}
+body[data-page=home] .product-tile .prod-line{font-size:10px}
+body[data-page=home] .public-feed-card{background:#fff;padding:21px}
+/* PAN legal directory / content discovery */
+body.pan-platform{background:#f8f9fb}
+body.pan-platform .header{box-shadow:0 8px 24px rgba(12,31,49,.07)}
+body.pan-platform .hero{min-height:595px;background:linear-gradient(90deg,#f8f5ee 0%,rgba(248,245,238,.98) 33%,rgba(248,245,238,.84) 51%,rgba(248,245,238,.12) 78%),url('/static/img/editorial/journal-lead.jpg') right center/cover no-repeat!important}
+body.pan-platform .hero-content{max-width:610px;padding:75px 0}
+body.pan-platform .hero h1{font-size:clamp(35px,4.4vw,63px);text-wrap:balance}
+body.pan-platform .searchbox{border-radius:16px;padding:7px;box-shadow:0 15px 34px #142b421f}
+body.pan-platform .searchbox input{min-height:48px}
+body.pan-platform :is(.lawyer-card,.pn-card,.image-card,.surface,.pad){border-radius:18px}
+body.pan-platform .lawyer-card{box-shadow:0 8px 28px #152b4010}
+body.pan-platform .lawyer-card>img{object-fit:cover;object-position:center 22%;background:#e9e4d9}
+body.pan-platform .btn{min-height:46px;border-radius:11px}
+body.pan-platform .notice{color:#404e59}
+/* JOURNAL editorial layout */
+body:has(.mastbrand){background:#fbfaf7}
+body:has(.mastbrand) .mast{background:#fff}
+body:has(.mastbrand) .page{max-width:1280px}
+body:has(.mastbrand) .navline{box-shadow:0 6px 18px #1025370a}
+body:has(.mastbrand) .front-grid{gap:23px}
+body:has(.mastbrand) .lead{padding-left:22px;padding-right:22px}
+body:has(.mastbrand) .lead-photo{border-radius:12px;box-shadow:0 12px 35px #122d4219}
+body:has(.mastbrand) .tile img{border-radius:10px}
+body:has(.mastbrand) .sidebar-promo{border-radius:14px}
+body:has(.mastbrand) .subscribe-banner{border-radius:17px;background:#f0ebe1}
+body:has(.mastbrand) .cta{min-height:44px;border-radius:10px}
+body:has(.mastbrand) .headline{text-wrap:balance}
+/* Admin / CMS */
+body:has(.dashboard-layout){background:#f3f6f9}
+body:has(.dashboard-layout)>header{box-shadow:0 6px 30px #102c4014}
+body:has(.dashboard-layout) .dashboard-layout{max-width:1600px;grid-template-columns:258px minmax(0,1fr)}
+body:has(.dashboard-layout) .side{background:linear-gradient(180deg,#0c2439,#163953);border-right:1px solid #29475c}
+body:has(.dashboard-layout) .side a{min-height:43px;border-radius:10px;line-height:1.5}
+body:has(.dashboard-layout) .side a:focus-visible{outline-color:#f2d29b!important}
+body:has(.dashboard-layout) .work{padding:clamp(16px,2.5vw,40px)}
+body:has(.dashboard-layout) .data-panel{border-radius:17px;padding:clamp(16px,2vw,26px);box-shadow:0 7px 24px #18334a10}
+body:has(.dashboard-layout) .kpi{border-radius:14px;box-shadow:0 8px 22px #12293d0b}
+body:has(.dashboard-layout) .btn{border-radius:10px;min-height:44px}
+body:has(.dashboard-layout) :is(input,select,textarea){min-height:44px}
+body:has(.dashboard-layout) .tbl :is(th,td){padding:13px}
+body:has(.dashboard-layout) #loginPanel{margin:38px auto!important;padding:clamp(22px,3vw,38px)}
+/* Legacy feed and fallbacks */
+body:has(.pagehead) .pagehead{background:linear-gradient(120deg,#fff,#eaf0f2);padding:60px 0 38px}
+body:has(.pagehead) :is(.panel,.tile,.post){border-radius:15px;overflow:hidden;box-shadow:0 6px 22px #13314911}
+@media(max-width:1050px){body[data-page=home] .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}body.atlas-page .header-main{flex-wrap:wrap}body.atlas-page .hero{min-height:520px}body:has(.mastbrand) .front-grid{gap:14px}}
+@media(max-width:720px){
+ html{scroll-padding-top:72px}
+ body.atlas-page .hero{min-height:0;padding:72px 0 78px}
+ body.atlas-page .hero h1{font-size:clamp(35px,10vw,52px)}
+ body.atlas-page .hero-over{background:linear-gradient(90deg,rgba(6,22,38,.94),rgba(7,26,43,.7))}
+ body.atlas-page .hero-buttons{display:grid;grid-template-columns:1fr;max-width:360px}
+ body.atlas-page .hero-buttons .btn{width:100%;white-space:normal}
+ body.atlas-page .subhero{padding:62px 0}
+ body.atlas-page .sec-heading{display:block}
+ body.atlas-page .sec-heading p{max-width:none;margin-top:16px}
+ body.atlas-page .subhero::before{right:-50%;width:100%;opacity:.1}
+ body[data-page=home] .product-grid{grid-template-columns:1fr!important}
+ body[data-page=home] .product-tile{min-height:292px;padding-top:130px}
+ body.atlas-page .knowledge-search{padding:22px}
+ body.atlas-page .tbl{display:block;max-width:100%;overflow-x:auto}
+ body.pan-platform .hero{min-height:540px;background:linear-gradient(90deg,rgba(249,246,239,.98),rgba(249,246,239,.83)),url('/static/img/editorial/journal-lead.jpg') center/cover!important}
+ body.pan-platform .hero-content{padding:60px 0}
+ body.pan-platform .searchbox{flex-wrap:wrap}
+ body.pan-platform .searchbox input{min-width:0;flex-basis:100%}
+ body.pan-platform .searchbox button{flex:1}
+ body.pan-platform .lawyer-card{flex-wrap:wrap}
+ body.pan-platform .lawyer-card>img{width:100px;height:120px}
+ body.pan-platform .lawyer-card .end{margin-left:0;width:100%;display:flex}
+ body:has(.mastbrand) .page{padding-left:18px;padding-right:18px}
+ body:has(.mastbrand) .front-grid{display:block}
+ body:has(.mastbrand) .front-grid>*{margin-bottom:24px}
+ body:has(.mastbrand) .lead{border-left:0;border-right:0;padding-left:0;padding-right:0}
+ body:has(.mastbrand) .subscribe-banner{display:block;padding:24px}
+ body:has(.mastbrand) .subscribe-banner .cta{margin-top:18px}
+ body:has(.dashboard-layout) .dashboard-layout{grid-template-columns:minmax(0,1fr)}
+ body:has(.dashboard-layout) .work{padding:15px}
+ body:has(.dashboard-layout) .nav{padding:0 15px}
+ body:has(.dashboard-layout) .data-panel{padding:18px}
+ body:has(.dashboard-layout) .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body:has(.dashboard-layout) .topline{flex-wrap:wrap}
+}
+@media(max-width:420px){body:has(.dashboard-layout) .kpis{grid-template-columns:1fr}body.pan-platform .hero h1{font-size:33px}body.atlas-page .hero h1{font-size:36px}}
+
+
+/* Original AI-authored legal visual assets; text always remains native, selectable HTML. */
+body[data-product="wiki"].atlas-page .hero-bg.hero-law{background-image:url('/static/img/design/ai-wiki-visual.svg')!important;background-position:center}
+body[data-product="note"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-note-visual.svg')!important;background-position:center}
+body[data-page="pro"].atlas-page .hero-bg.hero-network{background-image:url('/static/img/design/ai-pro-visual.svg')!important;background-position:center}
