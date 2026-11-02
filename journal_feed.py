@@ -64,8 +64,15 @@ async def _fetch_one(client: httpx.AsyncClient, meta: dict) -> list[dict]:
     try:
         r = await client.get(meta["url"], headers=UA, timeout=20.0)
         r.raise_for_status()
-        return _parse_rss(r.text, meta)
-    except Exception:
+        articles = _parse_rss(r.text, meta)
+        if meta.get("region") == "legal" and not articles:
+            print("[journal-lawtimes] RSS returned no valid article URLs",
+                  "bytes=", len(r.content), "content_type=", r.headers.get("content-type"))
+        return articles
+    except Exception as exc:
+        if meta.get("region") == "legal":
+            print("[journal-lawtimes] RSS fetch failed",
+                  type(exc).__name__, str(exc)[:180])
         return []
 
 
