@@ -1,0 +1,79 @@
+/* LAWYGO WIKI + NOTE portfolio dashboard (2026-11-03).
+   All images are original repository-owned assets. No credentials or AI API calls. */
+.portal-intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);gap:clamp(20px,4vw,58px);align-items:center;margin:0 0 30px;padding:clamp(20px,3vw,38px);background:linear-gradient(115deg,#0b2b42,#163e57);color:#fff;border-radius:22px;overflow:hidden;isolation:isolate;box-shadow:0 20px 58px #102d4022}
+.portal-intro-copy{position:relative;z-index:1}
+.portal-intro-copy .eyebrow{color:#efd2a5!important;font-size:11px;letter-spacing:.16em}
+.portal-intro-copy h2{font:650 clamp(27px,3vw,46px)/1.31 var(--serif,Georgia,serif);letter-spacing:-.045em;color:#fff;margin:6px 0 18px;text-wrap:balance}
+.portal-intro-copy p{max-width:710px;color:#e0e9ee;font-size:14px;line-height:1.95;word-break:keep-all;margin:0 0 24px}
+.portal-intro-copy strong{color:#fff}
+.portal-intro-actions{display:flex;flex-wrap:wrap;align-items:center;gap:15px}
+.portal-action-primary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:12px;background:linear-gradient(110deg,#f0d2a4,#cda36d);color:#112d43!important;text-decoration:none!important;font-size:13px;font-weight:800;box-shadow:0 9px 18px #061a2a33}
+.portal-action-primary:hover{background:#f9e4bf}
+.portal-action-primary:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.portal-notice{font-size:11px;color:#d1dce5}
+.portal-intro-image{width:100%;height:292px;min-width:0;background:#1a3b54 url('/static/img/design/editorial-library-20261102.webp') center/cover no-repeat;border-radius:15px;border:1px solid #ffffff32;box-shadow:0 14px 30px #03162455}
+.portal-note-image{background-image:url('/static/img/design/ai-note-visual.svg')}
+.wiki-knowledge-section .wrap{max-width:1290px}
+.portal-console{background:#fff;border:1px solid #dfe6ea;border-radius:20px;box-shadow:0 14px 43px #0c2b4212;overflow:hidden;min-width:0}
+.wiki-console{display:grid;grid-template-columns:262px minmax(0,1fr)}
+.portal-sidebar{padding:26px;background:#f2f5f6;border-right:1px solid #dee8ed;min-width:0}
+.portal-side-kicker{font:800 10px/1.4 Arial,sans-serif;letter-spacing:.16em;color:#806038;margin-bottom:11px}
+.portal-sidebar h3,.note-ai-rail h3{font:650 21px/1.3 var(--serif,Georgia,serif);color:#152e43;margin:0 0 10px}
+.portal-sidebar>p,.note-ai-rail>p{font-size:12px;color:#4b6272;line-height:1.75;margin:0 0 20px}
+.portal-topic-list{display:grid;gap:8px}
+.portal-topic-list button{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:9px;width:100%;text-align:left;background:white;color:#213e53;border:1px solid #d6e1e7;border-radius:10px;font:750 13px/1.4 'Malgun Gothic',sans-serif;padding:10px 13px;cursor:pointer;transition:transform .2s,background .2s}
+.portal-topic-list button:hover{background:#e2edf4;transform:translateX(2px)}
+.portal-topic-list button:focus-visible{outline:3px solid #c59c61;outline-offset:2px}
+.portal-topic-list button span{font-weight:800;color:#8b6837}
+.portal-side-art{margin-top:20px;border-radius:12px;overflow:hidden}
+.portal-side-art img{width:100%;height:150px;object-fit:cover}
+.portal-side-deeplink{display:block;font:750 12px/1.5 'Malgun Gothic',sans-serif;margin-top:13px;color:#1b567c!important;text-decoration:underline!important;text-underline-offset:3px}
+.portal-console-main{min-width:0;padding:clamp(20px,3vw,38px)}
+.portal-console-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:25px}
+.portal-console-title h3{font:650 25px/1.3 var(--serif,Georgia,serif);margin:0;color:#18334a}
+.portal-live-tag{font-size:11px;color:#355c73;padding:8px 11px;border-radius:20px;background:#ebf3f6;border:1px solid #d3e2e8;white-space:nowrap}
+.wiki-console .knowledge-search{box-shadow:none!important;padding:23px;background:#f9fafb;border:1px solid #dee8ed;border-radius:15px}
+.wiki-console .search-layout{margin-top:20px!important;min-width:0;grid-template-columns:145px minmax(0,1fr)}
+.wiki-console .facet-panel{background:#f2f5f7;border:1px solid #e1e8ed}
+.wiki-console #wiki-results{display:grid;gap:13px}
+.wiki-console #wiki-results>.result-card{width:100%;margin:0}
+.wiki-console #wiki-results>.no-results{padding:20px;color:#596c79;background:#f7f9fa;border:1px solid #e3eaee;border-radius:10px}
+.note-console-section{background:#f4f6f7;padding:clamp(36px,5vw,72px) 0}
+.note-console-section .wrap{max-width:1350px}
+.note-workspace{display:grid;grid-template-columns:230px minmax(0,1fr) 245px;min-height:610px}
+.note-tools{background:#f3f5f6;padding:25px 19px}
+.note-tools h3{font-size:20px}
+.portal-privacy-caption{font-size:11px!important;border:1px solid #e1d1b3;background:#fff9ed;color:#66553e!important;border-radius:10px;padding:12px;margin:22px 0 12px!important}
+.portal-note-sidebar-image{width:100%;height:125px;object-fit:cover;border-radius:12px}
+.note-editor-shell{display:flex;flex-direction:column;min-height:560px;padding:clamp(20px,3vw,34px);gap:10px;background:#fff;min-width:0}
+.note-editor-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.note-editor-top .portal-side-kicker{margin:0}
+.note-editor-top [role=status]{font-size:11px;color:#526b79}
+.note-editor-label{font:750 12px/1.4 'Malgun Gothic',sans-serif;color:#334d60}
+.note-editor-title{box-sizing:border-box;width:100%;min-height:51px;padding:12px 15px;font:700 20px/1.4 'Malgun Gothic',sans-serif;border:1px solid #d5e0e5;border-radius:11px;background:#f8f9fb;color:#102f45}
+.note-editor-content{box-sizing:border-box;width:100%;min-height:320px;flex:1;resize:vertical;padding:19px;font:400 14px/1.9 'Malgun Gothic',sans-serif;border:1px solid #d5e0e5;border-radius:13px;background:#fbfcfd;color:#243c4d;white-space:pre-wrap}
+.note-editor-content:focus,.note-editor-title:focus{outline:3px solid #d5b98c;outline-offset:1px;border-color:#926c36}
+.note-editor-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:10px}
+.note-editor-toolbar>span{font:700 11px Arial,sans-serif;color:#6c7e8b}
+.note-editor-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.note-editor-actions button{min-height:43px;border:1px solid #b8cbd7;border-radius:9px;padding:10px 13px;background:#123b57;color:#fff;font:750 12px/1.3 'Malgun Gothic',sans-serif;cursor:pointer}
+.note-editor-actions button:hover{background:#20536f}
+.note-editor-actions button.note-clear{background:white;color:#456074}
+.note-ai-rail{background:#0f293e;color:#fff;min-width:0;padding:25px 18px}
+.note-ai-rail .portal-side-kicker{color:#e1c08e}
+.note-ai-rail h3{color:#fff}
+.note-ai-rail>p{color:#bacbd5}
+.note-ai-rail>a{display:grid;grid-template-columns:26px minmax(0,1fr);grid-template-rows:auto auto;column-gap:11px;margin-bottom:11px;padding:13px 12px;background:#204058;border:1px solid #355670;color:#fff!important;text-decoration:none!important;border-radius:12px;transition:background .2s}
+.note-ai-rail>a:hover{background:#2d5873}
+.note-ai-rail>a span{grid-row:1/3;display:grid;place-items:center;border-radius:7px;width:26px;height:26px;background:#355972;color:#e5c28e;font:800 10px Georgia,serif}
+.note-ai-rail>a strong{font:750 13px/1.3 'Malgun Gothic',sans-serif}
+.note-ai-rail>a small{font:450 11px/1.6 'Malgun Gothic',sans-serif;color:#c5d8e1}
+.note-ai-warning{margin-top:17px;background:#1c394e;border:1px solid #5a6e7b;padding:15px;border-radius:12px}
+.note-ai-warning strong{color:#f3d29e;font-size:12px}
+.note-ai-warning p{color:#d6e1e7;font-size:11px;line-height:1.75;margin:6px 0 0}
+body.atlas-page[data-product=note] #note-feed{min-height:100px}
+body.atlas-page[data-product=note] .demo-note{padding:24px;border-radius:12px;background:#fff;color:#4f6473;font-size:13px;line-height:1.8;border:1px solid #e1e7eb}
+@media(max-width:1130px){.note-workspace{grid-template-columns:200px minmax(0,1fr)}.note-ai-rail{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.note-ai-rail>.portal-side-kicker,.note-ai-rail>h3,.note-ai-rail>p,.note-ai-warning{grid-column:1/-1}.note-ai-rail>a{margin:0}}
+@media(max-width:820px){.portal-intro{grid-template-columns:1fr;padding:24px}.portal-intro-image{height:245px}.wiki-console{grid-template-columns:1fr}.wiki-console .portal-sidebar{border-right:0;border-bottom:1px solid #dce4e8}.portal-topic-list{grid-template-columns:repeat(3,minmax(0,1fr))}.portal-side-art{display:none}.portal-side-deeplink{margin-top:18px}.note-workspace{grid-template-columns:1fr}.note-tools{border-right:0;border-bottom:1px solid #dee8ed}.note-tools .portal-topic-list{grid-template-columns:repeat(2,minmax(0,1fr))}.note-editor-shell{min-height:500px}.note-ai-rail{grid-column:1;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.portal-intro{margin:0 0 20px;padding:21px 18px;border-radius:17px;gap:18px}.portal-intro h2{font-size:27px}.portal-intro p{font-size:13px;line-height:1.85}.portal-intro-image{height:190px}.portal-intro-actions{align-items:flex-start;flex-direction:column;gap:9px}.portal-console{border-radius:15px}.portal-sidebar{padding:20px}.portal-topic-list{grid-template-columns:repeat(2,minmax(0,1fr))}.portal-console-main{padding:18px}.portal-console-title{display:block}.portal-console-title h3{font-size:22px;margin-bottom:12px}.wiki-console .search-layout{grid-template-columns:1fr}.wiki-console .facet-panel{padding:13px;margin-bottom:12px}.wiki-console .knowledge-search{padding:17px}.wiki-console .knowledge-search>div{display:grid}.wiki-console .knowledge-search button{width:100%}.note-console-section{padding:34px 0}.note-ai-rail{grid-template-columns:1fr 1fr;padding:19px 13px;gap:8px}.note-ai-rail>a{padding:11px 9px;display:block}.note-ai-rail>a span{margin-bottom:8px}.note-ai-rail>a strong{display:block;font-size:12px}.note-ai-rail>a small{display:block;margin-top:6px;font-size:10px}.note-editor-content{min-height:280px}.note-editor-shell{padding:20px 15px;min-height:470px}.note-editor-actions{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.note-editor-actions button:last-child{grid-column:1/-1}.note-editor-actions button{font-size:11px}.note-editor-title{font-size:17px}}
+@media(max-width:360px){.portal-topic-list{grid-template-columns:1fr}.note-ai-rail{grid-template-columns:1fr}.portal-intro h2{font-size:25px}}
