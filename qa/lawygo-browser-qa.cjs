@@ -94,7 +94,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.locator('#noteClearDraft').click();
     interactions.push({test:'note-clear',pass:(await w.locator('#noteDraftContent').inputValue())===''});
     const link=await w.locator('.note-ai-rail a').first().getAttribute('href');
-    interactions.push({test:'advanced-ai-workspace-link',pass:link==='https://lawygo.vercel.app/board/ai/legal_notebook'});
+    interactions.push({test:'advanced-ai-workspace-link',pass:link==='https://lawygo.vercel.app/board/ai/case_search'});
   }catch(e){interactions.push({test:'note-workspace',pass:false,error:String(e).slice(0,250)})}
   await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
   try {
@@ -110,3 +110,4 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
   if(critical.length||interactions.some(x=>!x.pass))process.exitCode=1;
 })().catch(e=>{console.error(e);process.exitCode=1});
+
