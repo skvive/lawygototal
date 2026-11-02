@@ -90,6 +90,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.locator('[data-note-template="case"]').click();
     const content=await w.locator('#noteDraftContent').inputValue();
     interactions.push({test:'note-template-load',pass:content.includes('[확인된 사실]')});
+    w.once('dialog',dialog=>dialog.accept());
     await w.locator('#noteClearDraft').click();
     interactions.push({test:'note-clear',pass:(await w.locator('#noteDraftContent').inputValue())===''});
     const link=await w.locator('.note-ai-rail a').first().getAttribute('href');
