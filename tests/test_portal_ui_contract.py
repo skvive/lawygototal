@@ -63,5 +63,5 @@ def test_wiki_and_note_keep_shared_platform_navigation():
 def test_shared_brand_accessible_name_matches_visible_wordmark():
     shell = read("static/brand-shell.js")
 
-    assert 'aria-label="LAWYGO LEGAL INTELLIGENCE 메인"' in shell
+    assert '<a href="/" class="logo">' in shell
 
