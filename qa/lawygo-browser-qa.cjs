@@ -31,6 +31,9 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             overflow:document.documentElement.scrollWidth>w+3,
             brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc.slice(0,160)),
             images:imgs.length,
+            platformButtons:document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length,
+            wikiTopicButtons:document.body.dataset.product==='wiki'?document.querySelectorAll('[data-wiki-topic]').length:null,
+            noteEditor:document.body.dataset.product==='note'?!!document.getElementById('noteDraftContent'):null,
             deliveryCards:document.querySelectorAll('.delivery-feature').length,
             tinyDeliveryMedia:[...document.querySelectorAll('.delivery-feature-media')].filter(e=>e.getBoundingClientRect().height<112).length,
             primaryButtons:[...document.querySelectorAll('.hero-buttons .btn')].filter(e=>e.getBoundingClientRect().height<40).length,
@@ -75,6 +78,23 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.locator('.delivery-reader-close').click();
     interactions.push({test:'wiki-reader-close-button',pass:!(await dlg.isVisible())});
   }catch(e){interactions.push({test:'wiki-reader-click',pass:false,error:String(e).slice(0,250)})}
+  try{
+    await w.locator('[data-wiki-topic="민법"]').click();
+    await w.waitForFunction(()=>document.getElementById('wikiq')?.value==='민법',null,{timeout:5000});
+    interactions.push({test:'wiki-facet-shortcut-search',pass:await w.locator('#wikiq').inputValue()==='민법'});
+    const destination=await w.locator('#lawygoPlatformSwitcher a[href="/p/note"]').getAttribute('href');
+    interactions.push({test:'wiki-to-note-switcher',pass:destination==='/p/note'});
+  }catch(e){interactions.push({test:'wiki-facet-nav',pass:false,error:String(e).slice(0,230)})}
+  await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
+  try{
+    await w.locator('[data-note-template="case"]').click();
+    const content=await w.locator('#noteDraftContent').inputValue();
+    interactions.push({test:'note-template-load',pass:content.includes('[확인된 사실]')});
+    await w.locator('#noteClearDraft').click();
+    interactions.push({test:'note-clear',pass:(await w.locator('#noteDraftContent').inputValue())===''});
+    const link=await w.locator('.note-ai-rail a').first().getAttribute('href');
+    interactions.push({test:'advanced-ai-workspace-link',pass:link==='https://lawygo.vercel.app/board/ai/legal_notebook'});
+  }catch(e){interactions.push({test:'note-workspace',pass:false,error:String(e).slice(0,250)})}
   await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
   try {
     const tabs=w.locator('#pan-content-tabs button');
@@ -83,7 +103,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   }catch(e){interactions.push({test:'pan-blog-tab-click',pass:false,error:String(e).slice(0,250)})}
   await w.close();
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.tinyDeliveryMedia||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
