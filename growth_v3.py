@@ -46,6 +46,16 @@ def schema(db):
     CREATE TABLE IF NOT EXISTS newsletter_deliveries(
       id TEXT PRIMARY KEY,issue_id TEXT NOT NULL REFERENCES newsletter_issues(id),subscriber_id TEXT NOT NULL REFERENCES newsletter_subscribers(id),status TEXT NOT NULL,sent_at TEXT NOT NULL,
       UNIQUE(issue_id,subscriber_id));
+    CREATE TABLE IF NOT EXISTS newsletter_jobs(
+      job_key TEXT PRIMARY KEY,tenant TEXT NOT NULL,job_type TEXT NOT NULL
+      CHECK(job_type IN ('confirmation','issue')),
+      subscriber_id TEXT NOT NULL REFERENCES newsletter_subscribers(id),
+      issue_id TEXT REFERENCES newsletter_issues(id),
+      status TEXT NOT NULL CHECK(status IN ('queued','processing','sent','failed','cancelled')),
+      attempts INTEGER NOT NULL DEFAULT 0,
+      last_error TEXT,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,sent_at TEXT);
+    CREATE INDEX IF NOT EXISTS ix_newsletter_jobs_pending
+       ON newsletter_jobs(tenant,status,created_at);
     CREATE TABLE IF NOT EXISTS growth_diagnostics(
       id TEXT PRIMARY KEY,tenant TEXT NOT NULL,kind TEXT NOT NULL,summary TEXT NOT NULL,created_at TEXT NOT NULL);
     ''')
