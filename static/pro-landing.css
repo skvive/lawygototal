@@ -63,3 +63,16 @@ body[data-page="pro"] .pro-access-card{border-top:4px solid #d9b373}
 body[data-page="pro"] .pro-login-btn{min-width:272px;min-height:70px;border-radius:15px;background:linear-gradient(110deg,#0c2a43,#164962);font-size:20px;font-weight:900;letter-spacing:-.03em;box-shadow:0 13px 30px rgba(11,43,67,.25)}
 @media(max-width:560px){body[data-page="pro"] .pro-headline-cta{margin:24px 0 27px}body[data-page="pro"] .pro-start-link{min-height:60px;min-width:220px;font-size:19px;padding:14px 26px}body[data-page="pro"] .pro-login-btn{min-height:64px;font-size:19px}}
 @media(prefers-reduced-motion:reduce){body[data-page="pro"] .pro-start-link{transition:none}}
+
+/* PRO 2026-11-03: image-complete, custom-produced accessible illustration cards */
+body[data-page="pro"] .pro-feature-image{position:relative;overflow:hidden;isolation:isolate;min-height:0;aspect-ratio:5/3;background-image:none!important;background:linear-gradient(135deg,#0c2437,#1d5268)}
+body[data-page="pro"] .pro-feature-image img{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center;transition:transform .45s ease;filter:saturate(.97)}
+body[data-page="pro"] .delivery-feature:hover .pro-feature-image img{transform:scale(1.055)}
+body[data-page="pro"] .pro-feature-image::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(0deg,rgba(5,17,30,.62),transparent);pointer-events:none}
+body[data-page="pro"] .pro-feature-image-label{position:absolute;z-index:2;left:16px;bottom:14px;border:1px solid rgba(255,239,208,.45);border-radius:8px;padding:7px 10px;background:rgba(12,35,53,.74);color:#f4dfb7;font-size:10px;letter-spacing:.13em;font-weight:800;backdrop-filter:blur(5px)}
+body[data-page="pro"] .pro-flow-icon{width:60px;height:60px;flex:none;display:grid;place-items:center;margin-bottom:18px;color:#1b526f;border:1px solid #d1e0e9;border-radius:17px;background:linear-gradient(150deg,#f8fbfd,#e2edf3);box-shadow:0 8px 18px rgba(16,50,69,.08)}
+body[data-page="pro"] .pro-flow-icon svg{width:32px;height:32px}
+body[data-page="pro"] .pro-workflow-section .workflow>div{position:relative;overflow:hidden}
+body[data-page="pro"] .pro-workflow-section .workflow>div::before{content:"";position:absolute;right:-25px;top:-30px;width:105px;height:105px;border:1px solid rgba(178,145,95,.18);border-radius:50%;pointer-events:none}
+@media(max-width:720px){body[data-page="pro"] .pro-feature-image{aspect-ratio:16/9}body[data-page="pro"] .pro-feature-image-label{font-size:9px;left:12px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){body[data-page="pro"] .pro-feature-image img{transition:none}}
