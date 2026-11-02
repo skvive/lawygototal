@@ -25,12 +25,28 @@ function ensureReader(){
   title.id='wikiReaderTitle';
   const meta=node('p','','delivery-reader-meta');
   meta.id='wikiReaderMeta';
-  const body=node('div','','delivery-reader-content');
-  body.id='wikiReaderBody';
-  const external=node('div','','delivery-reader-external');
-  external.id='wikiReaderExternal';
+  const summary=node('p','','wiki-reader-summary');
+  summary.id='wikiReaderSummary';
+  const layout=node('div',undefined,'wiki-reader-layout');
+  const article=node('article',undefined,'wiki-reader-article');
+  const body=node('div','','delivery-reader-content');body.id='wikiReaderBody';
+  article.append(body);
+  const tools=node('aside',undefined,'wiki-reader-tools');
+  tools.setAttribute('aria-label','자료 활용 도구');
+  tools.append(node('span','RESEARCH ACTIONS','portal-side-kicker'));
+  const copy=node('button','본문 복사','wiki-reader-tool');copy.id='wikiReaderCopy';copy.type='button';
+  const copyStatus=node('small','안전한 텍스트 형식으로 복사합니다.','wiki-reader-copy-status');copyStatus.id='wikiReaderCopyStatus';
+  copy.addEventListener('click',async()=>{
+    const text=[pick('wikiReaderTitle')?.textContent,pick('wikiReaderMeta')?.textContent,pick('wikiReaderBody')?.textContent].filter(Boolean).join('\n\n');
+    try{await navigator.clipboard.writeText(text);copyStatus.textContent='본문을 복사했습니다.'}
+    catch{copyStatus.textContent='브라우저에서 복사가 차단되었습니다.'}
+  });
+  const noteLink=node('a','NOTE에서 검토하기 →','wiki-reader-tool wiki-reader-tool-primary');noteLink.id='wikiReaderNote';noteLink.href='/p/note';
+  const source=node('a','공식 원문·출처 보기 ↗','wiki-reader-tool');source.id='wikiReaderSource';source.target='_blank';source.rel='noopener noreferrer';source.hidden=true;
+  tools.append(copy,copyStatus,noteLink,source);
+  layout.append(article,tools);
   const notice=node('p','법령·판례의 최신성은 반드시 원문에서 확인하세요. 개별 사안에 대한 법률 자문이 아닙니다.','delivery-reader-disclaimer');
-  shell.append(top,title,meta,body,external,notice);
+  shell.append(top,title,meta,summary,layout,notice);
   reader.append(shell);
   reader.addEventListener('click',e=>{if(e.target===reader)reader.close()});
   document.body.append(reader);
@@ -46,20 +62,21 @@ async function openPost(id) {
   pick('wikiReaderTitle').textContent='게시글을 불러오는 중…';
   pick('wikiReaderBody').textContent='';
   pick('wikiReaderMeta').textContent='';
-  pick('wikiReaderExternal').replaceChildren();
+  pick('wikiReaderSummary').textContent='';
+  pick('wikiReaderCopyStatus').textContent='안전한 텍스트 형식으로 복사합니다.';
+  const sourceLink=pick('wikiReaderSource');sourceLink.hidden=true;sourceLink.removeAttribute('href');
   if(!modal.open)modal.showModal();
   try {
     const item=await json('/api/posts/'+encodeURIComponent(id));
     pick('wikiReaderTitle').textContent=item.title||'법률 자료';
-    pick('wikiReaderMeta').textContent=[item.kind,item.updated_at?.slice(0,10)].filter(Boolean).join(' · ');
+    pick('wikiReaderMeta').textContent=[item.kind,item.source,item.updated_at?.slice(0,10)].filter(Boolean).join(' · ');
+    pick('wikiReaderSummary').textContent=item.summary||'공개된 법률자료의 핵심 내용과 근거를 확인하세요.';
     pick('wikiReaderBody').textContent=item.body||item.summary||'본문을 확인할 수 없습니다.';
     if(item.external_url) {
       try {
         const u=new URL(item.external_url);
         if(['https:','http:'].includes(u.protocol)) {
-          const a=node('a','공식 원문·출처 보기 ↗','btn btn-navy');
-          a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';
-          pick('wikiReaderExternal').append(a);
+          sourceLink.href=u.href;sourceLink.hidden=false;
         }
       }catch(_){}
     }
@@ -112,3 +129,4 @@ async function loadFeed(){
 const preset=new URLSearchParams(location.search).get('q');
 if(preset&&pick('wikiq')){pick('wikiq').value=preset;searchWiki(preset)}else searchWiki('공시');
 loadFeed();
+

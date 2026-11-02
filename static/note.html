@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="법률 메모를 정리하고 판례 추천, PDF·이미지 요약, 문서 자동작성, 법률검색, AI 검색으로 이동하는 LAWYGO NOTE입니다.">
   <title>LAWYGO NOTE · 법률문서 작업공간</title>
   <link rel="stylesheet" href="/static/atlas/site.css">
   <link rel="stylesheet" href="/static/atlas/overrides.css">
@@ -59,11 +60,11 @@
       </div>
       <aside class="note-ai-rail">
         <div class="portal-side-kicker">AI / ORIGINAL ENGINE</div><h3>AI 분석 도구</h3><p>원본 서비스의 인증된 기능으로 이동합니다.</p>
-        <a href="https://lawygo.vercel.app/board/ai/legal_notebook" target="_blank" rel="noopener noreferrer"><span>01</span><strong>법률 노트북</strong><small>PDF·자료 소스 기반 질의</small></a>
-        <a href="https://lawygo.vercel.app/board/ai/ai_search" target="_blank" rel="noopener noreferrer"><span>02</span><strong>AI 검색</strong><small>자연어 검색 워크스페이스</small></a>
-        <a href="https://lawygo.vercel.app/board/ai/doc_summary" target="_blank" rel="noopener noreferrer"><span>03</span><strong>PDF·OCR 요약</strong><small>문서 업로드·요약</small></a>
-        <a href="https://lawygo.vercel.app/board/ai/doc_draft" target="_blank" rel="noopener noreferrer"><span>04</span><strong>법률서면 작성</strong><small>문서 초안 검토</small></a>
-        <a href="https://lawygo.vercel.app/board/ai/law_search" target="_blank" rel="noopener noreferrer"><span>05</span><strong>법령·조문 검색</strong><small>원문 기반 법률검색</small></a>
+        <a data-ai-engine="case_search" href="https://lawygo.vercel.app/board/ai/case_search" target="_blank" rel="noopener noreferrer"><span>01</span><strong>판례 자동 추천</strong><small>현재 사건과 유사한 판례·쟁점 파악</small><b aria-hidden="true">↗</b></a>
+        <a data-ai-engine="doc_summary" href="https://lawygo.vercel.app/board/ai/doc_summary" target="_blank" rel="noopener noreferrer"><span>02</span><strong>판결문 PDF·이미지 요약</strong><small>PDF·스캔 이미지 OCR 후 구조화 요약</small><b aria-hidden="true">↗</b></a>
+        <a data-ai-engine="doc_draft" href="https://lawygo.vercel.app/board/ai/doc_draft" target="_blank" rel="noopener noreferrer"><span>03</span><strong>법률문서 자동작성</strong><small>법률문서 형식에 맞춘 검증 전제 초안</small><b aria-hidden="true">↗</b></a>
+        <a data-ai-engine="law_search" href="https://lawygo.vercel.app/board/ai/law_search" target="_blank" rel="noopener noreferrer"><span>04</span><strong>법률검색</strong><small>법령·조문과 원문 근거 검색</small><b aria-hidden="true">↗</b></a>
+        <a data-ai-engine="ai_search" href="https://lawygo.vercel.app/board/ai/ai_search" target="_blank" rel="noopener noreferrer"><span>05</span><strong>AI 검색</strong><small>자연어 질의 기반 법률 리서치</small><b aria-hidden="true">↗</b></a>
         <div class="note-ai-warning"><strong>연동 안내</strong><p>고급 AI 시스템은 별도 서비스입니다. 이 페이지에서 직접 AI 답변을 생성하거나 문서를 전송하지 않습니다.</p></div>
       </aside>
     </div>
@@ -96,3 +97,4 @@
   <script src="/static/platform-switcher.js" defer></script>
 </body>
 </html>
+
