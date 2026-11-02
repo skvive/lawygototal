@@ -1,6 +1,7 @@
 """Aggregate licensed RSS headlines for LAWYGO Journal (title, summary, link, source)."""
 from __future__ import annotations
 
+import asyncio
 import re
 import time
 import xml.etree.ElementTree as ET
@@ -73,9 +74,11 @@ async def load_wire_items() -> list[dict]:
     if _CACHE["items"] and now - _CACHE["at"] < _TTL:
         return _CACHE["items"]
     merged: list[dict] = []
-    async with httpx.AsyncClient(follow_redirects=True) as client:
-        for meta in FEEDS:
-            merged.extend(await _fetch_one(client, meta))
+    # Concurrent public RSS requests keep journal load times bounded as sources grow.
+    async with httpx.AsyncClient(follow_redirects=True, limits=httpx.Limits(max_connections=6)) as client:
+        batches = await asyncio.gather(*(_fetch_one(client, meta) for meta in FEEDS))
+        for batch in batches:
+            merged.extend(batch)
     # de-dupe by title prefix
     seen: set[str] = set()
     out: list[dict] = []

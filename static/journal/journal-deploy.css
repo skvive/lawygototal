@@ -27,3 +27,47 @@
 .issue-panel .close { float: right; border: 1px solid #999; background: #fff; padding: 6px 12px; }
 .demo-note { font-size: 12px; color: var(--muted); padding: 20px 0 40px; border-top: 1px solid var(--line); }
 @media (max-width: 690px) { .wire-grid { grid-template-columns: 1fr; } }
+
+
+/* LAWYGO Journal · LawTimes headline RSS + Weekly News editorial partner */
+.journal-syndication-partner{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;
+  margin:25px 0 4px;padding:19px 24px;
+  background:linear-gradient(112deg,#081a3a 0%,#163b71 75%,#2457a0 100%);
+  border-radius:9px;color:#fff;box-shadow:0 12px 28px rgba(15,38,83,.11)
+}
+.journal-syndication-partner__mark{
+  width:85px;min-height:77px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  border:1px solid rgba(255,255,255,.32);border-radius:6px;background:rgba(255,255,255,.08)
+}
+.journal-syndication-partner__mark strong{
+  color:#fff;font:900 43px/1 Georgia,serif;text-shadow:-6px 0 #d42d43
+}
+.journal-syndication-partner__mark span{font-size:7px;letter-spacing:.12em;color:#e6edf8}
+.journal-syndication-partner__copy .rubric{font-size:10px;letter-spacing:.14em;color:#c6d9ef}
+.journal-syndication-partner__copy strong{display:block;margin:6px 0 4px;font-size:21px;letter-spacing:-.03em;color:#fff}
+.journal-syndication-partner__copy p{margin:0;font-size:12px;line-height:1.6;color:#d9e7fa}
+.journal-syndication-partner__link{
+  color:#13294e!important;background:#fff;border-radius:6px;padding:12px 15px;
+  font-size:12px;font-weight:800;white-space:nowrap
+}
+.journal-syndication-partner__link:hover{background:#e7edfa;text-decoration:none}
+.journal-lawtimes{scroll-margin-top:24px;margin:34px 0 54px}
+.journal-lawtimes .ed-head{margin-bottom:7px}
+.journal-lawtimes__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 30px}
+.journal-lawtimes__item{min-width:0;border-bottom:1px solid var(--line,#ddd);padding:20px 5px 20px 0}
+.journal-lawtimes__headline{display:block;color:var(--ink,#182b44);font:700 clamp(19px,2.25vw,27px)/1.4 var(--serif,Georgia,serif);letter-spacing:-.025em;word-break:keep-all;text-decoration:none}
+.journal-lawtimes__headline:hover{color:#ac2634;text-decoration:underline;text-underline-offset:5px}
+.journal-lawtimes__headline:focus-visible,.journal-syndication-partner__link:focus-visible{outline:3px solid #cd8b44;outline-offset:4px}
+.journal-lawtimes__meta{font-size:12px;line-height:1.5;color:var(--muted,#69727b);margin:8px 0 0}
+.journal-lawtimes__status{grid-column:1/-1;color:var(--muted,#69727b);padding:22px 4px;font-size:14px}
+.journal-lawtimes__more{display:inline-flex;margin-top:17px;color:#385b86;font-size:12px;font-weight:800}
+@media(max-width:700px){
+  .journal-syndication-partner{grid-template-columns:auto 1fr;gap:12px;padding:17px}
+  .journal-syndication-partner__mark{width:62px;min-height:66px}
+  .journal-syndication-partner__mark strong{font-size:34px}
+  .journal-syndication-partner__link{grid-column:1/-1;text-align:center}
+  .journal-lawtimes__list{grid-template-columns:minmax(0,1fr)}
+  .journal-lawtimes__headline{font-size:21px}
+}

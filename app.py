@@ -744,12 +744,14 @@ async def journal_feed_api(db=Depends(database)):
     wire=await journal_feed.load_wire_items()
     us=[x for x in wire if x['region']=='us'][:20]
     kr=[x for x in wire if x['region']=='kr'][:20]
+    lawtimes=[x for x in wire if x['region']=='legal'][:12]
     lead=(editorial[:1] or us[:1] or kr[:1] or [])
     return {
         'lead':lead[0] if lead else None,
         'editorial':editorial,
         'us':us,
         'kr':kr,
+        'lawtimes':lawtimes,
         'disclaimer':'RSS 헤드라인·요약만 표시합니다. 전문은 각 언론사 원문에서 확인하세요. LAWYGO는 제3자 기사의 편집자가 아닙니다.',
     }
 

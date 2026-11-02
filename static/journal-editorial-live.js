@@ -104,6 +104,7 @@ async function boot() {
   const us = data.us || [];
   const kr = data.kr || [];
   const editorial = data.editorial || [];
+  const lawtimes = data.lawtimes || [];
   const merged = [...editorial, ...kr, ...us];
 
   document.getElementById("journal-edition-meta").textContent =
@@ -153,6 +154,33 @@ async function boot() {
   const wus = document.getElementById("journal-wire-us");
   wus.replaceChildren();
   us.slice(0, 8).forEach((it) => wus.append(wireItem(it)));
+
+  // 법률신문: 큰 제목 + 실제 발행 원문 링크만. 요약 팝업이나 전문 복제 없음.
+  const lawtimesList = document.getElementById("journal-lawtimes-list");
+  if (lawtimesList) {
+    lawtimesList.replaceChildren();
+    const valid = lawtimes.filter((item) => {
+      try {
+        const u = new URL(item.url);
+        return (u.protocol === "https:" || u.protocol === "http:") &&
+          (u.hostname === "lawtimes.co.kr" || u.hostname.endsWith(".lawtimes.co.kr"));
+      } catch { return false; }
+    });
+    if (valid.length) {
+      valid.slice(0, 10).forEach((item) => {
+        const story = el("article", null, "journal-lawtimes__item");
+        const link = el("a", item.title, "journal-lawtimes__headline");
+        link.href = item.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        const meta = el("p", [item.source || "법률신문", item.published || ""].filter(Boolean).join(" · "), "journal-lawtimes__meta");
+        story.append(link, meta);
+        lawtimesList.append(story);
+      });
+    } else {
+      lawtimesList.append(el("p", "현재 법률신문 RSS에서 불러온 기사가 없습니다. 법률신문 홈페이지에서 확인할 수 있습니다.", "journal-lawtimes__status"));
+    }
+  }
 
   const row1 = document.getElementById("journal-row-editors");
   row1.replaceChildren();
