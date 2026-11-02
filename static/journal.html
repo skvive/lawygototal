@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/static/journal/korea-contact.css">
   <script defer src="/static/journal/journal-editorial.js"></script>
 <link rel="stylesheet" href="/static/lawygo-premium-20261101.css">  <link rel="stylesheet" href="/static/platform-switcher.css">
+  <link rel="stylesheet" href="/static/journal-newsletter.css">
 </head>
 <body>
   <div class="reading-progress" aria-hidden="true"></div>
@@ -79,12 +80,12 @@
           <h2>월 두 번 받아보는 경제·법률 브리핑</h2>
           <p>미국 경제·증권 제도, 국내 정책 변화, 법률의 시선.</p>
         </div>
-        <form class="newsletter" id="newsletterSignupJournal" style="min-width:280px">
+        <form class="journal-newsletter-form" id="newsletterSignupJournal">
           <label for="journal-nl-email">이메일</label>
           <input id="journal-nl-email" type="email" required placeholder="email@example.com">
-          <label style="font-weight:400;margin-top:10px"><input type="checkbox" id="journal-nl-consent" required> 수신 동의</label>
-          <button type="submit" class="cta" style="width:100%;margin-top:14px">뉴스레터 구독 →</button>
-          <p role="status" id="journal-nl-status" class="sample"></p>
+          <label class="journal-consent"><input type="checkbox" id="journal-nl-consent" required> <span>개인정보(이메일) 수집·이용 및 월 2회 무료 뉴스레터 수신에 동의합니다. 이메일 인증 후 구독되며, 언제든 수신거부할 수 있습니다.</span></label>
+          <button type="submit" class="cta">무료 뉴스레터 구독 →</button>
+          <p role="status" aria-live="polite" id="journal-nl-status" class="sample"></p>
         </form>
       </div>
       <p class="demo-note" id="journal-disclaimer"></p>
