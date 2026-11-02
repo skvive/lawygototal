@@ -1,0 +1,54 @@
+/* LAWYGO PRO landing: standalone product visual and external sign-in gateway.
+   Scope strictly to the PRO page; no changes to authentication or production endpoints. */
+body[data-page="pro"].atlas-page{background:#f3f5f6;color:#142d43}
+body[data-page="pro"] .pro-intro{position:relative;background:radial-gradient(ellipse at 83% 17%,rgba(186,147,93,.18),transparent 36%),linear-gradient(145deg,#071a2e 5%,#112d44 73%,#173951);color:#fff;padding:clamp(54px,7vw,100px) 0 clamp(48px,5.5vw,76px);overflow:hidden}
+body[data-page="pro"] .pro-intro::before{content:"";position:absolute;pointer-events:none;inset:0;background:linear-gradient(90deg,transparent 92%,rgba(229,196,139,.045) 92.05%),linear-gradient(transparent 92%,rgba(229,196,139,.045) 92.05%);background-size:84px 84px;opacity:.45}
+body[data-page="pro"] .pro-intro>.wrap{position:relative}
+body[data-page="pro"] .pro-intro-copy{max-width:840px;margin:0 auto 42px;text-align:center}
+body[data-page="pro"] .pro-eyebrow{display:block;color:#e6c391;font-size:11px;font-weight:800;letter-spacing:.24em;margin-bottom:22px}
+body[data-page="pro"] .pro-intro h1{margin:0 0 22px;font:600 clamp(35px,5vw,68px)/1.19 Georgia,'Malgun Gothic',serif;letter-spacing:-.045em;color:#fff;text-wrap:balance}
+body[data-page="pro"] .pro-intro h1 em{font-style:normal;color:#ebc894}
+body[data-page="pro"] .pro-lead{margin:0 auto;max-width:655px;color:#dbe6ed;font-size:clamp(15px,1.45vw,18px);line-height:1.9;word-break:keep-all}
+body[data-page="pro"] .pro-keywords{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:26px}
+body[data-page="pro"] .pro-keywords span{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border:1px solid rgba(222,197,158,.36);border-radius:99px;background:rgba(255,255,255,.045);color:#f0dfc7;font-size:10px;letter-spacing:.11em;font-weight:700}
+body[data-page="pro"] .pro-visual{position:relative;max-width:1190px;margin:0 auto;overflow:hidden;border-radius:24px;border:1px solid rgba(226,196,145,.42);background:#09243a;box-shadow:0 26px 80px rgba(0,5,14,.38),0 0 0 7px rgba(255,255,255,.04)}
+body[data-page="pro"] .pro-visual img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+body[data-page="pro"] .pro-visual figcaption{position:absolute;left:20px;bottom:18px;max-width:calc(100% - 40px);display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;border:1px solid rgba(242,226,202,.2);border-radius:10px;color:#edf2f3;background:rgba(5,21,37,.81);backdrop-filter:blur(8px);font-size:12px;line-height:1.55}
+body[data-page="pro"] .pro-visual figcaption strong{color:#e9bd77;letter-spacing:.1em;font-size:10px}
+body[data-page="pro"] .pro-access{background:#eef2f5;padding:clamp(26px,5vw,62px) 0 clamp(42px,6vw,80px)}
+body[data-page="pro"] .pro-access-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:30px;background:#fff;border:1px solid #dce5ec;border-radius:22px;padding:clamp(25px,3.6vw,46px);box-shadow:0 18px 48px rgba(12,40,65,.085)}
+body[data-page="pro"] .pro-access-kicker{display:block;margin-bottom:12px;color:#976c37;font-size:11px;font-weight:800;letter-spacing:.16em}
+body[data-page="pro"] .pro-access h2{font-size:clamp(23px,2.5vw,34px);letter-spacing:-.045em;line-height:1.28;margin:0 0 12px;color:#102a41}
+body[data-page="pro"] .pro-access p{margin:0;max-width:650px;color:#607184;font-size:14px;line-height:1.85;word-break:keep-all}
+body[data-page="pro"] .pro-access-actions{display:flex;flex-direction:column;align-items:center;gap:11px}
+body[data-page="pro"] .pro-login-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;text-align:center;min-width:234px;min-height:57px;padding:15px 23px;border-radius:13px;background:linear-gradient(115deg,#0c2c45,#164764);color:#fff!important;font-weight:800;font-size:15px;box-shadow:0 9px 24px #0b304333;text-decoration:none!important;transition:transform .2s,box-shadow .2s}
+body[data-page="pro"] .pro-login-btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px #0b304344}
+body[data-page="pro"] .pro-login-btn:focus-visible{outline:3px solid #bf9958;outline-offset:4px}
+body[data-page="pro"] .pro-login-note{color:#667b8c;font-size:11px;line-height:1.5;text-align:center}
+body[data-page="pro"] .pro-workflow-section{padding:clamp(46px,6.6vw,84px) 0;background:#fff}
+body[data-page="pro"] .pro-section-heading{max-width:760px;margin:0 auto 27px;text-align:center}
+body[data-page="pro"] .pro-section-heading .eyebrow{color:#ad834d}
+body[data-page="pro"] .pro-section-heading h2{font-size:clamp(25px,3vw,40px);letter-spacing:-.04em;margin:0 0 10px;color:#162d43}
+body[data-page="pro"] .pro-section-heading p{max-width:650px;margin:0 auto;font-size:14px;line-height:1.8;color:#667586}
+body[data-page="pro"] .pro-workflow-section .workflow{margin-top:35px}
+body[data-page="pro"] .pro-workflow-section .workflow>div{border:1px solid #e0e7ed;border-radius:14px;background:#f8fafc;box-shadow:0 8px 24px #0b314010}
+body[data-page="pro"] .pro-workflow-section .workflow h3{color:#173750}
+body[data-page="pro"] .pro-qa-note{text-align:center;max-width:900px;margin:27px auto 0;font-size:12px;line-height:1.8;color:#647688}
+@media(max-width:820px){
+  body[data-page="pro"] .pro-access-card{grid-template-columns:1fr}
+  body[data-page="pro"] .pro-access-actions{align-items:stretch}
+  body[data-page="pro"] .pro-login-btn{width:100%}
+  body[data-page="pro"] .pro-intro-copy{margin-bottom:30px}
+}
+@media(max-width:560px){
+  body[data-page="pro"] .pro-intro{padding:48px 0 43px}
+  body[data-page="pro"] .pro-intro>.wrap,body[data-page="pro"] .pro-access>.wrap{width:calc(100% - 32px)}
+  body[data-page="pro"] .pro-eyebrow{font-size:9px;letter-spacing:.14em}
+  body[data-page="pro"] .pro-intro h1{font-size:clamp(32px,9vw,42px)}
+  body[data-page="pro"] .pro-visual{border-radius:15px;box-shadow:0 15px 34px #0005}
+  body[data-page="pro"] .pro-visual figcaption{position:static;max-width:100%;border:none;border-radius:0;padding:10px 12px;background:#09243a;font-size:10px}
+  body[data-page="pro"] .pro-keywords{gap:7px}
+  body[data-page="pro"] .pro-keywords span{font-size:9px;padding:7px 9px}
+  body[data-page="pro"] .pro-access-card{padding:23px 18px;border-radius:15px}
+}
+@media(prefers-reduced-motion:reduce){body[data-page="pro"] .pro-login-btn{transition:none}}
