@@ -1,0 +1,14 @@
+/* Isolated LAWYGO JOURNAL subscription form: prevents the generic newsletter grid
+   from placing inputs and 100%-width checkboxes into separate columns. */
+.subscribe-banner{display:grid;grid-template-columns:minmax(0,1fr) minmax(275px,365px);align-items:center;gap:clamp(20px,4vw,58px);border-radius:22px;background:linear-gradient(135deg,#f4f0e6,#e9e3d4);padding:clamp(25px,4.5vw,52px)}
+.subscribe-banner>div{min-width:0}.subscribe-banner h2{font-size:clamp(26px,3vw,38px);line-height:1.45;letter-spacing:-.04em;word-break:keep-all}
+.subscribe-banner .journal-newsletter-form{display:flex;flex-direction:column;gap:10px;min-width:0;width:100%;margin:0;background:#fff;border:1px solid #dfdfd8;border-radius:17px;padding:24px;box-shadow:0 10px 30px rgba(23,39,51,.07)}
+.journal-newsletter-form>label{display:block;font-size:13px;font-weight:750;line-height:1.5;margin:0}
+.journal-newsletter-form input[type=email]{display:block;width:100%;min-width:0;height:48px;border:1px solid #b8c7d0;border-radius:10px;padding:11px 13px;background:#fff;font-size:15px}
+.journal-newsletter-form .journal-consent{display:flex;gap:10px;align-items:flex-start;margin-top:5px!important;font-weight:450!important;line-height:1.65;color:#526779}
+.journal-newsletter-form input[type=checkbox]{width:19px!important;height:19px!important;min-width:19px;flex:none;accent-color:#163b57;margin:3px 0 0;padding:0}
+.journal-newsletter-form .cta{display:flex;width:100%;min-height:48px;margin-top:6px!important;border-radius:10px;white-space:normal}
+.journal-newsletter-form .sample{font-size:12px;margin:2px 0 0!important;min-height:20px;line-height:1.6;color:#385970;overflow-wrap:anywhere}
+.journal-newsletter-form :focus-visible{outline:3px solid #caa76a;outline-offset:2px}
+@media(max-width:800px){.subscribe-banner{grid-template-columns:1fr}.subscribe-banner .journal-newsletter-form{max-width:none}}
+@media(max-width:480px){.subscribe-banner{padding:20px 16px;border-radius:15px}.subscribe-banner .journal-newsletter-form{padding:18px}.subscribe-banner h2{font-size:27px}}

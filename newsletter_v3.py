@@ -61,19 +61,29 @@ def register(app,g):
         if not data.consent:err(422,'이메일 뉴스레터 수신에 동의해야 합니다.')
         try:email=validate_email(data.email.strip(),check_deliverability=False).normalized.lower()
         except EmailNotValidError:err(422,'유효한 이메일을 입력하세요.')
-        try:mail_config()
-        except (RuntimeError,ValueError):err(503,'뉴스레터 이메일 발송 서비스가 설정되지 않았습니다.')
-        email_hash=digest(email);token=secrets.token_urlsafe(32);unsub=secrets.token_urlsafe(32)
+        # Persist consent and queue before attempting SMTP. No submitted address is silently lost.
+        import newsletter_queue_v4 as queue
+        email_hash=digest(email)
         old=db.execute('SELECT id,status FROM newsletter_subscribers WHERE tenant=? AND email_hash=?',(default_tenant,email_hash)).fetchone()
-        if old and old['status']=='active':return {'ok':True,'message':'구독 확인 안내를 처리했습니다.'}
-        try:send_confirmation(email,token,unsub)
-        except (smtplib.SMTPException,OSError,TimeoutError):err(503,'메일 발송에 실패했습니다. 다시 시도해 주세요.')
+        if old and old['status']=='active':
+            return {'ok':True,'status':'active','message':'구독 신청을 확인했습니다. 이미 이메일 인증을 마친 주소라면 계속 수신할 수 있습니다.'}
+        sid=old['id'] if old else uuid.uuid4().hex
         with transaction(db):
-            db.execute('''INSERT INTO newsletter_subscribers(id,tenant,email,email_hash,status,verify_token_hash,unsubscribe_token_hash,consent_at)
-              VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(tenant,email_hash) DO UPDATE SET status='pending',verify_token_hash=excluded.verify_token_hash,
-              unsubscribe_token_hash=excluded.unsubscribe_token_hash,consent_at=excluded.consent_at,verified_at=NULL,unsubscribed_at=NULL''',
-              (old['id'] if old else uuid.uuid4().hex,default_tenant,email,email_hash,'pending',digest(token),digest(unsub),now()))
-        return {'ok':True,'message':'이메일로 구독 확인 링크를 발송했습니다. 링크를 눌러야 구독이 시작됩니다.'}
+            db.execute("""INSERT INTO newsletter_subscribers(id,tenant,email,email_hash,status,verify_token_hash,unsubscribe_token_hash,consent_at)
+                VALUES(?,?,?,?,?,?,?,?) ON CONFLICT(tenant,email_hash) DO UPDATE SET
+                status='pending',verify_token_hash=NULL,unsubscribe_token_hash=NULL,
+                consent_at=excluded.consent_at,verified_at=NULL,unsubscribed_at=NULL""",
+                (sid,default_tenant,email,email_hash,'pending',None,None,now()))
+            key=queue.enqueue_confirmation(db,default_tenant,sid)
+        # Fast path: try the confirmation immediately if SMTP is configured.
+        # SMTP outage leaves the address as pending and the job visible for manual dispatch.
+        status='queued'
+        if queue.smtp_ready(mail_config):
+            status=queue.dispatch_one(db,transaction,key,default_tenant,send_confirmation,send_issue_email,digest)
+        return {'ok':True,'status':'pending','confirmation_job':('sent' if status=='sent' else 'queued'),
+                'message':('인증 메일을 발송했습니다. 메일의 확인 링크를 누르면 구독이 활성화됩니다.'
+                           if status=='sent' else
+                           '수신 동의 주소가 안전하게 등록되었습니다. 인증 메일이 발송 대기열에 추가되었습니다. 인증 전에는 뉴스레터를 발송하지 않습니다.')}
 
     @app.get('/api/growth/newsletter/confirm')
     def confirm_optin(token:str,db=Depends(database)):
@@ -89,6 +99,7 @@ def register(app,g):
         item=db.execute('SELECT id FROM newsletter_subscribers WHERE tenant=? AND unsubscribe_token_hash=?',(default_tenant,digest(token))).fetchone()
         if not item:err(410,'사용할 수 없는 수신거부 링크')
         db.execute('UPDATE newsletter_subscribers SET status=?,unsubscribed_at=?,verify_token_hash=NULL,unsubscribe_token_hash=NULL WHERE id=?',('unsubscribed',now(),item['id']))
+        db.execute("UPDATE newsletter_jobs SET status='cancelled',updated_at=? WHERE subscriber_id=? AND tenant=? AND status='queued'",(now(),item['id'],default_tenant))
         return {'ok':True,'message':'수신거부가 정상적으로 처리됐습니다. 더 이상 뉴스레터를 발송하지 않습니다.'}
 
     @app.post('/api/growth/newsletter/admin/send')
@@ -128,3 +139,5 @@ def register(app,g):
         if user['role']!='admin':err(403,'관리자 전용입니다.')
         rows=db.execute('SELECT status,count(*) n FROM newsletter_subscribers WHERE tenant=? GROUP BY status',(user['tenant'],)).fetchall()
         return {'counts':{r['status']:r['n'] for r in rows}}
+    import newsletter_queue_v4
+    newsletter_queue_v4.register(app,g,mail_config,send_confirmation,send_issue_email,digest)

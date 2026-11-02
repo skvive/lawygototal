@@ -18,9 +18,17 @@ def c():
    db.execute('INSERT INTO users(id,tenant,email,password_hash,display_name,role,created_at) VALUES(?,?,?,?,?,?,?)',(uuid.uuid4().hex,'demo','editor@demo.test',PH.hash('ComplexTestPassword123!'),'editor','editor',now()))
   yield x
 
-def test_newsletter_fail_closed_no_smtp(c):
- assert c.post('/api/growth/newsletter/request',json={'email':'abc@example.com','consent':True}).status_code==503
- assert c.post('/api/growth/newsletter/request',json={'email':'abc@example.com','consent':False}).status_code==422
+def test_newsletter_persists_optin_without_smtp(c,monkeypatch):
+ for key in ('LAWYGO_NEWSLETTER_SMTP_HOST','LAWYGO_NEWSLETTER_SMTP_USER','LAWYGO_NEWSLETTER_SMTP_PASSWORD','LAWYGO_NEWSLETTER_FROM'):
+  monkeypatch.delenv(key,raising=False)
+ r=c.post('/api/growth/newsletter/request',json={'email':'abc@example.com','consent':True})
+ assert r.status_code==200,r.text
+ assert r.json()['status']=='pending'
+ assert r.json()['confirmation_job']=='queued'
+ assert c.post('/api/growth/newsletter/request',json={'email':'no-consent@example.com','consent':False}).status_code==422
+ with connect() as db:
+  assert db.execute("SELECT status FROM newsletter_subscribers WHERE email='abc@example.com'").fetchone()['status']=='pending'
+  assert db.execute("SELECT status FROM newsletter_jobs WHERE job_type='confirmation'").fetchone()['status']=='queued'
 
 def test_newsletter_real_flow_with_mocked_smtp(c,monkeypatch):
  creds={'LAWYGO_NEWSLETTER_SMTP_HOST':'smtp.example.test','LAWYGO_NEWSLETTER_SMTP_USER':'sender',
@@ -40,13 +48,17 @@ def test_newsletter_real_flow_with_mocked_smtp(c,monkeypatch):
  with connect() as db:
   assert db.execute('SELECT status FROM newsletter_subscribers').fetchone()['status']=='unsubscribed'
 
-def test_newsletter_mail_failed_does_not_save(c,monkeypatch):
+def test_newsletter_mail_failed_keeps_pending_queue(c,monkeypatch):
  for k,v in {'LAWYGO_NEWSLETTER_SMTP_HOST':'smtp.example.test','LAWYGO_NEWSLETTER_SMTP_USER':'sender','LAWYGO_NEWSLETTER_SMTP_PASSWORD':'password','LAWYGO_NEWSLETTER_FROM':'news@example.com','LAWYGO_NEWSLETTER_BASE_URL':'https://pan.lawygo.com','LAWYGO_NEWSLETTER_SMTP_PORT':'465'}.items():monkeypatch.setenv(k,v)
  import smtplib
  def fail(*args):raise smtplib.SMTPException('offline')
  monkeypatch.setattr(newsletter_v3,'send_confirmation',fail)
- assert c.post('/api/growth/newsletter/request',json={'email':'another@example.com','consent':True}).status_code==503
- with connect() as db:assert not db.execute("SELECT 1 FROM newsletter_subscribers WHERE email='another@example.com'").fetchone()
+ r=c.post('/api/growth/newsletter/request',json={'email':'another@example.com','consent':True})
+ assert r.status_code==200,r.text
+ with connect() as db:
+  sub=db.execute("SELECT id,status FROM newsletter_subscribers WHERE email='another@example.com'").fetchone()
+  assert sub['status']=='pending'
+  assert db.execute("SELECT status FROM newsletter_jobs WHERE subscriber_id=?",(sub['id'],)).fetchone()['status']=='failed'
 
 def test_admin_newsletter_send_with_approval_and_limits(c,monkeypatch):
  for k,v in {'LAWYGO_NEWSLETTER_SMTP_HOST':'smtp.example.test','LAWYGO_NEWSLETTER_SMTP_USER':'sender','LAWYGO_NEWSLETTER_SMTP_PASSWORD':'password','LAWYGO_NEWSLETTER_FROM':'news@example.com','LAWYGO_NEWSLETTER_BASE_URL':'https://pan.lawygo.com','LAWYGO_NEWSLETTER_SMTP_PORT':'465'}.items():monkeypatch.setenv(k,v)
@@ -71,3 +83,33 @@ def test_admin_newsletter_send_with_approval_and_limits(c,monkeypatch):
  assert sent==['abc@example.com']
  assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==200
  assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==409
+
+def test_newsletter_queue_admin_security_and_confirmation_recovery(c,monkeypatch):
+ for key in ('LAWYGO_NEWSLETTER_SMTP_HOST','LAWYGO_NEWSLETTER_SMTP_USER','LAWYGO_NEWSLETTER_SMTP_PASSWORD','LAWYGO_NEWSLETTER_FROM'):
+  monkeypatch.delenv(key,raising=False)
+ r=c.post('/api/growth/newsletter/request',json={'email':'pending-new@example.com','consent':True})
+ assert r.status_code==200
+ with TestClient(app) as outsider:
+  assert outsider.get('/api/growth/newsletter/admin/subscribers').status_code in (401,403)
+ for k,v in {'LAWYGO_NEWSLETTER_SMTP_HOST':'smtp.example.test','LAWYGO_NEWSLETTER_SMTP_USER':'sender',
+  'LAWYGO_NEWSLETTER_SMTP_PASSWORD':'password','LAWYGO_NEWSLETTER_FROM':'news@example.com',
+  'LAWYGO_NEWSLETTER_BASE_URL':'https://lawygo.lexid.site','LAWYGO_NEWSLETTER_SMTP_PORT':'465'}.items():monkeypatch.setenv(k,v)
+ r=c.post('/api/auth/login',json={'email':'admin@demo.test','password':'ComplexTestPassword123!'})
+ assert r.status_code==200
+ hdr={'X-CSRF-Token':c.cookies.get('lawygo_cms_csrf')}
+ books=c.get('/api/growth/newsletter/admin/subscribers')
+ assert books.status_code==200
+ assert any(x['email']=='pending-new@example.com' and x['status']=='pending' for x in books.json()['items'])
+ sent=[]
+ monkeypatch.setattr(newsletter_v3,'send_confirmation',lambda email,tok,unsub:sent.append((email,tok)))
+ # newsletter queue has captured the send callback from newsletter_v3 at registration.
+ import newsletter_queue_v4
+ with connect() as db:
+  key=db.execute("SELECT job_key FROM newsletter_jobs WHERE subscriber_id=(SELECT id FROM newsletter_subscribers WHERE email='pending-new@example.com')").fetchone()['job_key']
+  result=newsletter_queue_v4.dispatch_one(db,lambda conn: __import__('contextlib').nullcontext(),key,'demo',
+      lambda email,tok,unsub:sent.append((email,tok)),newsletter_v3.send_issue_email,newsletter_v3.digest)
+ assert result=='sent'
+ assert sent and sent[-1][0]=='pending-new@example.com'
+ with connect() as db:
+  sub=db.execute("SELECT status FROM newsletter_subscribers WHERE email='pending-new@example.com'").fetchone()
+  assert sub['status']=='pending'
