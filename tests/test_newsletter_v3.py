@@ -89,7 +89,8 @@ def test_newsletter_queue_admin_security_and_confirmation_recovery(c,monkeypatch
   monkeypatch.delenv(key,raising=False)
  r=c.post('/api/growth/newsletter/request',json={'email':'pending-new@example.com','consent':True})
  assert r.status_code==200
- assert c.get('/api/growth/newsletter/admin/subscribers').status_code==401 or c.get('/api/growth/newsletter/admin/subscribers').status_code==403
+ with TestClient(app) as outsider:
+  assert outsider.get('/api/growth/newsletter/admin/subscribers').status_code in (401,403)
  for k,v in {'LAWYGO_NEWSLETTER_SMTP_HOST':'smtp.example.test','LAWYGO_NEWSLETTER_SMTP_USER':'sender',
   'LAWYGO_NEWSLETTER_SMTP_PASSWORD':'password','LAWYGO_NEWSLETTER_FROM':'news@example.com',
   'LAWYGO_NEWSLETTER_BASE_URL':'https://lawygo.lexid.site','LAWYGO_NEWSLETTER_SMTP_PORT':'465'}.items():monkeypatch.setenv(k,v)
