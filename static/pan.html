@@ -12,6 +12,7 @@
   <script defer src="/static/pan-ref/integrations.js"></script>
   <script defer src="/static/pan-ref/site.js"></script>
 <link rel="stylesheet" href="/static/lawygo-premium-20261101.css">  <link rel="stylesheet" href="/static/platform-switcher.css">
+  <link rel="stylesheet" href="/static/lawygo-refined-20261103.css">
 </head>
 <body class="pan-platform">
   <div class="headbar"><div class="wrap">
@@ -68,6 +69,11 @@
       <div class="notice" style="margin-top:26px;max-width:540px">※ 공개 프로필·RSS는 운영 설정에 따릅니다. 변호사 검증·상담 연결은 CMS 승인 및 파트너 계약 후 제공됩니다.</div>
     </div></div></section>
 
+<section class="ly-premiere" aria-labelledby="ly-pan-discover"><div class="ly-wrap"><div class="ly-premiere-panel">
+<div><span class="ly-kicker">PAN / LEGAL CREATOR DISCOVERY</span><h2 id="ly-pan-discover">변호사의 영상, 쇼츠, 블로그를 하나의 법률 지면에서</h2><p>공개 YouTube·Blogger 및 승인된 LAWYGO 콘텐츠를 구분해 표시합니다. 키워드 기반 신규 영상 검색은 운영 API 연결 시 주기적으로 갱신됩니다.</p>
+<div class="ly-premiere-actions"><a href="#pan-shorts">법률 쇼츠</a><a href="#pan-content">유튜브 영상</a><a href="#pan-blogs">Google 블로그</a></div>
+<div class="ly-pan-badges"><span>#변호사</span><span>#법률</span><span>#판례</span><span>#민사</span><span>#형사</span></div><small class="ly-small">공개 출처 링크 중심 · 외부 콘텐츠는 LAWYGO의 검증·추천으로 오인되지 않게 구분</small></div>
+<img src="/static/img/design/ly-pan-scene.svg" alt="PAN 동영상 카드, 쇼츠 플레이어와 법률 검색을 표현한 안내 이미지" width="1200" height="720" loading="lazy"></div></div></section>
     <section class="stat-strip"><div class="wrap">
       <div class="stat"><b>01</b><p>분야별 탐색</p></div>
       <div class="stat"><b>02</b><p>프로필·콘텐츠 확인</p></div>
@@ -110,6 +116,9 @@
     <section class="section" id="pan-content"><div class="wrap">
       <div class="eyebrow">EDITORIAL &amp; VIDEO</div>
       <h2>읽고 보는 법률 콘텐츠</h2>
+      <div class="ly-pane-guide">법률·변호사 키워드 기반 공개 영상 검색은 Google 공식 API 키 설정 시 활성화됩니다. 수집된 외부 게시물은 원문 링크로 연결되며, <strong>조회 결과가 없으면 임의 콘텐츠를 생성하지 않습니다.</strong> <a href="https://www.youtube.com/results?search_query=%EB%B3%80%ED%98%B8%EC%82%AC+%EB%B2%95%EB%A5%A0" target="_blank" rel="noopener noreferrer">YouTube에서 직접 검색 ↗</a></div>
+      <div class="ly-pan-status" id="pan-feed-status" role="status" aria-live="polite">공개 콘텐츠를 확인하고 있습니다.</div>
+      <button type="button" class="btn outline" id="pan-refresh-feed" style="margin-bottom:16px">최신 콘텐츠 다시 확인 ↻</button>
       <div class="pn-tabs" id="pan-content-tabs" style="margin-bottom:20px">
         <button type="button" class="active" data-kind="all">전체</button>
         <button type="button" data-kind="blog">블로그</button>

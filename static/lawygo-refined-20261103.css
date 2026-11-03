@@ -1,0 +1,75 @@
+/* LAWYGO 2026 brand refresh: navy / ivory / brass / measured cobalt.
+ * Scoped to ly-* sections; preserves all existing app layouts and auth.
+ * Artwork is explanatory concept art, not live application screenshots. */
+:root{--ly-navy:#0c2439;--ly-deep:#06172b;--ly-ivory:#f6f4ed;--ly-brass:#c99c5c;--ly-cobalt:#176be5;--ly-ink:#182f43;--ly-muted:#617285;--ly-border:#d9e3eb}
+.ly-showcase{background:linear-gradient(180deg,#fff,#f4f7fa);padding:clamp(42px,6vw,88px) 0;border-bottom:1px solid #e2e8ed}
+.ly-wrap{width:min(1240px,calc(100% - 40px));margin:0 auto}
+.ly-section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:25px}
+.ly-kicker{font-size:11px;font-weight:850;letter-spacing:.16em;color:#a2763b}
+.ly-section-head h2{font-family:Georgia,"Malgun Gothic",sans-serif;font-size:clamp(26px,3vw,41px);line-height:1.3;letter-spacing:-.045em;color:#112a40;margin:8px 0 4px}
+.ly-section-head p{max-width:520px;color:#597085;font-size:14px;line-height:1.8;margin:0}
+.ly-catalog{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.ly-catalog a{background:#fff;text-decoration:none;color:#142e44;border:1px solid #e1e7eb;border-radius:17px;overflow:hidden;box-shadow:0 13px 30px rgba(6,29,49,.07);transition:transform .2s ease,box-shadow .2s ease;min-width:0}
+.ly-catalog a:hover{transform:translateY(-4px);box-shadow:0 20px 34px rgba(6,29,49,.15)}
+.ly-catalog a:focus-visible,.ly-feature-link:focus-visible{outline:3px solid #c49a5c;outline-offset:3px}
+.ly-catalog img{display:block;width:100%;aspect-ratio:5/3;object-fit:cover;background:#123850}
+.ly-catalog-body{padding:16px 16px 19px}
+.ly-catalog-index{display:block;color:#9b7543;font-size:10px;font-weight:850;letter-spacing:.15em}
+.ly-catalog h3{font-size:17px;margin:8px 0 7px;font-weight:850;color:#15344d}
+.ly-catalog p{margin:0;color:#617488;font-size:12px;line-height:1.7;min-height:41px}
+.ly-feature-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 19px;background:linear-gradient(120deg,#0b3250,#14587d);color:#fff!important;border-radius:11px;font-size:13px;font-weight:800;text-decoration:none!important}
+.ly-showcase-note{margin:20px 0 0;color:#73818b;font-size:11px}
+.ly-premiere{padding:clamp(35px,5vw,74px) 0;background:#f3f6f9}
+.ly-premiere-panel{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(25px,5vw,65px);background:#102f49;border:1px solid #234764;border-radius:24px;padding:clamp(24px,3vw,43px);box-shadow:0 16px 50px rgba(4,31,53,.17);color:#fff;overflow:hidden}
+.ly-premiere-panel img{display:block;width:100%;min-width:0;aspect-ratio:5/3;object-fit:cover;border:1px solid #5a7590;border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+.ly-premiere h2{font-size:clamp(26px,3vw,42px);letter-spacing:-.045em;color:#fff;line-height:1.28;margin:13px 0}
+.ly-premiere p{color:#d0e0eb;font-size:14px;line-height:1.9;margin:0 0 21px;word-break:keep-all}
+.ly-premiere .ly-kicker{color:#e4bd86}
+.ly-premiere-actions{display:flex;flex-wrap:wrap;gap:10px}
+.ly-premiere-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #8aa2b5;border-radius:9px;padding:10px 16px;color:#fff!important;text-decoration:none!important;font-size:13px;font-weight:750}
+.ly-premiere-actions a:first-child{background:linear-gradient(110deg,#146bdc,#0b8be4);border-color:#3f9ded}
+.ly-premiere .ly-small{display:block;color:#b3cbd8;margin-top:15px;font-size:11px}
+.ly-knowledge-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.ly-knowledge-card{border-radius:17px;border:1px solid #dfE6ec;background:#fff;overflow:hidden}
+.ly-knowledge-card img{display:block;width:100%;height:142px;object-fit:cover}
+.ly-knowledge-card div{padding:15px}
+.ly-knowledge-card strong{display:block;color:#183c56;margin-bottom:7px;font-size:14px}
+.ly-knowledge-card p{font-size:12px;line-height:1.75;color:#5c7388;margin:0}
+.ly-pane-guide{background:#fcfbf7;border:1px solid #e5d8c1;border-radius:14px;padding:15px 18px;font-size:12px;line-height:1.8;color:#5b6875;margin:15px 0}
+.ly-pan-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+.ly-pan-badges span{color:#daebf4;background:#183a52;border:1px solid #496880;border-radius:100px;padding:7px 10px;font-size:11px}
+.pan-platform .ly-premiere{background:#f6f7f8}
+.pan-platform .ly-premiere-panel h2,.pan-platform .ly-premiere-panel p{color:#fff}
+.pan-platform .pn-card,.pan-platform .image-card,.pan-platform .pn-short,.pan-platform .lawyer-card{overflow:hidden;border-radius:15px;box-shadow:0 10px 26px rgba(15,41,59,.09)}
+.pan-platform .pn-card img,.pan-platform .image-card img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#dce9f0}
+.pan-platform .pn-short img{display:block;width:100%;height:100%;object-fit:cover;background:#dce9f0}
+.pan-platform .pn-section h2,.pan-platform .section h2{letter-spacing:-.035em}
+.ly-pan-feed-label{display:block;font-size:12px;color:#667b89;margin:12px 0;line-height:1.7}
+.ly-pan-empty{display:flex;flex-direction:column;gap:12px;padding:28px;border:1px dashed #c9d6df;border-radius:16px;background:#f6fafc;color:#36506a;font-size:13px}
+.ly-pan-empty a{font-weight:750;color:#1459a1}
+.ly-pan-status{padding:10px 15px;background:#eef5fa;border-radius:10px;color:#34526c;font-size:12px;margin:8px 0 19px}
+.ly-note-detail{background:#f9fafc;padding:65px 0}
+.ly-note-detail .ly-knowledge-card{background:#fff}
+.ly-note-detail .ly-knowledge-card img{height:120px}
+.ly-wiki-detail{background:#f9f7f1;padding:65px 0}
+.ly-wiki-detail .ly-knowledge-card{background:#fffdf8}
+.ly-pro-brand-thumb{width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:14px;margin:12px 0 0}
+.atlas-page .delivery-feature,.atlas-page .product-tile,.pan-platform .surface{transition:box-shadow .2s ease,transform .2s ease}
+.atlas-page .delivery-feature:hover,.atlas-page .product-tile:hover,.pan-platform .surface:hover{box-shadow:0 18px 44px rgba(9,38,61,.14);transform:translateY(-2px)}
+@media(max-width:1000px){.ly-catalog{grid-template-columns:repeat(3,minmax(0,1fr))}.ly-knowledge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.ly-wrap{width:calc(100% - 28px)}.ly-premiere-panel{grid-template-columns:1fr;padding:20px;gap:22px}.ly-section-head{display:block}.ly-section-head p{margin-top:10px}.ly-catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ly-knowledge-grid{gap:10px}.ly-knowledge-card img{height:100px}}
+@media(max-width:440px){.ly-catalog-body{padding:12px}.ly-catalog h3{font-size:14px}.ly-catalog p{font-size:11px;min-height:55px}.ly-knowledge-grid{grid-template-columns:1fr}.ly-knowledge-card img{height:150px}.ly-premiere-actions a{width:100%}}
+@media(prefers-reduced-motion:reduce){.ly-catalog a,.atlas-page .delivery-feature,.pan-platform .surface{transition:none}}
+
+/* Per-card art remediation: avoid unrelated reused background media and empty cards. */
+body[data-product="wiki"] .media-wiki-search{background-image:url('/static/img/design/ly-wiki-scene.svg')!important}
+body[data-product="wiki"] .media-wiki-links{background-image:url('/static/img/design/ly-total-scene.svg')!important}
+body[data-product="wiki"] .media-wiki-review{background-image:url('/static/img/design/ly-journal-scene.svg')!important}
+body[data-product="note"] .media-note-docs{background-image:url('/static/img/design/ly-note-scene.svg')!important}
+body[data-product="note"] .media-note-research{background-image:url('/static/img/design/ly-wiki-scene.svg')!important}
+body[data-product="note"] .media-note-private{background-image:url('/static/img/design/ly-pro-scene.svg')!important}
+body[data-page="pro"] .media-pro-cases{background-image:url('/static/img/design/ly-pro-scene.svg')!important}
+body[data-page="pro"] .media-pro-calendar{background-image:url('/static/img/design/ly-journal-scene.svg')!important}
+body[data-page="pro"] .media-pro-approvals{background-image:url('/static/img/design/ly-note-scene.svg')!important}
+.pan-platform .image-object.pan-img-ph{background:#102b43 url('/static/img/design/ly-pan-scene.svg') center/cover no-repeat!important}
+.pan-platform .pn-ad-slot .pan-img-ph{background:#102b43 url('/static/img/design/ly-journal-scene.svg') center/cover no-repeat!important}

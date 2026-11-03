@@ -180,6 +180,19 @@ async def load_wire_items(kind: str = "all") -> list[dict]:
             except (httpx.HTTPError, ET.ParseError, ValueError):
                 continue
 
+    # Optional keyword discovery, cached separately and disabled without official API keys.
+    # This complements curated channel/blog feeds; it does not claim real-time
+    # discovery when credentials are absent.
+    import pan_discovery_v2
+    try:
+        items.extend(await pan_discovery_v2.public_search(kind))
+    except (httpx.HTTPError,ValueError,KeyError):
+        pass
+    dedup = {}
+    for x in items:
+        if x.get("url") and x.get("title"):
+            dedup.setdefault(x["url"],x)
+    items = list(dedup.values())
     items.sort(key=lambda x: x.get("published") or "", reverse=True)
     _CACHE[cache_key] = (now, items[:60])
     return _CACHE[cache_key][1]
