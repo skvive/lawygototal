@@ -13,13 +13,24 @@ function esc(s) {
 
 function bindImg(img) {
   img.addEventListener("error", () => {
-    img.classList.add("pan-img-ph");
-    img.removeAttribute("src");
+    if (img.dataset.fallbackDone === "1") return;
+    img.dataset.fallbackDone = "1";
+    img.src = "/static/img/design/ly-pan-scene.svg";
   });
 }
 
 function thumbUrl(x, i) {
-  return x.thumb_url || FALLBACK_IMG[i % FALLBACK_IMG.length];
+  const raw = typeof x.thumb_url === "string" ? x.thumb_url : "";
+  try {
+    const u = new URL(raw, location.origin);
+    if (u.protocol === "https:" &&
+      (u.hostname.endsWith(".youtube.com") ||
+       ["img.youtube.com", "i.ytimg.com", "lh3.googleusercontent.com"].includes(u.hostname) ||
+       u.hostname.endsWith(".googleusercontent.com") ||
+       u.hostname.endsWith(".blogspot.com"))) return u.href;
+    if (u.origin === location.origin && u.pathname.startsWith("/static/")) return u.pathname;
+  } catch (_) {}
+  return "/static/img/design/ly-pan-scene.svg";
 }
 
 async function fetchContent(type, q) {
@@ -66,17 +77,16 @@ function renderLawyers(items) {
       <div><span class="tag">${esc(L.practice)}</span><span class="tag">${esc(L.region)}</span></div>
       <p>${esc(L.bio || L.practice)}</p>`;
     card.append(body);
-    panTrack(L.id, "profile_open");
     const end = document.createElement("div");
     end.className = "end";
     const profileBtn = document.createElement("a");
     profileBtn.className = "btn outline";
-    profileBtn.href = "/dashboard";
+    profileBtn.href = "/p/pan?q=" + encodeURIComponent(L.name || "변호사");
     profileBtn.textContent = "프로필 보기";
     profileBtn.addEventListener("click", () => panTrack(L.id, "profile_open"));
     const consultBtn = document.createElement("a");
     consultBtn.className = "btn primary";
-    consultBtn.href = "/dashboard";
+    consultBtn.href = "/partnership";
     consultBtn.textContent = "상담 신청";
     consultBtn.addEventListener("click", () => panTrack(L.id, "consult_click"));
     end.append(profileBtn, consultBtn);
@@ -92,7 +102,7 @@ function renderStory(lawyers) {
   const list = lawyers.length ? lawyers : [{ name: "등록 대기", practice: "CMS", photo: "" }];
   list.slice(0, 6).forEach((L, i) => {
     const a = document.createElement("a");
-    a.href = "/dashboard";
+    a.href = "/p/pan?q=" + encodeURIComponent(L.name || "변호사");
     const img = document.createElement("img");
     img.alt = L.name || "";
     img.src = L.photo || FALLBACK_IMG[i % FALLBACK_IMG.length];
@@ -162,7 +172,7 @@ function renderContentGrid(items, rootId, mode) {
     wrap.append(img);
     const body = document.createElement("div");
     body.className = "body";
-    body.innerHTML = `<span class="pn-tag">${x.approved ? "CMS" : "RSS"} · BLOG</span>
+    body.innerHTML = `<span class="pn-tag">${x.approved ? "검수 콘텐츠" : "외부 공개 출처"} · ${x.content_type === "shorts" ? "SHORTS" : x.content_type === "video" ? "YOUTUBE" : "BLOG"}</span>
       <h3>${esc(x.title)}</h3><p>${esc(x.summary)}</p><small>${esc(x.source)}</small>`;
     wrap.append(body);
     root.append(wrap);
@@ -218,7 +228,7 @@ async function reloadAll() {
   }
   try {
     const [{ items }, lawyers] = await Promise.all([
-      fetchContent(activeTab === "all" ? "all" : activeTab, q),
+      fetchContent("all", q),
       fetchLawyers(q),
     ]);
     const lawyerItems = lawyers.items || [];
@@ -229,8 +239,15 @@ async function reloadAll() {
     renderContentGrid(items || [], "pan-blog-grid", "blog");
     const stat = document.getElementById("pan-wire-stat");
     if (stat) stat.textContent = String((items || []).length);
+    const feedStatus = document.getElementById("pan-feed-status");
+    if (feedStatus) feedStatus.textContent = (items || []).length
+      ? "공개 출처 " + (items || []).length + "건 표시 · 마지막 조회 " + new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" }) + " · 캐시 최대 15분"
+      : "현재 연결된 공개 출처 콘텐츠가 없습니다. Google/YouTube API 키·채널·블로그 등록 상태를 확인하세요.";
+
   } catch (e) {
     console.error(e);
+    const feedStatus = document.getElementById("pan-feed-status");
+    if (feedStatus) feedStatus.textContent = "콘텐츠 조회 중 오류가 발생했습니다. 잠시 후 새로고침하세요.";
   }
 }
 
@@ -239,7 +256,8 @@ document.querySelectorAll("#pan-content-tabs button").forEach((btn) => {
     document.querySelectorAll("#pan-content-tabs button").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     activeTab = btn.dataset.kind || "all";
-    reloadAll();
+    document.getElementById("pan-refresh-feed")?.addEventListener("click", reloadAll);
+reloadAll();
   });
 });
 
