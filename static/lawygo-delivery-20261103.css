@@ -356,7 +356,7 @@ body.atlas-page .billcard .disabled{display:flex;align-items:center;justify-cont
  body:has(.mastbrand) .mastbrand{
   display:flex;align-items:center;white-space:nowrap;min-width:0;max-width:100%;
   font-size:clamp(17px,4.8vw,25px)!important;line-height:1.1!important;
-  letter-spacing:-.065em;
+  letter-spacing:-.065em;gap:3px;
  }
  body:has(.mastbrand) .mastbrand .lawygo-journal-mark{
   display:block;flex:0 0 24px;width:24px;height:24px;margin-right:5px;
