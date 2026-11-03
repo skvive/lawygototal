@@ -115,6 +115,31 @@ function renderStory(lawyers) {
   });
 }
 
+function showSourceEmpty(root, kind) {
+  const card = document.createElement("div");
+  card.className = "ly-pan-empty";
+  card.style.gridColumn = "1 / -1";
+  const img = document.createElement("img");
+  img.src = "/static/img/design/ly-pan-scene.svg";
+  img.alt = "LAWYGO PAN 법률 콘텐츠 플랫폼 안내 이미지";
+  img.loading = "eager";
+  img.style.cssText = "width:100%;max-width:420px;aspect-ratio:5/3;object-fit:cover;border-radius:11px";
+  const title = document.createElement("strong");
+  title.textContent = kind === "shorts" ? "연결된 법률 쇼츠가 아직 없습니다."
+    : kind === "blog" ? "연결된 Google 블로그 글이 없습니다."
+    : "검색 조건과 일치하는 공개 법률 콘텐츠가 없습니다.";
+  const desc = document.createElement("p");
+  desc.textContent = "출처가 확인된 실제 게시물만 노출합니다. 소스 연결 또는 API 설정 후 새로고침해 주세요.";
+  desc.style.margin = "0";
+  const a = document.createElement("a");
+  a.href = kind === "blog" ? "/dashboard" :
+    "https://www.youtube.com/results?search_query=" + encodeURIComponent("변호사 법률 " + (kind === "shorts" ? "shorts" : ""));
+  if (kind !== "blog") { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+  a.textContent = kind === "blog" ? "소스 연동 관리자 페이지 ↗" : "YouTube 공개 검색 열기 ↗";
+  card.append(img,title,desc,a);
+  root.replaceChildren(card);
+}
+
 function renderContentGrid(items, rootId, mode) {
   const root = document.getElementById(rootId);
   if (!root) return;
@@ -126,8 +151,7 @@ function renderContentGrid(items, rootId, mode) {
     return true;
   });
   if (!filtered.length) {
-    root.innerHTML =
-      '<p class="empty" style="display:block">해당 유형 콘텐츠가 없습니다. RSS 환경변수 또는 OAuth 동기화를 확인하세요.</p>';
+    showSourceEmpty(root, mode);
     return;
   }
   filtered.slice(0, mode === "shorts" ? 10 : 6).forEach((x, i) => {
@@ -188,7 +212,7 @@ function renderTabList(items) {
       ? items
       : items.filter((x) => x.content_type === activeTab || (activeTab === "video" && x.content_type === "video"));
   if (!filtered.length) {
-    root.innerHTML = '<p class="empty" style="display:block;padding:24px">검색 결과가 없습니다.</p>';
+    showSourceEmpty(root, activeTab);
     return;
   }
   filtered.slice(0, 9).forEach((x, i) => {
