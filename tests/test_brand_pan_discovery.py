@@ -42,7 +42,7 @@ def test_blogger_whitelists_public_https_links(monkeypatch):
 
 def test_service_routes_have_assets_and_layout():
     pages={
-        "static/index.html":"ly-total-scene.svg",
+        "static/index.html":"ly-journal-scene.svg",
         "static/journal.html":"ly-journal-scene.svg",
         "static/pan.html":"ly-pan-scene.svg",
         "static/note.html":"ly-note-scene.svg",
