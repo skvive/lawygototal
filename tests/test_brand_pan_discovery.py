@@ -42,26 +42,33 @@ def test_blogger_whitelists_public_https_links(monkeypatch):
 
 def test_service_routes_have_assets_and_layout():
     pages={
-        "static/index.html":"ly-journal-scene.svg",
-        "static/journal.html":"ly-journal-scene.svg",
-        "static/pan.html":"ly-pan-scene.svg",
-        "static/note.html":"ly-note-scene.svg",
-        "static/wiki.html":"ly-wiki-scene.svg",
-        "static/pro.html":"ly-pro-scene.svg",
-        "static/channel.html":"ly-journal-scene.svg",
-        "static/pricing.html":"ly-total-scene.svg",
-        "static/partnership.html":"ly-pan-scene.svg",
-        "static/strategy.html":"ly-total-scene.svg",
-        "static/payment.html":"ly-pro-scene.svg",
+        "static/index.html":"static/img/channel.webp",
+        "static/journal.html":"static/img/channel.webp",
+        "static/pan.html":"static/img/pan.webp",
+        "static/note.html":"static/img/note.webp",
+        "static/wiki.html":"static/img/wiki.webp",
+        "static/pro.html":"static/img/design/legal-knowledge-city.webp",
+        "static/channel.html":"static/img/channel.webp",
+        "static/pricing.html":"static/img/design/hero-sunset-20261102.webp",
+        "static/partnership.html":"static/img/design/editorial-library-20261102.webp",
+        "static/strategy.html":"static/img/design/legal-knowledge-city.webp",
+        "static/payment.html":"static/img/design/hero-seoul-20261102.webp",
+        "static/product.html":"static/img/channel.webp",
     }
     for page,asset in pages.items():
         content=(ROOT/page).read_text(encoding="utf-8")
         assert "lawygo-refined-20261103.css" in content,page
-        assert asset in content,page
-        assert (ROOT/"static/img/design"/asset).exists(),asset
+        assert "lawygo-delivery-20261103.css" in content,page
+        assert ("/"+asset) in content,page
+        assert (ROOT/asset).exists(),asset
     css=(ROOT/"static/lawygo-refined-20261103.css").read_text(encoding="utf-8")
+    latest=(ROOT/"static/lawygo-delivery-20261103.css").read_text(encoding="utf-8")
     assert "@media(max-width:720px)" in css
-    assert "prefers-reduced-motion" in css
+    assert "prefers-reduced-motion" in latest
+    assert "min-height:44px" in latest
+    assert "height:152px!important" in latest
+    assert "aspect-ratio:5/3!important" in latest
+
 
 def test_pan_ui_refresh_and_external_links_are_safe():
     js=(ROOT/"static/pan-platform.js").read_text(encoding="utf-8")
