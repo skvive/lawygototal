@@ -29,6 +29,13 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             title:document.title,
             scrollWidth:document.documentElement.scrollWidth,
             overflow:document.documentElement.scrollWidth>w+3,
+            overflowElements:[...document.querySelectorAll('body *')].filter(e=>{
+              const rect=e.getBoundingClientRect();
+              const style=getComputedStyle(e);
+              return rect.right>w+3&&rect.left<w+3&&rect.width>0
+                &&style.position!=='fixed'&&style.visibility!=='hidden';
+            }).slice(0,12).map(e=>({tag:e.tagName,class:String(e.className||'').slice(0,80),
+                id:e.id,right:Math.round(e.getBoundingClientRect().right),width:Math.round(e.getBoundingClientRect().width)})),
             brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc.slice(0,160)),
             images:imgs.length,
             platformButtons:document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length,
@@ -114,7 +121,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
-  console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,catalogMedia:x.catalogMediaOversize,catalogCards:x.catalogCardsOversize,premiereMedia:x.premiereMediaOversize,tinyCTAs:x.tinyMarketingCTAs,style:x.stylesheetDelivery,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
+  console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,offenders:x.overflowElements,js:x.pageErrors,broken:x.brokenImages,catalogMedia:x.catalogMediaOversize,catalogCards:x.catalogCardsOversize,premiereMedia:x.premiereMediaOversize,tinyCTAs:x.tinyMarketingCTAs,style:x.stylesheetDelivery,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
   if(critical.length||interactions.some(x=>!x.pass))process.exitCode=1;
 })().catch(e=>{console.error(e);process.exitCode=1});
 
