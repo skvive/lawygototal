@@ -108,6 +108,23 @@ async function searchWiki(q){
 }
 const form=pick('wiki-search-form');
 form?.addEventListener('submit',e=>{e.preventDefault();searchWiki(pick('wikiq').value)});
+function wikiEmptyState(message){
+ const card=node("article",undefined,"lyd-wiki-empty");
+ const image=document.createElement("img");
+ image.src="/static/img/wiki.webp";
+ image.alt="법률 지식백과 리서치 안내 이미지";
+ image.loading="lazy";
+ image.width=640;image.height=360;
+ const body=document.createElement("div");
+ body.append(node("strong","공개 검수 자료를 준비하고 있습니다."),
+   node("p",message || "공개 승인된 법률자료가 등록되면 이 영역에서 검색하고 읽을 수 있습니다."));
+ const link=node("a","법률 주제별 검색으로 이동 ↗");
+ link.href="#wiki-search-form";
+ body.append(link);
+ card.append(image,body);
+ return card;
+}
+
 async function loadFeed(){
   const root=pick('wiki-feed');if(!root)return;
   try{
@@ -123,8 +140,8 @@ async function loadFeed(){
       const btn=node('button','자료 읽기 ↗','delivery-textlink');btn.type='button';
       btn.addEventListener('click',()=>openPost(post.id));copy.append(btn);card.append(pic,copy);root.append(card);
     });
-    if(!items.length)root.append(node('p','현재 공개된 위키 글이 없습니다. 새로운 자료를 준비 중입니다.','no-results'));
-  }catch(e){root.replaceChildren(node('p','공개 자료를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.','no-results'))}
+    if(!items.length)root.append(wikiEmptyState('공개 승인된 법률백과 글이 아직 없습니다. 민법·형법·상법 등 주제 검색을 사용해 보세요.'));
+  }catch(e){root.replaceChildren(wikiEmptyState('공개 자료를 불러오지 못했습니다. 네트워크 상태를 확인한 후 다시 시도해 주세요.'))}
 }
 const preset=new URLSearchParams(location.search).get('q');
 if(preset&&pick('wikiq')){pick('wikiq').value=preset;searchWiki(preset)}else searchWiki('공시');
