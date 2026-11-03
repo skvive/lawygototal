@@ -180,3 +180,16 @@ body[data-product="wiki"] .lyd-wiki-empty a{display:inline-flex;align-items:cent
  body[data-product="wiki"] .lyd-wiki-empty{grid-template-columns:1fr;gap:12px}
  body[data-product="wiki"] .lyd-wiki-empty img{height:150px}
 }
+
+/* Mobile PAN navigation fit: at 360px the language control + hamburger used to
+   push the header to 379px, producing page-wide horizontal scrolling. */
+@media(max-width:420px){
+ body.pan-platform .header>.wrap{width:calc(100% - 24px);gap:8px;min-width:0}
+ body.pan-platform .header .brand{min-width:0;flex:1 1 auto;max-width:calc(100% - 58px);gap:7px}
+ body.pan-platform .header .brand-logo-original{width:30px;height:30px;flex:none}
+ body.pan-platform .header .brand-name{font-size:16px;white-space:nowrap}
+ body.pan-platform .header .actions{width:44px;min-width:44px;flex:0 0 44px;gap:0}
+ body.pan-platform .header .actions .lang{display:none!important}
+ body.pan-platform .header .actions .btn{display:none!important}
+ body.pan-platform .header .hamburger{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;display:grid;place-items:center}
+}
