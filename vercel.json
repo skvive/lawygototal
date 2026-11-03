@@ -22,6 +22,108 @@
       }
     },
     {
+      "src": "/favicon.ico",
+      "dest": "/static/favicon.ico",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    },
+    {
+      "src": "/",
+      "dest": "/static/index.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/journal",
+      "dest": "/static/journal.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/channel",
+      "dest": "/static/channel.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/pro",
+      "dest": "/static/pro.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/pricing",
+      "dest": "/static/pricing.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/payment",
+      "dest": "/static/payment.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/partnership",
+      "dest": "/static/partnership.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/strategy",
+      "dest": "/static/strategy.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/static/dashboard.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/p/wiki",
+      "dest": "/static/wiki.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/p/pan",
+      "dest": "/static/pan.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/p/note",
+      "dest": "/static/note.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/p/channel",
+      "dest": "/static/product.html",
+      "headers": {
+        "Cache-Control": "public, max-age=0, s-maxage=86400"
+      }
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "app.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "app.py"
     }

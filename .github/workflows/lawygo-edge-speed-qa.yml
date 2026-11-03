@@ -1,0 +1,52 @@
+name: LAWYGO edge-first performance and regression
+on:
+  pull_request:
+    paths:
+      - 'vercel.json'
+      - 'journal_feed.py'
+      - 'app.py'
+      - 'static/index.html'
+      - 'tests/test_edge_speed.py'
+      - 'qa/lawygo-speed-audit.cjs'
+      - '.github/workflows/lawygo-edge-speed-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fast-routes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install pytest
+      - name: Check route configuration and Python syntax
+        run: |
+          python -m json.tool vercel.json > /dev/null
+          python -m py_compile app.py db_engine.py journal_feed.py tests/test_edge_speed.py
+      - name: Test static routes, public caching, and RSS concurrency
+        env:
+          LAWYGO_DB_PATH: /tmp/lawygo-edge-qa.db
+          LAWYGO_UPLOAD_PATH: /tmp/lawygo-edge-qa-uploads
+        run: |
+          python -m pytest tests/test_edge_speed.py tests/test_pan_feed.py tests/test_portal_ui_contract.py -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify browser speed-audit script
+        run: node --check qa/lawygo-speed-audit.cjs
+      - name: Sample current public edge timing (read-only)
+        run: node qa/lawygo-speed-audit.cjs
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lawygo-edge-timing-report
+          path: qa-output/speed-audit.json
+          if-no-files-found: ignore
+          retention-days: 14

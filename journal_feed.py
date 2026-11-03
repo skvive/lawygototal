@@ -1,6 +1,7 @@
 """Aggregate licensed RSS headlines for LAWYGO Journal (title, summary, link, source)."""
 from __future__ import annotations
 
+import asyncio
 import re
 import time
 import xml.etree.ElementTree as ET
@@ -10,15 +11,14 @@ from typing import Any
 import httpx
 
 _CACHE: dict[str, Any] = {"at": 0.0, "items": []}
-_TTL = 900  # 15 min
+_TTL = 900  # 15 min on successful RSS load
+_EMPTY_TTL = 60  # retry empty or upstream failures promptly
 
 FEEDS = (
     {"source": "연합뉴스", "region": "kr", "desk": "한국 경제·정책", "url": "https://www.yna.co.kr/rss/economy.xml"},
     {"source": "연합뉴스", "region": "kr", "desk": "한국 종합", "url": "https://www.yna.co.kr/rss/news.xml"},
-    {"source": "한국경제", "region": "kr", "desk": "국내 증시·경제", "url": "https://www.hankyung.com/feed/economy"},
     {"source": "BBC", "region": "us", "desk": "U.S. & Americas", "url": "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml"},
     {"source": "NPR", "region": "us", "desk": "U.S. Business", "url": "https://feeds.npr.org/1019/rss.xml"},
-    {"source": "Reuters", "region": "us", "desk": "Global Markets", "url": "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best"},
 )
 
 UA = {"User-Agent": "LAWYGO-Journal/1.0 (+https://lawygo.lexid.site/journal)"}
@@ -61,7 +61,7 @@ def _parse_rss(xml_text: str, meta: dict) -> list[dict]:
 
 async def _fetch_one(client: httpx.AsyncClient, meta: dict) -> list[dict]:
     try:
-        r = await client.get(meta["url"], headers=UA, timeout=20.0)
+        r = await client.get(meta["url"], headers=UA, timeout=4.0)
         r.raise_for_status()
         return _parse_rss(r.text, meta)
     except Exception:
@@ -70,12 +70,24 @@ async def _fetch_one(client: httpx.AsyncClient, meta: dict) -> list[dict]:
 
 async def load_wire_items() -> list[dict]:
     now = time.time()
-    if _CACHE["items"] and now - _CACHE["at"] < _TTL:
+    max_age = _TTL if _CACHE["items"] else _EMPTY_TTL
+    if _CACHE["at"] and now - _CACHE["at"] < max_age:
         return _CACHE["items"]
-    merged: list[dict] = []
-    async with httpx.AsyncClient(follow_redirects=True) as client:
-        for meta in FEEDS:
-            merged.extend(await _fetch_one(client, meta))
+
+    # RSS feeds were previously requested one-by-one with a 20-second timeout
+    # each. Parallel fetching caps total waiting time at approximately 5 seconds
+    # even when independent publishers are slow or unreachable.
+    async with httpx.AsyncClient(follow_redirects=True, timeout=4.0) as client:
+        try:
+            batches = await asyncio.wait_for(
+                asyncio.gather(*(_fetch_one(client, meta) for meta in FEEDS)), timeout=5.0
+            )
+        except asyncio.TimeoutError:
+            # A publisher outage must never make every visitor wait.
+            _CACHE["at"] = now
+            return _CACHE["items"]
+
+    merged = [item for batch in batches for item in batch]
     # de-dupe by title prefix
     seen: set[str] = set()
     out: list[dict] = []
