@@ -21,6 +21,9 @@ PUBLIC={
 
 def test_static_public_routes_avoid_function_startup():
     cfg=json.loads((ROOT/"vercel.json").read_text(encoding="utf-8"))
+    # Neon production lives in ap-southeast-1; keep API functions in sin1 to avoid cross-ocean DB roundtrips.
+    assert cfg.get("regions")==["sin1"]
+    assert "functions" not in cfg, "legacy builds cannot coexist with functions configuration"
     routes=cfg["routes"]
     resolved={r["src"]:r["dest"] for r in routes}
     for path,source in PUBLIC.items():
