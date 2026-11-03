@@ -60,3 +60,16 @@
 @media(max-width:720px){.ly-wrap{width:calc(100% - 28px)}.ly-premiere-panel{grid-template-columns:1fr;padding:20px;gap:22px}.ly-section-head{display:block}.ly-section-head p{margin-top:10px}.ly-catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ly-knowledge-grid{gap:10px}.ly-knowledge-card img{height:100px}}
 @media(max-width:440px){.ly-catalog-body{padding:12px}.ly-catalog h3{font-size:14px}.ly-catalog p{font-size:11px;min-height:55px}.ly-knowledge-grid{grid-template-columns:1fr}.ly-knowledge-card img{height:150px}.ly-premiere-actions a{width:100%}}
 @media(prefers-reduced-motion:reduce){.ly-catalog a,.atlas-page .delivery-feature,.pan-platform .surface{transition:none}}
+
+/* Per-card art remediation: avoid unrelated reused background media and empty cards. */
+body[data-product="wiki"] .media-wiki-search{background-image:url('/static/img/design/ly-wiki-scene.svg')!important}
+body[data-product="wiki"] .media-wiki-links{background-image:url('/static/img/design/ly-total-scene.svg')!important}
+body[data-product="wiki"] .media-wiki-review{background-image:url('/static/img/design/ly-journal-scene.svg')!important}
+body[data-product="note"] .media-note-docs{background-image:url('/static/img/design/ly-note-scene.svg')!important}
+body[data-product="note"] .media-note-research{background-image:url('/static/img/design/ly-wiki-scene.svg')!important}
+body[data-product="note"] .media-note-private{background-image:url('/static/img/design/ly-pro-scene.svg')!important}
+body[data-page="pro"] .media-pro-cases{background-image:url('/static/img/design/ly-pro-scene.svg')!important}
+body[data-page="pro"] .media-pro-calendar{background-image:url('/static/img/design/ly-journal-scene.svg')!important}
+body[data-page="pro"] .media-pro-approvals{background-image:url('/static/img/design/ly-note-scene.svg')!important}
+.pan-platform .image-object.pan-img-ph{background:#102b43 url('/static/img/design/ly-pan-scene.svg') center/cover no-repeat!important}
+.pan-platform .pn-ad-slot .pan-img-ph{background:#102b43 url('/static/img/design/ly-journal-scene.svg') center/cover no-repeat!important}
