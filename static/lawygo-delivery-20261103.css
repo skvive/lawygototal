@@ -337,3 +337,10 @@ body.atlas-page .billcard .disabled{display:flex;align-items:center;justify-cont
   text-align:center;font-size:10px;white-space:normal;
  }
 }
+
+
+/* Verified 52-screen QA: prevent home service media exceeding 130px at 360px. */
+@media(max-width:380px){
+ body.atlas-page .ly-catalog>a{height:128px!important;min-height:0!important;max-height:128px!important}
+ body.atlas-page .ly-catalog>a>img{height:128px!important;max-height:128px!important;min-height:0!important}
+}
