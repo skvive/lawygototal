@@ -6,6 +6,30 @@ const el = (t, txt, cls) => {
   return e;
 };
 
+function safeJournalUrl(raw) {
+  try {
+    const url = new URL(String(raw || ""));
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : null;
+  } catch { return null; }
+}
+
+function journalEmpty(label, message, image, link, linkText) {
+  const card = el("article", "", "lyd-feed-empty");
+  const img = el("img");
+  img.src = image || "/static/img/channel.webp";
+  img.alt = "";
+  img.loading = "lazy";
+  img.width = 640;
+  img.height = 360;
+  const content = el("div", "", "lyd-feed-empty-copy");
+  content.append(el("strong", label), el("p", message));
+  const a = el("a", linkText || "LAWYGO 채널 보기 ↗");
+  a.href = link || "/channel";
+  content.append(a);
+  card.append(img, content);
+  return card;
+}
+
 function openIssue(item) {
   const overlay = document.getElementById("journal-issue-overlay");
   document.getElementById("issue-kicker").textContent =
@@ -33,25 +57,20 @@ document.getElementById("journal-issue-close")?.addEventListener("click", () => 
 
 function sideStory(item, rubric) {
   const a = el("a", "", "side-story");
-  a.style.display = "block";
-  a.href = "#";
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    openIssue(item);
-  });
-  a.innerHTML = `<span class="rubric">${rubric}</span><h3>${item.title}</h3><p>${item.summary || item.source || ""}</p>`;
+  a.href = "#journal-front-left";
+  a.addEventListener("click", (e) => { e.preventDefault(); openIssue(item); });
+  a.append(el("span", rubric, "rubric"), el("h3", item.title), el("p", item.summary || item.source || ""));
   return a;
 }
 
 function leadBlock(item) {
   const wrap = el("div");
   const rubric = item.region === "kr" ? "THE BIG STORY · KOREA" : "THE BIG STORY · U.S. MARKETS";
-  const img = el("div", "", "lead-photo ph-finance");
-  wrap.innerHTML = `<div class="rubric">${rubric}</div><h1 class="headline">${item.title}</h1><p class="deck">${item.summary || "제3자 RSS 헤드라인·요약입니다."}</p>`;
-  wrap.append(img);
-  const cap = el("p", item.source + " · " + (item.published || ""), "caption");
-  const by = el("p", "LAWYGO JOURNAL · LIVE WIRE", "byline");
-  wrap.append(cap, by);
+  wrap.append(el("div", rubric, "rubric"),el("h1", item.title, "headline"),
+    el("p", item.summary || "제3자 RSS 헤드라인·요약입니다.", "deck"));
+  wrap.append(el("div", "", "lead-photo ph-finance"),
+    el("p", (item.source || "") + " · " + (item.published || ""), "caption"),
+    el("p", "LAWYGO JOURNAL · LIVE WIRE", "byline"));
   wrap.style.cursor = "pointer";
   wrap.addEventListener("click", () => openIssue(item));
   return wrap;
@@ -59,42 +78,30 @@ function leadBlock(item) {
 
 function tile(item, rubric, ph) {
   const a = el("a", "", "tile");
-  a.href = "#";
-  a.addEventListener("click", (e) => {
-    e.preventDefault();
-    openIssue(item);
-  });
-  const img = el("div", "", ph);
-  img.classList.add("tile");
-  a.innerHTML = `<div class="rubric">${rubric}</div>`;
-  a.append(img);
-  const h = el("h3", item.title);
-  const p = el("p", item.summary || item.source || "");
-  const b = el("span", item.source || "WIRE", "byline");
-  a.append(h, p, b);
+  a.href="#journal-row-editors";
+  a.addEventListener("click",(e)=>{e.preventDefault();openIssue(item)});
+  const img = el("div", "", ph); img.classList.add("tile");
+  a.append(el("div", rubric, "rubric"),img,el("h3", item.title),
+    el("p", item.summary || item.source || ""),el("span", item.source || "WIRE", "byline"));
   return a;
 }
 
 function keyIssue(item, n) {
-  const li = el("li");
-  li.innerHTML = `<span class="num">${String(n).padStart(2, "0")}</span><div><h4>${item.title}</h4><p>${item.source}</p></div>`;
-  li.addEventListener("click", () => openIssue(item));
+  const li=el("li");
+  const info=el("div");
+  info.append(el("h4",item.title),el("p",item.source || ""));
+  li.append(el("span",String(n).padStart(2,"0"),"num"),info);
+  li.addEventListener("click",()=>openIssue(item));
   return li;
 }
 
 function wireItem(item) {
-  const a = el("a", "", "wire-item");
-  a.href = item.url && item.url.startsWith("http") ? item.url : "#";
-  if (!item.url?.startsWith("http")) {
-    a.addEventListener("click", (e) => {
-      e.preventDefault();
-      openIssue(item);
-    });
-  } else {
-    a.target = "_blank";
-    a.rel = "noopener";
-  }
-  a.innerHTML = `<small>${item.source}</small><strong>${item.title}</strong>`;
+  const a=el("a","","wire-item");
+  const url=safeJournalUrl(item.url);
+  a.href=url || "#journal-front-left";
+  if(url){a.target="_blank";a.rel="noopener noreferrer";}
+  else a.addEventListener("click",(e)=>{e.preventDefault();openIssue(item)});
+  a.append(el("small",item.source),el("strong",item.title));
   return a;
 }
 
@@ -115,6 +122,10 @@ async function boot() {
   (kr.slice(0, 2).length ? kr : editorial).slice(0, 2).forEach((it, i) =>
     left.append(sideStory(it, i === 0 ? "KOREA ECONOMY" : "LEGAL INTELLIGENCE")),
   );
+  if (!left.children.length) left.append(journalEmpty(
+    "EDITOR'S DESK", "오늘의 공개 기사 원문을 확인 중입니다. 승인된 자료만 자동으로 노출됩니다.",
+    "/static/img/channel.webp", "/channel", "편집 채널 살펴보기 ↗"
+  ));
 
   const leadNode = document.getElementById("journal-lead");
   leadNode.replaceChildren();
@@ -123,7 +134,7 @@ async function boot() {
   } else {
     const placeholder = el('div', '', 'journal-empty-lead');
     const photo = el('img');
-    photo.src='/static/img/design/ai-channel-desk.svg';
+    photo.src='/static/img/channel.webp';
     photo.alt='경제·법률 편집 데스크를 표현한 일러스트';
     const heading=el('h2', '경제와 법률의 연결을 읽는 저널');
     const desc=el('p', '승인된 오늘의 헤드라인을 준비 중입니다. 공개 콘텐츠가 등록되면 이 영역에 업데이트됩니다.');
@@ -137,6 +148,12 @@ async function boot() {
   keyWrap.innerHTML = '<div class="rubric">TODAY\'S KEY ISSUES</div>';
   const ol = el("ol");
   merged.slice(0, 5).forEach((it, i) => ol.append(keyIssue(it, i + 1)));
+  if (!merged.length) {
+    const item=el("li");
+    item.append(el("strong","공개 편집 자료 확인 중"),
+                el("p","정식 공개 자료만 등록되며, 콘텐츠 건수를 임의로 표시하지 않습니다."));
+    ol.append(item);
+  }
   keyWrap.append(ol);
   right.append(keyWrap);
   us.slice(0, 2).forEach((it, i) =>
@@ -150,21 +167,25 @@ async function boot() {
   const wkr = document.getElementById("journal-wire-kr");
   wkr.replaceChildren();
   kr.slice(0, 8).forEach((it) => wkr.append(wireItem(it)));
+  if (!wkr.children.length) wkr.append(journalEmpty("KOREA WIRE","공개된 국내 정책·법률 제목을 확인 중입니다.","/static/img/channel.webp","/channel","채널에서 콘텐츠 확인 ↗"));
   const wus = document.getElementById("journal-wire-us");
   wus.replaceChildren();
   us.slice(0, 8).forEach((it) => wus.append(wireItem(it)));
+  if (!wus.children.length) wus.append(journalEmpty("GLOBAL WIRE","공개된 미국·국제 경제 자료를 확인 중입니다.","/static/img/design/hero-sunset-20261102.webp","/channel","편집 채널 확인 ↗"));
 
   const row1 = document.getElementById("journal-row-editors");
   row1.replaceChildren();
   [...us.slice(0, 2), ...kr.slice(0, 1)].forEach((it, i) =>
     row1.append(tile(it, ["U.S. MARKETS", "KOREA ECONOMY", "MARKET INTELLIGENCE"][i] || "WIRE", PH[i % PH.length])),
   );
+  if (!row1.children.length) row1.append(journalEmpty("EDITOR'S SELECTION","검수된 주요 기사를 준비 중입니다.","/static/img/design/editorial-library-20261102.webp","/p/wiki","WIKI 법률자료 보기 ↗"));
 
   const row2 = document.getElementById("journal-row-law");
   row2.replaceChildren();
   [...editorial.slice(0, 2), ...kr.slice(1, 2)].forEach((it, i) =>
     row2.append(tile(it, i === 0 ? "LEGAL INTELLIGENCE" : "EDITORIAL", PH[(i + 2) % PH.length])),
   );
+  if (!row2.children.length) row2.append(journalEmpty("LAW & POLICY","승인된 제도·판례 리뷰가 등록되면 이곳에 노출됩니다.","/static/img/wiki.webp","/p/wiki","법률백과 살펴보기 ↗"));
 
   document.getElementById("journal-disclaimer").textContent = data.disclaimer || "";
 }

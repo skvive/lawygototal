@@ -26,9 +26,11 @@ jobs:
       - name: Compile API modules and run isolated contracts
         run: |
           python -m py_compile pan_public_feed.py pan_discovery_v2.py app.py
-          python -m pytest tests/test_brand_pan_discovery.py tests/test_pan_feed.py tests/test_portal_ui_contract.py -q
+          python -m pytest tests/test_brand_pan_discovery.py tests/test_lawygo_delivery_ui.py tests/test_pan_feed.py tests/test_portal_ui_contract.py -q
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Validate public PAN JavaScript
         run: node --check static/pan-platform.js
+          node --check static/journal-editorial-live.js
+          node --check static/wiki-page.js

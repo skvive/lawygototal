@@ -1,0 +1,195 @@
+/* LAWYGO Delivery QA — 2026-11-03.
+   Preserves existing product UI and authenticated application behavior;
+   addresses visual consistency, responsive image proportions, CTAs, focus,
+   loading placeholders and low-content pages only. */
+:root{
+ --lyd-navy:#0c2b43;--lyd-navy-deep:#071b2d;
+ --lyd-gold:#c69c5d;--lyd-ink:#142e43;--lyd-soft:#f6f5ef;
+ --lyd-muted:#647789;--lyd-border:#dce5eb;--lyd-radius:16px;
+}
+html{scroll-behavior:smooth}
+body{overflow-wrap:break-word}
+.ly-catalog{
+ align-items:stretch;
+ grid-auto-rows:1fr;
+}
+.ly-catalog>a{
+ display:flex!important;flex-direction:column;
+ min-height:0!important;height:100%;overflow:hidden;
+ border-radius:var(--lyd-radius);background:#fff;
+}
+.ly-catalog>a>img{
+ display:block;width:100%!important;height:152px!important;
+ max-height:152px!important;min-height:0!important;
+ aspect-ratio:5/3!important;object-fit:cover!important;object-position:center center;
+ flex:0 0 152px;background:#173b56;
+}
+.ly-catalog-body{display:flex;flex:1;flex-direction:column;padding:16px 16px 18px}
+.ly-catalog h3{min-height:0;line-height:1.4;margin:6px 0 8px}
+.ly-catalog p{min-height:0;line-height:1.75}
+.ly-catalog>a:focus-visible{outline:3px solid var(--lyd-gold);outline-offset:3px}
+.ly-catalog>a:hover img{filter:brightness(.97) saturate(1.07)}
+.ly-premiere-panel{align-items:center}
+.ly-premiere-panel>img{
+ display:block!important;height:clamp(190px,26vw,310px)!important;
+ max-height:310px!important;min-height:0!important;
+ aspect-ratio:16/10!important;object-fit:cover!important;
+ object-position:center center;
+}
+.ly-premiere-actions a,.ly-feature-link,
+.ly-catalog a,body[data-page=pro] .pro-login-btn{
+ -webkit-tap-highlight-color:transparent;
+}
+.ly-premiere-actions a,
+.pan-platform .pn-action a,
+body[data-page=pro] .pro-login-btn,
+body[data-product=note] .portal-intro-actions>a,
+body[data-product=wiki] .portal-intro-actions>a{
+ min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+ line-height:1.45;text-align:center;
+}
+.ly-section-head h2,.ly-premiere h2{
+ text-wrap:balance;word-break:keep-all;
+}
+.ly-premiere p{max-width:61ch}
+.ly-knowledge-grid{align-items:stretch}
+.ly-knowledge-card{display:flex;flex-direction:column;min-width:0;height:100%}
+.ly-knowledge-card>img{height:145px!important;object-fit:cover;flex:none}
+.ly-knowledge-card>div{flex:1}
+.ly-knowledge-card a{display:inline-flex;min-height:40px;align-items:center;margin-top:11px;color:#165477;font-weight:750}
+.atlas-page .delivery-visual-grid .delivery-feature-media{
+ display:block!important;height:auto!important;min-height:150px;
+ aspect-ratio:16/10;object-fit:cover;
+ background-position:center!important;background-size:cover!important;
+}
+.atlas-page .delivery-visual-grid .delivery-feature{height:100%;min-width:0}
+.atlas-page .delivery-feature-body{padding-bottom:23px}
+.atlas-page .delivery-feature-body h3{word-break:keep-all}
+body[data-product=wiki] .media-wiki-search{background-image:url('/static/img/design/legal-knowledge-city.webp')!important}
+body[data-product=wiki] .media-wiki-links{background-image:url('/static/img/design/editorial-library-20261102.webp')!important}
+body[data-product=wiki] .media-wiki-review{background-image:url('/static/img/wiki.webp')!important}
+body[data-product=note] .media-note-docs{background-image:url('/static/img/note.webp')!important}
+body[data-product=note] .media-note-research{background-image:url('/static/img/design/editorial-library-20261102.webp')!important}
+body[data-product=note] .media-note-private{background-image:url('/static/img/design/legal-knowledge-city.webp')!important}
+body[data-page=pro] .media-pro-cases{background-image:url('/static/img/design/legal-knowledge-city.webp')!important}
+body[data-page=pro] .media-pro-calendar{background-image:url('/static/img/design/hero-seoul-20261102.webp')!important}
+body[data-page=pro] .media-pro-approvals{background-image:url('/static/img/design/editorial-library-20261102.webp')!important}
+body[data-product=note] .portal-note-image{background-image:url('/static/img/note.webp')!important}
+body[data-product=wiki] .portal-wiki-image{background-image:url('/static/img/design/legal-knowledge-city.webp')!important}
+body[data-product=wiki] .no-results,
+body[data-product=note] .demo-note{
+ border:1px solid #dfe6e9!important;
+ border-radius:13px!important;
+ color:var(--lyd-muted)!important;
+ background:#f7fafb!important;
+ line-height:1.8!important;padding:22px!important;
+}
+.pan-platform .ly-pan-empty{background:#f6f9fc!important}
+.pan-platform .ly-pan-empty img{height:180px!important;object-fit:cover}
+.pan-platform #pan-content-list img,
+.pan-platform .pn-cards img,
+.pan-platform #pan-shorts-grid img{
+ object-fit:cover!important;
+}
+body[data-page=pro] .pro-intro h1,
+body[data-product=wiki] .hero h1,
+body[data-product=note] .hero h1{word-break:keep-all;text-wrap:balance}
+body[data-page=pro] .pro-access-card{
+ box-shadow:0 14px 35px rgba(5,31,53,.09);
+}
+body.atlas-page .btn:focus-visible,
+body.atlas-page button:focus-visible,
+body.atlas-page a:focus-visible,
+body.pan-platform button:focus-visible,
+body.pan-platform a:focus-visible,
+body:has(.mastbrand) button:focus-visible,
+body:has(.mastbrand) a:focus-visible{
+ outline:3px solid var(--lyd-gold)!important;outline-offset:3px;
+}
+body.atlas-page .btn,
+body.atlas-page .hero-buttons .btn,
+.pan-platform .btn,
+.pan-platform .pn-tabs button{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+body.atlas-page input:not([type=checkbox]),
+body.atlas-page select,
+body.atlas-page textarea{max-width:100%;box-sizing:border-box}
+body.atlas-page .portal-topic-list button{min-height:44px}
+body[data-page=pro] .pro-visual img{height:auto!important;aspect-ratio:16/9!important;object-fit:cover!important}
+@media(max-width:1100px){
+ .ly-catalog{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:750px){
+ .ly-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ly-catalog>a>img{height:140px!important;max-height:140px!important;flex-basis:140px}
+ .ly-premiere-panel>img{height:220px!important;max-height:220px!important}
+ .ly-knowledge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ly-knowledge-card>img{height:130px!important}
+}
+@media(max-width:480px){
+ .ly-catalog{gap:10px}
+ .ly-catalog>a>img{height:112px!important;max-height:112px!important;flex-basis:112px}
+ .ly-catalog-body{padding:12px}
+ .ly-catalog h3{font-size:14px}
+ .ly-catalog p{font-size:11px;line-height:1.6}
+ .ly-premiere-panel>img{height:172px!important;max-height:172px!important}
+ .ly-premiere-actions{display:grid;grid-template-columns:1fr;gap:9px}
+ .ly-premiere-actions a{width:100%;font-size:13px}
+ .ly-knowledge-grid{grid-template-columns:1fr}
+ .ly-knowledge-card>img{height:185px!important}
+ .atlas-page .delivery-visual-grid .delivery-feature-media{min-height:130px;aspect-ratio:16/9}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .ly-catalog a,.ly-premiere-actions a{transition:none!important}
+}
+
+/* Honest, fully composed empty feed slots: no fake articles or blank columns. */
+.lyd-feed-empty{
+ display:flex;flex-direction:column;gap:0;
+ min-width:0;min-height:168px;overflow:hidden;
+ border:1px solid #dfe8ed;border-radius:14px;
+ background:#f6f9fb;box-shadow:0 6px 18px rgba(9,44,65,.045);
+ color:#233f55;
+}
+.lyd-feed-empty>img{display:block;width:100%;max-width:100%;height:112px;
+ min-height:0;object-fit:cover;background:#103850}
+.lyd-feed-empty-copy{padding:17px 16px}
+.lyd-feed-empty strong{font-size:13px;letter-spacing:.015em}
+.lyd-feed-empty p{margin:8px 0 11px;color:#607587;font-size:12px;line-height:1.75}
+.lyd-feed-empty a{display:inline-flex;align-items:center;min-height:44px;
+ padding:7px 0;color:#155e85!important;font-size:12px;font-weight:800;text-decoration:none!important}
+#journal-front-left .lyd-feed-empty,
+#journal-right .lyd-feed-empty{margin-bottom:16px}
+#journal-wire-kr .lyd-feed-empty,
+#journal-wire-us .lyd-feed-empty{min-height:165px}
+#journal-row-editors .lyd-feed-empty,
+#journal-row-law .lyd-feed-empty{width:100%;max-width:380px}
+#journal-row-editors .lyd-feed-empty img,
+#journal-row-law .lyd-feed-empty img{height:154px}
+body[data-product="wiki"] .lyd-wiki-empty{
+ grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,240px) 1fr;
+ align-items:center;gap:25px;background:#f8fafb;
+ border:1px solid #dfe8ed;border-radius:16px;padding:20px;
+ min-width:0;
+}
+body[data-product="wiki"] .lyd-wiki-empty img{width:100%;height:145px;object-fit:cover;border-radius:10px}
+body[data-product="wiki"] .lyd-wiki-empty strong{font-size:17px;color:#1d3d54}
+body[data-product="wiki"] .lyd-wiki-empty p{font-size:13px;color:#66788b;line-height:1.8}
+body[data-product="wiki"] .lyd-wiki-empty a{display:inline-flex;align-items:center;min-height:44px;font-weight:800;color:#165a7e}
+@media(max-width:650px){
+ body[data-product="wiki"] .lyd-wiki-empty{grid-template-columns:1fr;gap:12px}
+ body[data-product="wiki"] .lyd-wiki-empty img{height:150px}
+}
+
+/* Mobile PAN navigation fit: at 360px the language control + hamburger used to
+   push the header to 379px, producing page-wide horizontal scrolling. */
+@media(max-width:420px){
+ body.pan-platform .header>.wrap{width:calc(100% - 24px);gap:8px;min-width:0}
+ body.pan-platform .header .brand{min-width:0;flex:1 1 auto;max-width:calc(100% - 58px);gap:7px}
+ body.pan-platform .header .brand-logo-original{width:30px;height:30px;flex:none}
+ body.pan-platform .header .brand-name{font-size:16px;white-space:nowrap}
+ body.pan-platform .header .actions{width:44px;min-width:44px;flex:0 0 44px;gap:0}
+ body.pan-platform .header .actions .lang{display:none!important}
+ body.pan-platform .header .actions .btn{display:none!important}
+ body.pan-platform .header .hamburger{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;display:grid;place-items:center}
+}
