@@ -3,7 +3,7 @@
   const path = location.pathname;
   const on = (p) => (path === p || (p !== '/' && path.startsWith(p)) ? 'active' : '');
   const header = `
-<div class="utility"><div class="wrap utility-inner"><span>ECONOMY × LAW × INTELLIGENCE</span><span>대한민국 · 미국을 잇는 제도적 통찰</span><span class="utility-right">U.S. &amp; KOREA · LEGAL INTELLIGENCE</span></div></div>
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>\r\n<div class="utility"><div class="wrap utility-inner"><span>ECONOMY × LAW × INTELLIGENCE</span><span>대한민국 · 미국을 잇는 제도적 통찰</span><span class="utility-right">U.S. &amp; KOREA · LEGAL INTELLIGENCE</span></div></div>
 <header class="header"><div class="wrap header-main">
   <a href="/" class="logo"><img class="brand-logo-original" src="/static/logo.svg" width="38" height="38" alt="" aria-hidden="true"><span class="logo-word">LAWYGO<span class="logo-sub">LEGAL INTELLIGENCE</span></span></a>
   <nav class="desktop-nav" aria-label="주 메뉴">
@@ -19,10 +19,10 @@
   <div class="header-actions">
     <a class="btn btn-outline btn-mini" href="/#newsletter">무료 뉴스레터</a>
     <a class="btn btn-gold btn-mini" href="/payment">Payment</a>
-    <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNav">☰</button>
   </div>
 </div>
-<div class="wrap mobile-nav" id="mobileNav">
+<div class="wrap mobile-nav" id="mobileNav" aria-label="모바일 주 메뉴">
   <a href="/journal">저널</a><a href="/p/wiki">위키</a><a href="/p/note">노트</a><a href="/pro">로이고 PRO</a><a href="/p/pan">판</a>
   <a href="/pricing">구독 안내</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">관리자</a>
 </div></header>`;
@@ -42,9 +42,29 @@
   document.querySelectorAll('[data-brand-shell="footer"]').forEach((el) => { el.innerHTML = footer; });
   const toggle = document.querySelector('.menu-toggle');
   const mobile = document.getElementById('mobileNav');
+  const closeMobileMenu = () => {
+    mobile?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', '메뉴 열기');
+  };
   toggle?.addEventListener('click', () => {
-    mobile?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', mobile?.classList.contains('open') ? 'true' : 'false');
+    const open = mobile?.classList.toggle('open') === true;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  });
+  mobile?.querySelectorAll('a').forEach((anchor) => {
+    anchor.addEventListener('click', closeMobileMenu);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobile?.classList.contains('open')) {
+      closeMobileMenu();
+      toggle?.focus();
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (mobile?.classList.contains('open') && !event.target.closest('.header')) {
+      closeMobileMenu();
+    }
   });
 })();
 
