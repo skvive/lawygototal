@@ -256,8 +256,7 @@ document.querySelectorAll("#pan-content-tabs button").forEach((btn) => {
     document.querySelectorAll("#pan-content-tabs button").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     activeTab = btn.dataset.kind || "all";
-    document.getElementById("pan-refresh-feed")?.addEventListener("click", reloadAll);
-reloadAll();
+    reloadAll();
   });
 });
 
@@ -276,3 +275,5 @@ document.getElementById("menu-toggle")?.addEventListener("click", () => {
 });
 
 reloadAll();
+
+document.getElementById("pan-refresh-feed")?.addEventListener("click", reloadAll);
