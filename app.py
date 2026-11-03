@@ -730,7 +730,10 @@ def pan_redirect():
 
 
 @app.get("/api/journal/feed")
-async def journal_feed_api(db=Depends(database)):
+async def journal_feed_api(response: Response, db=Depends(database)):
+    # Published editorial records and public RSS only. No user-specific data.
+    # Browser revalidates, Vercel CDN serves a warm copy while RSS refreshes.
+    response.headers["Cache-Control"] = "public, max-age=0, s-maxage=300, stale-while-revalidate=1800"
     tenant=DEFAULT_TENANT
     rows=db.execute(
         '''SELECT p.id,p.kind,p.title,p.summary,p.updated_at FROM posts p
