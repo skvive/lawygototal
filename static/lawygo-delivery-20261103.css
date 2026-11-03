@@ -313,3 +313,27 @@ body.atlas-page .billcard .disabled{display:flex;align-items:center;justify-cont
 @media(max-width:800px){.ly-hero-editorial-grid{grid-template-columns:1fr}.ly-hero-editorial{padding-block:52px}.ly-hero-editorial h2{max-width:700px}.ly-hero-editorial p{max-width:640px}}
 @media(max-width:440px){.ly-hero-editorial h2{font-size:31px}.ly-hero-editorial .ly-feature-link{width:100%}.ly-hero-editorial-figure figcaption{font-size:8px;letter-spacing:.07em}}
 
+
+
+/* QA fix 2026-11-04: 360px viewport must not clip the platform switcher.
+   Convert intentionally scrollable tabs into a fully visible compact 3x2 grid. */
+@media(max-width:380px){
+ .lawygo-switcher-inner{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  width:100%;min-width:0;min-height:0;overflow-x:hidden;
+  padding:7px 10px;column-gap:4px;row-gap:4px;
+ }
+ .lawygo-switcher-link{
+  min-width:0;width:100%;min-height:43px;padding:5px 4px;
+  display:flex;justify-content:center;gap:0;text-align:center;
+ }
+ .lawygo-switcher-monogram{display:none}
+ .lawygo-switcher-copy{white-space:normal;min-width:0;max-width:100%}
+ .lawygo-switcher-copy strong{font-size:11px;line-height:1.2;word-break:keep-all}
+ .lawygo-switcher-copy small{font-size:8px;line-height:1.15}
+ .lawygo-switcher-all{
+  margin:0;min-width:0;min-height:43px;padding:5px 3px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:10px;white-space:normal;
+ }
+}
