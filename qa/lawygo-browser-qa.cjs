@@ -36,7 +36,12 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
                 &&style.position!=='fixed'&&style.visibility!=='hidden';
             }).slice(0,12).map(e=>({tag:e.tagName,class:String(e.className||'').slice(0,80),
                 id:e.id,right:Math.round(e.getBoundingClientRect().right),width:Math.round(e.getBoundingClientRect().width)})),
-            brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.currentSrc.slice(0,160)),
+            brokenImages:imgs.filter(i=>{
+              const r=i.getBoundingClientRect();
+              const nearViewport=r.top<window.innerHeight+120&&r.bottom>-120;
+              // Off-screen native lazy images are intentionally not fetched yet.
+              return nearViewport&&(i.currentSrc||i.loading!=='lazy')&&(!i.complete||!i.naturalWidth);
+            }).map(i=>(i.currentSrc||i.getAttribute('src')||'(missing-src)').slice(0,160)),
             images:imgs.length,
             platformButtons:document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length,
             wikiTopicButtons:document.body.dataset.product==='wiki'?document.querySelectorAll('[data-wiki-topic]').length:null,
