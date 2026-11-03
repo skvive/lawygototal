@@ -1,0 +1,66 @@
+{
+  "version": "20261103",
+  "note": "Original generated AI imagery secured in private Google Drive; GitHub objects are used exclusively as CI transfer sources. No personal case/client data.",
+  "images": [
+    {
+      "name": "total",
+      "blob_sha": "7fb7e2271177d1ada57ba523862a449539d3a59d",
+      "crop": [
+        0.41,
+        0.1,
+        0.99,
+        0.88
+      ]
+    },
+    {
+      "name": "journal",
+      "blob_sha": "b5bfa96accdd7c02dabc48ba43b3a16057415792",
+      "crop": [
+        0.46,
+        0.08,
+        0.99,
+        0.85
+      ]
+    },
+    {
+      "name": "wiki",
+      "blob_sha": "d319ba9501c13ca4d96757d1680a6ce66018fb08",
+      "crop": [
+        0.4,
+        0.1,
+        0.99,
+        0.91
+      ]
+    },
+    {
+      "name": "pan",
+      "blob_sha": "1678b52db6083b8d4421d9b595fbfc0c3f2b454e",
+      "crop": [
+        0.44,
+        0.05,
+        0.99,
+        0.82
+      ]
+    },
+    {
+      "name": "note",
+      "blob_sha": "24fbf59fe435669d7456d54e1265bfacd1c2b3d1",
+      "crop": [
+        0.42,
+        0.1,
+        0.99,
+        0.85
+      ]
+    },
+    {
+      "name": "pro",
+      "blob_sha": "f2bd99ce3b0efeefece133e161a215b51e05d004",
+      "crop": [
+        0.42,
+        0.08,
+        0.99,
+        0.87
+      ]
+    }
+  ]
+}
