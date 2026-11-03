@@ -43,11 +43,11 @@ def test_blogger_whitelists_public_https_links(monkeypatch):
 def test_service_routes_have_assets_and_layout():
     pages={
         "static/index.html":"static/img/channel.webp",
-        "static/journal.html":"static/img/channel.webp",
+        "static/journal.html":"static/img/design/editorial-library-20261102.webp",
         "static/pan.html":"static/img/pan.webp",
         "static/note.html":"static/img/note.webp",
-        "static/wiki.html":"static/img/wiki.webp",
-        "static/pro.html":"static/img/design/legal-knowledge-city.webp",
+        "static/wiki.html":"static/img/design/ly-wiki-scene.svg",
+        "static/pro.html":"static/img/design/ly-pro-scene.svg",
         "static/channel.html":"static/img/channel.webp",
         "static/pricing.html":"static/img/design/hero-sunset-20261102.webp",
         "static/partnership.html":"static/img/design/editorial-library-20261102.webp",
