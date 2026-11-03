@@ -317,7 +317,7 @@ body.atlas-page .billcard .disabled{display:flex;align-items:center;justify-cont
 
 /* QA fix 2026-11-04: 360px viewport must not clip the platform switcher.
    Convert intentionally scrollable tabs into a fully visible compact 3x2 grid. */
-@media(max-width:380px){
+@media(max-width:650px){
  .lawygo-switcher-inner{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   width:100%;min-width:0;min-height:0;overflow-x:hidden;
@@ -488,7 +488,7 @@ body[data-page="pro"] .media-pro-approvals{
   body.atlas-page .ly-knowledge-grid{gap:12px}
   body.atlas-page .ly-knowledge-card img{height:170px;object-fit:cover}
   body.atlas-page .ly-premiere-panel > img{
-    max-width:100%;height:auto!important;max-height:none!important;
+    max-width:100%;height:clamp(165px,30vw,220px)!important;max-height:220px!important;
     aspect-ratio:16/10;object-fit:cover
   }
 }
