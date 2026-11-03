@@ -36,6 +36,13 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             noteEditor:document.body.dataset.product==='note'?!!document.getElementById('noteDraftContent'):null,
             deliveryCards:document.querySelectorAll('.delivery-feature').length,
             tinyDeliveryMedia:[...document.querySelectorAll('.delivery-feature-media')].filter(e=>e.getBoundingClientRect().height<112).length,
+            // Delivery-critical: ensure service imagery is compact and user-facing buttons are tappable.
+            catalogMediaOversize:[...document.querySelectorAll('.ly-catalog>a>img')].filter(e=>e.getBoundingClientRect().height>(w<=480?130:w<=750?155:195)).length,
+            catalogCardsOversize:[...document.querySelectorAll('.ly-catalog>a')].filter(e=>e.getBoundingClientRect().height>(w<=480?365:440)).length,
+            premiereMediaOversize:[...document.querySelectorAll('.ly-premiere-panel>img')].filter(e=>e.getBoundingClientRect().height>(w<=480?190:w<=750?250:335)).length,
+            tinyMarketingCTAs:[...document.querySelectorAll('.ly-premiere-actions a, .ly-feature-link, body[data-page=pro] .pro-login-btn')].filter(e=>e.getBoundingClientRect().height<42).length,
+            stylesheetDelivery:[...document.styleSheets].some(sh=>String(sh.href||'').includes('lawygo-delivery-20261103.css')),
+
             primaryButtons:[...document.querySelectorAll('.hero-buttons .btn')].filter(e=>e.getBoundingClientRect().height<40).length,
             main:!!document.querySelector('main,[role=main]'),
             homeHeroImage:document.body.dataset.page==='home' ? getComputedStyle(document.querySelector('.hero-bg.hero-global')).backgroundImage : null,
@@ -104,10 +111,10 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   }catch(e){interactions.push({test:'pan-blog-tab-click',pass:false,error:String(e).slice(0,250)})}
   await w.close();
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
-  console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
+  console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,js:x.pageErrors,broken:x.brokenImages,catalogMedia:x.catalogMediaOversize,catalogCards:x.catalogCardsOversize,premiereMedia:x.premiereMediaOversize,tinyCTAs:x.tinyMarketingCTAs,style:x.stylesheetDelivery,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
   if(critical.length||interactions.some(x=>!x.pass))process.exitCode=1;
 })().catch(e=>{console.error(e);process.exitCode=1});
 
