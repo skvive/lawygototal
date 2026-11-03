@@ -142,3 +142,41 @@ body[data-page=pro] .pro-visual img{height:auto!important;aspect-ratio:16/9!impo
  html{scroll-behavior:auto}
  .ly-catalog a,.ly-premiere-actions a{transition:none!important}
 }
+
+/* Honest, fully composed empty feed slots: no fake articles or blank columns. */
+.lyd-feed-empty{
+ display:flex;flex-direction:column;gap:0;
+ min-width:0;min-height:168px;overflow:hidden;
+ border:1px solid #dfe8ed;border-radius:14px;
+ background:#f6f9fb;box-shadow:0 6px 18px rgba(9,44,65,.045);
+ color:#233f55;
+}
+.lyd-feed-empty>img{display:block;width:100%;max-width:100%;height:112px;
+ min-height:0;object-fit:cover;background:#103850}
+.lyd-feed-empty-copy{padding:17px 16px}
+.lyd-feed-empty strong{font-size:13px;letter-spacing:.015em}
+.lyd-feed-empty p{margin:8px 0 11px;color:#607587;font-size:12px;line-height:1.75}
+.lyd-feed-empty a{display:inline-flex;align-items:center;min-height:44px;
+ padding:7px 0;color:#155e85!important;font-size:12px;font-weight:800;text-decoration:none!important}
+#journal-front-left .lyd-feed-empty,
+#journal-right .lyd-feed-empty{margin-bottom:16px}
+#journal-wire-kr .lyd-feed-empty,
+#journal-wire-us .lyd-feed-empty{min-height:165px}
+#journal-row-editors .lyd-feed-empty,
+#journal-row-law .lyd-feed-empty{width:100%;max-width:380px}
+#journal-row-editors .lyd-feed-empty img,
+#journal-row-law .lyd-feed-empty img{height:154px}
+body[data-product="wiki"] .lyd-wiki-empty{
+ grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,240px) 1fr;
+ align-items:center;gap:25px;background:#f8fafb;
+ border:1px solid #dfe8ed;border-radius:16px;padding:20px;
+ min-width:0;
+}
+body[data-product="wiki"] .lyd-wiki-empty img{width:100%;height:145px;object-fit:cover;border-radius:10px}
+body[data-product="wiki"] .lyd-wiki-empty strong{font-size:17px;color:#1d3d54}
+body[data-product="wiki"] .lyd-wiki-empty p{font-size:13px;color:#66788b;line-height:1.8}
+body[data-product="wiki"] .lyd-wiki-empty a{display:inline-flex;align-items:center;min-height:44px;font-weight:800;color:#165a7e}
+@media(max-width:650px){
+ body[data-product="wiki"] .lyd-wiki-empty{grid-template-columns:1fr;gap:12px}
+ body[data-product="wiki"] .lyd-wiki-empty img{height:150px}
+}
