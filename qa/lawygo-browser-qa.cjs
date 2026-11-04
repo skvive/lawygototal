@@ -155,7 +155,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.goto(BASE+'/pro',{waitUntil:'domcontentloaded'});
     interactions.push({test:'pro-official-site-home-mirror',pass:await w.locator('#pro-source-home').count()===1&&(await w.locator('#pro-source-title').textContent()).includes('대한민국 법원')});
     await w.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
-    interactions.push({test:'weeklynews-logo-and-attribution',pass:await w.locator('.weeklynews-partner img[src="/static/img/weeklynews-w.svg"]').count()===1&&(await w.locator('.weeklynews-partner').textContent()).includes('위클리뉴스 제공 기사')});
+    interactions.push({test:'weeklynews-logo-footer-only',pass:await w.locator('footer .journal-weeklynews-credit-link img[src="/static/img/weeklynews-w.svg"]').count()===1&&await w.locator('.weeklynews-partner').count()===0&&await w.locator('.journal-weeklynews-credit-link').getAttribute('aria-label')==='기사 제공: 위클리뉴스 공식 사이트 방문'});
   } catch(e) { interactions.push({test:'source-integration-browser-qa',pass:false,error:String(e).slice(0,260)})}
   await w.close();
   await browser.close();

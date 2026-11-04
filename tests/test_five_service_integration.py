@@ -20,10 +20,12 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn("#B4232B", logo)
         self.assertIn("#22429F", logo)
         journal = read("static/journal.html")
-        self.assertIn('class="weeklynews-partner"', journal)
+        self.assertNotIn('class="weeklynews-partner"', journal)
+        self.assertIn('class="journal-weeklynews-credit"', journal)
         self.assertIn('https://weeklynews.me/', journal)
-        self.assertIn("위클리뉴스 제공 기사", journal)
+        self.assertIn('aria-label="기사 제공: 위클리뉴스 공식 사이트 방문"', journal)
         self.assertIn('src="/static/img/weeklynews-w.svg"', journal)
+        self.assertNotIn("위클리뉴스 RSS <span", journal)
         from journal_feed import FEEDS
         self.assertTrue(any(x["source"] == "위클리뉴스" and x["url"] == "https://weeklynews.me/feed.xml" for x in FEEDS))
 
@@ -67,7 +69,8 @@ class FiveServiceIntegrationTest(unittest.TestCase):
     def test_shared_static_assets_present_and_no_private_data_sync(self):
         css = read("static/lawygo-service-integration-20261105.css")
         script = read("static/lawygo-service-integration-20261105.js")
-        self.assertIn(".weeklynews-partner", css)
+        self.assertIn(".journal-weeklynews-credit-link", css)
+        self.assertNotIn(".weeklynews-partner{", css)
         self.assertIn(".lnw-grid", css)
         self.assertIn("@media(max-width:700px)", css)
         self.assertIn("lawygo_public_research_v1", script)
