@@ -196,3 +196,13 @@ body.atlas-page[data-product="wiki"] .ly-premiere{
  body.atlas-page[data-page="home"] .ly-catalog h3{font-size:15px!important}
  body.atlas-page[data-page="home"] .ly-catalog p{font-size:10.5px!important}
 }
+
+/* Screenshot review: the home editorial hero must never show a large empty
+   navy frame while a deferred image has not been decoded yet. */
+body.atlas-page[data-page="home"] .ly-hero-editorial-figure{
+ background:#0b283e url('/static/img/design/lawygo-hero-premium-20261104.webp')
+    center / cover no-repeat!important;
+}
+body.atlas-page[data-page="home"] .ly-hero-editorial-figure img{
+ display:block;width:100%;height:auto;min-height:200px;object-fit:cover;
+}
