@@ -773,7 +773,8 @@ def strategy_page():return FileResponse(ROOT/'static'/'strategy.html')
 @app.get('/')
 def home():return FileResponse(ROOT/'static'/'index.html')
 @app.get('/dashboard')
-def dashboard_page():return FileResponse(ROOT/'static'/'dashboard.html')
+def dashboard_page():
+    return FileResponse(ROOT/'static'/'dashboard.html', headers={'X-Robots-Tag': 'noindex, nofollow'})
 @app.get('/p/{product}')
 def product_page(product:str):
     if product not in PRODUCTS:err(404,'서비스가 없습니다.')

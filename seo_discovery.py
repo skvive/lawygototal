@@ -67,7 +67,6 @@ def register(app, database, tenant: str) -> None:
             "User-agent: *\n"
             "Allow: /\n"
             "Disallow: /api/\n"
-            "Disallow: /dashboard\n"
             "Sitemap: " + BASE + "/sitemap.xml\n"
         )
         # Robots is a crawl policy, not an access-control mechanism.

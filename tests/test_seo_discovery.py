@@ -62,6 +62,7 @@ class SeoDiscoveryTest(unittest.TestCase):
         self.assertIn("Sitemap: https://lawygo.lexid.site/sitemap.xml", r.text)
         self.assertIn("Disallow: /api/", r.text)
         self.assertNotIn("Disallow: /static/", r.text)
+        self.assertNotIn("Disallow: /dashboard", r.text)
 
     def test_sitemap_index_and_public_pages_are_valid_xml(self):
         parent = ET.fromstring(self.client.get("/sitemap.xml").content)
