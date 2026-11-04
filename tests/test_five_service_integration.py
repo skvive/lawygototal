@@ -53,6 +53,8 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         pan = read("static/pan.html")
         self.assertIn('id="pan-legal-live"', pan)
         self.assertIn('id="pan-legal-live-feed"', pan)
+        self.assertIn('id="pan-legal-player"', pan)
+        self.assertIn('id="pan-legal-player-close"', pan)
 
     def test_pro_mirrors_official_product_overview_not_private_app(self):
         pro = read("static/pro.html")
@@ -71,6 +73,7 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn("lawygo_public_research_v1", script)
         self.assertIn("/api/wiki/search", script)
         self.assertIn("/api/pan/content", script)
+        self.assertIn("youtube-nocookie.com/embed/", script)
         self.assertNotIn("innerHTML", script)
         for path in ("journal", "wiki", "pan", "note", "pro"):
             html = read(f"static/{path}.html")
