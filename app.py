@@ -636,6 +636,9 @@ def _merge_pan_contents(cms: list[dict], wire: list[dict], limit: int) -> list[d
     seen: set[str] = set()
     merged: list[dict] = []
     for item in cms + wire:
+        # PAN is a legal-only channel, including approved CMS and external RSS.
+        if not pan_public_feed._is_legal_topic(item):
+            continue
         key = item.get("url") or item.get("id") or ""
         if not key or key in seen:
             continue
