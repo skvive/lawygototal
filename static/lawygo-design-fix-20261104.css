@@ -206,3 +206,14 @@ body.atlas-page[data-page="home"] .ly-hero-editorial-figure{
 body.atlas-page[data-page="home"] .ly-hero-editorial-figure img{
  display:block;width:100%;height:auto;min-height:200px;object-fit:cover;
 }
+
+/* WIKI presentation QA: semantic visuals instead of repeated stock portrait.
+   Scoped strictly to the public WIKI; existing CMS, search and accounts unchanged. */
+body.atlas-page[data-product="wiki"] .media-wiki-links {
+  background-image:url('/static/img/design/ly-journal-scene.svg')!important;
+  background-position:center!important;background-size:cover!important;
+}
+body.atlas-page[data-product="wiki"] .media-wiki-review {
+  background-image:url('/static/img/design/ly-note-scene.svg')!important;
+  background-position:center!important;background-size:cover!important;
+}
