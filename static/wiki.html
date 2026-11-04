@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="/static/portal-workspaces.css">
   <link rel="stylesheet" href="/static/lawygo-refined-20261103.css">
 <link rel="stylesheet" href="/static/lawygo-delivery-20261103.css">
+  <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css">
+  <meta name="lawygo-design-revision" content="20261104-ui1">
 </head>
 <body class="atlas-page" data-product="wiki">
   <div data-brand-shell="header"></div>
@@ -23,19 +25,13 @@
         <div class="hero-kicker">LAWYGO WIKI / LEGAL KNOWLEDGE GRAPH</div>
         <h1>찾는 것을 넘어,<br><i>법리를 연결합니다.</i></h1>
         <p>국내외 판례와 법령의 핵심 쟁점을 검색하고, 연관된 법리를 함께 살펴보세요.</p>
+        <nav class="ly-wiki-hero-actions" aria-label="법률백과 시작하기">
+          <a href="#wiki-search-form">법률자료 바로 검색 <span aria-hidden="true">↗</span></a>
+          <a href="#wiki-research-architecture">법률 지식 연결 구조 보기</a>
+        </nav>
       </div>
     </div>
   </section>
-<section class="ly-premiere" aria-labelledby="ly-wiki-ency"><div class="ly-wrap"><div class="ly-premiere-panel">
-<div><span class="ly-kicker">WIKI / KNOWLEDGE ONTOLOGY</span><h2 id="ly-wiki-ency">법률 개념에서 관련 판례·법령까지 연결하는 법률백과</h2>
-<p>원본 법률백과 워크스페이스의 온톨로지, 검색·연관어, 지식 분류·검색 순위, 프로젝트 중심 검토 경험을 공개용으로 설명합니다. 개인 사건·고객 문서는 공개하지 않습니다.</p>
-<div class="ly-premiere-actions"><a href="#wiki-search-form">공개 법률자료 검색</a><a href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer">고급 지식 연구실 새 창 ↗</a></div>
-<small class="ly-small">공개 검색은 검수·공개 승인된 자료만 · 고급 연구실은 별도 인증 필요</small></div>
-<img src="/static/img/design/editorial-library-20261102.webp" alt="분류형 법률 지식백과, 용어검색과 근거 패널을 보여주는 콘셉트 이미지" loading="lazy" width="1200" height="720"></div></div></section>
-<section class="ly-wiki-detail" aria-labelledby="ly-wiki-map"><div class="ly-wrap"><div class="ly-section-head"><div><span class="ly-kicker">KNOWLEDGE ARCHITECTURE</span><h2 id="ly-wiki-map">법률 지식을 구조화하는 네 단계</h2></div><p>실제 자료 조회·AI 모델 응답은 분리되어 있습니다. 이 소개는 마케팅용 워크플로 설명입니다.</p></div>
-<div class="ly-knowledge-grid">
-<article class="ly-knowledge-card"><img src="/static/img/design/ly-wiki-scene.svg" alt="법률 개념 사전 시각화" loading="lazy" width="1200" height="720"><div><strong>법률 개념 사전</strong><p>주요 용어와 관련 개념을 분류하고 분야별 지도로 탐색</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/editorial-library-20261102.webp" alt="관련 법령·조문 시각화" loading="lazy" width="1200" height="720"><div><strong>관련 법령·조문</strong><p>개념과 법률·조문을 연결해 출처를 확인</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-wiki-scene.svg" alt="판례·판단 요소 시각화" loading="lazy" width="1200" height="720"><div><strong>판례·판단 요소</strong><p>관련 판례를 탐색하고 판단 요소를 정리</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-note-scene.svg" alt="프로젝트별 연구 시각화" loading="lazy" width="1200" height="720"><div><strong>프로젝트별 연구</strong><p>개인 사건·조사 자료는 인증된 비공개 공간에서 검토</p></div></article>
-</div><div class="ly-pane-guide">실제 판례 전문·상담 이력·고객 사건 파일은 공개 위키로 자동 복제하지 않습니다. 공개 게시물의 출처·권리·최신성은 편집자가 확인합니다.</div></div></section>
   <section class="cream wiki-knowledge-section"><div class="wrap">
     <div class="portal-intro">
       <div class="portal-intro-copy"><span class="eyebrow">LAWYGO / LEGAL ENCYCLOPEDIA</span><h2>찾아보고, 비교하고,<br>근거를 검토하는 법률백과</h2><p>원본 로이고법률백과의 <strong>온톨로지·의미벡터·문서 순위화·사건 프로젝트</strong> 구조를 참고했습니다. 이 화면에서는 공개된 법률자료를 검색하며, 로그인 기반 고급 분석은 원본 작업환경에서 이용합니다.</p>
@@ -69,6 +65,16 @@
       </div>
     </div>
   </div></section>
+<section class="ly-premiere" aria-labelledby="ly-wiki-ency"><div class="ly-wrap"><div class="ly-premiere-panel">
+<div><span class="ly-kicker">WIKI / KNOWLEDGE ONTOLOGY</span><h2 id="ly-wiki-ency">법률 개념에서 관련 판례·법령까지 연결하는 법률백과</h2>
+<p>원본 법률백과 워크스페이스의 온톨로지, 검색·연관어, 지식 분류·검색 순위, 프로젝트 중심 검토 경험을 공개용으로 설명합니다. 개인 사건·고객 문서는 공개하지 않습니다.</p>
+<div class="ly-premiere-actions"><a href="#wiki-search-form">공개 법률자료 검색</a><a href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer">고급 지식 연구실 새 창 ↗</a></div>
+<small class="ly-small">공개 검색은 검수·공개 승인된 자료만 · 고급 연구실은 별도 인증 필요</small></div>
+<img src="/static/img/design/editorial-library-20261102.webp" alt="분류형 법률 지식백과, 용어검색과 근거 패널을 보여주는 콘셉트 이미지" loading="lazy" width="1200" height="720"></div></div></section>
+<section class="ly-wiki-detail" id="wiki-research-architecture" aria-labelledby="ly-wiki-map"><div class="ly-wrap"><div class="ly-section-head"><div><span class="ly-kicker">KNOWLEDGE ARCHITECTURE</span><h2 id="ly-wiki-map">법률 지식을 구조화하는 네 단계</h2></div><p>실제 자료 조회·AI 모델 응답은 분리되어 있습니다. 이 소개는 마케팅용 워크플로 설명입니다.</p></div>
+<div class="ly-knowledge-grid">
+<article class="ly-knowledge-card"><img src="/static/img/design/ly-wiki-scene.svg" alt="법률 개념 사전 시각화" loading="lazy" width="1200" height="720"><div><strong>법률 개념 사전</strong><p>주요 용어와 관련 개념을 분류하고 분야별 지도로 탐색</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/editorial-library-20261102.webp" alt="관련 법령·조문 시각화" loading="lazy" width="1200" height="720"><div><strong>관련 법령·조문</strong><p>개념과 법률·조문을 연결해 출처를 확인</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-wiki-scene.svg" alt="판례·판단 요소 시각화" loading="lazy" width="1200" height="720"><div><strong>판례·판단 요소</strong><p>관련 판례를 탐색하고 판단 요소를 정리</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-note-scene.svg" alt="프로젝트별 연구 시각화" loading="lazy" width="1200" height="720"><div><strong>프로젝트별 연구</strong><p>개인 사건·조사 자료는 인증된 비공개 공간에서 검토</p></div></article>
+</div><div class="ly-pane-guide">실제 판례 전문·상담 이력·고객 사건 파일은 공개 위키로 자동 복제하지 않습니다. 공개 게시물의 출처·권리·최신성은 편집자가 확인합니다.</div></div></section>
   <section class="white"><div class="wrap">
     <div class="sec-heading"><div><span class="eyebrow">ENCYCLOPEDIA FEED</span><h2>공개 위키 글</h2></div></div>
     <div class="editorial-grid" id="wiki-feed"></div>
