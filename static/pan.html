@@ -17,6 +17,7 @@
   <link rel="canonical" href="https://lawygo.lexid.site/p/pan">
   <link rel="alternate" type="application/rss+xml" title="LAWYGO JOURNAL RSS" href="https://lawygo.lexid.site/rss.xml">
   <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css">
+  <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css">
   <meta name="lawygo-design-revision" content="20261104-ui1">
 </head>
 <body class="pan-platform">
@@ -73,6 +74,34 @@
       </div>
       <div class="notice" style="margin-top:26px;max-width:540px">※ 공개 프로필·RSS는 운영 설정에 따릅니다. 변호사 검증·상담 연결은 CMS 승인 및 파트너 계약 후 제공됩니다.</div>
     </div></div></section>
+
+
+    <section class="pan-live-hub" id="pan-legal-live" aria-labelledby="pan-live-head">
+      <div class="wrap">
+        <div class="pan-live-eyebrow"><span class="pan-live-dot" aria-hidden="true"></span> LEGAL CREATOR DESK / LIVE-FORMAT EXPERIENCE</div>
+        <div class="pan-live-top"><div><h2 id="pan-live-head">법률 전문가 콘텐츠를 <em>LIVE처럼</em> 탐색</h2>
+          <p>Linkr LIVE의 채널·영상 피드 화면 구성을 법률 분야에 맞게 적용했습니다. 실제 생방송 여부는 해당 원본 채널에서 확인해 주세요.</p></div>
+          <a href="#pan-content" class="pan-live-more">전체 공개 법률 영상 보기 ↗</a></div>
+        <div class="pan-live-layout">
+          <div class="pan-live-stage">
+            <span class="pan-live-stage-label">LAWYGO PAN · LEGAL VIDEO DESK</span>
+            <div class="pan-live-stage-art"><img src="/static/img/design/ly-pan-scene.svg" alt="법률 영상 콘텐츠 및 전문가 채널 검색" width="1000" height="600" loading="lazy"></div>
+            <h3>법률 상담·판례 해설·생활법률</h3>
+            <p>출처가 확인된 전문가 프로필과 공개 동영상만 연결합니다. 검증되지 않은 라이브 시청자 수·상담 성과는 표시하지 않습니다.</p>
+            <nav class="pan-live-quick" aria-label="법률 LIVE형 채널 탐색">
+              <a href="#pan-lawyers">⚖ 변호사</a>
+              <a href="#pan-shorts">▶ 법률 쇼츠</a>
+              <a href="#pan-blogs">▤ 법률 블로그</a>
+            </nav>
+          </div>
+          <div class="pan-live-feed">
+            <div class="pan-live-feed-head"><h3>최신 법률 채널</h3><span>공개 RSS · CMS</span></div>
+            <div id="pan-legal-live-feed" role="status" aria-live="polite"><p class="pan-live-empty">승인된 법률 콘텐츠를 확인하고 있습니다.</p></div>
+            <div class="pan-live-footer">콘텐츠 제목·출처를 확인한 후 원문으로 이동합니다. 비법률 영상은 제외합니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 <section class="ly-premiere" aria-labelledby="ly-pan-discover"><div class="ly-wrap"><div class="ly-premiere-panel">
 <div><span class="ly-kicker">PAN / LEGAL CREATOR DISCOVERY</span><h2 id="ly-pan-discover">변호사의 영상, 쇼츠, 블로그를 하나의 법률 지면에서</h2><p>공개 YouTube·Blogger 및 승인된 LAWYGO 콘텐츠를 구분해 표시합니다. 키워드 기반 신규 영상 검색은 운영 API 연결 시 주기적으로 갱신됩니다.</p>
@@ -231,5 +260,6 @@
   <script src="/static/pan-platform.js" defer></script>
   <script src="/static/pan-ref/pan-features.js" defer></script>
   <script src="/static/platform-switcher.js" defer></script>
+  <script src="/static/lawygo-service-integration-20261105.js" defer></script>
 </body>
 </html>
