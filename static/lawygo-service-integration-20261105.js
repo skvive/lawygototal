@@ -166,9 +166,53 @@
       sessionStorage.removeItem('lawygo_public_research_v1');
     });
   }
+  // Adapted from skvive/linkrlive/static/app.js discoverShelf YouTube embed.
+  // Video embeds load only after explicit selection; never fabricate LIVE status.
+  function youtubeVideoId(value) {
+    try {
+      const url = new URL(value, location.origin);
+      if (url.protocol !== 'https:') return null;
+      const host = url.hostname.toLowerCase();
+      let ident = '';
+      if (host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com') {
+        const parts = url.pathname.split('/').filter(Boolean);
+        ident = url.pathname === '/watch' ? url.searchParams.get('v') || '' :
+          parts.length === 2 && (parts[0] === 'shorts' || parts[0] === 'live') ? parts[1] : '';
+      } else if (host === 'youtu.be' || host === 'www.youtu.be') {
+        ident = url.pathname.slice(1);
+      }
+      return /^[A-Za-z0-9_-]{11}$/.test(ident) ? ident : null;
+    } catch (_) { return null; }
+  }
   async function panLiveStudio() {
     const root = $('pan-legal-live-feed');
     if (!root) return;
+    const player = $('pan-legal-player'), frame = $('pan-legal-player-frame');
+    const heading = $('pan-legal-player-title'), source = $('pan-legal-player-source');
+    function closePlayer() {
+      if (!player) return;
+      player.hidden = true;
+      frame?.replaceChildren(); // Stop playback when user closes player.
+    }
+    $('pan-legal-player-close')?.addEventListener('click', closePlayer);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && player && !player.hidden) closePlayer();
+    });
+    function playVideo(item, href, videoId) {
+      if (!player || !frame || !heading || !source) return;
+      const embed = make('iframe');
+      embed.title = 'LAWYGO PAN 공개 법률 영상: ' + String(item.title || 'YouTube');
+      embed.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+      embed.allow = 'accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+      embed.allowFullscreen = true;
+      embed.referrerPolicy = 'strict-origin-when-cross-origin';
+      embed.loading = 'eager';
+      frame.replaceChildren(embed);
+      heading.textContent = String(item.title || '법률 공개 영상');
+      source.href = href;
+      player.hidden = false;
+      player.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
     try {
       const data = await api('/api/pan/content?type=all&limit=25');
       const items = (Array.isArray(data.items) ? data.items : []).filter(
@@ -184,11 +228,17 @@
         if (!href) return;
         const a = make('a');
         a.href = href;
-        if (new URL(href).origin !== location.origin) {
+        const videoId = item.content_type === 'video' || item.content_type === 'shorts' ? youtubeVideoId(href) : null;
+        if (videoId) {
+          a.addEventListener('click', (event) => {
+            event.preventDefault();
+            playVideo(item, href, videoId);
+          });
+        } else if (new URL(href).origin !== location.origin) {
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
         }
-        a.append(make('small', [item.content_type === 'shorts' ? 'SHORTS' : item.content_type === 'video' ? 'VIDEO' : 'ARTICLE', item.source || '공개 출처'].join(' · ')));
+        a.append(make('small', [item.content_type === 'shorts' ? 'SHORTS' : item.content_type === 'video' ? 'VIDEO' : 'ARTICLE', item.source || '공개 출처', videoId ? '▶ 페이지 내 시청' : '원문 보기'].join(' · ')));
         a.append(make('strong', item.title || '법률 콘텐츠'));
         root.append(a);
       });
