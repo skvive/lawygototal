@@ -97,8 +97,17 @@
           <div class="pan-live-feed">
             <div class="pan-live-feed-head"><h3>최신 법률 채널</h3><span>공개 RSS · CMS</span></div>
             <div id="pan-legal-live-feed" role="status" aria-live="polite"><p class="pan-live-empty">승인된 법률 콘텐츠를 확인하고 있습니다.</p></div>
-            <div class="pan-live-footer">콘텐츠 제목·출처를 확인한 후 원문으로 이동합니다. 비법률 영상은 제외합니다.</div>
+            <div class="pan-live-footer">YouTube 법률 영상은 이 페이지에서 바로 볼 수 있습니다. 기타 원문은 출처 사이트에서 확인하세요.</div>
           </div>
+        </div>
+        <div id="pan-legal-player" class="pan-live-player" role="region" aria-label="법률 공개 영상 시청" hidden>
+          <div class="pan-live-player-head">
+            <strong id="pan-legal-player-title">법률 공개 영상</strong>
+            <button type="button" id="pan-legal-player-close" aria-label="영상 닫기">닫기 ×</button>
+          </div>
+          <div id="pan-legal-player-frame" class="pan-live-player-frame"></div>
+          <a id="pan-legal-player-source" href="#pan-legal-live" target="_blank" rel="noopener noreferrer">원본 YouTube에서 보기 ↗</a>
+          <p>공개 YouTube 플레이어를 선택 시점에만 불러옵니다. 법률 자문이 아니며 영상 내용은 해당 발행자 책임입니다.</p>
         </div>
       </div>
     </section>
