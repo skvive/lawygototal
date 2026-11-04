@@ -104,6 +104,19 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     const destination=await w.locator('#lawygoPlatformSwitcher a[href="/p/note"]').getAttribute('href');
     interactions.push({test:'wiki-to-note-switcher',pass:destination==='/p/note'});
   }catch(e){interactions.push({test:'wiki-facet-nav',pass:false,error:String(e).slice(0,230)})}
+  // Inline encyclopedia and public citation transfer: original AI secrets remain isolated.
+  try {
+    await w.locator('#lawygoWikiStudioInput').fill('민법');
+    await w.locator('#lawygoWikiStudioForm button[type="submit"]').click();
+    await w.locator('#lawygoWikiStudioResults button.lnw-result').first().click({timeout:8000});
+    await w.waitForFunction(() => document.querySelector('#lawygoWikiStudioBody')?.textContent === '본문 열기 정상 검증',null,{timeout:8000});
+    interactions.push({test:'wiki-native-encyclopedia-search',pass:(await w.locator('#lawygoWikiStudioTitle').textContent())==='공개 법률정보 테스트'});
+    await w.locator('#lawygoWikiStudioSend').click();
+    await w.waitForURL('**/p/note#note-native-workspace',{timeout:8000});
+    await w.locator('#lawygoNoteImportCitation').click();
+    const imported=await w.locator('#noteDraftContent').inputValue();
+    interactions.push({test:'wiki-to-note-public-citation-only',pass:imported.includes('【WIKI 공개자료 참고】')&&imported.includes('공개 법률정보 테스트')});
+  } catch(e) { interactions.push({test:'wiki-note-integrated-workspace',pass:false,error:String(e).slice(0,260)})}
   await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
   try{
     await w.locator('[data-note-template="case"]').click();
@@ -121,6 +134,29 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     const target=tabs.filter({hasText:'블로그'}).first();
     if(await target.count()) {await target.click(); interactions.push({test:'pan-blog-tab-click',pass:await target.evaluate(e=>e.classList.contains('active'))})}
   }catch(e){interactions.push({test:'pan-blog-tab-click',pass:false,error:String(e).slice(0,250)})}
+  // Live-format legal-only preview and source-aligned journal/PRO product pages.
+  try {
+    await w.route('**/api/pan/content?**', async route => route.fulfill({
+      status:200,contentType:'application/json',
+      body:JSON.stringify({items:[
+        {id:'qa-legal',content_type:'video',title:'형사 변호사 판례 해설',summary:'법률 상담 주제',source:'공개 법률 영상',url:'https://www.youtube.com/watch?v=aq123456789'},
+        {id:'qa-fashion',content_type:'video',title:'패션 신상품',summary:'쇼핑 할인',source:'쇼핑 채널',url:'https://www.youtube.com/watch?v=ab123456789'}
+      ]})
+    }));
+    await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
+    await w.waitForFunction(() => document.querySelector('#pan-legal-live-feed')?.textContent?.includes('형사 변호사 판례 해설'),null,{timeout:9000});
+    const liveBody=await w.locator('#pan-legal-live-feed').textContent();
+    interactions.push({test:'pan-native-legal-live-filter',pass:liveBody.includes('형사 변호사 판례 해설')&&!liveBody.includes('패션 신상품')});
+    await w.locator('#pan-legal-live-feed a').first().click();
+    const embed=await w.locator('#pan-legal-player-frame iframe').getAttribute('src');
+    interactions.push({test:'pan-legal-video-embed',pass:embed==='https://www.youtube-nocookie.com/embed/aq123456789'});
+    await w.locator('#pan-legal-player-close').click();
+    interactions.push({test:'pan-legal-video-close',pass:await w.locator('#pan-legal-player').evaluate(el=>el.hidden)});
+    await w.goto(BASE+'/pro',{waitUntil:'domcontentloaded'});
+    interactions.push({test:'pro-official-site-home-mirror',pass:await w.locator('#pro-source-home').count()===1&&(await w.locator('#pro-source-title').textContent()).includes('대한민국 법원')});
+    await w.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
+    interactions.push({test:'weeklynews-logo-and-attribution',pass:await w.locator('.weeklynews-partner img[src="/static/img/weeklynews-w.svg"]').count()===1&&(await w.locator('.weeklynews-partner').textContent()).includes('위클리뉴스 제공 기사')});
+  } catch(e) { interactions.push({test:'source-integration-browser-qa',pass:false,error:String(e).slice(0,260)})}
   await w.close();
   await browser.close();
   const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));

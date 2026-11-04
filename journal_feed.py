@@ -15,6 +15,8 @@ _TTL = 900  # 15 min on successful RSS load
 _EMPTY_TTL = 60  # retry empty or upstream failures promptly
 
 FEEDS = (
+    # Official WeeklyNews RSS: headline and summary syndication only; never mirror full articles.
+    {"source": "위클리뉴스", "region": "kr", "desk": "WEEKLYNEWS · 경제·법률", "url": "https://weeklynews.me/feed.xml"},
     {"source": "연합뉴스", "region": "kr", "desk": "한국 경제·정책", "url": "https://www.yna.co.kr/rss/economy.xml"},
     {"source": "연합뉴스", "region": "kr", "desk": "한국 종합", "url": "https://www.yna.co.kr/rss/news.xml"},
     {"source": "BBC", "region": "us", "desk": "U.S. & Americas", "url": "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml"},

@@ -636,6 +636,9 @@ def _merge_pan_contents(cms: list[dict], wire: list[dict], limit: int) -> list[d
     seen: set[str] = set()
     merged: list[dict] = []
     for item in cms + wire:
+        # PAN is a legal-only channel, including approved CMS and external RSS.
+        if not pan_public_feed._is_legal_topic(item):
+            continue
         key = item.get("url") or item.get("id") or ""
         if not key or key in seen:
             continue
@@ -753,7 +756,7 @@ async def journal_feed_api(response: Response, db=Depends(database)):
         'editorial':editorial,
         'us':us,
         'kr':kr,
-        'disclaimer':'RSS 헤드라인·요약만 표시합니다. 전문은 각 언론사 원문에서 확인하세요. LAWYGO는 제3자 기사의 편집자가 아닙니다.',
+        'disclaimer':'위클리뉴스·국제뉴스 등 공개 RSS는 기사 제목·요약·원문 링크를 제공합니다. LAWYGO 자체 편집·검수 기사와 외부 보도는 출처별로 구분합니다. 외부 기사 전문 및 저작권은 원 발행사에서 확인하세요.',
     }
 
 @app.get('/journal')

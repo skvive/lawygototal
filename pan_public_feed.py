@@ -14,6 +14,19 @@ import httpx
 UA = "LAWYGO-PAN/1.0 (+https://lawygo.lexid.site/p/pan)"
 _CACHE: dict[str, tuple[float, list[dict]]] = {}
 TTL = 900
+# Scope public syndicated videos/blogs to legal subjects regardless of provider.
+# Channels alone are not evidence that every newly published item is legal content.
+_LEGAL_TOPIC = re.compile(
+    r"(법률|변호사|법무|법원|판례|법령|소송|민사|형사|계약|상속|이혼|부동산[ ]*분쟁|"
+    r"손해배상|행정심판|노동법|지식재산|특허|개인정보[ ]*보호법|사기죄|고소|"
+    r"중재|법률상담|재판|등기|조세|세무쟁송|유언|양육권|고용계약|"
+    r"\blegal\b|\blawyer\b|\battorney\b|\blitigation\b|\bcourt\b|\bregulation\b)",
+    re.I,
+)
+
+
+def _is_legal_topic(item: dict) -> bool:
+    return bool(_LEGAL_TOPIC.search(" ".join(str(item.get(key) or "") for key in ("title", "summary"))))
 
 
 class _Strip(HTMLParser):
@@ -192,7 +205,7 @@ async def load_wire_items(kind: str = "all") -> list[dict]:
     for x in items:
         if x.get("url") and x.get("title"):
             dedup.setdefault(x["url"],x)
-    items = list(dedup.values())
+    items = [item for item in dedup.values() if _is_legal_topic(item)]
     items.sort(key=lambda x: x.get("published") or "", reverse=True)
     _CACHE[cache_key] = (now, items[:60])
     return _CACHE[cache_key][1]

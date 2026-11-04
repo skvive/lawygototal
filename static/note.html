@@ -14,6 +14,7 @@
   <link rel="canonical" href="https://lawygo.lexid.site/p/note">
   <link rel="alternate" type="application/rss+xml" title="LAWYGO JOURNAL RSS" href="https://lawygo.lexid.site/rss.xml">
   <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css">
+  <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css">
   <meta name="lawygo-design-revision" content="20261104-ui1">
 </head>
 <body class="atlas-page" data-product="note">
@@ -27,10 +28,35 @@
         <div class="hero-kicker">LAWYGO NOTE / DOCUMENT INTELLIGENCE</div>
         <h1>법률문서를 읽고,<br><i>전문성을 기록하다.</i></h1>
         <p>문서 분석과 연구 기록을 하나의 안전한 작업공간에서 관리합니다. 비공개 문서는 로그인 후 확인할 수 있습니다.</p>
-        <div class="hero-buttons"><a class="btn btn-gold" href="/dashboard">워크스페이스 ↗</a></div>
+        <div class="hero-buttons"><a class="btn btn-gold" href="#note-native-workspace">워크스페이스에서 시작 ↗</a></div>
       </div>
     </div>
   </section>
+
+<section id="note-native-workspace" class="lnw-note-dashboard" aria-labelledby="lnwNoteHeading">
+  <div class="lnw-wrap">
+    <div class="lnw-topline"><div><span class="lnw-eyebrow">LAWYGO NOTE / AI WORKSPACE DASHBOARD</span>
+      <h2 id="lnwNoteHeading">법률 AI 워크스페이스</h2><p class="lnw-info">원본 로이고의 AI 작업공간 대시보드 구성에 맞춰 자료 수집·사건 검토·증거 정리·법률 리서치를 한곳에 배치했습니다. 아래 문서 서식은 기존 NOTE 편집기에서 바로 실행됩니다.</p></div>
+      <span class="lnw-status-pill">문서 편집 · 브라우저 내 임시 작업</span>
+    </div>
+    <div class="lnw-note-tools" aria-label="법률 AI 워크스페이스 작업 선택">
+      <button type="button" data-note-start="blank"><span class="lnw-note-number">01 / DOCUMENT</span><strong>새 문서</strong><small>빈 법률 메모 편집 시작</small></button>
+      <button type="button" data-note-start="case"><span class="lnw-note-number">02 / CASE</span><strong>사건 검토</strong><small>쟁점·사실·법률 검토 템플릿</small></button>
+      <button type="button" data-note-start="evidence"><span class="lnw-note-number">03 / EVIDENCE</span><strong>증거 분석표</strong><small>증거·입증 취지 정리</small></button>
+      <button type="button" data-note-start="research"><span class="lnw-note-number">04 / RESEARCH</span><strong>법률 리서치</strong><small>법령·판례 검토 기록</small></button>
+      <a href="/p/wiki#wiki-native-workspace"><span class="lnw-note-number">05 / ENCYCLOPEDIA</span><strong>온라인 법률백과</strong><small>같은 사이트에서 공개자료 검색</small></a>
+      <a href="#note-ai-tools"><span class="lnw-note-number">06 / AI ENGINE</span><strong>AI 도구 탐색</strong><small>원본 인증형 AI 모듈과 운영 범위 확인</small></a>
+    </div>
+    <div class="lnw-note-status"><p><strong>보안 안내</strong> — 이 화면의 편집은 임시 브라우저 작업이며 AI 서버로 문서를 전송하지 않습니다. 원본 LAWYGO AI 검색·OCR·LLM 분석은 별도의 인증 및 권한 통합이 필요합니다.</p></div>
+    <div class="lnw-note-actions">
+      <a href="#note-editor">문서 편집기로 바로 이동 ↓</a>
+      <button type="button" id="lawygoNoteImportCitation">WIKI에서 선택한 공개자료 불러오기</button>
+      <a href="#note-ai-tools">AI 기능별 원본 안내</a>
+    </div>
+    <p id="lawygoNoteIntegratedStatus" class="lnw-caption" role="status" aria-live="polite">작업을 선택하면 기존 NOTE 편집기가 실행됩니다.</p>
+  </div>
+</section>
+
 <section class="ly-premiere" aria-labelledby="ly-note-ai"><div class="ly-wrap"><div class="ly-premiere-panel">
 <div><span class="ly-kicker">NOTE / AI LAW OFFICE WORKSPACE</span><h2 id="ly-note-ai">의뢰인의 사건 기록부터 법률 문서 초안까지</h2>
 <p>원본 LAWYGO AI 엔진의 법률 노트북, 판례 추천, PDF·이미지 요약, 법령검색, AI 검색 및 서면 초안 도구를 소개합니다. 실제 문서 처리·저장은 별도 인증된 작업공간에서 수행합니다.</p>
@@ -50,7 +76,7 @@
       <div class="portal-intro-actions"><a class="portal-action-primary" href="https://lawygo.vercel.app/board/ai/ai_search" target="_blank" rel="noopener noreferrer">AI 워크스페이스 실행 ↗</a><span class="portal-notice">별도 로그인 · 작업 데이터 자동 공유 안 됨</span></div></div>
       <div class="portal-intro-image portal-note-image" role="img" aria-label="안전한 법률문서 리서치 작업을 표현한 이미지"></div>
     </div>
-    <div class="portal-console note-workspace" aria-label="문서 작업 대시보드">
+    <div class="portal-console note-workspace" id="note-editor" aria-label="문서 작업 대시보드">
       <aside class="portal-sidebar note-tools">
         <div class="portal-side-kicker">WORKSPACE / TOOLS</div><h3>문서 작업 시작</h3><p>초안 형식을 선택해 오른쪽 편집기에 불러옵니다.</p>
         <div class="portal-topic-list" role="group" aria-label="문서 서식">
@@ -113,6 +139,7 @@
   <script src="/static/note-page.js" defer></script>
   <script src="/static/note-workspace-ui.js" defer></script>
   <script src="/static/platform-switcher.js" defer></script>
+  <script src="/static/lawygo-service-integration-20261105.js" defer></script>
 </body>
 </html>
 

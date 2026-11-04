@@ -2,10 +2,10 @@ name: LAWYGO website visual regression (local staging)
 on:
   workflow_dispatch:
   pull_request:
-    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'qa/lawygo-browser-qa.cjs', 'qa/lawygo-visual-fix-qa.cjs', 'qa/lawygo-visual-cache-audit.py', 'vercel.json', '.github/workflows/lawygo-web-qa.yml']
+    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'tests/test_five_service_integration.py', 'journal_feed.py', 'pan_public_feed.py', 'qa/lawygo-browser-qa.cjs', 'qa/lawygo-visual-fix-qa.cjs', 'qa/lawygo-visual-cache-audit.py', 'vercel.json', '.github/workflows/lawygo-web-qa.yml']
   push:
     branches: [master, qa/lawygo-accessibility-android-20261101, seo/lawygo-sitemap-rss-20261104]
-    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
+    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'tests/test_five_service_integration.py', 'journal_feed.py', 'pan_public_feed.py', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
 permissions:
   contents: read
 jobs:
@@ -21,9 +21,13 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Validate first-party SEO discovery contracts
         run: python -m unittest discover -s tests -p 'test_seo_discovery.py' -v
+      - name: Validate five integrated service contracts
+        run: python -m unittest discover -s tests -p 'test_five_service_integration.py' -v
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check integrated workspace JavaScript syntax
+        run: node --check static/lawygo-service-integration-20261105.js
       - name: Install Playwright and browser
         run: |
           npm install --no-save --no-audit playwright@1.64.1
