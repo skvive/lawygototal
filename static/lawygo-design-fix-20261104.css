@@ -179,3 +179,20 @@ body.atlas-page[data-product="wiki"] .ly-premiere{
 @media(prefers-reduced-motion:reduce){
  .ly-wiki-hero-actions a{transition:none!important}
 }
+
+/* 2026-11-04 mobile QA: branded catalog art must stay within 130px
+   at 360-480px (legacy delivery contract; no text clipping). */
+@media(max-width:480px){
+ body.atlas-page[data-page="home"] .ly-catalog>a{
+   height:128px!important;max-height:128px!important;min-height:0!important;
+ }
+ body.atlas-page[data-page="home"] .ly-catalog>a>img{
+   height:128px!important;max-height:128px!important;min-height:0!important;
+   aspect-ratio:auto!important;object-fit:cover!important;
+ }
+ body.atlas-page[data-page="home"] .ly-catalog .ly-catalog-body{
+   padding:10px 12px!important
+ }
+ body.atlas-page[data-page="home"] .ly-catalog h3{font-size:15px!important}
+ body.atlas-page[data-page="home"] .ly-catalog p{font-size:10.5px!important}
+}
