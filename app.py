@@ -785,6 +785,10 @@ growth_v3.register(app, globals())
 import newsletter_v3
 newsletter_v3.register(app, globals())
 
+# Public SEO discovery is kept separate from the authenticated CMS and editorial APIs.
+import seo_discovery
+seo_discovery.register(app, database, DEFAULT_TENANT)
+
 if __name__=='__main__':
     import uvicorn
     uvicorn.run('app:app',host='127.0.0.1',port=8018,reload=False)
