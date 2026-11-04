@@ -9,6 +9,9 @@ for name in pages:
     assert 'name="lawygo-design-revision" content="20261104-ui1"' in html, name
     assert r'\n</head>' not in html, "Literal escaped newline before head close: "+name
 css=(root/"static/lawygo-design-fix-20261104.css").read_text(encoding="utf-8")
+home=(root/"static/index.html").read_text(encoding="utf-8")
+assert 'height="800" loading="eager"' in home, "Editorial artwork must load before showing empty space."
+assert "lawygo-hero-premium-20261104.webp" in css, "Editorial image CSS fallback missing."
 assert 'max-width:680px' in css
 assert 'legal-knowledge-city.webp' in css
 wiki=(root/"static/wiki.html").read_text(encoding="utf-8")
