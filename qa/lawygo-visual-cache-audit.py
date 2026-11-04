@@ -26,3 +26,10 @@ assert "s-maxage=120" in assets_route["headers"]["Cache-Control"]
 assert cfg["regions"]==["sin1"]
 assert cfg["routes"][-2]=={"src":"/api/(.*)","dest":"app.py"}
 print("Design release contract pass: 13 pages + cache/region + WIKI navigation")
+
+# Final WIKI presentation: a technical knowledge graphic rather than repeated portrait.
+assert "editorial-library-20261102.webp" not in wiki
+assert 'css?v=wiki-ui2' in wiki
+assert '/static/img/design/ly-wiki-scene.svg' in wiki
+assert "media-wiki-links" in css and "media-wiki-review" in css
+assert (root/"static/img/design/ly-wiki-scene.svg").exists()
