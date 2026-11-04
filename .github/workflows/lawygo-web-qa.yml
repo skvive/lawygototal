@@ -2,7 +2,7 @@ name: LAWYGO website visual regression (local staging)
 on:
   workflow_dispatch:
   pull_request:
-    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
+    paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'qa/lawygo-browser-qa.cjs', 'qa/lawygo-visual-fix-qa.cjs', 'qa/lawygo-visual-cache-audit.py', 'vercel.json', '.github/workflows/lawygo-web-qa.yml']
   push:
     branches: [master, qa/lawygo-accessibility-android-20261101, seo/lawygo-sitemap-rss-20261104]
     paths: ['static/**', 'app.py', 'seo_discovery.py', 'tests/test_seo_discovery.py', 'qa/lawygo-browser-qa.cjs', '.github/workflows/lawygo-web-qa.yml']
@@ -43,6 +43,10 @@ jobs:
           exit 1
       - name: Capture 52 responsive screenshots and test public reader interactions
         run: node qa/lawygo-browser-qa.cjs
+      - name: Check versioned CSS and fresh CDN design contract
+        run: python qa/lawygo-visual-cache-audit.py
+      - name: Verify mobile card grid and WIKI brand at 360px / 390px / 412px / 768px
+        run: node qa/lawygo-visual-fix-qa.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
