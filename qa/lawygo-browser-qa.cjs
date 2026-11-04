@@ -147,6 +147,11 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.waitForFunction(() => document.querySelector('#pan-legal-live-feed')?.textContent?.includes('형사 변호사 판례 해설'),null,{timeout:9000});
     const liveBody=await w.locator('#pan-legal-live-feed').textContent();
     interactions.push({test:'pan-native-legal-live-filter',pass:liveBody.includes('형사 변호사 판례 해설')&&!liveBody.includes('패션 신상품')});
+    await w.locator('#pan-legal-live-feed a').first().click();
+    const embed=await w.locator('#pan-legal-player-frame iframe').getAttribute('src');
+    interactions.push({test:'pan-legal-video-embed',pass:embed==='https://www.youtube-nocookie.com/embed/aq123456789'});
+    await w.locator('#pan-legal-player-close').click();
+    interactions.push({test:'pan-legal-video-close',pass:await w.locator('#pan-legal-player').evaluate(el=>el.hidden)});
     await w.goto(BASE+'/pro',{waitUntil:'domcontentloaded'});
     interactions.push({test:'pro-official-site-home-mirror',pass:await w.locator('#pro-source-home').count()===1&&(await w.locator('#pro-source-title').textContent()).includes('대한민국 법원')});
     await w.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
