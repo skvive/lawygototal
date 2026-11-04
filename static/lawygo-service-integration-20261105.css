@@ -8,3 +8,15 @@
 @media(max-width:1024px){.lnw-grid{grid-template-columns:190px minmax(0,1fr)}.lnw-detail{grid-column:1/-1}.lnw-note-tools{grid-template-columns:repeat(3,minmax(0,1fr))}.weeklynews-partner{align-items:flex-start;flex-direction:column}.pan-live-layout{grid-template-columns:1fr}.pan-live-stage-art img{height:280px}}
 @media(max-width:700px){.weeklynews-partner{padding:18px;margin:16px 0 20px}.weeklynews-partner-actions{width:100%;max-width:none}.weeklynews-partner-actions a{flex:1}.pan-live-hub{padding:43px 0 55px}.pan-live-top{display:block}.pan-live-stage,.pan-live-feed{padding:18px}.pan-live-layout{gap:12px}.pan-live-stage-art img{height:200px}.lawygo-native-workspace{padding:36px 0}.lnw-grid{display:block}.lnw-side,.lnw-center,.lnw-detail{margin-bottom:12px;padding:18px}.lnw-topic-list{grid-template-columns:repeat(3,minmax(0,1fr))}.lnw-topic-list button{font-size:12px;padding:8px}.lnw-inputrow{flex-wrap:wrap}.lnw-inputrow input{flex-basis:100%}.lnw-inputrow button{width:100%}.lnw-note-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.lnw-note-tools button,.lnw-note-tools a{min-height:110px}.pro-source-home{padding:26px 0 45px}.pro-source-header{align-items:flex-start;flex-direction:column}.pro-source-header nav{gap:11px}.pro-source-hero{grid-template-columns:1fr;gap:15px;margin-top:30px}.pro-source-hero img{aspect-ratio:16/10}.pro-source-modules{padding:40px 0}.pro-source-module-grid{grid-template-columns:1fr 1fr}.pro-source-module-grid article{min-height:160px;padding:18px}}
 @media(max-width:420px){.lnw-topic-list{grid-template-columns:1fr 1fr}.lnw-note-tools{grid-template-columns:1fr 1fr}.pro-source-module-grid{grid-template-columns:1fr}.weeklynews-partner-actions a{flex:1 1 100%}}
+
+/* Linkr LIVE-origin discoverShelf video station, adapted to legal-only PAN. */
+.pan-live-player{margin-top:22px;padding:22px;background:#0c1c30;border:1px solid #7f95a850;border-radius:17px;color:#f1f6ff}
+.pan-live-player[hidden]{display:none!important}
+.pan-live-player-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.pan-live-player-head strong{font-size:17px;line-height:1.5;color:#fff;overflow-wrap:anywhere}
+.pan-live-player-head button{border:1px solid #6c7e95;background:#1b354f;color:#fff;border-radius:8px;padding:10px 15px;min-height:44px;white-space:nowrap;cursor:pointer}
+.pan-live-player-frame{position:relative;background:#060d18;border-radius:10px;overflow:hidden;aspect-ratio:16/9;max-height:640px}
+.pan-live-player-frame iframe{width:100%;height:100%;display:block;border:0;aspect-ratio:16/9}
+.pan-live-player>a{display:inline-flex;color:#f1cd9a!important;text-decoration:underline;margin-top:14px;min-height:38px;align-items:center;font-size:13px}
+.pan-live-player p{color:#c1cedb;font-size:12px;line-height:1.8;margin:8px 0 0}
+@media(max-width:700px){.pan-live-player{padding:14px}.pan-live-player-head strong{font-size:14px}.pan-live-player-head button{padding:9px}}
