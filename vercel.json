@@ -18,7 +18,7 @@
       "src": "/static/(.*)",
       "dest": "/static/$1",
       "headers": {
-        "Cache-Control": "public, max-age=60, s-maxage=86400, stale-while-revalidate=86400"
+        "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=30"
       }
     },
     {
@@ -32,91 +32,91 @@
       "src": "/",
       "dest": "/static/index.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/journal",
       "dest": "/static/journal.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/channel",
       "dest": "/static/channel.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/pro",
       "dest": "/static/pro.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/pricing",
       "dest": "/static/pricing.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/payment",
       "dest": "/static/payment.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/partnership",
       "dest": "/static/partnership.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/strategy",
       "dest": "/static/strategy.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/dashboard",
       "dest": "/static/dashboard.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/p/wiki",
       "dest": "/static/wiki.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/p/pan",
       "dest": "/static/pan.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/p/note",
       "dest": "/static/note.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
       "src": "/p/channel",
       "dest": "/static/product.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=86400"
+        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
       }
     },
     {
