@@ -206,3 +206,14 @@ body.atlas-page[data-page="home"] .ly-hero-editorial-figure{
 body.atlas-page[data-page="home"] .ly-hero-editorial-figure img{
  display:block;width:100%;height:auto;min-height:200px;object-fit:cover;
 }
+
+/* WIKI asset audit: each content card gets a matching legal-research illustration.
+   Prevent the earlier portrait photo from being reused across unrelated concepts. */
+body.atlas-page[data-product="wiki"] .media-wiki-links{
+  background-image:url('/static/img/design/ly-journal-scene.svg')!important;
+  background-size:cover!important;background-position:center!important;
+}
+body.atlas-page[data-product="wiki"] .media-wiki-review{
+  background-image:url('/static/img/design/ly-note-scene.svg')!important;
+  background-size:cover!important;background-position:center!important;
+}
