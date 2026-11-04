@@ -33,7 +33,7 @@
 </div><div><span class="eyebrow">THE ECOSYSTEM</span><p>JOURNAL / WIKI / NOTE / PRO / PAN</p>
   <p>미국 기술 협력 관련 사항: TerraBridge Capital LLC · 확인 필요</p></div></div>
 <div class="footer-links">
-  <a href="/journal">저널</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">CMS</a>
+  <a href="/journal">저널</a><a href="/rss.xml" type="application/rss+xml">RSS 구독</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">CMS</a>
 </div>
 <div class="footer-bottom"><span>© 2026 LAWYGO. All rights reserved.</span>
   <span>웹사이트는 운영 중이며 유료 결제는 별도 승인 전까지 비활성 상태입니다. 개별 사안의 법률·투자 자문이 아닙니다.</span></div></div></footer>
