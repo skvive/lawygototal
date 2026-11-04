@@ -17,12 +17,20 @@ SEO 작업 브랜치: seo/lawygo-sitemap-rss-20261104
 ## 2. 운영 배포 전 자동 게이트
 - [x] 기존 사이트맵·로봇·RSS 파일 미존재 확인 (2026-11-04, 작업 당시 master 코드)
 - [x] 코드 작성 및 테스트 추가: 6개 SEO 계약 테스트
-- [ ] 최신 브랜치 GitHub Actions 전체 성공 (결과 확인 후 완료 처리)
-- [ ] PR 병합 후 Vercel production SHA 일치 확인
+- [x] 최신 운영 master GitHub Actions QA 성공 (2026-11-04; SHA `95f749a`; SEO 계약 테스트·52개 반응형 캡처·캐시 및 모바일 회귀 검증 포함)
+- [x] 병합된 운영 master와 Vercel production SHA 일치 확인 (`95f749a168936d7f5b2462b8417b6ab891d14bbd`, 배포 `dpl_BDv7E9ec8skGBQvZNWWzfuc9YRjF`, 상태 READY)
 - [ ] 운영 5개 URL 요청 시 200 및 올바른 MIME type 확인
 - [ ] 운영 12개 canonical 링크, RSS link, OG 정보, 모바일 가로 스크롤, 404 검수
 - [ ] 루트/저널/공개 기사 응답에 인덱싱 방지 X-Robots-Tag가 없는지 확인
 - [ ] RSS 항목의 실제 공개 글 URL 응답 200, 미공개 글은 404 확인
+
+### 2026-11-04 운영 증거 기록
+- GitHub CI: https://github.com/skvive/lawygototal/actions/runs/41775236226 — 웹사이트 QA 전체 성공; SEO 계약 테스트, Playwright 화면 52개, 모바일 360/390/412/768px, 캐시 감사 포함
+- Vercel: https://vercel.com/shinkang888-codes-projects/lawygototal-rerand/BDv7E9ec8skGBQvZNWWzfuc9YRjF — READY, GitHub 운영 커밋 일치, lawygo.lexid.site 프로덕션 alias 연결 및 도메인 verified=true
+- 코드 확인: `/robots.txt`, `/sitemap.xml`, `/sitemap-pages.xml`, `/sitemap-articles.xml`, `/rss.xml` 라우트가 현재 master에서 등록됨. 공개 정적 12페이지의 canonical 메타도 저장소 소스 기준 확인함
+- **보류/미확인:** 외부 HTTP 도구가 공개 도메인 요청을 거절하여 실제 200/MIME 및 실운영 콘텐츠 응답 확인 불가. Vercel READY 및 코드·CI 성공만으로 외부 크롤러 접근성까지 보장하지 않음
+- **보류/미확인:** Search Console 소유권 및 사이트맵 제출은 인증된 Search Console 계정 접근이 없어 실행·확인하지 못함. 등록 완료라고 표기하지 않음
+- 구 PR #22는 최신 master 대비 merge conflict이므로 검증 없이 병합하지 않음. 기존 기능 중복 여부를 확인해 운영본 보호
 
 ## 3. Google Search Console 등록 (실제 계정 권한 필요)
 Google 공식 자료: https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap
