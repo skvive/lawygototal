@@ -33,7 +33,7 @@ assert cfg["regions"]==["sin1"]
 import re
 for name in pages:
     html=(root/"static"/(name+".html")).read_text(encoding="utf-8")
-    refs=re.findall(r'(?:href|src)=["\\\'](/static/[^"\\\']+\\.(?:css|js)(?:\\?[^"\\\']*)?)["\\\']', html)
+    refs=re.findall(r'(?:href|src)="(/static/[^"]+\.(?:css|js)(?:\?[^"]*)?)"', html)
     assert len(refs)>=5, (name, refs)
     assert all(("?v=" in url and "20261105-designrefresh3" in url) for url in refs), (name, refs)
 
