@@ -18,7 +18,8 @@
       "src": "/static/(.*)",
       "dest": "/static/$1",
       "headers": {
-        "Cache-Control": "public, max-age=60, s-maxage=120, stale-while-revalidate=30"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
@@ -32,91 +33,104 @@
       "src": "/",
       "dest": "/static/index.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/journal",
       "dest": "/static/journal.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/channel",
       "dest": "/static/channel.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/pro",
       "dest": "/static/pro.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/pricing",
       "dest": "/static/pricing.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/payment",
       "dest": "/static/payment.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/partnership",
       "dest": "/static/partnership.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/strategy",
       "dest": "/static/strategy.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/dashboard",
       "dest": "/static/dashboard.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/p/wiki",
       "dest": "/static/wiki.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/p/pan",
       "dest": "/static/pan.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/p/note",
       "dest": "/static/note.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
       "src": "/p/channel",
       "dest": "/static/product.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=30, must-revalidate"
+        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-cachefix2"
       }
     },
     {
