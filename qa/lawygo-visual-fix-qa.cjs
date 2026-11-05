@@ -10,7 +10,7 @@ try{
     const cols=(s)=>{const e=document.querySelector(s);return e?getComputedStyle(e).gridTemplateColumns.trim().split(' ').filter(Boolean).length:0};
     return {cols:cols('.product-grid'),catalog:cols('.ly-catalog'),wikiImage:getComputedStyle(document.querySelector('.hero-bg')).backgroundImage.includes('legal-knowledge-city.webp'), wikiLink:!!document.querySelector('.ly-wiki-hero-actions a[href="#wiki-search-form"]'),rev:document.querySelector('meta[name="lawygo-design-revision"]')?.content,overflow:document.documentElement.scrollWidth>innerWidth+3};
    });
-   if(r.status()!==200||v.overflow||v.rev!=='20261105-cachefix2'||(route==='/'&&width<=412&&(v.cols!==1||v.catalog!==1))||(route==='/p/wiki'&&(!v.wikiImage||!v.wikiLink)))throw Error(JSON.stringify({route,width,...v}));
+   if(r.status()!==200||v.overflow||v.rev!=='20261105-designrefresh3'||(route==='/'&&width<=412&&(v.cols!==1||v.catalog!==1))||(route==='/p/wiki'&&(!v.wikiImage||!v.wikiLink)))throw Error(JSON.stringify({route,width,...v}));
   }
   await page.close();
  }

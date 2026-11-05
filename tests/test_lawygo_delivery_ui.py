@@ -16,7 +16,7 @@ def read(path):
 def test_delivery_styles_and_images_exist_on_all_pages():
     for page in PUBLIC:
         html=read(page)
-        assert 'href="/static/lawygo-delivery-20261103.css"' in html, page
+        assert 'href="/static/lawygo-delivery-20261103.css?v=20261105-designrefresh3"' in html, page
         assert '<main' in html, page
         for src in re.findall(r'<img\b[^>]*\bsrc=["\'](/static/[^"\']+)["\']', html, re.I):
             assert (ROOT / src.lstrip("/")).is_file(), (page, src)

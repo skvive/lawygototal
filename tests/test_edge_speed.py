@@ -32,9 +32,9 @@ def test_static_public_routes_avoid_function_startup():
     assert routes[0]["src"]=="/static/(.*)"
     assert routes[-2]=={"src":"/api/(.*)","dest":"app.py"}
     assert routes[-1]=={"src":"/(.*)","dest":"app.py"}
-    assert all(r.get("headers",{}).get("Cache-Control","").startswith("public") for r in routes if r["src"] in PUBLIC)
-    assert all("s-maxage=0" in r.get("headers",{}).get("Cache-Control","") for r in routes if r["src"] in PUBLIC)
-    assert all(r.get("headers",{}).get("X-Lawygo-Design-Release") == "20261105-cachefix2" for r in routes if r["src"] in PUBLIC)
+    assert all(r.get("headers",{}).get("Cache-Control","").startswith("private, no-store") for r in routes if r["src"] in PUBLIC)
+    assert all("no-store" in r.get("headers",{}).get("Cache-Control","") for r in routes if r["src"] in PUBLIC)
+    assert all(r.get("headers",{}).get("X-Lawygo-Design-Release") == "20261105-designrefresh3" for r in routes if r["src"] in PUBLIC)
     assert "s-maxage=0" in routes[0]["headers"]["Cache-Control"]
 
 def test_journal_sources_are_bounded_and_parallel(monkeypatch):

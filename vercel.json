@@ -19,118 +19,119 @@
       "dest": "/static/$1",
       "headers": {
         "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/favicon.ico",
       "dest": "/static/favicon.ico",
       "headers": {
-        "Cache-Control": "public, max-age=86400"
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/",
       "dest": "/static/index.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/journal",
       "dest": "/static/journal.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/channel",
       "dest": "/static/channel.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/pro",
       "dest": "/static/pro.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/pricing",
       "dest": "/static/pricing.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/payment",
       "dest": "/static/payment.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/partnership",
       "dest": "/static/partnership.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/strategy",
       "dest": "/static/strategy.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/dashboard",
       "dest": "/static/dashboard.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/p/wiki",
       "dest": "/static/wiki.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/p/pan",
       "dest": "/static/pan.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/p/note",
       "dest": "/static/note.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
       "src": "/p/channel",
       "dest": "/static/product.html",
       "headers": {
-        "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261105-cachefix2"
+        "Cache-Control": "private, no-store, max-age=0",
+        "X-Lawygo-Design-Release": "20261105-designrefresh3"
       }
     },
     {
