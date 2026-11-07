@@ -105,3 +105,30 @@
 @media(max-width:760px){.pan-hub-page>.header .wrap{width:calc(100% - 26px);min-height:65px;gap:6px}.pan-hub-page>.header .brand-name{font-size:14px}.pan-hub-page>.header .actions .lang{display:none}.pan-hub-page>.header .actions .btn{font-size:11px;padding:8px}.pan-hub-page .pan-top-search{display:none}.pan-hub-page #main>.hero{width:calc(100% - 28px);margin:15px auto 7px;min-height:0}.pan-hub-page .hero>.wrap{flex-direction:column}.pan-hub-page .hero-content{padding:29px 23px 7px;max-width:none}.pan-hub-page .hero h1{font-size:clamp(28px,7vw,40px)}.pan-hub-page .hero p{font-size:12px}.pan-hub-page .hero .searchbox{max-width:100%}.pan-hub-page .hero .searchbox button{font-size:11px;padding:9px}.pan-hub-hero-art{min-width:0;min-height:178px;max-height:230px;width:100%;flex:none}.pan-hub-hero-art img{position:relative;height:205px;object-position:center 45%}.pan-hub-hero-art:before{background:linear-gradient(180deg,#17263c 0%,transparent 65%)}.pan-hub-page #pan-legal-live>.wrap,.pan-hub-page #main>.section>.wrap,.pan-hub-page #main>.pn-section>.wrap{width:calc(100% - 28px)}.pan-hub-page #pan-legal-live .pan-live-layout{display:grid;grid-template-columns:1fr}.pan-hub-page #pan-legal-live .pan-live-top{flex-direction:column;align-items:start}.pan-hub-page #pan-content .grid.g3{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pan-hub-page #pan-shorts .pn-short-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pan-hub-page #pan-lawyers .grid.g2{grid-template-columns:1fr}.pan-hub-page #pan-blogs .pn-cards{grid-template-columns:1fr}.pan-hub-page #main .section{padding:25px 0}.pan-hub-page #mobile-nav.open{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:430px){.pan-hub-page>.header .brand-name{font-size:13px}.pan-hub-page>.header .actions .btn{padding:7px;font-size:10px;min-height:36px}.pan-hub-page .hero .searchbox{flex-wrap:wrap}.pan-hub-page .hero .searchbox input{flex:1 1 150px}.pan-hub-page .hero .searchbox button{flex:1 0 130px}.pan-hub-page #pan-content .grid.g3{grid-template-columns:1fr}.pan-hub-page #pan-content .ly-pan-empty img{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.pan-hub-page *{scroll-behavior:auto!important;transition:none!important}}
+
+/* 2026-11-08 browser QA: readable hero, intended content order, active CTA hit targets */
+body.pan-hub-page #main > .hero > .wrap > .hero-content{padding:42px 18px 39px 44px!important}
+body.pan-hub-page #main > #pan-legal-live{order:2}
+body.pan-hub-page #main > #pan-content{order:3}
+body.pan-hub-page #main > #pan-shorts{order:4}
+body.pan-hub-page #main > #pan-lawyers{order:5}
+body.pan-hub-page #main > #pan-blogs{order:6}
+body.pan-hub-page #main > .ly-premiere{order:11;display:block;padding:22px 0 32px;background:#fff}
+body.pan-hub-page #main > .ly-premiere .ly-premiere-panel{max-width:1320px}
+body.pan-hub-page #main > .ly-premiere .ly-premiere-actions a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+body.pan-hub-page .hero .notice{background:#ffffff12!important;color:#eef2f8!important;border-left:2px solid #e9adba!important;max-width:530px}
+body.pan-hub-page #pan-legal-live .pan-live-more{color:#a43e5b!important}
+body.pan-hub-page #pan-legal-live .pan-live-feed{color:#14243b!important}
+body.pan-hub-page #pan-legal-live .pan-live-feed h3{color:#14243b!important}
+body.pan-hub-page #pan-legal-live .pan-live-feed p,
+body.pan-hub-page #pan-legal-live .pan-live-feed span,
+body.pan-hub-page #pan-legal-live .pan-live-feed .pan-live-empty{color:#56677d!important}
+body.pan-hub-page #pan-legal-live .pan-live-feed-head{border-bottom-color:#e6eaf0}
+.pan-hub-hero-art .pan-hub-art-link{position:absolute;z-index:3;bottom:19px;right:20px;display:inline-flex;gap:8px;align-items:center;border:1px solid #ffffff73;background:#091a2cba;color:white;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:750;backdrop-filter:blur(9px)}
+.pan-hub-hero-art .pan-hub-art-link:hover{background:#a63d57}
+@media(max-width:760px){
+ body.pan-hub-page #main > .hero > .wrap > .hero-content{padding:29px 22px 11px!important}
+ body.pan-hub-page .hero .notice{margin-top:13px!important}
+ body.pan-hub-page #main > .ly-premiere{padding:14px 0 24px}
+ .pan-hub-hero-art .pan-hub-art-link{bottom:12px;right:12px;font-size:11px}
+}
