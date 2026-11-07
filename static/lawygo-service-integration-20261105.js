@@ -62,6 +62,11 @@
         };
         title.textContent = activePost.title;
         text.textContent = activePost.body;
+        // Deep-link to the real public detail panel; reloads can open the same document.
+        const detailUrl = new URL(location.href);
+        detailUrl.searchParams.set('post', String(item.id));
+        if (input.value.trim()) detailUrl.searchParams.set('q', input.value.trim());
+        history.replaceState(null, '', detailUrl.pathname + detailUrl.search + '#wiki-native-workspace');
         source.href = activePost.url;
         source.hidden = false;
         copy.disabled = false;
@@ -129,8 +134,14 @@
       location.href = '/p/note#note-native-workspace';
     });
     const fromUrl = new URLSearchParams(location.search).get('q');
-    if (fromUrl && fromUrl.trim().length >= 2) search(fromUrl);
-    else results.append(make('p', '법률 분야를 선택하거나 검색어를 입력하세요.', 'lnw-caption'));
+    const directPost = new URLSearchParams(location.search).get('post');
+    const validPost = directPost && /^[a-zA-Z0-9_-]{1,80}$/.test(directPost);
+    if (fromUrl && fromUrl.trim().length >= 2) {
+      search(fromUrl).then(() => { if (validPost) loadPost({id:directPost}); });
+    } else if (validPost) {
+      results.append(make('p', '지정한 자료 상세정보를 불러옵니다.', 'lnw-caption'));
+      loadPost({id:directPost});
+    } else results.append(make('p', '법률 분야를 선택하거나 검색어를 입력하세요.', 'lnw-caption'));
   }
   function noteStudio() {
     const root = $('note-native-workspace');
