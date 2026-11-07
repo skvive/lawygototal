@@ -27,7 +27,7 @@
   document.querySelectorAll('[data-brand-shell="header"]').forEach(el=>el.innerHTML=header);
   document.querySelectorAll('[data-brand-shell="footer"]').forEach(el=>el.innerHTML=footer);
   // Shared visual system for existing detail pages.
-  if(!document.querySelector('link[data-lawygo-rebuild]')){
+  if(!document.querySelector('link[href*="lawygo-rebuild-20261108.css"]')){
     const link=document.createElement('link');link.rel='stylesheet';link.href='/static/lawygo-rebuild-20261108.css?v=20261108-workspace-first';
     link.dataset.lawygoRebuild='';document.head.append(link);
   }
@@ -36,6 +36,6 @@
   const close=()=>{mobile?.classList.remove('open');toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','메뉴 열기')};
   toggle?.addEventListener('click',()=>{let opened=mobile?.classList.toggle('open')===true;toggle.setAttribute('aria-expanded',String(opened));toggle.setAttribute('aria-label',opened?'메뉴 닫기':'메뉴 열기')});
   mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle?.focus()}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobile?.classList.contains('open')){close();toggle?.focus()}});
   document.addEventListener('click',e=>{if(mobile?.classList.contains('open')&&!e.target.closest('.header'))close()});
 })();
