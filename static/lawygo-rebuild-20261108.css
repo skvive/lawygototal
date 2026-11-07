@@ -90,3 +90,12 @@ body.legal-rebuild .lnw-status-pill{white-space:normal}
 @media(max-width:900px){.lx-intro{grid-template-columns:1fr}.lx-intro-copy{padding:70px 36px}.lx-intro-photo{min-height:320px}.lx-system{grid-template-columns:1fr}.lx-title-row{display:block}.lx-title-row>p{max-width:660px;margin-top:16px}.lx-page-top-inner{align-items:flex-start;flex-direction:column}.lx-bottom-inner{align-items:flex-start;flex-direction:column}}
 @media(max-width:720px){.lx-max{width:calc(100% - 32px)}.lx-intro-copy{padding:58px 18px 54px}.lx-intro h1{font-size:clamp(38px,9vw,56px)}.lx-intro-copy>p{font-size:14px}.lx-intro-photo{min-height:240px}.lx-feature-grid{grid-template-columns:1fr;gap:15px}.lx-feature img{height:200px}.lx-feature-body{padding:23px}.lx-title-row h2{font-size:31px}.lx-page-top{padding:30px 0}.lx-section{padding:56px 0}.lx-system{gap:30px}body.legal-rebuild .lnw-wrap{width:calc(100% - 32px)}body.legal-rebuild .wrap{width:calc(100% - 32px)}.lx-search-row{flex-direction:column}.lx-search-row button{width:100%}body.legal-rebuild .header-main{height:66px}body.legal-rebuild .mobile-nav a{min-height:44px;display:flex;align-items:center}body.legal-rebuild .menu-toggle{min-width:44px;min-height:44px}}
 @media(max-width:360px){.lx-intro h1{font-size:36px}.lx-btns{width:100%}.lx-button{width:100%;justify-content:center}}
+
+/* QA-verified: avoid mobile header action wrapping across the page title.
+   The same action remains available in the mobile navigation and hero. */
+@media(max-width:720px){
+ body.legal-rebuild .header-actions .btn-gold{display:none!important}
+ body.legal-rebuild .header-main{flex-wrap:nowrap!important}
+ body.legal-rebuild .header-main .logo{min-width:0}
+ body.legal-rebuild .header-actions{margin-left:auto;flex-shrink:0}
+}

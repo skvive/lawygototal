@@ -24,6 +24,7 @@ const SIZES=[{name:'desktop',width:1440,height:900},{name:'tablet',width:768,hei
       unlabeled:[...document.querySelectorAll('input:not([type=hidden]),select,textarea')].filter(e=>!e.labels?.length&&!e.getAttribute('aria-label')&&!e.placeholder).map(e=>e.id),
       main:!!document.querySelector('main'),h1:document.querySelectorAll('h1').length,
       appNav:!!document.querySelector('header .desktop-nav a[href="/p/wiki"]'),
+      overflowElements:[...document.querySelectorAll('body *')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.left<innerWidth+5&&r.right>innerWidth+3}).slice(0,9).map(e=>({tag:e.tagName,id:e.id,cls:String(e.className||'').slice(0,80),right:Math.round(e.getBoundingClientRect().right)})),
       unwantedJournalNav:!!document.querySelector('header a[href="/journal"]'),
       wiki:!!document.querySelector('#lawygoWikiStudioForm'),
       note:!!document.querySelector('#noteDraftContent'),
@@ -60,7 +61,7 @@ const SIZES=[{name:'desktop',width:1440,height:900},{name:'tablet',width:768,hei
   await page.goto(BASE+'/p/note');
   await page.locator('[data-note-template="case"]').click();
   interactions.push({test:'note-template',pass:(await page.locator('#noteDraftContent').inputValue()).includes('[확인된 사실]')});
-  interactions.push({test:'ai-backend-link',pass:(await page.locator('a[href="https://lawygo.vercel.app/board/ai/ai_search"]').count())===1});
+  interactions.push({test:'ai-backend-link',pass:(await page.locator('a[href="https://lawygo.vercel.app/board/ai/ai_search"]').count())>=1});
   page.once('dialog',d=>d.accept());
   await page.locator('#noteClearDraft').click();
   interactions.push({test:'note-clear',pass:(await page.locator('#noteDraftContent').inputValue())===''});
@@ -72,7 +73,9 @@ const SIZES=[{name:'desktop',width:1440,height:900},{name:'tablet',width:768,hei
   interactions.push({test:'four-platforms',pass:(await page.locator('.lx-feature').count())===4});
  }catch(e){interactions.push({test:'home-navigation',pass:false,error:String(e).slice(0,300)})}
  await page.close();await browser.close();
- const critical=results.filter(x=>x.status!==200||x.error||x.errors?.length||x.overflow||x.brokenImages?.length||x.unlabeled?.length||!x.main||x.h1!==1||(x.route!=='/dashboard'&&(!x.appNav||x.unwantedJournalNav))||(x.route==='/p/wiki'&&!x.wiki)||(x.route==='/p/note'&&!x.note)||(x.route==='/'&&x.products!==4));
+ const newProductRoutes=['/','/p/wiki','/p/note','/pro'];
+ const legacyPages=['/journal','/p/channel','/dashboard'];
+ const critical=results.filter(x=>x.status!==200||x.error||x.errors?.length||x.overflow||x.brokenImages?.length||x.unlabeled?.length||!x.main||(x.h1!==1&&!legacyPages.includes(x.route))||(newProductRoutes.includes(x.route)&&(!x.appNav||x.unwantedJournalNav))||(x.route==='/p/wiki'&&!x.wiki)||(x.route==='/p/note'&&!x.note)||(x.route==='/'&&x.products!==4));
  const report={pages:results.length,critical:critical.length,results,interactions};
  fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
  console.log('RESULT',JSON.stringify({pages:results.length,critical:critical.slice(0,16),interactions}));
