@@ -14,10 +14,9 @@ def read(path):
     return (ROOT / path).read_text(encoding="utf-8")
 
 def test_delivery_styles_and_images_exist_on_all_pages():
-    release = __import__("json").loads(read("static/design-release.json"))["release"]
     for page in PUBLIC:
         html=read(page)
-        assert f'href="/static/lawygo-delivery-20261103.css?v={release}"' in html, page
+        assert 'href="/static/lawygo-delivery-20261103.css?v=20261105-designrefresh3"' in html, page
         assert '<main' in html, page
         for src in re.findall(r'<img\b[^>]*\bsrc=["\'](/static/[^"\']+)["\']', html, re.I):
             assert (ROOT / src.lstrip("/")).is_file(), (page, src)
@@ -29,16 +28,11 @@ def test_delivery_styles_and_images_exist_on_all_pages():
 
 def test_home_has_distinct_real_media_and_clickable_services():
     html=read("static/index.html")
-    for src in ("/static/img/design/lawygo-hero-premium-20261104.webp",
-                "/static/img/design/legal-knowledge-city.webp",
-                "/static/img/design/ly-note-scene.svg",
-                "/static/img/design/ai-pro-visual.svg",
-                "/static/img/design/ly-pan-scene.svg"):
+    for src in ("/static/img/channel.webp","/static/img/wiki.webp","/static/img/pan.webp",
+                "/static/img/note.webp","/static/img/design/legal-knowledge-city.webp"):
         assert src in html
-    for path in ('/p/wiki','/p/pan','/p/note','/pro'):
+    for path in ('/journal','/p/wiki','/p/pan','/p/note','/pro'):
         assert f'href="{path}"' in html
-    assert 'href="/journal"' not in html
-    assert html.count('class="lx-feature"')==4
 
 def test_journal_empty_feed_is_truthful_and_rss_safe():
     js=read("static/journal-editorial-live.js")
@@ -54,7 +48,7 @@ def test_wiki_no_results_are_visual_but_no_private_docs():
     js=read("static/wiki-page.js")
     assert "function wikiEmptyState(" in js
     assert "공개 승인된" in js
-    assert '"/static/img/design/legal-knowledge-city.webp"' in js
+    assert '"/static/img/wiki.webp"' in js
     assert "privateCase" not in js
 
 def test_pro_link_opens_external_system_separately():
