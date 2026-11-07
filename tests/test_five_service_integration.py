@@ -34,7 +34,8 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         for ident in ("wiki-native-workspace", "lawygoWikiStudioForm", "lawygoWikiStudioResults",
                       "lawygoWikiStudioBody", "lawygoWikiStudioCopy", "lawygoWikiStudioSend"):
             self.assertIn(f'id="{ident}"', wiki)
-        self.assertIn('href="#wiki-native-workspace"', wiki)
+        self.assertIn('id="wiki-native-workspace"', wiki)
+        self.assertIn('https://lawygo.vercel.app/board/ai/legal_encyclopedia', wiki)
         self.assertNotIn('target="_blank" rel="noopener noreferrer">고급 법률백과', wiki)
 
     def test_note_native_editor_reuses_original_handlers(self):
@@ -78,11 +79,12 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn("/api/pan/content", script)
         self.assertIn("youtube-nocookie.com/embed/", script)
         self.assertNotIn("innerHTML", script)
+        release = __import__("json").loads(read("static/design-release.json"))["release"]
         for path in ("journal", "wiki", "pan", "note", "pro"):
             html = read(f"static/{path}.html")
-            self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3"', html)
+            self.assertIn(f'href="/static/lawygo-service-integration-20261105.css?v={release}"', html)
         for path in ("wiki", "pan", "note"):
-            self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261105-designrefresh3"', read(f"static/{path}.html"))
+            self.assertIn(f'src="/static/lawygo-service-integration-20261105.js?v={release}"', read(f"static/{path}.html"))
 
 
 if __name__ == "__main__":

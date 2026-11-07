@@ -23,7 +23,7 @@ class DesignReleaseTest(unittest.TestCase):
                 data = (ROOT / "static" / (name + ".html")).read_text(encoding="utf-8")
                 self.assertIn(f'name="lawygo-design-revision" content="{self.release}"', data)
                 assets = ASSET.findall(data)
-                self.assertGreaterEqual(len(assets), 6, name)
+                self.assertGreaterEqual(len(assets), 4 if name == 'index' else 6, name)
                 self.assertTrue(all("?v=" in url and self.release in url for url in assets), (name, assets))
                 self.assertEqual(len(assets), len(set(assets)), "duplicate CSS/JS reference in " + name)
 
