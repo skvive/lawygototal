@@ -54,7 +54,7 @@ def test_wiki_no_results_are_visual_but_no_private_docs():
     js=read("static/wiki-page.js")
     assert "function wikiEmptyState(" in js
     assert "공개 승인된" in js
-    assert '"/static/img/wiki.webp"' in js
+    assert '"/static/img/design/legal-knowledge-city.webp"' in js
     assert "privateCase" not in js
 
 def test_pro_link_opens_external_system_separately():

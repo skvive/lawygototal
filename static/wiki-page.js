@@ -111,7 +111,7 @@ form?.addEventListener('submit',e=>{e.preventDefault();searchWiki(pick('wikiq').
 function wikiEmptyState(message){
  const card=node("article",undefined,"lyd-wiki-empty");
  const image=document.createElement("img");
- image.src="/static/img/wiki.webp";
+ image.src="/static/img/design/legal-knowledge-city.webp";
  image.alt="법률 지식백과 리서치 안내 이미지";
  image.loading="lazy";
  image.width=640;image.height=360;
@@ -131,7 +131,7 @@ async function loadFeed(){
     const data=await json('/api/posts?product=wiki&limit=12');
     root.replaceChildren();
     const items=Array.isArray(data.items)?data.items:[];
-    const imgs=['/static/img/design/ai-wiki-visual.svg','/static/img/editorial/journal-lead.jpg','/static/img/editorial/journal-side.jpg'];
+    const imgs=['/static/img/design/legal-knowledge-city.webp','/static/img/design/ly-wiki-scene.svg','/static/img/design/ai-wiki-visual.svg'];
     items.forEach((post,i)=>{
       const card=node('article',undefined,'article-card delivery-feed-card');
       const pic=document.createElement('img');pic.src=imgs[i%imgs.length];pic.alt='';pic.loading='lazy';pic.className='card-img';
