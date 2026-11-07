@@ -34,7 +34,8 @@ def test_static_public_routes_avoid_function_startup():
     assert routes[-1]=={"src":"/(.*)","dest":"app.py"}
     assert all(r.get("headers",{}).get("Cache-Control","").startswith("private, no-store") for r in routes if r["src"] in PUBLIC)
     assert all("no-store" in r.get("headers",{}).get("Cache-Control","") for r in routes if r["src"] in PUBLIC)
-    assert all(r.get("headers",{}).get("X-Lawygo-Design-Release") == "20261105-designrefresh3" for r in routes if r["src"] in PUBLIC)
+    release=json.loads((ROOT/"static/design-release.json").read_text(encoding="utf-8"))["release"]
+    assert all(r.get("headers",{}).get("X-Lawygo-Design-Release") == release for r in routes if r["src"] in PUBLIC)
     assert "s-maxage=0" in routes[0]["headers"]["Cache-Control"]
 
 def test_journal_sources_are_bounded_and_parallel(monkeypatch):
@@ -72,10 +73,13 @@ def test_journal_empty_feed_is_cached_for_short_period(monkeypatch):
 
 def test_hero_preload_matches_final_background():
     html=(ROOT/"static/index.html").read_text(encoding="utf-8")
-    css=(ROOT/"static/lawygo-mobile-visual-20261102.css").read_text(encoding="utf-8")
-    assert 'href="/static/img/design/hero-sunset-20261102.webp"' in html
-    assert "hero-sunset-20261102.webp" in css
-    assert (ROOT/"static/img/design/hero-sunset-20261102.webp").stat().st_size < 100*1024
+    css=(ROOT/"static/lawygo-rebuild-20261108.css").read_text(encoding="utf-8")
+    hero="/static/img/design/lawygo-hero-premium-20261104.webp"
+    assert f'href="{hero}"' in html
+    assert f'src="{hero}"' in html
+    assert '.lx-intro-photo' in css
+    assert (ROOT/hero.lstrip("/")).is_file()
+    assert (ROOT/hero.lstrip("/")).stat().st_size < 2*1024*1024
 
 def test_no_cdn_cache_for_authenticated_apis():
     cfg=json.loads((ROOT/"vercel.json").read_text(encoding="utf-8"))

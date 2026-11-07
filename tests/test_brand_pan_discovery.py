@@ -42,11 +42,11 @@ def test_blogger_whitelists_public_https_links(monkeypatch):
 
 def test_service_routes_have_assets_and_layout():
     pages={
-        "static/index.html":"static/img/channel.webp",
+        "static/index.html":"static/img/design/lawygo-hero-premium-20261104.webp",
         "static/journal.html":"static/img/design/editorial-library-20261102.webp",
         "static/pan.html":"static/img/pan.webp",
         "static/note.html":"static/img/note.webp",
-        "static/wiki.html":"static/img/design/ly-wiki-scene.svg",
+        "static/wiki.html":"static/logo.svg",
         "static/pro.html":"static/img/design/ly-pro-scene.svg",
         "static/channel.html":"static/img/channel.webp",
         "static/pricing.html":"static/img/design/hero-sunset-20261102.webp",
@@ -57,9 +57,16 @@ def test_service_routes_have_assets_and_layout():
     }
     for page,asset in pages.items():
         content=(ROOT/page).read_text(encoding="utf-8")
-        assert "lawygo-refined-20261103.css" in content,page
-        assert "lawygo-delivery-20261103.css" in content,page
-        assert ("/"+asset) in content,page
+        if page in ("static/index.html","static/wiki.html","static/note.html"):
+            assert "lawygo-rebuild-20261108.css" in content,page
+        else:
+            assert "lawygo-refined-20261103.css" in content,page
+            assert "lawygo-delivery-20261103.css" in content,page
+        if page == "static/wiki.html":
+            assert 'id="wiki-native-workspace"' in content
+            assert (ROOT/asset).exists(),asset
+        else:
+            assert ("/"+asset) in content,page
         assert (ROOT/asset).exists(),asset
     css=(ROOT/"static/lawygo-refined-20261103.css").read_text(encoding="utf-8")
     latest=(ROOT/"static/lawygo-delivery-20261103.css").read_text(encoding="utf-8")

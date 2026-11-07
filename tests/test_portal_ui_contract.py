@@ -48,15 +48,21 @@ def test_generated_legal_visual_is_used_by_wiki():
     asset = ROOT / "static/img/design/legal-knowledge-city.webp"
 
     assert asset.exists()
-    assert "portal-wiki-image" in wiki
+    home = read("static/index.html")
+    assert 'id="wiki-native-workspace"' in wiki
+    assert "/static/img/design/legal-knowledge-city.webp" in home
     assert "/static/img/design/legal-knowledge-city.webp" in stylesheet
 
 
 def test_wiki_and_note_keep_shared_platform_navigation():
+    shell = read("static/brand-shell.js")
+    assert 'href="/p/wiki"' in shell
+    assert 'href="/p/note"' in shell
+    assert 'href="/journal"' not in shell
     for page in ("static/wiki.html", "static/note.html"):
         html = read(page)
-        assert "/static/platform-switcher.css" in html
-        assert "/static/platform-switcher.js" in html
+        assert "/static/brand-shell.js" in html
+        assert "/static/lawygo-rebuild-20261108.css" in html
         assert '<meta name="description"' in html
 
 

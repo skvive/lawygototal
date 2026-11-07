@@ -35,10 +35,8 @@ def replace_links(html: str, name: str, version: str) -> str:
         basename = uri.split("?", 1)[0]
         if not basename.endswith((".css", ".js")):
             return match.group(0)
-        # WIKI version prefix retained for historical QA and theme specificity.
-        tag = ("wiki-ui2-r" + version) if (
-            name == "wiki" and basename.endswith("/lawygo-design-fix-20261104.css")
-        ) else version
+        # All public pages use the same immutable release identifier.
+        tag = version
         return match.group("attr") + match.group("quote") + basename + "?v=" + tag + match.group("quote")
 
     rewritten = LINK.sub(rewrite, html)
