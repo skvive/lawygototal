@@ -30,3 +30,21 @@ body.pan-media-v2 .pan-us-disclaimer{font-size:10px;line-height:1.7;color:#8895a
 body.pan-media-v2 .pan-us-disclaimer strong{color:#69768a}
 @media(max-width:1200px){body.pan-media-v2 .pan-us-post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:660px){body.pan-media-v2 .pan-us-heading{display:block}body.pan-media-v2 .pan-us-more{display:inline-block;margin-top:11px}body.pan-media-v2 .pan-us-post-grid{grid-template-columns:1fr;gap:9px}body.pan-media-v2 .pan-us-card{min-height:0;padding:17px}body.pan-media-v2 .pan-us-card h3{font-size:14px!important}body.pan-media-v2 #main>.pan-us-insights{padding:25px 0}}
+
+/* Render four verified original U.S. law-firm abstracts before the first API request. */
+body.pan-media-v2 .pan-us-static-card{
+ display:flex;flex-direction:column;min-width:0;min-height:240px;padding:20px;
+ border-radius:14px;border:1px solid #e3e7ef;box-shadow:0 8px 23px #1d29400a;
+ background:#fff;color:#15243b;text-decoration:none
+}
+body.pan-media-v2 .pan-us-static-card:hover{border-color:#b9a07f}
+body.pan-media-v2 .pan-us-static-card h3{
+ font:800 15px/1.48 'Noto Sans KR',sans-serif!important;
+ letter-spacing:-.04em;color:#192c43;margin:0 0 10px;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+}
+body.pan-media-v2 .pan-us-static-card>p{
+ font-size:11px;line-height:1.6;color:#5c6c81;margin:0 0 16px;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+}
+@media(max-width:660px){body.pan-media-v2 .pan-us-static-card{min-height:0;padding:17px}body.pan-media-v2 .pan-us-static-card h3{font-size:14px!important}}
