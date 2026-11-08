@@ -167,6 +167,7 @@ async def _fetch_youtube(channel_id: str) -> list[dict]:
 # never a fabricated video, quote or current live-broadcast status.
 import asyncio
 import hashlib
+import us_legal_sources
 
 LEGAL_YOUTUBE_CHANNELS = (
     "UC7ilNDoKW1sxHqqIJj-DgKQ",  # 이돈호 변호사
@@ -309,6 +310,8 @@ async def load_wire_items(kind: str = "all") -> list[dict]:
         jobs.extend((_fetch_youtube(cid) for cid in channels[:10]))
     if kind in ("all", "newswire"):
         jobs.extend((_fetch_newswire(feed) for feed in feeds[:5]))
+    if kind in ("all", "us_legal"):
+        jobs.append(us_legal_sources.fetch_us_legal())
     batches = await asyncio.gather(*jobs, return_exceptions=True)
     items: list[dict] = []
     for batch in batches:
@@ -347,6 +350,7 @@ async def load_wire_items(kind: str = "all") -> list[dict]:
             return parsedate_to_datetime(raw).date().isoformat()
         except (TypeError, ValueError, OverflowError):
             return ""
-    items.sort(key=sort_date, reverse=True)
-    _CACHE[cache_key] = (now, items[:95])
+    items.sort(key=lambda item: (item.get("content_type")=="us_legal",
+        item.get("translation_status")=="editorial",sort_date(item)),reverse=True)
+    _CACHE[cache_key] = (now, items[:100])
     return _CACHE[cache_key][1]
