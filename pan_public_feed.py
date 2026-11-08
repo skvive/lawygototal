@@ -91,7 +91,7 @@ def _parse_blogger_json(data: dict, source_label: str) -> list[dict]:
         title = _strip_html((e.get("title") or {}).get("$t", ""), 200) or "제목 없음"
         out.append(
             {
-                "id": "b-" + re.sub(r"[^a-z0-9]", "", (e.get("id") or {}).get("$t", url))[:40],
+                "id": "b-" + hashlib.sha1(url.encode("utf-8")).hexdigest()[:20],
                 "content_type": "blog",
                 "title": title,
                 "summary": _strip_html(html),
@@ -184,19 +184,23 @@ LEGAL_NEWSWIRE_FEEDS = (
 # Source links individually verified at the original publishers on 2026-11-08.
 # These are fallback reference entries only when a live source feed fails.
 VERIFIED_SOURCE_STARTERS = (
-    ("video","\"검사도 실수한다?\" 폐지된 법으로 기소된 흥신소 사건, 재판 가기 전 꼭 알아야 할 점",
+    ("video",'"검사도 실수한다?" 폐지된 법으로 기소된 흥신소 사건, 재판 가기 전에 무조건 끝내야 하는 이유',
      "https://www.youtube.com/watch?v=73wWp3zXIB8","고호 법률사무소 · 내편박변","2026-06-28"),
     ("video","평택 강제추행 피해 여경의 계속 바뀌는 진술? 대법원은 다르게 봅니다",
      "https://www.youtube.com/watch?v=aFfWr20jG58","고호 법률사무소 · 내편박변","2026-06-07"),
-    ("video","화장실 몰카범 잡았는데 폭행 전과자? 형사 변호사의 법률 해설",
-     "https://www.youtube.com/watch?v=_52mIFYx52o","고호 법률사무소 · 내편박변","2026-06-24"),
-    ("video","불법촬영 수사, 법적 대응에 앞서 꼭 확인할 사항",
+    ("video","화장실 몰카범 잡았는데 폭행 전과자? 전직 부장검사가 분노한 기막힌 판결",
+     "https://www.youtube.com/watch?v=f2d78wWhIsE","고호 법률사무소 · 내편박변","2026-06-24"),
+    ("video","AVMOV 이어 '놀쟈' 수사 개시… 무조건 자수? 공포 마케팅에 절대 돈 쓰지 마세요!",
      "https://www.youtube.com/watch?v=Ptp-EqX-3h0","고호 법률사무소 · 내편박변","2026-06-04"),
+    ("video","프로야구 선수가 야구를 제대로 못하면 직무유기죄? 부장검사 출신 변호사 해설",
+     "https://www.youtube.com/watch?v=HaqImAlh4ic","고호 법률사무소 · 내편박변","2026-06-10"),
     ("shorts","검사의 충격적 실수 때문에 남편 외도 잡으려다 전과자 될 뻔?",
      "https://www.youtube.com/watch?v=FawkpE0aFeU","고호 법률사무소 · 내편박변","2026-07-07"),
-    ("shorts","프로야구 수비 포기, 직무유기죄로 처벌 가능할까?",
-     "https://www.youtube.com/watch?v=f2d78wWhIsE","고호 법률사무소 · 내편박변","2026-07-03"),
-    ("shorts","증거인멸죄와 휴대전화 초기화, 변호사가 설명하는 쟁점",
+    ("shorts","새벽 5시 몰카범 도주 막았는데 전과자? 부장검사 출신 변호사의 해설",
+     "https://www.youtube.com/watch?v=_52mIFYx52o","고호 법률사무소 · 내편박변","2026-06-26"),
+    ("shorts","놀쟈사이트 이용 전수조사? 경찰의 '진짜 타깃'은 따로 있습니다!",
+     "https://www.youtube.com/watch?v=DBLMQtkTf1I","고호 법률사무소 · 내편박변","2026-06-14"),
+    ("video","평택 여경 0.8초 강제추행 논란, 대법원에서 뒤집힐까?",
      "https://www.youtube.com/watch?v=p3yh_8rWdY0","고호 법률사무소 · 내편박변","2026-05-28"),
     ("blog","[회사법무 계약법] 병행수입상품 정품 감정업자의 책임이 문제된 사건",
      "https://2yourlawyer.blogspot.com/2026/09/blog-post_19.html",
@@ -210,7 +214,6 @@ VERIFIED_SOURCE_STARTERS = (
      "https://www.newswire.co.kr/newsRead.php?no=1030838","뉴스와이어 · 보도자료","2026-03-24"),
 )
 
-
 def _verified_source_starters() -> list[dict]:
     out = []
     for kind, title, url, source, published in VERIFIED_SOURCE_STARTERS:
@@ -220,7 +223,8 @@ def _verified_source_starters() -> list[dict]:
             video_id = parse_qs(urlparse(url).query).get("v", [None])[0]
         out.append({
             "id": "verified-" + hashlib.sha1(url.encode()).hexdigest()[:16],
-            "content_type": kind, "title": title, "summary": "",
+            "content_type": kind, "title": title,
+            "summary": ("법률사무소 고호가 공개한 변호사 법률 해설 영상." if kind in ("video", "shorts") else ""),
             "url": url,
             "thumb_url": f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg" if video_id else None,
             "source": source, "published": published, "approved": False,
@@ -261,6 +265,8 @@ def _parse_newswire_rss(xml_text: str, label: str = "뉴스와이어 · 보도�
                        child.attrib.get("type", "").startswith("image/")):
                     pic = val
                     break
+        if pic and (pic.endswith("/thumb/.jpg") or pic.endswith("/thumb/.png")):
+            pic = None
         if not pic:
             match = re.search(r'<img[^>]+src=["\'](https://[^"\']+)["\']',
                               field("description"), re.I)
