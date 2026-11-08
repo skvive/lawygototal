@@ -3,7 +3,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   if (!$('pan-featured-cards')) return;
-  const labels = {video:'YOUTUBE',shorts:'SHORTS',blog:'BLOGGER',newswire:'뉴스와이어 · 보도자료'};
+  const labels = {video:'YOUTUBE',shorts:'SHORTS',blog:'BLOGGER',newswire:'뉴스와이어 · 보도자료',us_legal:'미국 로펌 · 법률 리포트'};
   const all = [];
   let active = 'all';
   let visibleCount = 16;
@@ -92,7 +92,7 @@
     a.append(image(item));
     const body = node('div','pan-post-card-main');
     body.append(node('small',null,labels[item.content_type] || '법률 게시물'),
-      node('h3',null,item.title),
+      node('h3',null,item.title_ko||item.title),
       node('p',null,(item.source || '공개 원문')+' · '+displayDate(item.published)));
     a.append(body);
     return a;
@@ -115,9 +115,23 @@
   const sortByDate = (a,b) => {
     const da = new Date(a.published || '').getTime() || 0;
     const db = new Date(b.published || '').getTime() || 0;
-    return db-da;
+    return (b.content_type==='us_legal')-(a.content_type==='us_legal') || db-da;
+  };
+  const usCard = (item) => {
+    const a = cardLink(item);a.className='pan-us-card';
+    a.append(node('span','pan-us-card-overline','U.S. LEGAL INSIGHT · '+(item.category_ko||'미국 법률 동향')));
+    const h=node('h3',null,item.title_ko||item.title);a.append(h);
+    if(item.title_original)a.append(node('span','pan-us-original',item.title_original));
+    const abstract=node('p',null,item.summary_ko||item.summary||'원문에서 구체적인 내용을 확인해 주세요.');
+    a.append(abstract);
+    const foot=node('div','pan-us-foot');
+    foot.append(node('strong',null,item.source||'미국 법률 발행사'),
+      node('small',null,item.translation_status==='editorial'?'한글 편집 요약':'영문 원문 · 한국어 주제 안내'));
+    a.append(foot);return a;
   };
   const render = () => {
+    const us = all.filter(x=>x.content_type==='us_legal');
+    setItems('pan-us-post-cards',us.slice(0,8),usCard,'미국 로펌 공개 게시물 연결을 확인해 주세요.');
     const videos = all.filter(x => ['video','shorts'].includes(x.content_type));
     const shorts = all.filter(x => x.content_type==='shorts');
     const news = all.filter(x => x.content_type==='newswire');
@@ -173,7 +187,17 @@
     const section=node('article','pan-detail-layout');
     const meta=node('div','pan-detail-meta',
       (labels[item.content_type]||'법률 게시물')+' · '+(item.source||'공개 원문')+' · '+displayDate(item.published));
-    section.append(meta,node('h2',null,item.title));
+    section.append(meta,node('h2',null,item.title_ko||item.title));
+    if(item.title_original && item.title_original!==item.title_ko) {
+      const original=node('p',null,'EN / '+item.title_original);
+      original.style.cssText='font-size:12px;color:#6f7c8c;margin-top:-6px';
+      section.append(original);
+    }
+    if(item.content_type==='us_legal'){
+      section.append(node('p',null,item.translation_status==='editorial'?
+        '아래 내용은 로이고가 독립 작성한 한국어 핵심 요약입니다. 영어 원문 전체 번역이 아닙니다.':
+        '영어 원문입니다. 아래 한국어 문장은 주제를 분류한 안내이며 제목 전문의 번역은 아닙니다.'));
+    }
     const description=(item.summary||'').trim();
     if (description) section.append(node('p',null,description));
     const wrapper=node('div','pan-detail-media');
@@ -198,7 +222,7 @@
     const actions=node('div','pan-detail-links');
     if (source) {
       const link=node('a',null,item.content_type==='newswire'?'뉴스와이어 원문 보기 ↗':
-        item.content_type==='blog'?'구글 블로그 원문 보기 ↗':'원본 영상·게시글 열기 ↗');
+        item.content_type==='blog'?'구글 블로그 원문 보기 ↗':item.content_type==='us_legal'?'미국 로펌 원문 확인 ↗':'원본 영상·게시글 열기 ↗');
       link.href=source;link.target='_blank';link.rel='noopener noreferrer';
       actions.append(link);
     }
@@ -240,7 +264,7 @@
       for (const item of payload.items||[]) {
         if (!item || !item.title || !item.url || !item.id) continue;
         const url=safeUrl(item.url,true);
-        if (!url || seen.has(url) || !['video','shorts','blog','newswire'].includes(item.content_type)) continue;
+        if (!url || seen.has(url) || !['video','shorts','blog','newswire','us_legal'].includes(item.content_type)) continue;
         seen.add(url);all.push({...item,url});
       }
       all.sort(sortByDate);

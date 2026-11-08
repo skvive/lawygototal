@@ -128,6 +128,33 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     const link=await w.locator('.note-ai-rail a').first().getAttribute('href');
     interactions.push({test:'advanced-ai-workspace-link',pass:link==='https://lawygo.vercel.app/board/ai/case_search'});
   }catch(e){interactions.push({test:'note-workspace',pass:false,error:String(e).slice(0,250)})}
+  // Customer-facing NOTE research and drafting interactions, always on local QA server.
+  try {
+    await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
+    interactions.push({test:'note-chat-present',pass:await w.locator('#lnw-chat-form').isVisible()});
+    await w.locator('[data-lnw-mode="draft"]').click();
+    await w.locator('#lnw-chat-input').fill('고용계약 검토용 의견서 초안');
+    await w.locator('#lnw-chat-send').click();
+    await w.waitForFunction(()=>document.querySelector('.lawygo-ai-message.assistant')?.textContent?.includes('법률문서 구조화 초안'),null,{timeout:9000});
+    interactions.push({test:'note-chat-template-functional',pass:(await w.locator('.lawygo-ai-message.assistant').last().textContent()).includes('법률문서 구조화 초안')});
+    await w.locator('#lnw-chat-to-draft').click();
+    interactions.push({test:'note-chat-editor-transfer',pass:(await w.locator('#noteDraftContent').inputValue()).includes('법률문서 구조화 초안')});
+    await w.locator('[data-lnw-mode="research"]').click();
+    await w.locator('#lnw-chat-input').fill('노동법 판례');
+    await w.locator('#lnw-chat-send').click();
+    await w.waitForFunction(()=>document.querySelectorAll('#lnw-chat-sources .lawygo-ai-source-card').length>0,null,{timeout:9000});
+    interactions.push({test:'note-chat-public-source-search',pass:await w.locator('#lnw-chat-sources .lawygo-ai-source-card').count()>0});
+  }catch(e){interactions.push({test:'note-chat-ui',pass:false,error:String(e).slice(0,250)})}
+  // US law firm editorial feed keeps Korean summary and original English title.
+  try {
+    await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
+    await w.waitForSelector('#pan-us-post-cards .pan-us-card',{timeout:17000});
+    interactions.push({test:'pan-us-real-lawfirm-korean-cards',pass:await w.locator('#pan-us-post-cards .pan-us-card').count()>=6});
+    await w.locator('#pan-us-post-cards .pan-us-card').first().click();
+    interactions.push({test:'pan-us-detail-original-en',pass:await w.locator('#pan-post-detail').evaluate(e=>e.open)&&
+      (await w.locator('#pan-detail-body').textContent()).includes('EN / ')});
+    await w.locator('#pan-detail-close').click();
+  }catch(e){interactions.push({test:'pan-us-real-article-ui',pass:false,error:String(e).slice(0,250)})}
   await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
   try {
     const tabs=w.locator('#pan-content-tabs button');
@@ -154,6 +181,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     interactions.push({test:'pan-legal-video-close',pass:await w.locator('#pan-legal-player').evaluate(el=>el.hidden)});
     await w.goto(BASE+'/pro',{waitUntil:'domcontentloaded'});
     interactions.push({test:'pro-official-site-home-mirror',pass:await w.locator('#pro-source-home').count()===1&&(await w.locator('#pro-source-title').textContent()).includes('대한민국 법원')});
+    interactions.push({test:'pro-official-program-links',pass:await w.locator('.pro-program-feature-grid>a').count()===4&&(await w.locator('.pro-program-launch').getAttribute('href'))==='https://www.lawygo.com/login'});
     await w.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
     interactions.push({test:'weeklynews-logo-footer-only',pass:await w.locator('footer .journal-weeklynews-credit-link img[src="/static/img/weeklynews-w.svg"]').count()===1&&await w.locator('.weeklynews-partner').count()===0&&await w.locator('.journal-weeklynews-credit-link').getAttribute('aria-label')==='기사 제공: 위클리뉴스 공식 사이트 방문'});
   } catch(e) { interactions.push({test:'source-integration-browser-qa',pass:false,error:String(e).slice(0,260)})}

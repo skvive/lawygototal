@@ -1,0 +1,50 @@
+
+body.pan-media-v2 #main>.pan-us-insights{order:2;background:linear-gradient(#f7f8fb,#fff);padding:30px 0 32px}
+body.pan-media-v2 #main>.pan-featured-v2{order:3}
+body.pan-media-v2 #main>.pan-studio-v2{order:4}
+body.pan-media-v2 #main>.pan-media-shelf{order:5}
+body.pan-media-v2 #main>.pan-more-posts{order:6}
+body.pan-media-v2 #main>#pan-legal-live{order:7}
+body.pan-media-v2 #main>#pan-content{order:8}
+body.pan-media-v2 #main>#pan-lawyers{order:9}
+body.pan-media-v2 #main>#pan-shorts{order:10}
+body.pan-media-v2 #main>#pan-blogs{order:11}
+body.pan-media-v2 .pan-us-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}
+body.pan-media-v2 .pan-us-heading>div{max-width:780px}
+body.pan-media-v2 .pan-us-eyebrow{color:#aa6c65;letter-spacing:.1em;font:800 10px 'DM Sans',sans-serif}
+body.pan-media-v2 .pan-us-heading h2{font:800 clamp(24px,3vw,32px)/1.35 'Noto Sans KR',sans-serif!important;letter-spacing:-.055em;color:#152840;margin:9px 0 8px}
+body.pan-media-v2 .pan-us-heading h2 em{font-style:normal;color:#c25572}
+body.pan-media-v2 .pan-us-heading p{font:400 12px/1.75 'Noto Sans KR',sans-serif;color:#6a788b;margin:0}
+body.pan-media-v2 .pan-us-more{font-size:12px;font-weight:800;color:#9d5366;white-space:nowrap}
+body.pan-media-v2 .pan-us-post-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+body.pan-media-v2 .pan-us-card{display:flex;flex-direction:column;min-width:0;min-height:240px;padding:20px;border-radius:14px;border:1px solid #e3e7ef;box-shadow:0 8px 23px #1d29400a;background:#fff;color:#15243b;text-decoration:none;transition:transform .2s,box-shadow .2s}
+body.pan-media-v2 .pan-us-card:hover{transform:translateY(-3px);box-shadow:0 13px 30px #1526371f;border-color:#b9a07f}
+body.pan-media-v2 .pan-us-card-overline{font-size:9px;font-weight:850;letter-spacing:.08em;color:#bd5675;margin-bottom:12px}
+body.pan-media-v2 .pan-us-card h3{font:800 15px/1.48 'Noto Sans KR',sans-serif!important;letter-spacing:-.04em;color:#192c43;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+body.pan-media-v2 .pan-us-original{font:600 10px/1.4 'DM Sans',sans-serif;color:#7c8b9b;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:9px}
+body.pan-media-v2 .pan-us-card>p{font-size:11px;line-height:1.6;color:#5c6c81;margin:0 0 16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+body.pan-media-v2 .pan-us-foot{border-top:1px solid #e8edf1;padding-top:11px;margin-top:auto;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+body.pan-media-v2 .pan-us-foot strong{font-size:10px;color:#213b53}
+body.pan-media-v2 .pan-us-foot small{font-size:9px;color:#9b6778}
+body.pan-media-v2 .pan-us-disclaimer{font-size:10px;line-height:1.7;color:#8895a6;margin-top:13px}
+body.pan-media-v2 .pan-us-disclaimer strong{color:#69768a}
+@media(max-width:1200px){body.pan-media-v2 .pan-us-post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:660px){body.pan-media-v2 .pan-us-heading{display:block}body.pan-media-v2 .pan-us-more{display:inline-block;margin-top:11px}body.pan-media-v2 .pan-us-post-grid{grid-template-columns:1fr;gap:9px}body.pan-media-v2 .pan-us-card{min-height:0;padding:17px}body.pan-media-v2 .pan-us-card h3{font-size:14px!important}body.pan-media-v2 #main>.pan-us-insights{padding:25px 0}}
+
+/* Render four verified original U.S. law-firm abstracts before the first API request. */
+body.pan-media-v2 .pan-us-static-card{
+ display:flex;flex-direction:column;min-width:0;min-height:240px;padding:20px;
+ border-radius:14px;border:1px solid #e3e7ef;box-shadow:0 8px 23px #1d29400a;
+ background:#fff;color:#15243b;text-decoration:none
+}
+body.pan-media-v2 .pan-us-static-card:hover{border-color:#b9a07f}
+body.pan-media-v2 .pan-us-static-card h3{
+ font:800 15px/1.48 'Noto Sans KR',sans-serif!important;
+ letter-spacing:-.04em;color:#192c43;margin:0 0 10px;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+}
+body.pan-media-v2 .pan-us-static-card>p{
+ font-size:11px;line-height:1.6;color:#5c6c81;margin:0 0 16px;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+}
+@media(max-width:660px){body.pan-media-v2 .pan-us-static-card{min-height:0;padding:17px}body.pan-media-v2 .pan-us-static-card h3{font-size:14px!important}}

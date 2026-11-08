@@ -651,10 +651,10 @@ def _merge_pan_contents(cms: list[dict], wire: list[dict], limit: int) -> list[d
 
 @app.get("/api/feed")
 async def pan_public_feed_api(kind: str = "all", db=Depends(database)):
-    if kind not in ("all", "blog", "video", "shorts", "newswire"):
+    if kind not in ("all", "blog", "video", "shorts", "newswire", "us_legal"):
         err(400, "올바르지 않은 콘텐츠 유형입니다.")
     wire_kind = kind if kind != "all" else "all"
-    cms = [] if kind == "newswire" else _pan_db_contents(db, DEFAULT_TENANT, kind, "", 40)
+    cms = [] if kind in ("newswire","us_legal") else _pan_db_contents(db, DEFAULT_TENANT, kind, "", 40)
     wire = await pan_public_feed.load_wire_items(wire_kind)
     for w in wire:
         w["approved"] = False
@@ -668,15 +668,15 @@ async def pan_content_api(
     limit: int = Query(48, ge=1, le=100),
     db=Depends(database),
 ):
-    kind = type if type in ("all", "blog", "video", "shorts", "newswire") else "all"
-    cms = [] if kind == "newswire" else _pan_db_contents(db, DEFAULT_TENANT, kind, q, limit)
+    kind = type if type in ("all", "blog", "video", "shorts", "newswire", "us_legal") else "all"
+    cms = [] if kind in ("newswire","us_legal") else _pan_db_contents(db, DEFAULT_TENANT, kind, q, limit)
     wire = await pan_public_feed.load_wire_items(kind if kind != "all" else "all")
     if q:
         ql = q.lower()
         wire = [
             x
             for x in wire
-            if ql in (x.get("title") or "").lower() or ql in (x.get("summary") or "").lower()
+            if ql in " ".join(str(x.get(k) or "") for k in ("title","summary","title_original","category_ko","source")).lower()
         ]
     return {"items": _merge_pan_contents(cms, wire, limit), "sources": {"cms": len(cms), "wire": len(wire)}}
 
