@@ -91,7 +91,7 @@ def _parse_blogger_json(data: dict, source_label: str) -> list[dict]:
         title = _strip_html((e.get("title") or {}).get("$t", ""), 200) or "제목 없음"
         out.append(
             {
-                "id": "b-" + re.sub(r"[^a-z0-9]", "", (e.get("id") or {}).get("$t", url))[:40],
+                "id": "b-" + hashlib.sha1(url.encode("utf-8")).hexdigest()[:20],
                 "content_type": "blog",
                 "title": title,
                 "summary": _strip_html(html),
@@ -162,50 +162,191 @@ async def _fetch_youtube(channel_id: str) -> list[dict]:
     return _parse_youtube_rss(r.text, f"YouTube · {channel_id[:8]}…")
 
 
+# LAWYGO PAN public sources (verified official video channels / public Blogger /
+# Newswire category RSS). The fallback index below is real-source metadata only,
+# never a fabricated video, quote or current live-broadcast status.
+import asyncio
+import hashlib
+
+LEGAL_YOUTUBE_CHANNELS = (
+    "UC7ilNDoKW1sxHqqIJj-DgKQ",  # 이돈호 변호사
+    "UChRnJ6XdAANkCOJfmWSASgQ",  # 법률방송
+    "UCA0AG-U7Tp9fDmzjqUmPLIw",  # 한변TV
+    "UC1e5SzvZSDffEz32kP5J-1w", # 화요일 변호사
+)
+LEGAL_BLOGGER_SITES = ("2yourlawyer.blogspot.com", "kimmlaw.blogspot.com")
+LEGAL_NEWSWIRE_FEEDS = (
+    "https://api.newswire.co.kr/rss/industry/1902",  # 법률
+    "https://api.newswire.co.kr/rss/theme/124",       # 소송
+    "https://api.newswire.co.kr/rss/theme/129",       # 지식재산
+)
+
+# Source links individually verified at the original publishers on 2026-11-08.
+# These are fallback reference entries only when a live source feed fails.
+VERIFIED_SOURCE_STARTERS = (
+    ("video",'"검사도 실수한다?" 폐지된 법으로 기소된 흥신소 사건, 재판 가기 전에 무조건 끝내야 하는 이유',
+     "https://www.youtube.com/watch?v=73wWp3zXIB8","고호 법률사무소 · 내편박변","2026-06-28"),
+    ("video","평택 강제추행 피해 여경의 계속 바뀌는 진술? 대법원은 다르게 봅니다",
+     "https://www.youtube.com/watch?v=aFfWr20jG58","고호 법률사무소 · 내편박변","2026-06-07"),
+    ("video","화장실 몰카범 잡았는데 폭행 전과자? 전직 부장검사가 분노한 기막힌 판결",
+     "https://www.youtube.com/watch?v=f2d78wWhIsE","고호 법률사무소 · 내편박변","2026-06-24"),
+    ("video","AVMOV 이어 '놀쟈' 수사 개시… 무조건 자수? 공포 마케팅에 절대 돈 쓰지 마세요!",
+     "https://www.youtube.com/watch?v=Ptp-EqX-3h0","고호 법률사무소 · 내편박변","2026-06-04"),
+    ("video","프로야구 선수가 야구를 제대로 못하면 직무유기죄? 부장검사 출신 변호사 해설",
+     "https://www.youtube.com/watch?v=HaqImAlh4ic","고호 법률사무소 · 내편박변","2026-06-10"),
+    ("shorts","검사의 충격적 실수 때문에 남편 외도 잡으려다 전과자 될 뻔?",
+     "https://www.youtube.com/watch?v=FawkpE0aFeU","고호 법률사무소 · 내편박변","2026-07-07"),
+    ("shorts","새벽 5시 몰카범 도주 막았는데 전과자? 부장검사 출신 변호사의 해설",
+     "https://www.youtube.com/watch?v=_52mIFYx52o","고호 법률사무소 · 내편박변","2026-06-26"),
+    ("shorts","놀쟈사이트 이용 전수조사? 경찰의 '진짜 타깃'은 따로 있습니다!",
+     "https://www.youtube.com/watch?v=DBLMQtkTf1I","고호 법률사무소 · 내편박변","2026-06-14"),
+    ("video","평택 여경 0.8초 강제추행 논란, 대법원에서 뒤집힐까?",
+     "https://www.youtube.com/watch?v=p3yh_8rWdY0","고호 법률사무소 · 내편박변","2026-05-28"),
+    ("blog","[회사법무 계약법] 병행수입상품 정품 감정업자의 책임이 문제된 사건",
+     "https://2yourlawyer.blogspot.com/2026/09/blog-post_19.html",
+     "변호사 정회목의 법률 스토리","2026-09-19"),
+    ("blog","[행정소송 정보삭제] 공직선거법 제110조 제2항 해석 사건",
+     "https://2yourlawyer.blogspot.com/2025/12/110-2.html",
+     "변호사 정회목의 법률 스토리","2025-12-28"),
+    ("newswire","로앤비 온주, ‘민사집행법’ 출간으로 주석서 100권 돌파",
+     "https://www.newswire.co.kr/newsRead.php?no=1040726","뉴스와이어 · 보도자료","2026-08-19"),
+    ("newswire","톰슨로이터코리아, 온라인 주석서 ‘온주’ 상법 회사편 ‘회사법’ 출간",
+     "https://www.newswire.co.kr/newsRead.php?no=1030838","뉴스와이어 · 보도자료","2026-03-24"),
+)
+
+def _verified_source_starters() -> list[dict]:
+    out = []
+    for kind, title, url, source, published in VERIFIED_SOURCE_STARTERS:
+        video_id = None
+        if "youtube.com/watch?v=" in url:
+            from urllib.parse import parse_qs
+            video_id = parse_qs(urlparse(url).query).get("v", [None])[0]
+        out.append({
+            "id": "verified-" + hashlib.sha1(url.encode()).hexdigest()[:16],
+            "content_type": kind, "title": title,
+            "summary": ("법률사무소 고호가 공개한 변호사 법률 해설 영상." if kind in ("video", "shorts") else ""),
+            "url": url,
+            "thumb_url": f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg" if video_id else None,
+            "source": source, "published": published, "approved": False,
+            "source_kind": "original-verified", "live": False
+        })
+    return out
+
+
+def _parse_newswire_rss(xml_text: str, label: str = "뉴스와이어 · 보도자료") -> list[dict]:
+    root = ET.fromstring(xml_text)
+    items = root.findall(".//item")
+    if not items:
+        items = root.findall(".//{http://www.w3.org/2005/Atom}entry")
+    result = []
+    for node in items[:65]:
+        def field(*names):
+            for name in names:
+                child = node.find(name)
+                if child is not None and child.text:
+                    return child.text.strip()
+            return ""
+        title = _strip_html(field("title", "{http://www.w3.org/2005/Atom}title"), 190)
+        link = field("link", "{http://www.w3.org/2005/Atom}id")
+        if not link:
+            atom_link = node.find("{http://www.w3.org/2005/Atom}link")
+            link = atom_link.get("href", "") if atom_link is not None else ""
+        host = (urlparse(link).hostname or "").lower()
+        if host not in ("www.newswire.co.kr", "newswire.co.kr") or not title:
+            continue
+        description = _strip_html(field("description", "{http://www.w3.org/2005/Atom}summary"), 155)
+        pic = None
+        # RSS explicitly provided images only; never scrape full articles for media.
+        for child in node:
+            if child.tag in ("{http://search.yahoo.com/mrss/}content",
+                             "{http://search.yahoo.com/mrss/}thumbnail", "enclosure"):
+                val = child.attrib.get("url", "")
+                if val.startswith("https://") and (child.tag != "enclosure" or
+                       child.attrib.get("type", "").startswith("image/")):
+                    pic = val
+                    break
+        if pic and (pic.endswith("/thumb/.jpg") or pic.endswith("/thumb/.png")):
+            pic = None
+        if not pic:
+            match = re.search(r'<img[^>]+src=["\'](https://[^"\']+)["\']',
+                              field("description"), re.I)
+            if match:
+                pic = match.group(1)
+        pub = field("pubDate", "{http://www.w3.org/2005/Atom}published")
+        result.append({
+            "id": "n-" + hashlib.sha1(link.encode()).hexdigest()[:20],
+            "content_type": "newswire", "title": title,
+            "summary": description, "url": link, "thumb_url": pic,
+            "source": label, "published": pub, "approved": False,
+            "source_kind": "press-release", "live": False
+        })
+    return result
+
+
+async def _fetch_newswire(feed_url: str) -> list[dict]:
+    async with httpx.AsyncClient(timeout=9, follow_redirects=True,
+                                 headers={"User-Agent": UA, "Accept": "application/rss+xml, application/xml, text/xml"}) as client:
+        r = await client.get(feed_url)
+        r.raise_for_status()
+    return _parse_newswire_rss(r.text)
+
+
 async def load_wire_items(kind: str = "all") -> list[dict]:
-    """kind: all | blog | video | shorts"""
-    cache_key = f"wire:{kind}"
+    """Public source metadata only. Prefer RSS and use verified original URLs as fallback."""
+    cache_key = f"wire:v2:{kind}"
     now = time.time()
     if cache_key in _CACHE and now - _CACHE[cache_key][0] < TTL:
         return _CACHE[cache_key][1]
-
-    blogs = _env_list("LAWYGO_PAN_BLOGGER_SITES")
-    channels = _env_list("LAWYGO_PAN_YOUTUBE_CHANNEL_IDS")
-    items: list[dict] = []
-
+    # Honor explicitly configured sources; known verified public defaults prevent
+    # an empty production feed when an operator has not entered custom sources.
+    blogs = _env_list("LAWYGO_PAN_BLOGGER_SITES") or list(LEGAL_BLOGGER_SITES)
+    channels = _env_list("LAWYGO_PAN_YOUTUBE_CHANNEL_IDS") or list(LEGAL_YOUTUBE_CHANNELS)
+    feeds = _env_list("LAWYGO_PAN_NEWSWIRE_RSS_URLS") or list(LEGAL_NEWSWIRE_FEEDS)
+    jobs = []
     if kind in ("all", "blog"):
-        for site in blogs:
-            try:
-                items.extend(await _fetch_blogger(site))
-            except (httpx.HTTPError, json.JSONDecodeError, KeyError, ValueError):
-                continue
-
+        jobs.extend((_fetch_blogger(site) for site in blogs[:6]))
     if kind in ("all", "video", "shorts"):
-        for cid in channels:
-            try:
-                vids = await _fetch_youtube(cid)
-                if kind == "video":
-                    items.extend([x for x in vids if x["content_type"] == "video"])
-                elif kind == "shorts":
-                    items.extend([x for x in vids if x["content_type"] == "shorts"])
-                else:
-                    items.extend(vids)
-            except (httpx.HTTPError, ET.ParseError, ValueError):
-                continue
-
-    # Optional keyword discovery, cached separately and disabled without official API keys.
-    # This complements curated channel/blog feeds; it does not claim real-time
-    # discovery when credentials are absent.
-    import pan_discovery_v2
-    try:
-        items.extend(await pan_discovery_v2.public_search(kind))
-    except (httpx.HTTPError,ValueError,KeyError):
-        pass
-    dedup = {}
-    for x in items:
-        if x.get("url") and x.get("title"):
-            dedup.setdefault(x["url"],x)
-    items = [item for item in dedup.values() if _is_legal_topic(item)]
-    items.sort(key=lambda x: x.get("published") or "", reverse=True)
-    _CACHE[cache_key] = (now, items[:60])
+        jobs.extend((_fetch_youtube(cid) for cid in channels[:10]))
+    if kind in ("all", "newswire"):
+        jobs.extend((_fetch_newswire(feed) for feed in feeds[:5]))
+    batches = await asyncio.gather(*jobs, return_exceptions=True)
+    items: list[dict] = []
+    for batch in batches:
+        if not isinstance(batch, BaseException):
+            items.extend(batch)
+    # Existing official search integration (disabled when no API credentials).
+    if kind in ("all", "video", "shorts"):
+        import pan_discovery_v2
+        try:
+            items.extend(await asyncio.wait_for(pan_discovery_v2.public_search(kind), timeout=8))
+        except (httpx.HTTPError, ValueError, KeyError, asyncio.TimeoutError):
+            pass
+    present_kinds = {x.get("content_type") for x in items if _is_legal_topic(x)}
+    # Only verified real publisher metadata, not stock/fake posts.
+    for starter in _verified_source_starters():
+        if starter["content_type"] not in present_kinds:
+            items.append(starter)
+    dedup: dict[str, dict] = {}
+    for item in items:
+        if not item.get("url") or not item.get("title") or not _is_legal_topic(item):
+            continue
+        ctype = item.get("content_type")
+        if kind != "all" and ctype != kind:
+            continue
+        dedup.setdefault(item["url"], item)
+    items = list(dedup.values())
+    # ISO and RSS dates both allowed; put valid modern ISO first via parser.
+    from email.utils import parsedate_to_datetime
+    def sort_date(item):
+        raw = item.get("published") or ""
+        if not raw:
+            return ""
+        try:
+            if re.match(r"^\d{4}-", raw):
+                return raw[:10]
+            return parsedate_to_datetime(raw).date().isoformat()
+        except (TypeError, ValueError, OverflowError):
+            return ""
+    items.sort(key=sort_date, reverse=True)
+    _CACHE[cache_key] = (now, items[:95])
     return _CACHE[cache_key][1]
