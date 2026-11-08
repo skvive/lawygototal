@@ -229,7 +229,8 @@
   };
   const fetchItems = async q => {
     const root=$('pan-featured-cards');
-    if (root) root.replaceChildren(node('p','pan-media-loading','실제 게시물과 공식 소스를 확인하고 있습니다.'));
+    // Keep verified real video cards visible during first uncached RSS request.
+    if (root && !root.querySelector('.pan-featured-card')) root.replaceChildren(node('p','pan-media-loading','실제 게시물과 공식 소스를 확인하고 있습니다.'));
     try {
       const api='/api/pan/content?'+new URLSearchParams({type:'all',limit:'100',q:q||''});
       const response=await fetch(api,{cache:'no-store',credentials:'omit'});
