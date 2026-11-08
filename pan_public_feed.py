@@ -26,7 +26,11 @@ _LEGAL_TOPIC = re.compile(
 
 
 def _is_legal_topic(item: dict) -> bool:
-    return bool(_LEGAL_TOPIC.search(" ".join(str(item.get(key) or "") for key in ("title", "summary"))))
+    if item.get("content_type") == "us_legal" and item.get("source_kind") == "us-lawfirm":
+        host=(urlparse(str(item.get("url") or "")).hostname or "").lower().removeprefix("www.")
+        if host in {"bakerlaw.com","ogletree.com","hunton.com","foley.com","huntonprivacyblog.com"}:
+            return True
+    return bool(_LEGAL_TOPIC.search(" ".join(str(item.get(key) or "") for key in ("title", "summary", "title_original"))))
 
 
 class _Strip(HTMLParser):
