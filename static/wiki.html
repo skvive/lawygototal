@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css?v=wiki-ui2-r20261105-designrefresh3">
   <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3">
   <meta name="lawygo-design-revision" content="20261105-designrefresh3">
+  <link rel="stylesheet" href="/static/lawygo-wiki-pro-rebuild-20261110.css?v=20261110-a1">
 </head>
 <body class="atlas-page" data-product="wiki">
   <div data-brand-shell="header"></div>
@@ -35,7 +36,34 @@
       </div>
     </div>
   </section>
-  <section class="cream wiki-knowledge-section"><div class="wrap">
+  
+  <!-- 2026-11-10: Navigation-level legal encyclopedia dashboard, public data only -->
+  <section class="lx26-wiki-bridge" aria-labelledby="lx26-wiki-title">
+    <div class="lx26-shell lx26-bridge-grid">
+      <div class="lx26-bridge-copy">
+        <span class="lx26-overline">LAWYGO WIKI / LEGAL KNOWLEDGE OS</span>
+        <h2 id="lx26-wiki-title">법률백과를<br><em>리서치 대시보드로.</em></h2>
+        <p>법률 분야를 선택하고 공개된 판례·법령 자료를 비교한 뒤, 본문과 원문 출처까지 확인하는 연구 동선을 한 페이지로 연결했습니다.</p>
+        <div class="lx26-bridge-actions">
+          <a class="lx26-button lx26-button-primary" href="#wiki-native-workspace">법률백과 연구실 열기 <span aria-hidden="true">↗</span></a>
+          <a class="lx26-button lx26-button-outline" href="#wiki-research-architecture">지식 연결 구조 보기</a>
+        </div>
+        <p class="lx26-caveat">공개·승인 자료 전용. 개인 사건·의뢰인 파일과 원본 AI 분석은 별도 인증 환경에서 이용합니다.</p>
+      </div>
+      <figure class="lx26-bridge-visual">
+        <img src="/static/img/design/lawygo-wiki-workbench-20261110.svg" width="1100" height="720" alt="검색창, 분야 탐색, 법률 문서 및 근거 패널로 구성된 LAWYGO WIKI 연구실 설계 시각화" loading="eager" decoding="async">
+        <figcaption>DESIGN PREVIEW · 실제 검색은 아래 연구실에서 실행</figcaption>
+      </figure>
+    </div>
+    <nav class="lx26-shell lx26-jump-cards" aria-label="법률백과 주요 기능">
+      <a href="#wiki-native-workspace"><span>01 / SEARCH</span><strong>공개자료 검색</strong><small>법령·판례·쟁점 검색과 본문 확인</small><b aria-hidden="true">↗</b></a>
+      <a href="#wiki-research-architecture"><span>02 / KNOWLEDGE</span><strong>법률 지식 연결</strong><small>개념·근거·문서 관계 탐색</small><b aria-hidden="true">↗</b></a>
+      <a href="#wiki-feed"><span>03 / PUBLICATIONS</span><strong>검수·발행 자료</strong><small>공개 승인된 위키 콘텐츠</small><b aria-hidden="true">↗</b></a>
+      <a href="/p/note#note-native-workspace"><span>04 / WORKSPACE</span><strong>LAWYGO NOTE</strong><small>문서·자료 연구 작업공간 안내</small><b aria-hidden="true">↗</b></a>
+    </nav>
+  </section>
+
+<section class="cream wiki-knowledge-section"><div class="wrap">
     <div class="portal-intro">
       <div class="portal-intro-copy"><span class="eyebrow">LAWYGO / LEGAL ENCYCLOPEDIA</span><h2>찾아보고, 비교하고,<br>근거를 검토하는 법률백과</h2><p>원본 로이고법률백과의 <strong>분야·쟁점 탐색, 공개 자료 검색, 상세 읽기</strong> 기능을 아래 연구실에 배치했습니다. 개인 사건 프로젝트·AI 판단 엔진은 별도 인증 환경을 유지합니다.</p>
       <div class="portal-intro-actions"><a href="#wiki-native-workspace" class="portal-action-primary">이 페이지에서 법률백과 실행 ↗</a><span class="portal-notice">공개 자료 검색·열람은 페이지 내 실행 · 고급 AI는 별도 인증</span></div></div>
