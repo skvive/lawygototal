@@ -3,7 +3,7 @@
   const path = location.pathname;
   const on = (p) => (path === p || (p !== '/' && path.startsWith(p)) ? 'active' : '');
   const header = `
-<a class="skip-link" href="#main-content">본문으로 바로가기</a>\r\n<div class="utility"><div class="wrap utility-inner"><span>ECONOMY × LAW × INTELLIGENCE</span><span>대한민국 · 미국을 잇는 제도적 통찰</span><span class="utility-right">U.S. &amp; KOREA · LEGAL INTELLIGENCE</span></div></div>
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>\r\n
 <header class="header"><div class="wrap header-main">
   <a href="/" class="logo"><img class="brand-logo-original" src="/static/logo.svg" width="38" height="38" alt="" aria-hidden="true"><span class="logo-word">LAWYGO<span class="logo-sub">LEGAL INTELLIGENCE</span></span></a>
   <nav class="desktop-nav" aria-label="주 메뉴">

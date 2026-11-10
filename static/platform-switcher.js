@@ -11,6 +11,11 @@
     {label:'노트',en:'NOTE',path:'/p/note',match:p=>p==='/p/note',short:'N'}
   ];
   const init=()=>{
+    // The shared site header already provides all five product links.
+    // Do not create a second navigation bar beneath it.
+    const primary=document.querySelector('.desktop-nav');
+    const productPaths=['/journal','/p/wiki','/p/note','/pro','/p/pan'];
+    if(primary&&productPaths.every(path=>primary.querySelector('a[href="'+path+'"]')))return;
     if(document.getElementById('lawygoPlatformSwitcher'))return;
     const header=document.querySelector('header.header,header.mast,body > header');
     const shell=document.querySelector('[data-brand-shell="header"]');

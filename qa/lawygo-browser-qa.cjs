@@ -43,7 +43,8 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
               return nearViewport&&(i.currentSrc||i.loading!=='lazy')&&(!i.complete||!i.naturalWidth);
             }).map(i=>(i.currentSrc||i.getAttribute('src')||'(missing-src)').slice(0,160)),
             images:imgs.length,
-            platformButtons:document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length,
+            platformButtons:[...document.querySelectorAll('.desktop-nav a')].filter(a=>['/journal','/p/wiki','/p/note','/pro','/p/pan'].includes(a.getAttribute('href'))).length,
+            duplicateNav:!!document.querySelector('#lawygoPlatformSwitcher'),
             wikiPanelCount:document.body.dataset.product==='wiki'?document.querySelectorAll('#lawygo-wiki-dashboard [data-lw26-panel]').length:null,
             noteEditor:document.body.dataset.product==='note'?!!document.getElementById('noteDraftContent'):null,
             deliveryCards:document.querySelectorAll('.delivery-feature').length,
@@ -90,7 +91,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   try {
     await w.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
     interactions.push({test:'wiki-single-dashboard',pass:await w.locator('main#main-content > section').count()===1&&await w.locator('#lawygo-wiki-dashboard [data-lw26-panel]').count()===5});
-    interactions.push({test:'wiki-common-navigation-visible',pass:await w.locator('[data-brand-shell="header"]').isVisible()&&await w.locator('#lawygoPlatformSwitcher').isVisible()});
+    interactions.push({test:'wiki-common-navigation-visible',pass:await w.locator('[data-brand-shell="header"] .header').isVisible()&&(await w.locator('.desktop-nav a[href="/p/wiki"]').count())===1&&(await w.locator('#lawygoPlatformSwitcher').count())===0});
     interactions.push({test:'wiki-no-brochure-sections',pass:await w.locator('.hero.hero-dark,.ly-premiere,#wiki-native-workspace,.wiki-knowledge-section').count()===0});
     await w.locator('#lw26-keyword').fill('민법');
     await w.locator('#lw26-searchform button[type="submit"]').click();
@@ -195,7 +196,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   } catch(e) { interactions.push({test:'source-integration-browser-qa',pass:false,error:String(e).slice(0,260)})}
   await w.close();
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiPanelCount!==5)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(x.route==='/channel'&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||x.duplicateNav||(x.route==='/p/wiki'&&x.wikiPanelCount!==5)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(x.route==='/channel'&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,offenders:x.overflowElements,js:x.pageErrors,broken:x.brokenImages,catalogMedia:x.catalogMediaOversize,catalogCards:x.catalogCardsOversize,premiereMedia:x.premiereMediaOversize,tinyCTAs:x.tinyMarketingCTAs,style:x.stylesheetDelivery,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));
