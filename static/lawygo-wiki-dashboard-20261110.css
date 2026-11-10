@@ -142,8 +142,7 @@ body[data-product="wiki"]{background:#f6f8fd}
 @media(prefers-reduced-motion:reduce){.lw26-root *{scroll-behavior:auto;transition:none!important}}
 
 /* WIKI is a dedicated workbench; suppress duplicate brochure menus only on this route. */
-body[data-product="wiki"] [data-brand-shell="header"],
-body[data-product="wiki"] #lawygoPlatformSwitcher{display:none!important}
+
 .lw26-root .lw26-top-brand{color:#192b4b!important;text-decoration:none!important}
 .lw26-skip-link{position:absolute;left:12px;top:-80px;z-index:99;background:#14294e;color:#fff!important;padding:10px 14px;border-radius:7px;font-size:12px;font-weight:800}
 .lw26-skip-link:focus{top:6px}
