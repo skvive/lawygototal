@@ -162,7 +162,8 @@
     const pressed=el("lw26-ui-toggle").getAttribute("aria-pressed")==="true";
     el("lw26-ui-toggle").setAttribute("aria-pressed",String(!pressed));
     root.classList.toggle("lw26-compact",!pressed);
-    notify(!pressed?"패널 탐색 모드로 변경했습니다.":"기본 패널 보기로 변경했습니다.");
+    el("lw26-ui-toggle").textContent=!pressed?"□ 전체 패널":"▤ 집중 보기";
+    notify(!pressed?"집중 보기로 변경했습니다.":"전체 패널 보기로 복귀했습니다.");
   });
   const qs=new URLSearchParams(location.search).get("q");
   if(qs)search(qs);else{syncMeta();updateAi()}
