@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="t d">
+<title id="t">LAWYGO PRO — 네이비와 골드 법원 건축 히어로</title><desc id="d">기존 01 네이비 골드 법원 건축 시안을 바탕으로 구성한 풀스크린 법원 파사드 비주얼</desc>
+<defs>
+<linearGradient id="sky" x1="0" y1="1" x2=".94" y2=".15"><stop stop-color="#061528"/><stop offset=".52" stop-color="#0c253c"/><stop offset=".78" stop-color="#12314a"/><stop offset="1" stop-color="#081522"/></linearGradient>
+<radialGradient id="halo" cx=".79" cy=".27" r=".62"><stop stop-color="#ca9a65" stop-opacity=".42"/><stop offset=".46" stop-color="#9f744d" stop-opacity=".12"/><stop offset="1" stop-color="#020e21" stop-opacity="0"/></radialGradient>
+<linearGradient id="stone" x1="0" x2="1"><stop stop-color="#14243a"/><stop offset=".17" stop-color="#a78a64"/><stop offset=".32" stop-color="#e0c29a"/><stop offset=".52" stop-color="#79634e"/><stop offset=".71" stop-color="#b79a77"/><stop offset=".88" stop-color="#5a4d43"/><stop offset="1" stop-color="#142235"/></linearGradient>
+<linearGradient id="pillar" x1="0" x2="1"><stop stop-color="#342d31"/><stop offset=".18" stop-color="#967b5f"/><stop offset=".32" stop-color="#e3c29a"/><stop offset=".52" stop-color="#bb9670"/><stop offset=".76" stop-color="#705b4e"/><stop offset="1" stop-color="#252a32"/></linearGradient>
+<linearGradient id="roof" x1="0" y1="1" x2=".8" y2="0"><stop stop-color="#292f35"/><stop offset=".23" stop-color="#d8af79"/><stop offset=".54" stop-color="#534b46"/><stop offset="1" stop-color="#111b28"/></linearGradient>
+<linearGradient id="fade"><stop stop-color="#061527"/><stop offset=".3" stop-color="#061527" stop-opacity=".98"/><stop offset=".51" stop-color="#061527" stop-opacity=".77"/><stop offset=".69" stop-color="#061527" stop-opacity=".2"/><stop offset="1" stop-color="#061527" stop-opacity="0"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#040b16" stop-opacity="0"/><stop offset="1" stop-color="#040b16"/></linearGradient>
+<radialGradient id="light"><stop stop-color="#ffdca0" stop-opacity=".43"/><stop offset=".5" stop-color="#e2a863" stop-opacity=".09"/><stop offset="1" stop-color="#e2a863" stop-opacity="0"/></radialGradient>
+<filter id="soft"><feGaussianBlur stdDeviation="42"/></filter>
+<filter id="grain"><feTurbulence baseFrequency=".32" numOctaves="3" seed="5" type="fractalNoise" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="1920" height="1080" fill="url(#sky)"/><rect width="1920" height="1080" fill="url(#halo)"/>
+<g fill="none" stroke="#cfb992" stroke-opacity=".085"><path d="M1200 0V1080M1350 0V1080M1500 0V1080M1650 0V1080M1800 0V1080"/><path d="M950 150H1920M950 350H1920M950 550H1920M950 750H1920"/></g>
+<circle cx="1580" cy="290" r="480" fill="url(#light)" filter="url(#soft)"/>
+<g opacity=".98">
+<!-- Pediment roof and heavy masonry -->
+<path d="M970 365 1720 -56 2080 44 1324 495Z" fill="url(#roof)" stroke="#d6b282" stroke-width="6"/>
+<path d="M998 384 1325 480 2080 72 2080 140 1327 548 998 450Z" fill="#685b51"/>
+<path d="M1020 424 1336 518 2070 126" stroke="#f8d29d" stroke-width="13" opacity=".64"/>
+<path d="M1045 453 1332 543 2060 167" stroke="#2b3037" stroke-width="28"/>
+<path d="M1085 485 1355 556 2090 189" stroke="#ab9270" stroke-width="7" opacity=".65"/>
+<path d="M1358 525 2060 169 2060 1080H1358Z" fill="#433d3c" opacity=".35"/>
+<!-- portico columns -->
+<g>
+<path d="M1143 504 1236 534 1186 1090 1090 1090Z" fill="url(#pillar)"/><path d="M1134 477 1258 510 1245 544 1127 511Z" fill="url(#stone)"/><path d="M1108 466 1268 509 1261 519 1104 478Z" fill="#d6b181"/><path d="M1157 523 1115 1090M1176 528 1147 1090M1208 533 1182 1090" stroke="#f7d19c" stroke-width="2" opacity=".28"/>
+<path d="M1374 410 1481 444 1442 1090 1344 1090Z" fill="url(#pillar)"/><path d="M1363 384 1502 430 1490 454 1351 421Z" fill="url(#stone)"/><path d="M1356 380 1507 424" stroke="#e3bc8d" stroke-width="11"/><path d="M1405 454 1367 1090M1433 462 1403 1090M1464 471 1440 1090" stroke="#f8d39f" stroke-width="2" opacity=".3"/>
+<path d="M1600 306 1714 341 1694 1090 1582 1090Z" fill="url(#pillar)"/><path d="M1584 272 1739 318 1727 359 1571 311Z" fill="url(#stone)"/><path d="M1574 267 1742 317" stroke="#efc18a" stroke-width="12"/><path d="M1634 339 1609 1090M1662 349 1644 1090M1695 357 1680 1090" stroke="#f9d2a2" stroke-width="2" opacity=".3"/>
+<path d="M1840 197 1948 232 1935 1090 1818 1090Z" fill="url(#pillar)"/><path d="M1825 169 1970 212 1970 249 1815 209Z" fill="url(#stone)"/><path d="M1812 163 1971 211" stroke="#e6bb87" stroke-width="11"/>
+</g>
+<!-- judicial emblem inset on stone -->
+<g transform="translate(1723 452) rotate(-9)">
+<circle r="102" fill="#514337" stroke="#c9a36b" stroke-width="10"/><circle r="78" fill="#1d2935" stroke="#d7b579" stroke-width="9"/>
+<g fill="none" stroke="#e6c598" stroke-width="5"><path d="M-46 16H46M0-45V50M-54-22H54M-32-20-53 20H-12Z M32-20 11 20H52Z"/><path d="M-24 53H24M-34 65H34" stroke-linecap="round"/></g>
+<circle cx="0" cy="-48" r="9" fill="#f4d5a6"/>
+</g>
+<!-- architecture highlights -->
+<path d="M1024 420 1320 511 2050 140" fill="none" stroke="#fff0c6" stroke-width="3" opacity=".35"/>
+<path d="M1009 451 1340 558 2080 176" fill="none" stroke="#081521" stroke-width="8" opacity=".7"/>
+</g>
+<path d="M0 840H1920V1080H0Z" fill="url(#ground)"/>
+<rect width="1920" height="1080" fill="url(#fade)"/>
+<rect width="1920" height="1080" opacity=".035" filter="url(#grain)"/>
+</svg>
