@@ -25,6 +25,8 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
         metrics=await page.evaluate(()=>{
           const w=window.innerWidth;const imgs=[...document.images];
           const fields=[...document.querySelectorAll('input:not([type=hidden]),select,textarea')];
+          const coreNavCount=[...document.querySelectorAll('.desktop-nav a')].filter(a=>['/journal','/p/wiki','/p/note','/pro','/p/pan'].includes(a.getAttribute('href'))).length;
+          const switcherCount=document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length;
           return {
             title:document.title,
             scrollWidth:document.documentElement.scrollWidth,
@@ -43,8 +45,8 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
               return nearViewport&&(i.currentSrc||i.loading!=='lazy')&&(!i.complete||!i.naturalWidth);
             }).map(i=>(i.currentSrc||i.getAttribute('src')||'(missing-src)').slice(0,160)),
             images:imgs.length,
-            platformButtons:[...document.querySelectorAll('.desktop-nav a')].filter(a=>['/journal','/p/wiki','/p/note','/pro','/p/pan'].includes(a.getAttribute('href'))).length,
-            duplicateNav:!!document.querySelector('#lawygoPlatformSwitcher'),
+            platformButtons:Math.max(coreNavCount,switcherCount),
+            duplicateNav:coreNavCount===5 && switcherCount>0,
             wikiPanelCount:document.body.dataset.product==='wiki'?document.querySelectorAll('#lawygo-wiki-dashboard [data-lw26-panel]').length:null,
             noteEditor:document.body.dataset.product==='note'?!!document.getElementById('noteDraftContent'):null,
             deliveryCards:document.querySelectorAll('.delivery-feature').length,
