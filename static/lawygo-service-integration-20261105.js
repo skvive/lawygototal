@@ -44,6 +44,8 @@
       text.textContent = '공개 검수된 법률자료만 이 화면에서 불러옵니다. 원본 AI 백과의 민감한 프로젝트 데이터와는 연결되지 않습니다.';
       source.hidden = true;
       source.removeAttribute('href');
+      const detailPage = $('lawygoWikiOpenDetail');
+      if (detailPage) { detailPage.hidden = true; detailPage.removeAttribute('href'); }
       copy.disabled = true;
       send.disabled = true;
     };
@@ -64,6 +66,14 @@
         text.textContent = activePost.body;
         source.href = activePost.url;
         source.hidden = false;
+        const detailPage = $('lawygoWikiOpenDetail');
+        if (detailPage) {
+          detailPage.href = '/p/wiki?id=' + encodeURIComponent(String(item.id));
+          detailPage.hidden = false;
+        }
+        if (window.matchMedia('(max-width: 1100px)').matches) {
+          $('wiki-detail-panel')?.scrollIntoView({behavior:'smooth',block:'start'});
+        }
         copy.disabled = false;
         send.disabled = false;
         show('공개자료를 불러왔습니다. 최신 법령·판례 원문을 별도로 확인하세요.');
