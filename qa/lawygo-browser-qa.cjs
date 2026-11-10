@@ -117,6 +117,26 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     const imported=await w.locator('#noteDraftContent').inputValue();
     interactions.push({test:'wiki-to-note-public-citation-only',pass:imported.includes('【WIKI 공개자료 참고】')&&imported.includes('공개 법률정보 테스트')});
   } catch(e) { interactions.push({test:'wiki-note-integrated-workspace',pass:false,error:String(e).slice(0,260)})}
+  // New production-style 5-panel WIKI UI: public data search and mobile navigation.
+  try {
+    await w.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
+    const panelCount=await w.locator('#lawygo-wiki-dashboard [data-lw26-panel]').count();
+    interactions.push({test:'wiki-workbench-five-panels',pass:panelCount===5});
+    interactions.push({test:'wiki-workbench-deduplicated-header',pass:await w.locator('#lawygoPlatformSwitcher').isHidden()&&await w.locator('[data-brand-shell="header"]').isHidden()});
+    await w.locator('#lw26-keyword').fill('민법');
+    await w.locator('#lw26-searchform button[type="submit"]').click();
+    await w.waitForFunction(()=>document.getElementById('lw26-total')?.textContent==='1',null,{timeout:8000});
+    interactions.push({test:'wiki-workbench-public-search-api',pass:(await w.locator('#lw26-total').textContent())==='1'});
+    await w.locator('#lw26-results button.lw26-result').first().click();
+    await w.waitForFunction(()=>document.getElementById('lw26-reader-content')?.textContent==='본문 열기 정상 검증',null,{timeout:8000});
+    interactions.push({test:'wiki-workbench-reader-details',pass:(await w.locator('#lw26-reader-title').textContent())==='공개 법률정보 테스트'});
+    await w.locator('[data-lw26-tab="proof"]').click();
+    const mobileProof=await w.locator('[data-lw26-panel="proof"]').isVisible();
+    await w.locator('#lw26-memo').fill('공개자료 출처 검증 필요');
+    interactions.push({test:'wiki-workbench-mobile-proof-memo',pass:mobileProof&&(await w.locator('#lw26-memo').inputValue())==='공개자료 출처 검증 필요'});
+    interactions.push({test:'wiki-workbench-external-ai-gated',pass:(await w.locator('#lw26-ai-launch').getAttribute('href')).startsWith('https://lawygo.vercel.app/board/ai/legal_encyclopedia')});
+  } catch(e) { interactions.push({test:'wiki-workbench-integration',pass:false,error:String(e).slice(0,320)}); }
+
   await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
   try{
     await w.locator('[data-note-template="case"]').click();
