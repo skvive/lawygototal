@@ -27,3 +27,6 @@ body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,9vw,128px);letter-s
 body[data-page=pro] .lawygo-pro-copy h2{font-size:clamp(24px,2.5vw,36px);margin-bottom:14px}
 body[data-page=pro] .lawygo-pro-copy p{margin-bottom:30px}
 @media(max-width:720px){body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,18vw,94px)}}
+
+/* Fill the viewport below the single mobile header; avoid an empty white band. */
+@media(max-width:720px){body[data-page=pro] .lawygo-pro-hero{min-height:calc(100svh - 66px)}}
