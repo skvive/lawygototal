@@ -12,7 +12,9 @@ for name in pages:
     assert r'\n</head>' not in html, "Literal escaped newline before head close: "+name
 css=(root/"static/lawygo-design-fix-20261104.css").read_text(encoding="utf-8")
 home=(root/"static/index.html").read_text(encoding="utf-8")
-assert 'height="800" loading="eager"' in home, "Editorial artwork must load before showing empty space."
+assert 'class="hero-bg hero-global"' in home and 'class="ly-catalog"' in home, "Compact homepage needs hero and one service catalogue."
+assert home.count('class="ly-catalog-body"') == 5, "Exactly five service cards must remain."
+assert 'class="product-grid"' not in home and 'class="home-bridge"' not in home, "Duplicate service sections must remain removed."
 assert "lawygo-hero-premium-20261104.webp" in css, "Editorial image CSS fallback missing."
 assert 'max-width:680px' in css
 assert 'legal-knowledge-city.webp' in css
