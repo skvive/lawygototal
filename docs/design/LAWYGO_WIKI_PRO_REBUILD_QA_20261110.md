@@ -33,11 +33,11 @@
 - [x] Both HTML files contain matching numbers of `section` open/close tags.
 - [x] Responsive CSS breakpoints for 1100 / 800 / 500 widths, focus-visible, reduced motion.
 - [x] Reuse of actual public search endpoint; no synthetic search results.
-- [ ] GitHub Actions 52-screenshot website QA from pull request.
-- [ ] Vercel staging/preview deployment READY and URL confirmed.
-- [ ] Real mobile/desktop visual inspection at 360 / 390 / 768 / 1440.
+- [x] GitHub Actions 52-screenshot website QA: success (`42732730980`, 2026-11-10), 0 critical errors.
+- [x] Vercel isolated preview READY: `https://lawygototal-rerand-m1npcydyq-shinkang888-codes-projects.vercel.app` (`dpl_DVsRtjZzBbJteXhehcjJJosxPyed`, SHA `45fe010`).
+- [x] GitHub Actions local-server screenshots inspected for WIKI + PRO at 360 / 390 / 768 / 1440; no broken images or page overflow reported.
 - [ ] Validate external LAWYGO /login and /platform availability in authenticated browser.
-- [ ] Production promotion only after passing gates.
+- [ ] Production promotion deliberately held: project includes `lawygo.com` and `lawygo.lexid.site` domains; verify original PRO root routing and authenticated platform remain unchanged before merging or aliasing.
 
 ## Known constraints
 - Private `shinkangteam/lawygo` Next.js source, AI prompt logs, personal cases and customer files were not copied into the public `skvive/lawygototal` repository.
@@ -45,3 +45,9 @@
 - `lawygo.com` product page content was source-mapped, not directly scraped and pasted with any false operational/QA metrics.
 - Current branch does **not** change Neon/Auth migrations, OAuth callback, payment, server APIs or live data.
 - New SVG is an editable UI visualization; it is a concept, not a screenshot or a legally verified document.
+
+## CI and output
+- GitHub visual QA: https://github.com/skvive/lawygototal/actions/runs/42732730980
+- GitHub brand/PAN QA: https://github.com/skvive/lawygototal/actions/runs/42732730793
+- Preview `/p/wiki` and `/pro` share same revision; Vercel Preview access may be restricted by deployment protection.
+- QA artifacts: `lawygo-website-52-screenshots-and-qa` (52 screenshots + result.json; attached to workflow run).
