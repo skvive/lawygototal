@@ -21,3 +21,9 @@ body[data-page=pro] .lawygo-pro-art img{display:block;width:100%;height:auto;obj
 @media(max-width:720px){body[data-page=pro] .lawygo-pro-onepage,body[data-page=pro] .lawygo-pro-hero{min-height:0}body[data-page=pro] .lawygo-pro-content{width:calc(100% - 42px);grid-template-columns:1fr;gap:0;min-height:0}body[data-page=pro] .lawygo-pro-copy{padding:64px 0 12px}body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(54px,14vw,86px)}body[data-page=pro] .lawygo-pro-copy h2{font-size:25px}body[data-page=pro] .lawygo-pro-copy p{font-size:14px;max-width:500px}body[data-page=pro] .lawygo-pro-art{width:115%;max-height:360px;margin:0 0 -8px -8%;overflow:hidden}body[data-page=pro] .lawygo-pro-art img{height:auto;max-height:370px;object-fit:contain}body[data-page=pro] .lawygo-pro-start{min-height:56px;min-width:224px}}
 @media(max-width:390px){body[data-page=pro] .lawygo-pro-copy h1{font-size:51px}body[data-page=pro] .lawygo-pro-content{width:calc(100% - 28px)}}
 @media(prefers-reduced-motion:reduce){body[data-page=pro] .lawygo-pro-start{transition:none}}
+
+/* Compact brand hierarchy: brand is already shown in the global header. */
+body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,9vw,128px);letter-spacing:-.055em;margin-bottom:12px}
+body[data-page=pro] .lawygo-pro-copy h2{font-size:clamp(24px,2.5vw,36px);margin-bottom:14px}
+body[data-page=pro] .lawygo-pro-copy p{margin-bottom:30px}
+@media(max-width:720px){body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,18vw,94px)}}
