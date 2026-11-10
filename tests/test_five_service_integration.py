@@ -29,13 +29,19 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         from journal_feed import FEEDS
         self.assertTrue(any(x["source"] == "위클리뉴스" and x["url"] == "https://weeklynews.me/feed.xml" for x in FEEDS))
 
-    def test_wiki_native_reader_is_in_page(self):
+    def test_wiki_single_dashboard_and_editor(self):
         wiki = read("static/wiki.html")
-        for ident in ("wiki-native-workspace", "lawygoWikiStudioForm", "lawygoWikiStudioResults",
-                      "lawygoWikiStudioBody", "lawygoWikiStudioCopy", "lawygoWikiStudioSend"):
-            self.assertIn(f'id="{ident}"', wiki)
-        self.assertIn('href="#wiki-native-workspace"', wiki)
-        self.assertNotIn('target="_blank" rel="noopener noreferrer">고급 법률백과', wiki)
+        self.assertIn('id="lawygo-wiki-dashboard"', wiki)
+        self.assertIn('id="lw26-editor"', wiki)
+        self.assertIn('id="lw26-edit-toggle"', wiki)
+        self.assertIn('id="lw26-searchform"', wiki)
+        self.assertIn('lw26-editor-20261110.js', wiki)
+        self.assertNotIn('id="wiki-native-workspace"', wiki)
+        self.assertNotIn('class="hero hero-dark"', wiki)
+        self.assertIn('data-brand-shell="header"', wiki)
+        editor = read("static/lawygo-wiki-editor-20261110.js")
+        for marker in ("localStorage", "pointerdown", "dragstart", "maximized", "minimized", "lw26-editor-save"):
+            self.assertIn(marker, editor)
 
     def test_note_native_editor_reuses_original_handlers(self):
         note = read("static/note.html")
@@ -58,13 +64,23 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn('id="pan-legal-player"', pan)
         self.assertIn('id="pan-legal-player-close"', pan)
 
-    def test_pro_mirrors_official_product_overview_not_private_app(self):
+    def test_pro_single_hero_official_login(self):
         pro = read("static/pro.html")
-        for ident in ("pro-source-home", "pro-source-title", "pro-features", "pro-ai", "pro-login"):
-            self.assertIn(f'id="{ident}"', pro)
-        self.assertIn("대한민국 법원", pro)
-        self.assertIn("https://www.lawygo.com/", pro)
+        self.assertIn('id="lawygoProHero"', pro)
+        self.assertIn('id="lawygoProStart"', pro)
+        self.assertIn('href="https://www.lawygo.com/login"', pro)
+        self.assertIn('target="_blank" rel="noopener noreferrer"', pro)
+        self.assertIn('/static/img/design/lawygo-pro-hero-20261110.svg', pro)
+        self.assertNotIn('id="pro-program-map"', pro)
+        self.assertNotIn('id="pro-features"', pro)
         self.assertNotIn("123-45-67890", pro)
+
+    def test_note_removes_marketing_but_keeps_working_document_editor(self):
+        note = read("static/note.html")
+        self.assertNotIn('class="ly-premiere"', note)
+        self.assertNotIn('id="note-ai-tools"', note)
+        for marker in ('id="note-chat-workspace"', 'id="note-native-workspace"', 'id="note-editor"'):
+            self.assertIn(marker, note)
 
     def test_shared_static_assets_present_and_no_private_data_sync(self):
         css = read("static/lawygo-service-integration-20261105.css")
@@ -81,8 +97,9 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         for path in ("journal", "wiki", "pan", "note", "pro"):
             html = read(f"static/{path}.html")
             self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3"', html)
-        for path in ("wiki", "pan", "note"):
+        for path in ("pan", "note"):
             self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261105-designrefresh3"', read(f"static/{path}.html"))
+        self.assertIn("lw26-editor-20261110.js", read("static/wiki.html"))
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ try{
    const r=await page.goto('http://127.0.0.1:8018'+route,{waitUntil:'domcontentloaded'});
    const v=await page.evaluate(()=>{
     const cols=(s)=>{const e=document.querySelector(s);return e?getComputedStyle(e).gridTemplateColumns.trim().split(' ').filter(Boolean).length:0};
-    return {cols:cols('.product-grid'),catalog:cols('.ly-catalog'),wikiImage:getComputedStyle(document.querySelector('.hero-bg')).backgroundImage.includes('legal-knowledge-city.webp'), wikiLink:!!document.querySelector('.ly-wiki-hero-actions a[href="#wiki-search-form"]'),rev:document.querySelector('meta[name="lawygo-design-revision"]')?.content,overflow:document.documentElement.scrollWidth>innerWidth+3};
+    return {cols:cols('.product-grid'),catalog:cols('.ly-catalog'),wikiImage:!!document.querySelector('#lw26-zero img[src="/static/img/design/lawygo-wiki-study-20261110.svg"]'), wikiLink:!!document.querySelector('#lw26-edit-toggle')&&!!document.querySelector('#lawygoPlatformSwitcher'),rev:document.querySelector('meta[name="lawygo-design-revision"]')?.content,overflow:document.documentElement.scrollWidth>innerWidth+3};
    });
    if(r.status()!==200||v.overflow||v.rev!=='20261105-designrefresh3'||(route==='/'&&width<=412&&(v.cols!==1||v.catalog!==1))||(route==='/p/wiki'&&(!v.wikiImage||!v.wikiLink)))throw Error(JSON.stringify({route,width,...v}));
   }
