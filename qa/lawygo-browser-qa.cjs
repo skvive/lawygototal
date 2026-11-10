@@ -117,6 +117,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
 
   await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
   try{
+    await w.locator('[data-ln26-view="document"]').click();
     await w.locator('[data-note-template="case"]').click();
     const content=await w.locator('#noteDraftContent').inputValue();
     interactions.push({test:'note-template-load',pass:content.includes('[확인된 사실]')});
@@ -130,6 +131,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   try {
     await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
     interactions.push({test:'note-chat-present',pass:await w.locator('#lnw-chat-form').isVisible()});
+    interactions.push({test:'note-single-view-ai',pass:await w.locator('.note-essential-editor').isHidden()});
     await w.locator('[data-lnw-mode="draft"]').click();
     await w.locator('#lnw-chat-input').fill('고용계약 검토용 의견서 초안');
     await w.locator('#lnw-chat-send').click();
@@ -145,7 +147,14 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   }catch(e){interactions.push({test:'note-chat-ui',pass:false,error:String(e).slice(0,250)})}
   // US law firm editorial feed keeps Korean summary and original English title.
   try {
-    await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
+    // NOTE keeps two working modes but never stacks all historical pages by default.
+  await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
+  interactions.push({test:'note-one-active-screen',pass:await w.locator('#note-chat-workspace').isVisible()&&await w.locator('#note-native-workspace').isHidden()&&await w.locator('.note-essential-editor').isHidden()});
+  await w.locator('[data-ln26-view="document"]').click();
+  interactions.push({test:'note-editor-tab',pass:await w.locator('#note-native-workspace').isVisible()&&await w.locator('#note-editor').isVisible()&&await w.locator('#note-chat-workspace').isHidden()});
+  await w.goto(BASE+'/p/note#note-native-workspace',{waitUntil:'domcontentloaded'});
+  interactions.push({test:'note-deeplink-editor',pass:await w.locator('#note-editor').isVisible()});
+  await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
     await w.waitForSelector('#pan-us-post-cards .pan-us-card',{timeout:17000});
     interactions.push({test:'pan-us-real-lawfirm-korean-cards',pass:await w.locator('#pan-us-post-cards .pan-us-card').count()>=6});
     await w.locator('#pan-us-post-cards .pan-us-card').first().click();

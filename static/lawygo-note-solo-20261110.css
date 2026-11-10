@@ -1,0 +1,14 @@
+/* LAWYGO NOTE single-workspace view without removing operating tools */
+body[data-product=note] .ln26-modebar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px max(24px,calc((100% - 1320px)/2));background:#fff;border-bottom:1px solid #e6ebf2;box-shadow:0 4px 12px #0b203807}
+body[data-product=note] .ln26-modebar>div:first-child{display:flex;flex-direction:column;gap:3px}
+body[data-product=note] .ln26-modebar strong{font-size:14px;letter-spacing:.08em;color:#182d46}
+body[data-product=note] .ln26-modebar span{color:#748298;font-size:11px}
+body[data-product=note] .ln26-mode-actions{display:flex;gap:7px}
+body[data-product=note] .ln26-mode-actions button{min-height:39px;border-radius:9px;border:1px solid #d3dce8;background:#fff;font-size:12px;font-weight:800;color:#35506e;padding:8px 14px;white-space:nowrap}
+body[data-product=note] .ln26-mode-actions button[aria-pressed=true]{background:#162d4b;border-color:#162d4b;color:#fff}
+body[data-product=note] .ln26-mode-actions button:focus-visible{outline:3px solid #b98e59;outline-offset:2px}
+body[data-product=note] #note-native-workspace,body[data-product=note] .note-essential-editor{display:none!important}
+body[data-product=note][data-note-view=document] #note-chat-workspace{display:none!important}
+body[data-product=note][data-note-view=document] #note-native-workspace,body[data-product=note][data-note-view=document] .note-essential-editor{display:block!important}
+body[data-product=note][data-note-view=document] .note-essential-editor{padding-top:24px;padding-bottom:42px}
+@media(max-width:650px){body[data-product=note] .ln26-modebar{padding:12px 14px;flex-wrap:wrap}body[data-product=note] .ln26-modebar>div:first-child{width:100%}body[data-product=note] .ln26-mode-actions{width:100%}body[data-product=note] .ln26-mode-actions button{flex:1;padding:9px 7px}}
