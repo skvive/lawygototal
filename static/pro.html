@@ -1,68 +1,80 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="LAWYGO PRO — 전문 송무 업무 플랫폼, 공식 프로그램 바로가기">
-  <title>LAWYGO PRO · 송무 업무 플랫폼</title>
-  <link rel="canonical" href="https://lawygo.lexid.site/pro">
-  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/static/atlas/site.css?v=20261105-designrefresh3">
-  <link rel="stylesheet" href="/static/atlas/overrides.css?v=20261105-designrefresh3">
-  <link rel="stylesheet" href="/static/lawygo-premium-20261101.css?v=20261105-designrefresh3">
-  <link rel="stylesheet" href="/static/platform-switcher.css?v=20261105-designrefresh3">
-  <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3">
-  <link rel="stylesheet" href="/static/pro-hero-refresh-20261110.css?v=2">
-  <style>
-    body[data-page="pro"] {background:#081828}
-    body[data-page="pro"] #main-content {min-height:calc(100dvh - 110px);background:#081828}
-    body[data-page="pro"] .pro-source-home {min-height:calc(100dvh - 110px);display:flex;align-items:center;padding:clamp(45px,6vw,86px) 0}
-    body[data-page="pro"] .pro-source-home>.pro-source-wrap {width:min(1360px,calc(100% - 80px))}
-    body[data-page="pro"] .pro-source-hero {margin:0;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:clamp(28px,5vw,85px)}
-    body[data-page="pro"] .pro-source-wordmark {display:inline-flex;margin:0 0 28px;gap:12px}
-    body[data-page="pro"] .pro-source-hero h1 {margin:16px 0 22px;font-size:clamp(38px,4.3vw,67px)}
-    body[data-page="pro"] .pro-source-actions {margin-top:30px}
-    body[data-page="pro"] .pro-source-actions a:first-child {min-width:270px;min-height:61px;font-size:16px}
-    body[data-page="pro"] .pro-hero-media {min-height:clamp(340px,39vw,570px)}
-    body[data-page="pro"] .pro-hero-media img {object-position:65% 50%}
-    @media(max-width:780px) {
-      body[data-page="pro"] .pro-source-home {min-height:calc(100svh - 90px);padding:35px 0 52px}
-      body[data-page="pro"] .pro-source-home>.pro-source-wrap {width:calc(100% - 34px)}
-      body[data-page="pro"] .pro-source-hero {grid-template-columns:1fr;gap:27px}
-      body[data-page="pro"] .pro-source-wordmark {margin-bottom:22px}
-      body[data-page="pro"] .pro-hero-media {min-height:clamp(265px,70vw,400px)}
-      body[data-page="pro"] .pro-source-actions a:first-child {width:100%;min-width:0}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="LAWYGO PRO 공식 송무 업무 플랫폼">
+<title>LAWYGO PRO · 법률 지능의 미래</title>
+<link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+<link rel="canonical" href="https://lawygo.lexid.site/pro">
+<style>
+:root {color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:'Noto Sans KR','Malgun Gothic',system-ui,sans-serif}
+body{background:#061626;color:#fff}
+a{color:inherit;text-decoration:none}
+.pro-hero{
+  isolation:isolate;position:relative;min-height:100svh;min-height:100dvh;
+  display:flex;flex-direction:column;overflow:hidden;
+  background:#061626 url('/static/img/design/lawygo-pro-courthouse-fullbleed-20261111.svg') center center/cover no-repeat;
+}
+.pro-hero:before{content:"";pointer-events:none;position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(4,16,30,.70),rgba(4,16,30,.18) 57%,transparent 85%);
+}
+.pro-top,.pro-main{width:min(1420px,calc(100% - 112px));margin-inline:auto}
+.pro-top{padding-top:clamp(26px,4vw,48px)}
+.pro-logo{display:inline-flex;align-items:center;gap:14px;font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(21px,2.1vw,28px);font-weight:750;letter-spacing:.03em;line-height:1}
+.pro-logo img{width:48px;height:48px;padding:4px;object-fit:contain;border-radius:10px;background:#edf1f5}
+.pro-logo small{display:block;font:700 9px/1.6 system-ui,sans-serif;color:#c9a573;letter-spacing:.24em;margin-top:6px}
+.pro-main{flex:1;display:flex;align-items:center;padding:clamp(70px,9vh,145px) 0 clamp(85px,12vh,145px)}
+.pro-copy{max-width:760px;position:relative;z-index:1}
+.pro-eyebrow{margin:0 0 24px;display:flex;align-items:center;gap:13px;
+ font-size:clamp(10px,1.1vw,13px);font-weight:850;color:#e6bf83;letter-spacing:.23em}
+.pro-eyebrow:before{content:"";display:block;width:31px;height:2px;background:#d7aa6d}
+.pro-copy h1{font-size:clamp(45px,5.2vw,83px);line-height:1.24;letter-spacing:-.07em;
+ font-weight:800;margin:0 0 23px;text-shadow:0 6px 30px #06162690;word-break:keep-all}
+.pro-copy h1 em{font-style:normal;color:#f1cc94}
+.pro-copy p{font-size:clamp(14px,1.3vw,17px);color:#d3dce2;line-height:1.9;
+ word-break:keep-all;margin:0 0 34px;text-shadow:0 4px 20px #061626d0}
+.pro-launch{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;
+ border:1px solid #fff0cb;min-height:63px;padding:16px 26px;border-radius:11px;
+ color:#172a3d;background:linear-gradient(115deg,#fce8c4,#d9aa6f);
+ font-size:clamp(14px,1.25vw,17px);font-weight:850;letter-spacing:-.02em;
+ box-shadow:0 19px 55px #0005;transition:transform .2s,filter .2s}
+.pro-launch:hover{transform:translateY(-3px);filter:brightness(1.07)}
+.pro-launch:focus-visible,.pro-logo:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.pro-launch span{font-size:22px;font-weight:500}
+@media(max-width:780px){
+ .pro-hero{background-position:65% center}
+ .pro-hero:before{background:linear-gradient(180deg,#041324e8 4%,#041324ce 37%,#0616264a 67%,#041324a8 100%)}
+ .pro-top,.pro-main{width:calc(100% - 44px)}
+ .pro-top{padding-top:26px}.pro-logo img{width:41px;height:41px}
+ .pro-main{align-items:flex-start;padding:clamp(54px,10vh,100px) 0 120px}
+ .pro-copy h1{font-size:clamp(36px,9vw,56px);max-width:580px}
+ .pro-copy p{max-width:440px;font-size:14px}
+ .pro-launch{width:min(100%,360px);min-height:59px}
+}
+@media(max-width:380px){.pro-copy h1{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.pro-launch{transition:none}}
+</style>
 </head>
-<body class="atlas-page" data-page="pro">
-  <div data-brand-shell="header"></div>
-  <main id="main-content">
-    <section class="pro-source-home" id="pro-source-home" aria-labelledby="pro-source-title">
-      <div class="pro-source-wrap">
-        <div class="pro-source-hero">
-          <div class="pro-hero-copy">
-            <a class="pro-source-wordmark" href="/" aria-label="LAWYGO 메인으로 이동">
-              <img src="/static/logo.svg" alt="" aria-hidden="true" width="44" height="44">
-              <span class="pro-source-wordmark-text">LAWYGO <b>PRO</b></span>
-            </a>
-            <span class="pro-source-eyebrow">AI LITIGATION INFRASTRUCTURE</span>
-            <h1 id="pro-source-title">법률 지능의 미래를<br>대한민국 법원에서<br>시작합니다.</h1>
-            <p>사건·기일·문서·결재를 한곳에서 관리하는 LAWYGO PRO 송무 업무 플랫폼.</p>
-            <div class="pro-source-actions">
-              <a href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer" aria-label="LAWYGO PRO 공식 프로그램 로그인 새 창 열기">LAWYGO PRO 바로가기 ↗</a>
-            </div>
-            <p class="pro-hero-disclaimer">공식 프로그램에서 별도로 로그인합니다.</p>
-          </div>
-          <figure class="pro-hero-media">
-            <img src="/static/img/design/lawygo-hero-premium-20261104.webp" width="1600" height="900" alt="LAWYGO PRO 법률 AI 플랫폼 프리미엄 히어로 이미지" fetchpriority="high" decoding="async">
-            <figcaption><span>LAWYGO / LEGAL INTELLIGENCE</span><strong>한국 법률 업무를 위한 새로운 기준</strong></figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
+<body>
+<section class="pro-hero" aria-labelledby="pro-title">
+  <div class="pro-top">
+    <a class="pro-logo" href="/" aria-label="LAWYGO 메인으로 돌아가기">
+      <img src="/static/logo.svg" alt="" width="48" height="48">
+      <span>LAWYGO <small>LEGAL INTELLIGENCE · PRO</small></span>
+    </a>
+  </div>
+  <main id="main-content" class="pro-main">
+    <div class="pro-copy">
+      <div class="pro-eyebrow">LAWYGO PRO · LEGAL INTELLIGENCE</div>
+      <h1 id="pro-title">법률 지능의 미래를<br><em>대한민국 법원에서</em><br>시작합니다.</h1>
+      <p>법률 전문가를 위한 AI 기반 송무 업무 플랫폼</p>
+      <a class="pro-launch" href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer" aria-label="로이고 PRO 공식 프로그램 로그인 열기">LAWYGO PRO 바로가기 <span aria-hidden="true">↗</span></a>
+    </div>
   </main>
-  <script src="/static/brand-shell.js?v=20261105-designrefresh3"></script>
-  <script src="/static/platform-switcher.js?v=20261105-designrefresh3" defer></script>
+</section>
 </body>
 </html>
