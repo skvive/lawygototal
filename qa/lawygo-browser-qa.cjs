@@ -25,6 +25,8 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
         metrics=await page.evaluate(()=>{
           const w=window.innerWidth;const imgs=[...document.images];
           const fields=[...document.querySelectorAll('input:not([type=hidden]),select,textarea')];
+          const coreNavCount=[...document.querySelectorAll('.desktop-nav a')].filter(a=>['/journal','/p/wiki','/p/note','/pro','/p/pan'].includes(a.getAttribute('href'))).length;
+          const switcherCount=document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length;
           return {
             title:document.title,
             scrollWidth:document.documentElement.scrollWidth,
@@ -43,8 +45,9 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
               return nearViewport&&(i.currentSrc||i.loading!=='lazy')&&(!i.complete||!i.naturalWidth);
             }).map(i=>(i.currentSrc||i.getAttribute('src')||'(missing-src)').slice(0,160)),
             images:imgs.length,
-            platformButtons:document.querySelectorAll('#lawygoPlatformSwitcher .lawygo-switcher-link').length,
-            wikiTopicButtons:document.body.dataset.product==='wiki'?document.querySelectorAll('[data-wiki-topic]').length:null,
+            platformButtons:Math.max(coreNavCount,switcherCount),
+            duplicateNav:coreNavCount===5 && switcherCount>0,
+            wikiPanelCount:document.body.dataset.product==='wiki'?document.querySelectorAll('#lawygo-wiki-dashboard [data-lw26-panel]').length:null,
             noteEditor:document.body.dataset.product==='note'?!!document.getElementById('noteDraftContent'):null,
             deliveryCards:document.querySelectorAll('.delivery-feature').length,
             tinyDeliveryMedia:[...document.querySelectorAll('.delivery-feature-media')].filter(e=>e.getBoundingClientRect().height<112).length,
@@ -58,7 +61,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
             primaryButtons:[...document.querySelectorAll('.hero-buttons .btn')].filter(e=>e.getBoundingClientRect().height<40).length,
             main:!!document.querySelector('main,[role=main]'),
             homeHeroImage:document.body.dataset.page==='home' ? getComputedStyle(document.querySelector('.hero-bg.hero-global')).backgroundImage : null,
-            homeFirstContentGap:document.body.dataset.page==='home' ? Math.round(document.querySelector('.cream .sec-heading').getBoundingClientRect().top-document.querySelector('.cream').getBoundingClientRect().top) : null,
+            homeFirstContentGap:document.body.dataset.page==='home' ? Math.round(document.querySelector('.ly-showcase .ly-section-head')?.getBoundingClientRect().top-document.querySelector('.ly-showcase')?.getBoundingClientRect().top) : null,
             homeHeroHeight:document.body.dataset.page==='home' ? Math.round(document.querySelector('.hero').getBoundingClientRect().height) : null,
             h1:document.querySelectorAll('h1').length,
             unlabeledFields:fields.filter(x=>!x.labels?.length&&!x.getAttribute('aria-label')&&!x.getAttribute('placeholder')).map(x=>x.outerHTML.slice(0,120))
@@ -86,39 +89,38 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   const w = await browser.newPage({viewport:{width:390,height:844}});
   await w.route('**/api/wiki/search**',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({items:[{id:'qa-reader-article',title:'공개 법률정보 테스트',summary:'검색 결과에서 상세내용을 열어야 합니다.',kind:'encyclopedia'}]})}));
   await w.route('**/api/posts/qa-reader-article',async route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'qa-reader-article',title:'공개 법률정보 테스트',body:'본문 열기 정상 검증',kind:'encyclopedia',updated_at:'2026-11-02'})}));
-  await w.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
+  // Single WIKI workbench; shared header, five-pane editor, public-only API.
   try {
-    await w.locator('#wiki-results button.delivery-textlink').first().click({timeout:12000});
-    const dlg=w.locator('#wikiReader');
-    await w.waitForFunction(() => document.querySelector('#wikiReaderBody')?.textContent === '본문 열기 정상 검증',null,{timeout:8000});
-    const readerBody=await dlg.locator('#wikiReaderBody').textContent();
-    console.log('WIKI_READER_BODY',readerBody);
-    interactions.push({test:'wiki-public-article-detail-dialog',pass:await dlg.isVisible()&&readerBody==='본문 열기 정상 검증'});
-    await w.locator('.delivery-reader-close').click();
-    interactions.push({test:'wiki-reader-close-button',pass:!(await dlg.isVisible())});
-  }catch(e){interactions.push({test:'wiki-reader-click',pass:false,error:String(e).slice(0,250)})}
-  try{
-    await w.locator('[data-wiki-topic="민법"]').click();
-    await w.waitForFunction(()=>document.getElementById('wikiq')?.value==='민법',null,{timeout:5000});
-    interactions.push({test:'wiki-facet-shortcut-search',pass:await w.locator('#wikiq').inputValue()==='민법'});
-    const destination=await w.locator('#lawygoPlatformSwitcher a[href="/p/note"]').getAttribute('href');
-    interactions.push({test:'wiki-to-note-switcher',pass:destination==='/p/note'});
-  }catch(e){interactions.push({test:'wiki-facet-nav',pass:false,error:String(e).slice(0,230)})}
-  // Inline encyclopedia and public citation transfer: original AI secrets remain isolated.
-  try {
-    await w.locator('#lawygoWikiStudioInput').fill('민법');
-    await w.locator('#lawygoWikiStudioForm button[type="submit"]').click();
-    await w.locator('#lawygoWikiStudioResults button.lnw-result').first().click({timeout:8000});
-    await w.waitForFunction(() => document.querySelector('#lawygoWikiStudioBody')?.textContent === '본문 열기 정상 검증',null,{timeout:8000});
-    interactions.push({test:'wiki-native-encyclopedia-search',pass:(await w.locator('#lawygoWikiStudioTitle').textContent())==='공개 법률정보 테스트'});
-    await w.locator('#lawygoWikiStudioSend').click();
-    await w.waitForURL('**/p/note#note-native-workspace',{timeout:8000});
-    await w.locator('#lawygoNoteImportCitation').click();
-    const imported=await w.locator('#noteDraftContent').inputValue();
-    interactions.push({test:'wiki-to-note-public-citation-only',pass:imported.includes('【WIKI 공개자료 참고】')&&imported.includes('공개 법률정보 테스트')});
-  } catch(e) { interactions.push({test:'wiki-note-integrated-workspace',pass:false,error:String(e).slice(0,260)})}
+    await w.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
+    interactions.push({test:'wiki-single-dashboard',pass:await w.locator('main#main-content > section').count()===1&&await w.locator('#lawygo-wiki-dashboard [data-lw26-panel]').count()===5});
+    interactions.push({test:'wiki-common-navigation-visible',pass:await w.locator('[data-brand-shell="header"] .header').isVisible()&&(await w.locator('.desktop-nav a[href="/p/wiki"]').count())===1&&(await w.locator('#lawygoPlatformSwitcher').count())===0});
+    interactions.push({test:'wiki-no-brochure-sections',pass:await w.locator('.hero.hero-dark,.ly-premiere,#wiki-native-workspace,.wiki-knowledge-section').count()===0});
+    await w.locator('#lw26-keyword').fill('민법');
+    await w.locator('#lw26-searchform button[type="submit"]').click();
+    await w.waitForFunction(()=>document.getElementById('lw26-total')?.textContent==='1',null,{timeout:8000});
+    interactions.push({test:'wiki-dashboard-public-search',pass:(await w.locator('#lw26-total').textContent())==='1'});
+    await w.locator('#lw26-results button.lw26-result').first().click();
+    await w.waitForFunction(()=>document.getElementById('lw26-reader-content')?.textContent==='본문 열기 정상 검증',null,{timeout:8000});
+    interactions.push({test:'wiki-dashboard-public-reader',pass:(await w.locator('#lw26-reader-title').textContent())==='공개 법률정보 테스트'});
+    await w.locator('[data-lw26-tab="proof"]').click();
+    interactions.push({test:'wiki-mobile-proof-tab',pass:await w.locator('[data-lw26-panel="proof"]').isVisible()});
+    await w.locator('#lw26-edit-toggle').click();
+    interactions.push({test:'wiki-editor-open',pass:await w.locator('#lw26-editor').isVisible()});
+    await w.locator('[data-lw26-width="document"]').evaluate(el=>{el.value='50';el.dispatchEvent(new Event('input',{bubbles:true}))});
+    interactions.push({test:'wiki-editor-width-change',pass:(await w.locator('[data-lw26-width-label="document"]').textContent())==='50%'});
+    await w.locator('#lw26-editor-save').click();
+    await w.reload({waitUntil:'domcontentloaded'});
+    await w.locator('#lw26-edit-toggle').click();
+    interactions.push({test:'wiki-editor-storage-restored',pass:await w.locator('[data-lw26-width="document"]').inputValue()==='50'});
+    await w.locator('#lw26-editor-reset').click();
+    interactions.push({test:'wiki-editor-reset',pass:await w.locator('[data-lw26-width="document"]').inputValue()==='34'});
+    await w.locator('#lw26-editor-cancel').click();
+    interactions.push({test:'wiki-external-ai-auth-gateway',pass:(await w.locator('#lw26-ai-launch').getAttribute('href')).startsWith('https://lawygo.vercel.app/board/ai/legal_encyclopedia')});
+  } catch(e) { interactions.push({test:'wiki-dashboard-editor-qa',pass:false,error:String(e).slice(0,400)}); }
+
   await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
   try{
+    await w.locator('[data-ln26-view="document"]').click();
     await w.locator('[data-note-template="case"]').click();
     const content=await w.locator('#noteDraftContent').inputValue();
     interactions.push({test:'note-template-load',pass:content.includes('[확인된 사실]')});
@@ -132,6 +134,7 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   try {
     await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
     interactions.push({test:'note-chat-present',pass:await w.locator('#lnw-chat-form').isVisible()});
+    interactions.push({test:'note-single-view-ai',pass:await w.locator('.note-essential-editor').isHidden()});
     await w.locator('[data-lnw-mode="draft"]').click();
     await w.locator('#lnw-chat-input').fill('고용계약 검토용 의견서 초안');
     await w.locator('#lnw-chat-send').click();
@@ -147,7 +150,14 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
   }catch(e){interactions.push({test:'note-chat-ui',pass:false,error:String(e).slice(0,250)})}
   // US law firm editorial feed keeps Korean summary and original English title.
   try {
-    await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
+    // NOTE keeps two working modes but never stacks all historical pages by default.
+  await w.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
+  interactions.push({test:'note-one-active-screen',pass:await w.locator('#note-chat-workspace').isVisible()&&await w.locator('#note-native-workspace').isHidden()&&await w.locator('.note-essential-editor').isHidden()});
+  await w.locator('[data-ln26-view="document"]').click();
+  interactions.push({test:'note-editor-tab',pass:await w.locator('#note-native-workspace').isVisible()&&await w.locator('#note-editor').isVisible()&&await w.locator('#note-chat-workspace').isHidden()});
+  await w.goto(BASE+'/p/note#note-native-workspace',{waitUntil:'domcontentloaded'});
+  interactions.push({test:'note-deeplink-editor',pass:await w.locator('#note-editor').isVisible()});
+  await w.goto(BASE+'/p/pan',{waitUntil:'domcontentloaded'});
     await w.waitForSelector('#pan-us-post-cards .pan-us-card',{timeout:17000});
     interactions.push({test:'pan-us-real-lawfirm-korean-cards',pass:await w.locator('#pan-us-post-cards .pan-us-card').count()>=6});
     await w.locator('#pan-us-post-cards .pan-us-card').first().click();
@@ -180,14 +190,15 @@ const slug = route => route === '/' ? 'home' : route.replace(/^\/|\/$/g,'').repl
     await w.locator('#pan-legal-player-close').click();
     interactions.push({test:'pan-legal-video-close',pass:await w.locator('#pan-legal-player').evaluate(el=>el.hidden)});
     await w.goto(BASE+'/pro',{waitUntil:'domcontentloaded'});
-    interactions.push({test:'pro-official-site-home-mirror',pass:await w.locator('#pro-source-home').count()===1&&(await w.locator('#pro-source-title').textContent()).includes('대한민국 법원')});
-    interactions.push({test:'pro-official-program-links',pass:await w.locator('.pro-program-feature-grid>a').count()===4&&(await w.locator('.pro-program-launch').getAttribute('href'))==='https://www.lawygo.com/login'});
+    interactions.push({test:'pro-single-hero',pass:await w.locator('main#main-content > section').count()===1&&await w.locator('#lawygoProHero').isVisible()});
+    interactions.push({test:'pro-official-login-new-window',pass:await w.locator('#lawygoProStart').getAttribute('href')==='https://www.lawygo.com/login'&&(await w.locator('#lawygoProStart').getAttribute('target'))==='_blank'});
+    interactions.push({test:'pro-no-redundant-sections',pass:await w.locator('#pro-features,#pro-program-map,#pro-modules-heading').count()===0});
     await w.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
     interactions.push({test:'weeklynews-logo-footer-only',pass:await w.locator('footer .journal-weeklynews-credit-link img[src="/static/img/weeklynews-w.svg"]').count()===1&&await w.locator('.weeklynews-partner').count()===0&&await w.locator('.journal-weeklynews-credit-link').getAttribute('aria-label')==='기사 제공: 위클리뉴스 공식 사이트 방문'});
   } catch(e) { interactions.push({test:'source-integration-browser-qa',pass:false,error:String(e).slice(0,260)})}
   await w.close();
   await browser.close();
-  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||(x.route==='/p/wiki'&&x.wikiTopicButtons!==6)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(['\/p\/wiki','\/p\/note','\/pro','\/channel'].includes(x.route)&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
+  const critical=results.filter(x=>x.http!==200||x.error||x.overflow||x.pageErrors.length||x.brokenImages?.length||x.platformButtons!==5||x.duplicateNav||(x.route==='/p/wiki'&&x.wikiPanelCount!==5)||(x.route==='/p/note'&&!x.noteEditor)||x.tinyDeliveryMedia||x.catalogMediaOversize||x.catalogCardsOversize||x.premiereMediaOversize||x.tinyMarketingCTAs||(!x.stylesheetDelivery&&x.route!=='/dashboard')||x.primaryButtons||(x.route==='/channel'&&x.deliveryCards<3)||!x.main||x.h1<1||x.unlabeledFields?.length||(x.route==='/'&&(!x.homeHeroImage?.includes('hero-sunset-20261102.webp')||(x.view==='mobile'&&(x.homeFirstContentGap>85||x.homeHeroHeight>540)))));
   const report={base:BASE,at:new Date().toISOString(),count:results.length,critical:critical.length,results,interactions};
   fs.writeFileSync(path.join(OUT,'result.json'),JSON.stringify(report,null,2));
   console.log('RESULT',JSON.stringify({pages:report.count,critical:critical.map(x=>({view:x.view,route:x.route,error:x.error,overflow:x.overflow,offenders:x.overflowElements,js:x.pageErrors,broken:x.brokenImages,catalogMedia:x.catalogMediaOversize,catalogCards:x.catalogCardsOversize,premiereMedia:x.premiereMediaOversize,tinyCTAs:x.tinyMarketingCTAs,style:x.stylesheetDelivery,main:x.main,h1:x.h1,unlabeled:x.unlabeledFields})),interactions}));

@@ -16,134 +16,147 @@
   <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css?v=wiki-ui2-r20261105-designrefresh3">
   <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3">
   <meta name="lawygo-design-revision" content="20261105-designrefresh3">
+  
+  <link rel="stylesheet" href="/static/lawygo-wiki-dashboard-20261110.css?v=20261105-designrefresh3">
+<link rel="stylesheet" href="/static/lawygo-wiki-editor-20261110.css?v=20261105-designrefresh3">
 </head>
 <body class="atlas-page" data-product="wiki">
   <div data-brand-shell="header"></div>
   <main id="main-content">
-  <section class="hero hero-dark">
-    <div class="hero-bg hero-law"></div>
-    <div class="hero-over"></div>
-    <div class="wrap hero-content">
-      <div>
-        <div class="hero-kicker">LAWYGO WIKI / LEGAL KNOWLEDGE GRAPH</div>
-        <h1>찾는 것을 넘어,<br><i>법리를 연결합니다.</i></h1>
-        <p>국내외 판례와 법령의 핵심 쟁점을 검색하고, 연관된 법리를 함께 살펴보세요.</p>
-        <nav class="ly-wiki-hero-actions" aria-label="법률백과 시작하기">
-          <a href="#wiki-search-form">법률자료 바로 검색 <span aria-hidden="true">↗</span></a>
-          <a href="#wiki-research-architecture">법률 지식 연결 구조 보기</a>
-        </nav>
-      </div>
-    </div>
-  </section>
-  <section class="cream wiki-knowledge-section"><div class="wrap">
-    <div class="portal-intro">
-      <div class="portal-intro-copy"><span class="eyebrow">LAWYGO / LEGAL ENCYCLOPEDIA</span><h2>찾아보고, 비교하고,<br>근거를 검토하는 법률백과</h2><p>원본 로이고법률백과의 <strong>분야·쟁점 탐색, 공개 자료 검색, 상세 읽기</strong> 기능을 아래 연구실에 배치했습니다. 개인 사건 프로젝트·AI 판단 엔진은 별도 인증 환경을 유지합니다.</p>
-      <div class="portal-intro-actions"><a href="#wiki-native-workspace" class="portal-action-primary">이 페이지에서 법률백과 실행 ↗</a><span class="portal-notice">공개 자료 검색·열람은 페이지 내 실행 · 고급 AI는 별도 인증</span></div></div>
-      <div class="portal-intro-image portal-wiki-image" role="img" aria-label="법률 지식과 도시의 연결 구조를 표현한 콘셉트 이미지"></div>
-    </div>
-    <div class="portal-console wiki-console">
-      <aside class="portal-sidebar"><div class="portal-side-kicker">KNOWLEDGE MAP</div><h3>법률 분야별 탐색</h3><p>분야를 선택하면 공개 자료 검색으로 연결됩니다.</p>
-        <div class="portal-topic-list" aria-label="추천 법률 검색어">
-          <button type="button" data-wiki-topic="민법">민법 <span>↗</span></button>
-          <button type="button" data-wiki-topic="형법">형법 <span>↗</span></button>
-          <button type="button" data-wiki-topic="상법">상법 <span>↗</span></button>
-          <button type="button" data-wiki-topic="민사소송">민사소송 <span>↗</span></button>
-          <button type="button" data-wiki-topic="행정법">행정법 <span>↗</span></button>
-          <button type="button" data-wiki-topic="손해배상">손해배상 <span>↗</span></button>
-        </div>
-        <div class="portal-side-art"><img src="/static/img/design/ai-wiki-visual.svg" alt="법률 자료 연결 구조 일러스트" loading="eager"></div>
-        <a class="portal-side-deeplink" href="#wiki-native-workspace">이 페이지의 백과 연구실 ↗</a>
-      </aside>
-      <div class="portal-console-main">
-        <div class="portal-console-title"><div><span class="portal-side-kicker">PUBLIC RESEARCH</span><h3>공개 법률자료 검색</h3></div><span class="portal-live-tag">실제 공개 게시글 API</span></div>
-    <form class="knowledge-search" id="wiki-search-form">
-      <span class="eyebrow">EXPLORE THE LAW</span>
-      <label for="wikiq">어떤 법률정보를 찾고 계신가요?</label>
-      <div><input id="wikiq" name="q" placeholder="예: 공시의무, 손해배상" required><button type="submit">지식 검색 →</button></div>
+<section class="lw26-root" id="lawygo-wiki-dashboard" aria-labelledby="lw26-heading">
+<div class="lw26-queryline">
+    <div class="lw26-querylabel"><span aria-hidden="true">✦</span> <h1 id="lw26-heading">법률백과</h1><span class="lw26-count" id="lw26-counter">WIKI</span></div>
+    <form id="lw26-searchform" class="lw26-searchbar" role="search">
+      <label class="lw26-sr-only" for="lw26-keyword">법률 키워드 입력</label>
+      <input id="lw26-keyword" type="search" maxlength="100" minlength="2" autocomplete="off" placeholder="법률 키워드, 판례, 법령 또는 쟁점을 검색하세요" required>
+      <button class="lw26-searchbtn" type="submit"><span aria-hidden="true">⌕</span> 검색</button>
     </form>
-    <div class="search-layout" style="margin-top:32px">
-      <div class="facet-panel"><h3>결과</h3><small id="wiki-count">0건</small></div>
-      <div id="wiki-results"></div>
-    </div>
-      </div>
-    </div>
-  </div></section>
-
-<section class="lawygo-native-workspace" id="wiki-native-workspace" aria-labelledby="lawygoWikiStudioHead">
-  <div class="lnw-wrap">
-    <div class="lnw-topline">
-      <div><span class="lnw-eyebrow">LAWYGO WIKI / INLINE LEGAL ENCYCLOPEDIA</span>
-        <h2 id="lawygoWikiStudioHead">온라인 법률백과 <span style="color:#b78e58">연구실</span></h2>
-        <p class="lnw-info">원본 온라인 법률백과의 분야 탐색·자료 검색·상세 읽기 흐름을 이 페이지 안에서 실행합니다. 공개·승인 자료만 조회하며, 원본 개인 프로젝트·LLM 분석은 보안상 별도 인증된 엔진에서 관리합니다.</p></div>
-      <span class="lnw-status-pill">공개 자료 조회 · 실제 WIKI API</span>
-    </div>
-    <div class="lnw-grid">
-      <aside class="lnw-side" aria-label="법률백과 분야 검색">
-        <span class="lnw-panel-label">RESEARCH NAVIGATOR</span><h3>법률 분야</h3>
-        <div class="lnw-topic-list">
-          <button type="button" data-legal-workspace-topic="민법">민법</button>
-          <button type="button" data-legal-workspace-topic="형법">형법</button>
-          <button type="button" data-legal-workspace-topic="상법">상법</button>
-          <button type="button" data-legal-workspace-topic="민사소송">민사소송</button>
-          <button type="button" data-legal-workspace-topic="행정법">행정법</button>
-          <button type="button" data-legal-workspace-topic="손해배상">손해배상</button>
-          <button type="button" data-legal-workspace-topic="부동산">부동산</button>
-          <button type="button" data-legal-workspace-topic="지식재산">지식재산</button>
-        </div>
-        <p class="lnw-caption">위키의 법률 온톨로지·AI 순위화 엔진과 이 공개 검색은 서로 다른 실행 경로입니다.</p>
-      </aside>
-      <div class="lnw-center">
-        <span class="lnw-panel-label">PUBLIC DOCUMENT SEARCH</span><h3>법률자료 · 근거 검색</h3>
-        <form id="lawygoWikiStudioForm" role="search">
-          <label class="lnw-caption" for="lawygoWikiStudioInput">법령·판례·쟁점 키워드</label>
-          <div class="lnw-inputrow"><input id="lawygoWikiStudioInput" type="search" placeholder="예: 손해배상, 상속, 부당해고" minlength="2" maxlength="100" required autocomplete="off"><button type="submit">검색 ↗</button></div>
-        </form>
-        <p class="lnw-caption">결과 <strong id="lawygoWikiStudioCount">0건</strong> · 공개 콘텐츠만 표시</p>
-        <div class="lnw-results" id="lawygoWikiStudioResults" role="region" aria-label="법률자료 검색 결과"></div>
-      </div>
-      <aside class="lnw-detail" aria-labelledby="lawygoWikiStudioTitle">
-        <span class="lnw-panel-label">SOURCE REVIEW / READER</span><h3 id="lawygoWikiStudioTitle">검색 결과를 선택하세요</h3>
-        <div class="lnw-article" id="lawygoWikiStudioBody"></div>
-        <a class="lnw-source-link" id="lawygoWikiStudioSource" href="#wiki-native-workspace" rel="noopener noreferrer" target="_blank" hidden>원문·출처 확인 ↗</a>
-        <div class="lnw-toolbar">
-          <button type="button" id="lawygoWikiStudioCopy" disabled>본문 복사</button>
-          <button type="button" id="lawygoWikiStudioSend" disabled>NOTE로 보내기 ↗</button>
-        </div>
-        <p class="lnw-caption" role="status" aria-live="polite" id="lawygoWikiStudioStatus">분야를 선택하거나 검색어를 입력하세요.</p>
-      </aside>
-    </div>
+    <nav class="lw26-categories" aria-label="자료 유형 필터">
+      <button type="button" data-lw26-filter="전체" class="is-active" aria-pressed="true">전체</button>
+      <button type="button" data-lw26-filter="판례" aria-pressed="false">판례</button>
+      <button type="button" data-lw26-filter="법령" aria-pressed="false">법령</button>
+      <button type="button" data-lw26-filter="서식" aria-pressed="false">서식</button>
+      <button type="button" data-lw26-filter="기타자료" aria-pressed="false">기타자료</button>
+      <button type="button" data-lw26-filter="관련법률문서" aria-pressed="false">관련 법률문서</button>
+    </nav>
   </div>
+  <div class="lw26-actionline">
+    <span>LEGAL ENCYCLOPEDIA · LIVE RESEARCH</span>
+    <div class="lw26-action-tools"><button type="button" id="lw26-edit-toggle" aria-expanded="false" aria-controls="lw26-editor">⚙ UI 편집</button><button type="button" id="lw26-ui-toggle" aria-pressed="false">▤ 집중 보기</button><a href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer">원본 연구실 ↗</a></div>
+    <span class="lw26-secure-note">개인 사건 자료는 원본 보안 서비스에서만 취급</span>
+  </div>
+  <div class="lw26-editor" id="lw26-editor" hidden aria-label="법률백과 대시보드 편집">
+    <div class="lw26-editor-intro"><strong>레이아웃 편집</strong><span>패널 표시·순서·폭 조절 · 경계 드래그 · 최대화</span></div>
+    <div class="lw26-editor-list" id="lw26-editor-list"></div>
+    <div class="lw26-editor-actions"><button type="button" id="lw26-editor-save">레이아웃 저장</button><button type="button" id="lw26-editor-reset">기본값 초기화</button><button type="button" id="lw26-editor-cancel">편집 취소</button></div>
+    <p class="lw26-editor-caption">브라우저에만 저장됩니다. 원본 송무프로그램 설정·권한은 바꾸지 않습니다.</p>
+  </div>
+  <nav class="lw26-mobile-tabs" aria-label="모바일 연구 패널 전환">
+    <button type="button" data-lw26-tab="categories" class="is-current" aria-pressed="true">종류</button>
+    <button type="button" data-lw26-tab="document" aria-pressed="false">본문</button>
+    <button type="button" data-lw26-tab="answer" aria-pressed="false">AI 답변</button>
+    <button type="button" data-lw26-tab="vector" aria-pressed="false">요약</button>
+    <button type="button" data-lw26-tab="proof" aria-pressed="false">교정</button>
+  </nav>
+  <div class="lw26-layout" id="lw26-layout" data-active-panel="categories">
+    <nav class="lw26-rail" aria-label="LAWYGO 주요 메뉴">
+      <a href="/" title="홈" aria-label="LAWYGO 홈">⌂</a>
+      <a class="is-active" href="/p/wiki" aria-current="page" title="법률백과" aria-label="법률백과">▣</a>
+      <a href="/p/note" title="NOTE" aria-label="로이고 노트">▤</a>
+      <a href="/pro" title="PRO" aria-label="로이고 프로">⚖</a>
+      <a href="/p/pan" title="PAN" aria-label="로이고 판">◈</a>
+    </nav>
+    <aside class="lw26-panel lw26-kind" data-lw26-panel="categories" aria-labelledby="lw26-kind-title">
+      <div class="lw26-panelhead lw26-kindhead"><span>◈</span> <h2 id="lw26-kind-title">종류</h2><span class="lw26-headmeta">NAVIGATION</span><button class="lw26-panelmenu" type="button" data-lw26-jump="categories" aria-label="종류 패널 이동">↗</button></div>
+      <div class="lw26-kind-body">
+        <span class="lw26-panel-kicker">RESEARCH PROJECT</span>
+        <a class="lw26-project-link" href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer"><span>▱</span> 인증 프로젝트 열기 <b>↗</b></a>
+        <a class="lw26-project-create" href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer">＋ 새 프로젝트 (원본)</a>
+        <div class="lw26-divider"></div>
+        <span class="lw26-panel-kicker">LEGAL CATEGORIES</span>
+        <div class="lw26-kind-buttons" aria-label="문서 종류 선택">
+          <button type="button" data-lw26-kind="판례"><span>⚖</span> 판례 <b aria-hidden="true">›</b></button>
+          <button type="button" data-lw26-kind="법령"><span>▤</span> 법령 <b aria-hidden="true">›</b></button>
+          <button type="button" data-lw26-kind="서식"><span>▧</span> 서식 <b aria-hidden="true">›</b></button>
+          <button type="button" data-lw26-kind="기타자료"><span>▱</span> 기타자료 <b aria-hidden="true">›</b></button>
+          <button type="button" data-lw26-kind="관련법률문서"><span>▣</span> 관련 법률문서 <b aria-hidden="true">›</b></button>
+        </div>
+        <div class="lw26-divider"></div>
+        <span class="lw26-panel-kicker">QUICK KEYWORDS</span>
+        <div class="lw26-keywords">
+          <button type="button" data-lw26-query="손해배상">손해배상</button>
+          <button type="button" data-lw26-query="계약">계약</button>
+          <button type="button" data-lw26-query="부동산">부동산</button>
+          <button type="button" data-lw26-query="상속">상속</button>
+        </div>
+        <div class="lw26-kind-bottom"><a href="/p/note">✧ NOTE 작업공간 보기 ↗</a><small>인증·비공개 AI 연산은 원본 서비스에서 수행됩니다.</small></div>
+      </div>
+    </aside>
+    <section class="lw26-panel lw26-document" data-lw26-panel="document" aria-labelledby="lw26-document-title">
+      <div class="lw26-panelhead lw26-documenthead"><span>▤</span><h2 id="lw26-document-title">본문</h2><span class="lw26-number" id="lw26-total">0</span><span class="lw26-panel-right">PUBLIC SOURCES</span><button class="lw26-panelmenu" type="button" data-lw26-jump="document" aria-label="본문 패널 이동">↗</button></div>
+      <div class="lw26-document-body" id="lw26-document-body">
+        <div class="lw26-zero" id="lw26-zero">
+          <div class="lw26-illustration"><img src="/static/img/design/lawygo-wiki-study-20261110.svg" alt="법률 전문 서적과 법원 건축을 표현한 법률백과 디자인 일러스트" width="690" height="455" loading="eager" decoding="async"></div>
+          <h3>검색할 자료를 선택하세요</h3>
+          <p>왼쪽에서 자료 유형을 선택하고, 법률 키워드를 검색해 공개 검수된 근거 자료를 확인하세요.</p>
+          <div class="lw26-zero-features"><div><span>⌕</span><strong>법률지식 탐색</strong><small>법령·판례·서식 검색</small></div><div><span>✧</span><strong>AI 모범답안</strong><small>원본 인증 엔진 연계</small></div><div><span>▤</span><strong>문서 연구</strong><small>공개 자료 검토·복사</small></div></div>
+        </div>
+        <div id="lw26-results" class="lw26-results" hidden aria-live="polite"></div>
+        <article id="lw26-reader" class="lw26-reader" hidden aria-labelledby="lw26-reader-title">
+          <div class="lw26-reader-heading"><span id="lw26-reader-label">PUBLIC DOCUMENT</span><button type="button" id="lw26-back-results">← 결과 목록</button></div>
+          <h3 id="lw26-reader-title"></h3>
+          <p id="lw26-reader-meta"></p>
+          <p id="lw26-reader-summary"></p>
+          <div id="lw26-reader-content" class="lw26-reader-content"></div>
+          <div class="lw26-reader-tools"><button type="button" id="lw26-copy">본문 복사</button><a id="lw26-source" target="_blank" rel="noopener noreferrer" hidden>공식 출처 열기 ↗</a><a href="/p/note">NOTE로 이동 ↗</a></div>
+        </article>
+      </div>
+      <footer class="lw26-panel-foot"><span id="lw26-status" role="status" aria-live="polite">공개 검수 자료 검색 준비</span><span>법령·판례 최신성은 원문 확인</span></footer>
+    </section>
+    <section class="lw26-panel lw26-answer" data-lw26-panel="answer" aria-labelledby="lw26-answer-title">
+      <div class="lw26-panelhead lw26-answerhead"><span>✧</span><h2 id="lw26-answer-title">AI 모범답안</h2><span class="lw26-panel-right">AUTHENTICATED AI</span><button class="lw26-panelmenu" type="button" data-lw26-jump="answer" aria-label="AI 패널 이동">↗</button></div>
+      <div class="lw26-answer-body">
+        <div class="lw26-ai-card"><span class="lw26-ai-flag">✦ LAWYGO AI RESEARCH</span><strong>특허 기반 AI 법률 리서치</strong><p>법률 온톨로지·벡터·순위화·AI 모범답안 기능은 원본 보안 워크스페이스에서 실행됩니다.</p><span class="lw26-ai-status">보안 연결 · 로그인 필요</span></div>
+        <span class="lw26-panel-kicker">PUBLIC RESEARCH PREVIEW</span>
+        <h3 id="lw26-ai-preview-title">법률 자료를 선택하세요</h3>
+        <p id="lw26-ai-preview">공개 검색 결과의 제목과 출처를 먼저 확인할 수 있습니다. 이 영역은 AI가 생성한 답변이 아닙니다.</p>
+        <div class="lw26-ai-divider"></div>
+        <span class="lw26-panel-kicker">SOURCE BASED WORKFLOW</span>
+        <ul class="lw26-checks"><li>공개 법률자료 탐색</li><li>출처·근거 직접 검토</li><li>AI 모범답안은 원본에서 실행</li></ul>
+        <a class="lw26-ai-launch" id="lw26-ai-launch" target="_blank" rel="noopener noreferrer" href="https://lawygo.vercel.app/board/ai/legal_encyclopedia">원본 AI 모범답안 실행 ↗</a>
+      </div>
+    </section>
+    <aside class="lw26-panel lw26-vector" data-lw26-panel="vector" aria-labelledby="lw26-vector-title">
+      <div class="lw26-panelhead lw26-vectorhead"><span>▦</span><h2 id="lw26-vector-title">요약·고정</h2><button class="lw26-panelmenu" type="button" data-lw26-jump="vector" aria-label="요약 패널 이동">↗</button></div>
+      <div class="lw26-vector-body">
+        <div class="lw26-vector-dark"><strong>선택 자료 요약</strong><small id="lw26-vector-state">검색을 시작해 보세요</small></div>
+        <div class="lw26-mini-stat"><span>검색 결과</span><strong id="lw26-vector-count">—</strong></div>
+        <div class="lw26-mini-stat"><span>선택 종류</span><strong id="lw26-vector-kind">전체</strong></div>
+        <div class="lw26-vector-description" id="lw26-vector-description">이 패널은 공개 검색 결과의 간단한 메타정보를 표시합니다. 원본 벡터DB는 표시하지 않습니다.</div>
+        <a href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer" class="lw26-inline-link">원본 벡터 분석 보기 ↗</a>
+      </div>
+    </aside>
+    <aside class="lw26-panel lw26-proof" data-lw26-panel="proof" aria-labelledby="lw26-proof-title">
+      <div class="lw26-panelhead lw26-proofhead"><span>▣</span><h2 id="lw26-proof-title">교정</h2><button class="lw26-panelmenu" type="button" data-lw26-jump="proof" aria-label="교정 패널 이동">↗</button></div>
+      <div class="lw26-proof-body">
+        <span class="lw26-panel-kicker">DOCUMENT WORKFLOW</span><h3>검토·교정</h3>
+        <p>선택한 법률자료의 검토 메모를 작성하고 NOTE 업무 공간으로 이동하세요.</p>
+        <label for="lw26-memo">로컬 임시 메모</label><textarea id="lw26-memo" rows="5" maxlength="1500" placeholder="확인이 필요한 사실관계나 조문을 메모하세요. 이 내용은 서버로 전송되지 않습니다."></textarea>
+        <button type="button" id="lw26-memo-copy">메모 복사</button>
+        <a href="/p/note" class="lw26-proof-link">NOTE 교정 작업공간 ↗</a>
+        <small>메모는 이 화면에만 임시 보관됩니다. 창을 닫으면 사라집니다.</small>
+      </div>
+    </aside>
+  </div>
+  <div id="lw26-minbar" class="lw26-minbar" aria-label="최소화된 패널" hidden></div>
+  <div class="lw26-under"><span>LAWYGO WIKI · PUBLIC RESEARCH DASHBOARD</span><a href="https://lawygo.vercel.app/board/ai/legal_encyclopedia" target="_blank" rel="noopener noreferrer">원본 보안 대시보드에서 전체 기능 이용 ↗</a></div>
 </section>
-
-<section class="ly-premiere" aria-labelledby="ly-wiki-ency"><div class="ly-wrap"><div class="ly-premiere-panel">
-<div><span class="ly-kicker">WIKI / KNOWLEDGE ONTOLOGY</span><h2 id="ly-wiki-ency">법률 개념에서 관련 판례·법령까지 연결하는 법률백과</h2>
-<p>원본 법률백과 워크스페이스의 온톨로지, 검색·연관어, 지식 분류·검색 순위, 프로젝트 중심 검토 경험을 공개용으로 설명합니다. 개인 사건·고객 문서는 공개하지 않습니다.</p>
-<div class="ly-premiere-actions"><a href="#wiki-search-form">공개 법률자료 검색</a><a href="#wiki-native-workspace">페이지 내 백과 연구실 ↗</a></div>
-<small class="ly-small">공개 검색은 검수·공개 승인된 자료만 · 고급 연구실은 별도 인증 필요</small></div>
-<img src="/static/img/design/ly-wiki-scene.svg" alt="분류형 법률 지식백과, 용어검색과 근거 패널을 보여주는 콘셉트 이미지" loading="lazy" width="1200" height="720"></div></div></section>
-<section class="ly-wiki-detail" id="wiki-research-architecture" aria-labelledby="ly-wiki-map"><div class="ly-wrap"><div class="ly-section-head"><div><span class="ly-kicker">KNOWLEDGE ARCHITECTURE</span><h2 id="ly-wiki-map">법률 지식을 구조화하는 네 단계</h2></div><p>실제 자료 조회·AI 모델 응답은 분리되어 있습니다. 이 소개는 마케팅용 워크플로 설명입니다.</p></div>
-<div class="ly-knowledge-grid">
-<article class="ly-knowledge-card"><img src="/static/img/design/ly-wiki-scene.svg" alt="법률 개념 사전 시각화" loading="lazy" width="1200" height="720"><div><strong>법률 개념 사전</strong><p>주요 용어와 관련 개념을 분류하고 분야별 지도로 탐색</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-journal-scene.svg" alt="관련 법령·조문 연결 구조 시각화" loading="lazy" width="1200" height="720"><div><strong>관련 법령·조문</strong><p>개념과 법률·조문을 연결해 출처를 확인</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ai-wiki-visual.svg" alt="판례 판단 근거 시각화" loading="lazy" width="1200" height="720"><div><strong>판례·판단 요소</strong><p>관련 판례를 탐색하고 판단 요소를 정리</p></div></article><article class="ly-knowledge-card"><img src="/static/img/design/ly-note-scene.svg" alt="프로젝트별 연구 시각화" loading="lazy" width="1200" height="720"><div><strong>프로젝트별 연구</strong><p>개인 사건·조사 자료는 인증된 비공개 공간에서 검토</p></div></article>
-</div><div class="ly-pane-guide">실제 판례 전문·상담 이력·고객 사건 파일은 공개 위키로 자동 복제하지 않습니다. 공개 게시물의 출처·권리·최신성은 편집자가 확인합니다.</div></div></section>
-  <section class="white"><div class="wrap">
-    <div class="sec-heading"><div><span class="eyebrow">ENCYCLOPEDIA FEED</span><h2>공개 위키 글</h2></div></div>
-    <div class="editorial-grid" id="wiki-feed"></div>
-  </div></section>
-<section class="delivery-section delivery-section-ivory" aria-labelledby="wiki-workflow-heading"><div class="wrap">
-  <div class="delivery-heading"><span class="eyebrow">LEGAL RESEARCH WORKFLOW</span><h2 id="wiki-workflow-heading">법률 리서치의 흐름을 한 화면에</h2><p>원문을 탐색하고, 쟁점을 정리한 뒤, 근거를 검증하는 리서치 경험을 지향합니다.</p></div>
-  <div class="delivery-visual-grid delivery-grid-three">
-    <article class="delivery-feature"><div class="delivery-feature-media media-wiki-search" role="img" aria-label="법률 자료의 검색과 연관 구조를 표현한 그래픽"></div><div class="delivery-feature-body"><span>01 / DISCOVER</span><h3>판례·법령 탐색</h3><p>검색어를 중심으로 공개된 법률 정보를 찾아볼 수 있습니다. 원문 출처와 최신성은 별도 확인해 주세요.</p></div></article>
-    <article class="delivery-feature"><div class="delivery-feature-media media-wiki-links" role="img" aria-label="쟁점과 근거의 연결 관계를 표현한 그래픽"></div><div class="delivery-feature-body"><span>02 / CONNECT</span><h3>쟁점과 근거 연결</h3><p>관련 용어와 쟁점을 나란히 살펴보고, 법률 검토에서 필요한 확인 항목을 정리합니다.</p></div></article>
-    <article class="delivery-feature"><div class="delivery-feature-media media-wiki-review" role="img" aria-label="법률 문서의 검토 작업 화면을 표현한 그래픽"></div><div class="delivery-feature-body"><span>03 / REVIEW</span><h3>검토 후 업무 활용</h3><p>공개 정보는 참고자료이며 개별 사안에 대한 법률 자문을 대신하지 않습니다.</p><a class="delivery-textlink" href="/p/note">LAWYGO NOTE 살펴보기 ↗</a></div></article>
-  </div>
-</div></section>
-  </main>
-  <div data-brand-shell="footer"></div>
+</main>
+  
   <script src="/static/brand-shell.js?v=20261105-designrefresh3"></script>
-  <script src="/static/wiki-page.js?v=20261105-designrefresh3" defer></script>
-  <script src="/static/wiki-topic-ui.js?v=20261105-designrefresh3" defer></script>
   <script src="/static/platform-switcher.js?v=20261105-designrefresh3" defer></script>
-  <script src="/static/lawygo-service-integration-20261105.js?v=20261105-designrefresh3" defer></script>
+  <script src="/static/lawygo-wiki-dashboard-20261110.js?v=20261105-designrefresh3" defer></script>
+<script src="/static/lawygo-wiki-editor-20261110.js?v=20261105-designrefresh3" defer></script>
 </body>
 </html>
 

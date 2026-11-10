@@ -12,13 +12,19 @@ for name in pages:
     assert r'\n</head>' not in html, "Literal escaped newline before head close: "+name
 css=(root/"static/lawygo-design-fix-20261104.css").read_text(encoding="utf-8")
 home=(root/"static/index.html").read_text(encoding="utf-8")
-assert 'height="800" loading="eager"' in home, "Editorial artwork must load before showing empty space."
+assert 'class="hero-bg hero-global"' in home and 'class="ly-catalog"' in home, "Compact homepage needs hero and one service catalogue."
+assert home.count('class="ly-catalog-body"') == 5, "Exactly five service cards must remain."
+assert 'class="product-grid"' not in home and 'class="home-bridge"' not in home, "Duplicate service sections must remain removed."
 assert "lawygo-hero-premium-20261104.webp" in css, "Editorial image CSS fallback missing."
 assert 'max-width:680px' in css
 assert 'legal-knowledge-city.webp' in css
 wiki=(root/"static/wiki.html").read_text(encoding="utf-8")
-assert wiki.index('wiki-knowledge-section')<wiki.index('class="ly-premiere"')
-assert 'href="#wiki-search-form"' in wiki
+assert 'id="lawygo-wiki-dashboard"' in wiki
+assert 'id="lw26-editor"' in wiki
+assert 'id="lw26-searchform"' in wiki
+assert 'data-brand-shell="header"' in wiki
+assert '<section class="hero hero-dark">' not in wiki
+assert 'id="wiki-native-workspace"' not in wiki
 cfg=json.loads((root/"vercel.json").read_text(encoding="utf-8"))
 pages_routes=[r for r in cfg["routes"] if r.get("dest","").endswith(".html")]
 assert len(pages_routes)==13
@@ -43,6 +49,12 @@ print("Design release contract pass: 13 pages + fresh CDN release + WIKI navigat
 # Final WIKI presentation: a technical knowledge graphic rather than repeated portrait.
 assert "editorial-library-20261102.webp" not in wiki
 assert 'css?v=wiki-ui2' in wiki
-assert '/static/img/design/ly-wiki-scene.svg' in wiki
-assert "media-wiki-links" in css and "media-wiki-review" in css
-assert (root/"static/img/design/ly-wiki-scene.svg").exists()
+assert '/static/img/design/lawygo-wiki-study-20261110.svg' in wiki
+assert "lawygo-wiki-editor-20261110.js" in wiki
+assert "lawygo-wiki-editor-20261110.css" in wiki
+assert (root/"static/img/design/lawygo-wiki-study-20261110.svg").exists()
+assert (root/"static/lawygo-wiki-editor-20261110.js").exists()
+pro=(root/"static/pro.html").read_text(encoding="utf-8")
+assert pro.count('id="lawygoProStart"') == 1
+assert 'href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer"' in pro
+assert (root/"static/img/design/lawygo-pro-hero-20261110.svg").exists()

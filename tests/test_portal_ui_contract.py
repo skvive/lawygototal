@@ -48,7 +48,8 @@ def test_generated_legal_visual_is_used_by_wiki():
     asset = ROOT / "static/img/design/legal-knowledge-city.webp"
 
     assert asset.exists()
-    assert "portal-wiki-image" in wiki
+    assert 'id="lawygo-wiki-dashboard"' in wiki
+    assert '/static/img/design/lawygo-wiki-study-20261110.svg' in wiki
     assert "/static/img/design/legal-knowledge-city.webp" in stylesheet
 
 

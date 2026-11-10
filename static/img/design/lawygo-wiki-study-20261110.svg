@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="690" height="455" viewBox="0 0 690 455" role="img" aria-label="로이고 법률백과 연구 책">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7dcff"/><stop offset=".52" stop-color="#f4f7ff"/><stop offset="1" stop-color="#c5d5ff"/></linearGradient><linearGradient id="cover" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#1a2f76"/><stop offset=".62" stop-color="#3d56aa"/><stop offset="1" stop-color="#7682e3"/></linearGradient><linearGradient id="pages" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#c9cfea"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fae9a6"/><stop offset=".5" stop-color="#d4ae62"/><stop offset="1" stop-color="#a8803c"/></linearGradient><filter id="shadow"><feGaussianBlur stdDeviation="13"/></filter><filter id="glass"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#8598d7" flood-opacity=".36"/></filter></defs>
+<ellipse cx="350" cy="405" rx="250" ry="26" fill="#6881c0" opacity=".25" filter="url(#shadow)"/>
+<circle cx="355" cy="200" r="169" fill="url(#bg)" opacity=".7"/>
+<g opacity=".44" fill="#b7c2f0"><path d="M366 58 475 107v15H261v-15z"/><rect x="270" y="126" width="192" height="12"/><rect x="287" y="135" width="18" height="127"/><rect x="326" y="135" width="18" height="127"/><rect x="365" y="135" width="18" height="127"/><rect x="404" y="135" width="18" height="127"/><rect x="443" y="135" width="14" height="127"/><rect x="268" y="264" width="196" height="12"/><rect x="258" y="280" width="216" height="12"/></g>
+<path d="M90 286c107-71 167-85 274-60s151 20 245-40" stroke="#b3b5fa" stroke-width="12" fill="none" stroke-linecap="round" opacity=".4"/>
+<path d="M88 291c105-73 166-91 280-61s169 18 242-42" stroke="#fff" stroke-width="3" fill="none" opacity=".9"/>
+<g filter="url(#glass)" transform="translate(196 128) rotate(8 128 128)">
+<path d="M13 239 259 238l21 26-254 6z" fill="#7f8cce"/><path d="M23 218 270 218l-11 34-241-1z" fill="url(#pages)" stroke="#adb8eb" stroke-width="4"/>
+<path d="M30 26 239 16q19-1 19 20v197q-1 15-18 17l-212-8q-18-1-18-18V44q0-17 20-18z" fill="url(#cover)" stroke="#15286d" stroke-width="8"/>
+<path d="M43 37 228 28q12-1 12 12v181q0 11-12 13L43 225q-12-1-12-13V50q0-13 12-13z" fill="none" stroke="url(#gold)" stroke-width="3"/>
+<path d="M60 57 213 51v155l-150-2z" fill="#324994" opacity=".53"/>
+<g fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"><path d="M140 96v64M112 111h57M130 97h20M112 111l-19 36m19-36 18 36m39-36-18 36m18-36 17 36"/><path d="M85 148q9 17 23 0M143 148q11 17 22 0"/><path d="M113 161h55M104 168h74"/></g>
+<path d="M59 77h43M174 77h39M55 191h38M172 191h43" stroke="#d9bc79" opacity=".6" stroke-width="3"/>
+<path d="M148 243v69l18-12 19 15-1-69" fill="#9875e8" stroke="#7e63d4" stroke-width="2"/>
+</g>
+<g fill="#fff" opacity=".9"><circle cx="142" cy="150" r="4"/><circle cx="528" cy="95" r="6"/><circle cx="565" cy="277" r="5"/><circle cx="197" cy="364" r="3"/></g><g stroke="#fff" stroke-width="2" opacity=".7"><path d="M145 137v26m-13-13h26M532 78v33m-16-16h32M565 264v26m-13-13h26"/></g>
+</svg>

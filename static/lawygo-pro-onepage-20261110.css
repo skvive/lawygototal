@@ -1,0 +1,32 @@
+/* LAWYGO PRO compact launch page · one hero, one external login CTA. */
+body[data-page=pro]{background:#f8f9fb}
+body[data-page=pro] .lawygo-pro-onepage{background:#081c32;color:white;min-height:calc(100dvh - 190px)}
+body[data-page=pro] .lawygo-pro-hero{position:relative;overflow:hidden;isolation:isolate;min-height:clamp(580px,63vw,790px);background:radial-gradient(circle at 77% 33%,#1d354f 0,transparent 46%),linear-gradient(118deg,#06172b 0,#092038 58%,#102a44 100%)}
+body[data-page=pro] .lawygo-pro-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,transparent 55%,#c7974d10 55.1%,transparent 56%),linear-gradient(90deg,#d7a15e09 1px,transparent 1px);background-size:100% 100%,70px 70px;opacity:.6}
+body[data-page=pro] .lawygo-pro-content{width:min(1530px,calc(100% - 108px));margin:0 auto;min-height:clamp(580px,63vw,790px);display:grid;grid-template-columns:minmax(340px,.86fr) minmax(0,1.3fr);gap:18px;align-items:center}
+body[data-page=pro] .lawygo-pro-copy{position:relative;z-index:3;padding:56px 0 75px}
+body[data-page=pro] .lawygo-pro-eyebrow{display:block;color:#d9b476;font-size:10px;font-weight:800;letter-spacing:.19em;margin-bottom:28px}
+body[data-page=pro] .lawygo-pro-badge{display:inline-flex;gap:9px;align-items:center;border:1px solid #e9bf7d;border-radius:40px;padding:10px 18px;color:#f5d19c;font-weight:850;letter-spacing:.09em;font-size:13px;background:#071b2ed9;box-shadow:0 4px 16px #0002;margin-bottom:25px}
+body[data-page=pro] .lawygo-pro-copy h1{font-family:Georgia,'Noto Serif KR','Malgun Gothic',serif;font-weight:800;font-size:clamp(57px,7vw,116px);line-height:1.05;letter-spacing:-.068em;color:white;margin:0 0 20px;text-wrap:nowrap}
+body[data-page=pro] .lawygo-pro-copy h1 em{font-family:Georgia,serif;color:#f1cb8a;font-weight:700;font-style:italic;letter-spacing:-.065em}
+body[data-page=pro] .lawygo-pro-copy h2{font-size:clamp(23px,2.6vw,38px);line-height:1.4;letter-spacing:-.05em;font-weight:800;color:#f1f3f8;margin:0 0 20px;word-break:keep-all}
+body[data-page=pro] .lawygo-pro-copy p{max-width:495px;color:#c8d5e1;font-size:clamp(14px,1.4vw,17px);line-height:1.9;word-break:keep-all;margin:0 0 34px}
+body[data-page=pro] .lawygo-pro-start{display:inline-flex;align-items:center;justify-content:center;gap:34px;min-height:61px;min-width:250px;padding:15px 25px;border:2px solid #ffe3a9;border-radius:32px;text-decoration:none!important;background:linear-gradient(120deg,#fce8ba,#d9a959);color:#10253e!important;font-weight:900;font-size:17px;box-shadow:0 0 20px #c79b595e,0 12px 30px #0005;transition:transform .2s,box-shadow .2s}
+body[data-page=pro] .lawygo-pro-start:hover{transform:translateY(-3px);box-shadow:0 0 32px #dbae79aa,0 17px 32px #0006}
+body[data-page=pro] .lawygo-pro-start:focus-visible{outline:3px solid #ffffff;outline-offset:4px}
+body[data-page=pro] .lawygo-pro-copy>small{display:block;color:#b8c9d6;font-size:11px;line-height:1.6;letter-spacing:.01em;margin-top:17px}
+body[data-page=pro] .lawygo-pro-art{position:relative;z-index:1;align-self:end;min-width:0;width:114%;margin-left:-8%;margin-bottom:-10px;pointer-events:none}
+body[data-page=pro] .lawygo-pro-art img{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 25px 35px #0009)}
+@media(max-width:960px){body[data-page=pro] .lawygo-pro-content{width:calc(100% - 64px);grid-template-columns:minmax(240px,.85fr) minmax(0,1fr)}body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(48px,7vw,75px)}body[data-page=pro] .lawygo-pro-art{margin-left:-13%;width:124%}}
+@media(max-width:720px){body[data-page=pro] .lawygo-pro-onepage,body[data-page=pro] .lawygo-pro-hero{min-height:0}body[data-page=pro] .lawygo-pro-content{width:calc(100% - 42px);grid-template-columns:1fr;gap:0;min-height:0}body[data-page=pro] .lawygo-pro-copy{padding:64px 0 12px}body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(54px,14vw,86px)}body[data-page=pro] .lawygo-pro-copy h2{font-size:25px}body[data-page=pro] .lawygo-pro-copy p{font-size:14px;max-width:500px}body[data-page=pro] .lawygo-pro-art{width:115%;max-height:360px;margin:0 0 -8px -8%;overflow:hidden}body[data-page=pro] .lawygo-pro-art img{height:auto;max-height:370px;object-fit:contain}body[data-page=pro] .lawygo-pro-start{min-height:56px;min-width:224px}}
+@media(max-width:390px){body[data-page=pro] .lawygo-pro-copy h1{font-size:51px}body[data-page=pro] .lawygo-pro-content{width:calc(100% - 28px)}}
+@media(prefers-reduced-motion:reduce){body[data-page=pro] .lawygo-pro-start{transition:none}}
+
+/* Compact brand hierarchy: brand is already shown in the global header. */
+body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,9vw,128px);letter-spacing:-.055em;margin-bottom:12px}
+body[data-page=pro] .lawygo-pro-copy h2{font-size:clamp(24px,2.5vw,36px);margin-bottom:14px}
+body[data-page=pro] .lawygo-pro-copy p{margin-bottom:30px}
+@media(max-width:720px){body[data-page=pro] .lawygo-pro-copy h1{font-size:clamp(68px,18vw,94px)}}
+
+/* Fill the viewport below the single mobile header; avoid an empty white band. */
+@media(max-width:720px){body[data-page=pro] .lawygo-pro-hero{min-height:calc(100svh - 66px)}}
