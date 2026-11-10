@@ -35,7 +35,7 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn('id="lw26-editor"', wiki)
         self.assertIn('id="lw26-edit-toggle"', wiki)
         self.assertIn('id="lw26-searchform"', wiki)
-        self.assertIn('lw26-editor-20261110.js', wiki)
+        self.assertIn('lawygo-wiki-editor-20261110.js', wiki)
         self.assertNotIn('id="wiki-native-workspace"', wiki)
         self.assertNotIn('class="hero hero-dark"', wiki)
         self.assertIn('data-brand-shell="header"', wiki)
@@ -99,7 +99,7 @@ class FiveServiceIntegrationTest(unittest.TestCase):
             self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3"', html)
         for path in ("pan", "note"):
             self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261105-designrefresh3"', read(f"static/{path}.html"))
-        self.assertIn("lw26-editor-20261110.js", read("static/wiki.html"))
+        self.assertIn("lawygo-wiki-editor-20261110.js", read("static/wiki.html"))
 
 
 if __name__ == "__main__":

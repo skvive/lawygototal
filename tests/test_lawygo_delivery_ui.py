@@ -53,7 +53,8 @@ def test_wiki_no_results_are_visual_but_no_private_docs():
 
 def test_pro_link_opens_external_system_separately():
     html=read("static/pro.html")
-    assert "https://www.lawygo.com/login?utm_source=chatgpt.com" in html
+    assert 'id="lawygoProStart"' in html
+    assert 'href="https://www.lawygo.com/login"' in html
     assert 'target="_blank" rel="noopener noreferrer"' in html
 
 def test_pan_discovery_not_fake_live_when_keys_missing():
