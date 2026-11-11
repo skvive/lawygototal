@@ -8,10 +8,10 @@
   <a href="/" class="logo"><img class="brand-logo-original" src="/static/logo.svg" width="38" height="38" alt="" aria-hidden="true"><span class="logo-word">LAWYGO<span class="logo-sub">LEGAL INTELLIGENCE</span></span></a>
   <nav class="desktop-nav" aria-label="주 메뉴">
     <a class="${on('/journal')}" href="/journal">저널</a>
-    <a class="${on('/p/wiki')}" href="/p/wiki">위키</a>
-    <a class="${on('/p/note')}" href="/p/note">노트</a>
-    <a class="${on('/pro')}" href="/pro">로이고 PRO</a>
-    <a class="${on('/p/pan')}" href="/p/pan">판</a>
+    <a class="${on('/p/wiki')}" href="https://lawygo.lexid.site/p/wiki" target="_blank" rel="noopener noreferrer">위키</a>
+    <a class="${on('/p/note')}" href="https://lawygo.lexid.site/p/note" target="_blank" rel="noopener noreferrer">노트</a>
+    <a class="${on('/pro')}" href="https://lawygo.com" target="_blank" rel="noopener noreferrer">로이고 PRO</a>
+    <a class="${on('/p/pan')}" href="https://lawygo.lexid.site/p/pan" target="_blank" rel="noopener noreferrer">판</a>
     <a class="${on('/pricing')}" href="/pricing">구독 안내</a>
     <a class="${on('/partnership')}" href="/partnership">파트너십</a>
     <a class="${on('/strategy')}" href="/strategy">성장 전략</a>
@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="wrap mobile-nav" id="mobileNav" aria-label="모바일 주 메뉴">
-  <a href="/journal">저널</a><a href="/p/wiki">위키</a><a href="/p/note">노트</a><a href="/pro">로이고 PRO</a><a href="/p/pan">판</a>
+  <a href="/journal">저널</a><a href="https://lawygo.lexid.site/p/wiki" target="_blank" rel="noopener noreferrer">위키</a><a href="https://lawygo.lexid.site/p/note" target="_blank" rel="noopener noreferrer">노트</a><a href="https://lawygo.com" target="_blank" rel="noopener noreferrer">로이고 PRO</a><a href="https://lawygo.lexid.site/p/pan" target="_blank" rel="noopener noreferrer">판</a>
   <a href="/pricing">구독 안내</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">관리자</a>
 </div></header>`;
   const footer = `

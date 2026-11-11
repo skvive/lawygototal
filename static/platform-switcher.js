@@ -10,11 +10,70 @@
     {label:'프로',en:'PRO',path:'/pro',match:p=>p==='/pro',short:'R'},
     {label:'노트',en:'NOTE',path:'/p/note',match:p=>p==='/p/note',short:'N'}
   ];
+  const productPaths = new Set(['/p/wiki','/p/pan','/p/note','/pro']);
+  const normalizePath = (anchor) => {
+    let url;
+    try { url = new URL(anchor.getAttribute('href'), location.href); }
+    catch { return null; }
+    const host = url.hostname.toLowerCase();
+    const path = url.pathname.replace(/\/+$/, '') || '/';
+    if ((host === 'lawygo.com' || host === 'www.lawygo.com') && path === '/') return '/pro';
+    if (path === '/channel' || path === '/p/channel') return '/journal';
+    return path;
+  };
+  const normalizeProductLink = (anchor) => {
+    const path = normalizePath(anchor);
+    if (!path || !productPaths.has(path)) return;
+    if (path === '/p/wiki' && location.pathname.replace(/\/+$/, '') === '/p/wiki') {
+      anchor.removeAttribute('target');
+      anchor.removeAttribute('rel');
+      return;
+    }
+    const current = new URL(anchor.getAttribute('href'), location.href);
+    const href = path === '/pro'
+      ? 'https://lawygo.com'
+      : `https://lawygo.lexid.site${path}${current.search}${current.hash}`;
+    if (anchor.getAttribute('href') !== href) anchor.setAttribute('href', href);
+    anchor.setAttribute('target', '_blank');
+    anchor.setAttribute('rel', 'noopener noreferrer');
+  };
+  const normalizeProductLinks = (root) => {
+    if (root.nodeType === 1 && root.matches?.('a[href]')) normalizeProductLink(root);
+    root.querySelectorAll?.('a[href]').forEach(normalizeProductLink);
+  };
+  let linkObserverStarted = false;
+  const observeProductLinks = () => {
+    if (linkObserverStarted || !document.documentElement) return;
+    linkObserverStarted = true;
+    new MutationObserver(records => {
+      for (const record of records) {
+        if (record.type === 'attributes') normalizeProductLink(record.target);
+        else record.addedNodes.forEach(normalizeProductLinks);
+      }
+    }).observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['href']
+    });
+  };
+  const hasCompleteProductMenu = () => Array.from(
+    document.querySelectorAll('header nav, header .mobile-nav')
+  ).some(nav => {
+    const paths = new Set(Array.from(nav.querySelectorAll('a[href]'), normalizePath));
+    return items.every(item => paths.has(item.path));
+  });
   const init=()=>{
+    normalizeProductLinks(document);
+    observeProductLinks();
     if(document.getElementById('lawygoPlatformSwitcher'))return;
     const header=document.querySelector('header.header,header.mast,body > header');
     const shell=document.querySelector('[data-brand-shell="header"]');
     if(!header&&!shell)return;
+    if(hasCompleteProductMenu()){
+      document.body?.classList.add('lawygo-nav-consolidated');
+      return;
+    }
     const wrap=document.createElement('div');
     wrap.id='lawygoPlatformSwitcher';
     wrap.className='lawygo-switcher';
@@ -27,9 +86,13 @@
     nav.append(label);
     for(const item of items){
       const a=document.createElement('a');
-      a.href=item.path;
+      a.href=item.path==='/pro'?'https://lawygo.com':item.path.startsWith('/p/')?`https://lawygo.lexid.site${item.path}`:item.path;
       a.className='lawygo-switcher-link';
       a.setAttribute('data-platform',item.en.toLowerCase());
+      if(item.path!=='/journal'&&!(item.path==='/p/wiki'&&location.pathname.replace(/\/+$/,'')==='/p/wiki')){
+        a.setAttribute('target','_blank');
+        a.setAttribute('rel','noopener noreferrer');
+      }
       if(item.match(location.pathname)){
         a.classList.add('is-current');
         a.setAttribute('aria-current','page');
@@ -54,6 +117,7 @@
     wrap.append(nav);
     if(header)header.insertAdjacentElement('afterend',wrap);
     else shell.insertAdjacentElement('afterend',wrap);
+    normalizeProductLinks(wrap);
     const updateOffset=()=>{
       const h=document.querySelector('header.header');
       const sticky=h&&getComputedStyle(h).position==='sticky';

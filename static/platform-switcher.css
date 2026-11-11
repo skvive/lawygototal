@@ -12,7 +12,7 @@
 .lawygo-switcher-copy small{font:700 9px/1.2 Arial,sans-serif;letter-spacing:.11em;color:inherit;opacity:.72}
 .lawygo-switcher-all{margin-left:auto;flex:none;color:#385a73!important;font:750 12px/1.2 'Malgun Gothic',sans-serif!important;text-decoration:none!important;padding:12px;white-space:nowrap}
 .lawygo-switcher a:focus-visible{outline:3px solid #b88d50;outline-offset:2px}
-body:has(.lawygo-switcher) .home-bridge{display:none}
+body:has(.lawygo-switcher) .home-bridge,body.lawygo-nav-consolidated .home-bridge{display:none}
 @media(max-width:930px){.lawygo-switcher-inner{width:calc(100% - 32px)}.lawygo-switcher-label{display:none}.lawygo-switcher-link{min-width:107px;padding:6px 10px}.lawygo-switcher-copy strong{font-size:12px}}
 @media(max-width:650px){.lawygo-switcher-inner{min-height:59px;width:100%;padding:5px 14px;gap:6px}.lawygo-switcher-link{min-width:88px;min-height:47px;padding:5px 7px;gap:6px}.lawygo-switcher-monogram{width:24px;height:24px;font-size:11px}.lawygo-switcher-copy strong{font-size:12px}.lawygo-switcher-copy small{font-size:8px}.lawygo-switcher-all{padding:9px;font-size:11px}.lawygo-switcher{box-shadow:0 6px 13px #06172a14}}
 @media(prefers-reduced-motion:reduce){.lawygo-switcher-link{transition:none}}
