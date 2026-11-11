@@ -13,18 +13,15 @@
     <a class="${on('/pro')}" href="https://lawygo.com" target="_blank" rel="noopener noreferrer">로이고 PRO</a>
     <a class="${on('/p/pan')}" href="https://lawygo.lexid.site/p/pan" target="_blank" rel="noopener noreferrer">판</a>
     <a class="${on('/pricing')}" href="/pricing">구독 안내</a>
-    <a class="${on('/partnership')}" href="/partnership">파트너십</a>
-    <a class="${on('/strategy')}" href="/strategy">성장 전략</a>
   </nav>
   <div class="header-actions">
     <a class="btn btn-outline btn-mini" href="/#newsletter">무료 뉴스레터</a>
-    <a class="btn btn-gold btn-mini" href="/payment">Payment</a>
     <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNav">☰</button>
   </div>
 </div>
 <div class="wrap mobile-nav" id="mobileNav" aria-label="모바일 주 메뉴">
   <a href="/journal">저널</a><a href="https://lawygo.lexid.site/p/wiki" target="_blank" rel="noopener noreferrer">위키</a><a href="https://lawygo.lexid.site/p/note" target="_blank" rel="noopener noreferrer">노트</a><a href="https://lawygo.com" target="_blank" rel="noopener noreferrer">로이고 PRO</a><a href="https://lawygo.lexid.site/p/pan" target="_blank" rel="noopener noreferrer">판</a>
-  <a href="/pricing">구독 안내</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">관리자</a>
+  <a href="/pricing">구독 안내</a><a href="/dashboard">관리자</a>
 </div></header>`;
   const footer = `
 <footer class="footer"><div class="wrap"><div class="footer-top"><div>
@@ -33,7 +30,7 @@
 </div><div><span class="eyebrow">THE ECOSYSTEM</span><p>JOURNAL / WIKI / NOTE / PRO / PAN</p>
   <p>미국 기술 협력 관련 사항: TerraBridge Capital LLC · 확인 필요</p></div></div>
 <div class="footer-links">
-  <a href="/journal">저널</a><a href="/rss.xml" type="application/rss+xml">RSS 구독</a><a href="/payment">Payment</a><a href="/partnership">파트너십</a><a href="/strategy">성장 전략</a><a href="/dashboard">CMS</a>
+  <a href="/journal">저널</a><a href="/rss.xml" type="application/rss+xml">RSS 구독</a><a href="/payment">Payment</a><a href="/dashboard">CMS</a>
 </div>
 <div class="footer-bottom"><span>© 2026 LAWYGO. All rights reserved.</span>
   <span>웹사이트는 운영 중이며 유료 결제는 별도 승인 전까지 비활성 상태입니다. 개별 사안의 법률·투자 자문이 아닙니다.</span></div></div></footer>
