@@ -4,3 +4,77 @@
 @media(max-width:960px){.l4-header-in{gap:18px}.l4-nav{gap:14px}.l4-story-grid{gap:38px}.l4-servicegrid{grid-template-columns:repeat(3,minmax(0,1fr))}.l4-connect-grid{gap:32px}}
 @media(max-width:720px){.l4-container{width:min(100% - 36px,540px)}.l4-header{height:67px}.l4-logo strong{font-size:22px}.l4-logo img{width:31px;height:31px}.l4-header-in{gap:12px}.l4-top-cta{margin-left:auto;padding:10px 12px;font-size:11px}.l4-menu-btn{display:inline-flex;justify-content:center;align-items:center;font-size:21px}.l4-nav{display:none;position:absolute;left:0;right:0;top:67px;margin:0;background:#fff;box-shadow:0 18px 35px #00121f24;padding:15px 18px 20px;flex-direction:column;align-items:stretch;gap:0}.l4-nav.open{display:flex}.l4-nav a{padding:11px 15px;border-bottom:1px solid #e6e9eb}.l4-hero{min-height:485px;background-position:57% center}.l4-hero:before{background:linear-gradient(90deg,#071e2cee,#082337cc 65%,#0823376b)}.l4-hero-content{padding:69px 0 73px}.l4-hero h1{font-size:clamp(36px,8vw,49px);letter-spacing:-1.8px}.l4-hero p{font-size:13px}.l4-hero-actions{gap:18px;flex-wrap:wrap}.l4-story{padding:47px 0 48px}.l4-story-grid,.l4-connect-grid{grid-template-columns:1fr;gap:28px}.l4-story h2,.l4-platform h2,.l4-connect h2{letter-spacing:-1.4px}.l4-story-visual,.l4-story-visual img{min-height:235px;max-height:280px}.l4-platform{padding:48px 0 52px}.l4-sectionline{display:block}.l4-sectionline>p{max-width:none}.l4-servicegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.l4-service{padding:17px 14px 20px;min-height:155px}.l4-service h3{font-size:16px}.l4-service p{font-size:11px}.l4-connect{padding:48px 0}.l4-footer-in{align-items:flex-start;flex-direction:column}.l4-signup{padding:18px}.l4-inputrow button{padding:11px 10px}}
 @media(max-width:380px){.l4-servicegrid{grid-template-columns:1fr}.l4-service{min-height:128px}.l4-top-cta{display:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+
+/* LAWYGO HOMEPAGE V5 — cinematic navy / brass, photographic service navigation */
+.l4-hero {
+  background-color:#091f32;
+  background-image:url('/static/img/design/lawygo-hero-v5.webp');
+  background-position:center 51%;
+  background-size:cover;
+  min-height:530px;
+}
+.l4-hero:before {
+  background:linear-gradient(90deg,rgba(4,22,37,.94) 0%,rgba(4,22,37,.78) 31%,rgba(4,22,37,.25) 61%,rgba(4,22,37,.07) 100%);
+}
+.l4-hero h1 {text-shadow:0 2px 20px rgba(0,0,0,.20)}
+.l4-hero-content {padding-top:86px;padding-bottom:90px}
+.l4-story {background:#f4f0e9}
+.l4-story-visual {min-height:315px;border:1px solid rgba(153,126,91,.22);box-shadow:0 16px 38px rgba(13,34,48,.12)}
+.l4-story-visual img {min-height:315px;object-position:55% center}
+.l4-platform {background:#fdfcf9}
+.l4-sectionline {margin-bottom:27px}
+.l4-sectionline>p {font-size:14px}
+.l4-servicegrid {gap:14px;align-items:stretch}
+.l4-service {
+  position:relative;isolation:isolate;overflow:hidden;min-height:272px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  padding:23px 17px 25px;border:1px solid rgba(214,193,161,.42);
+  border-radius:3px;background:#0b2336;
+  box-shadow:0 10px 26px rgba(10,33,50,.12);
+  transition:transform .23s ease,box-shadow .23s ease,border-color .23s ease;
+}
+.l4-service::after {
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(0deg,rgba(4,17,28,.97) 0%,rgba(7,28,43,.90) 23%,rgba(8,29,44,.42) 57%,rgba(8,30,46,.05) 100%);
+  pointer-events:none;
+}
+.l4-service img {
+  position:absolute;inset:0;width:100%;height:100%;z-index:-2;object-fit:cover;
+  transition:transform .4s ease;
+}
+.l4-service .num {
+  position:absolute;top:20px;left:17px;color:#ffe2ad;font-size:10px;
+  letter-spacing:.11em;text-shadow:0 1px 8px rgba(0,0,0,.5);
+}
+.l4-service .arrow {top:18px;right:17px;color:#f6dfba;font-size:18px}
+.l4-service h3 {
+  color:#fff;font-family:'DM Sans','Noto Sans KR',sans-serif;
+  font-size:22px;line-height:1.25;letter-spacing:-.2px;margin:0 0 10px;
+  text-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+.l4-service p {
+  color:#e4ebf0;font-size:12px;font-weight:500;line-height:1.6;
+  text-shadow:0 1px 6px rgba(0,0,0,.5);
+}
+.l4-service:hover,.l4-service:focus-visible {
+  background:#0b2336;border-color:#cda768;box-shadow:0 18px 32px rgba(10,33,50,.2);
+  transform:translateY(-5px);
+}
+.l4-service:hover img,.l4-service:focus-visible img {transform:scale(1.06)}
+.l4-imagenote {font-size:10px;color:#7c868a;margin:16px 0 0;text-align:right}
+@media(max-width:960px) {.l4-servicegrid{gap:12px}.l4-service{min-height:252px}}
+@media(max-width:720px) {
+ .l4-hero{background-position:58% center;min-height:500px}
+ .l4-hero:before{background:linear-gradient(90deg,rgba(4,22,37,.97) 0%,rgba(4,22,37,.80) 66%,rgba(4,22,37,.47) 100%)}
+ .l4-hero-content{padding-top:71px;padding-bottom:74px}
+ .l4-story-visual,.l4-story-visual img{min-height:245px;max-height:285px}
+ .l4-servicegrid{gap:11px}
+ .l4-service{min-height:226px;padding:18px 14px 19px}
+ .l4-service h3{font-size:20px}
+ .l4-service p{font-size:11px}
+ .l4-service .num{left:14px;top:15px}
+ .l4-imagenote{text-align:left}
+}
+@media(max-width:380px){.l4-service{min-height:208px}}
+@media(prefers-reduced-motion:reduce){.l4-service,.l4-service img{transition:none!important}}
