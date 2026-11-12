@@ -36,6 +36,13 @@ def dispatch_one(db, transaction, job_key, tenant, send_confirmation, send_issue
         if not issue:
             db.execute("UPDATE newsletter_jobs SET status='cancelled',updated_at=? WHERE job_key=?",(stamp(),job_key))
             return 'cancelled'
+        from newsletter_monthly_v5 import unpack
+        edition=unpack(issue['body'])
+        if edition:
+            from datetime import datetime
+            planned=datetime.fromisoformat(edition.scheduled_at.replace('Z','+00:00'))
+            if planned > datetime.now(timezone.utc):
+                return 'held'
     else: issue=None
     # Atomic claim: concurrent dispatchers cannot send the same queued job.
     with transaction(db):
@@ -110,7 +117,7 @@ def register(app,g,mail_config,send_confirmation,send_issue_email,digest):
         if not body.confirmed_preview:err(409,'뉴스레터 발송 대상과 원고 미리보기 승인 후 등록하세요.')
         month=stamp()[:7]
         count=db.execute("SELECT COUNT(*) AS n FROM newsletter_issues WHERE tenant=? AND issue_month=?",(user['tenant'],month)).fetchone()[0]
-        if count>=2:err(409,'이번 달 뉴스레터 발행 한도(2회)에 도달했습니다.')
+        if count>=1:err(409,'이번 달 뉴스레터 발행 한도(1회)에 도달했습니다.')
         recipients=db.execute("SELECT id FROM newsletter_subscribers WHERE tenant=? AND status='active' ORDER BY id",(user['tenant'],)).fetchall()
         if not recipients:err(409,'이메일 확인을 완료한 구독자가 없습니다.')
         if len(recipients)>100:err(409,'구독자 100명 초과입니다. 전문 대량발송 서비스 연동 후 진행하세요.')
