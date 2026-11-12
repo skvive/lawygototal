@@ -6,7 +6,7 @@ const msg=text=>$('message').textContent=text;
 async function api(path,options={}){const r=await fetch(path,{cache:'no-store',credentials:'same-origin',...options});const x=await r.json().catch(()=>({}));if(!r.ok)throw Error(x.detail||'요청 오류 '+r.status);return x;}
 const post=(path,body)=>api(path,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf()},body:JSON.stringify(body)});
 function todayKst(){return new Date(Date.now()+9*3600000).toISOString().slice(0,10);}
-function nextKst(){return new Date(Date.now()+9*3600000+86400000).toISOString().slice(0,10);}
+function nextKst(){const korea=new Date(Date.now()+9*3600000);return new Date(Date.UTC(korea.getUTCFullYear(),korea.getUTCMonth()+1,1)).toISOString().slice(0,10);}
 function safeUrl(raw){try{const u=new URL(raw);return u.protocol==='https:'?u.toString():''}catch{return ''}}
 function card(section,values={}){
  const parent=$(section+'-list');if(parent.children.length>=5)throw Error('분야별 기사는 최대 5건입니다.');
@@ -67,7 +67,7 @@ $('scheduled').value=nextKst()+'T10:00';
 $('subject').value='LAWYGO JOURNAL | '+$('month').value+' 미국 경제·한국 법률정책 브리핑';
 card('us');card('kr');
 for(const section of ['us','kr'])$(section+'-add').addEventListener('click',()=>{try{card(section);previewHash=''}catch(e){msg(e.message)}});
-$('month').addEventListener('change',()=>{const current=$('scheduled').value;if(current)$('scheduled').value=$('month').value+current.slice(7);$('subject').value='LAWYGO JOURNAL | '+$('month').value+' 미국 경제·한국 법률정책 브리핑';previewHash='';loadStatus().catch(e=>msg(e.message))});
+$('month').addEventListener('change',()=>{const current=$('scheduled').value;if(current)$('scheduled').value=$('month').value+'-'+current.slice(8);$('subject').value='LAWYGO JOURNAL | '+$('month').value+' 미국 경제·한국 법률정책 브리핑';previewHash='';loadStatus().catch(e=>msg(e.message))});
 $('save').addEventListener('click',e=>busy(e.currentTarget,async()=>{const r=await post('/api/growth/newsletter/monthly/draft',payload());msg('편집 초안을 저장했습니다. '+r.saved_at)}));
 $('preview').addEventListener('click',e=>busy(e.currentTarget,async()=>{const data=payload();const result=await post('/api/growth/newsletter/monthly/preview',data);$('email-preview').srcdoc=result.html;previewHash=JSON.stringify(data);msg('이메일 HTML 및 한국어 본문 미리보기를 생성했습니다. 제목·출처·링크를 검토하세요.');$('email-preview').scrollIntoView({block:'nearest',behavior:'smooth'});}));
 $('queue').addEventListener('click',e=>busy(e.currentTarget,async()=>{
