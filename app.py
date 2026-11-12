@@ -42,6 +42,18 @@ DB_FILE=Path(os.environ.get('LAWYGO_DB_PATH', str(_default_db_path())))
 FILES=_default_upload_path()
 COOKIE='lawygo_cms_session'
 CSRF_COOKIE='lawygo_cms_csrf'
+
+def secure_session_cookies() -> bool:
+    """HTTPS public deployments must never issue cleartext session/CSRF cookies.
+
+    Explicit LAWYGO_SECURE_COOKIES can opt-in for other environments;
+    it cannot downgrade an HTTPS public URL or production Vercel runtime.
+    """
+    public_url = os.environ.get("LAWYGO_PUBLIC_URL", "").strip().lower()
+    is_production = os.environ.get("VERCEL_ENV", "").strip().lower() == "production"
+    opt_in = os.environ.get("LAWYGO_SECURE_COOKIES", "").strip().lower() in {"1", "true", "yes", "on"}
+    return public_url.startswith("https://") or is_production or opt_in
+
 DEFAULT_TENANT=os.environ.get('LAWYGO_DEFAULT_TENANT','demo')
 PRODUCTS={'channel':'LAWYGO CHANNEL · 로이고 채널','wiki':'LAWYGO WIKI · 로이고 위키','pan':'LAWYGO PAN · 로이고 판','note':'LAWYGO NOTE · 로이고 노트'}
 KINDS={'channel':{'article','blog','video','announcement'},'wiki':{'encyclopedia','precedent','statute','guide'},'pan':{'blog','video','profile','column','announcement'},'note':{'note','document','draft','research'}}
@@ -200,7 +212,7 @@ def login(data:Login,response:Response,db=Depends(database)):
     with transaction(db):
         db.execute('DELETE FROM sessions WHERE expires_at<?',(int(time.time()),))
         db.execute('INSERT INTO sessions VALUES(?,?,?,?)',(hashlib.sha256(raw.encode()).hexdigest(),row['id'],hashlib.sha256(token.encode()).hexdigest(),int(time.time())+3600*8))
-    secure=os.environ.get('LAWYGO_SECURE_COOKIES','').strip().lower() in {'1','true','yes','on'}
+    secure=secure_session_cookies()
     response.set_cookie(COOKIE,raw,httponly=True,secure=secure,samesite='lax',max_age=8*3600)
     response.set_cookie(CSRF_COOKIE,token,httponly=False,secure=secure,samesite='lax',max_age=8*3600)
     return {'id':row['id'],'name':row['display_name'],'role':row['role'],'tenant':row['tenant']}
