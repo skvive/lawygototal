@@ -155,6 +155,10 @@
     {
       "path": "/api/cron/google-sync",
       "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/newsletter-monthly",
+      "schedule": "0 1 * * *"
     }
   ],
   "regions": [
