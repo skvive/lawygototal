@@ -46,14 +46,21 @@ function fill(d){
 }
 function busy(button,fn){button.disabled=true;return Promise.resolve().then(fn).catch(e=>msg(e.message)).finally(()=>button.disabled=false)}
 async function loadStatus(){
- const [stats,queue,issues]=await Promise.all([api('/api/growth/newsletter/admin/stats'),api('/api/growth/newsletter/admin/queue'),api('/api/growth/newsletter/monthly/issues')]);
- $('count').textContent=(stats.counts&&stats.counts.active)||0;
- $('queue-count').textContent=(queue.counts||[]).filter(x=>x.job_type==='issue'&&x.status==='queued').reduce((n,x)=>n+x.n,0);
+ const issues=await api('/api/growth/newsletter/monthly/issues');
+ let queue=null;
+ if(role==='admin'){
+  const stats=await api('/api/growth/newsletter/admin/stats');
+  queue=await api('/api/growth/newsletter/admin/queue');
+  $('count').textContent=(stats.counts&&stats.counts.active)||0;
+  $('queue-count').textContent=(queue.counts||[]).filter(x=>x.job_type==='issue'&&x.status==='queued').reduce((n,x)=>n+x.n,0);
+ }else{
+  $('count').textContent='관리자 전용';$('queue-count').textContent='관리자 전용';
+ }
  const history=$('history');history.replaceChildren();
  for(const issue of issues.items||[]){const node=document.createElement('div');node.className='hist-item';node.textContent=issue.issue_month+' · '+issue.subject+' · 발송 '+issue.sent+' / 대기 '+issue.queued;history.append(node)}
  if(!history.children.length)history.textContent='발행된 뉴스레터가 없습니다.';
  $('issue-status').textContent=issues.items?.some(x=>x.issue_month===$('month').value)?'발행 등록됨':'편집 중';
- if(!queue.smtp_configured||!queue.issue_send_enabled)msg('현재 실제 발송 잠금 상태입니다. 원고 작업·미리보기·대기열 등록은 가능합니다.');
+ if(queue&&(!queue.smtp_configured||!queue.issue_send_enabled))msg('현재 실제 발송 잠금 상태입니다. 원고 작업·미리보기·대기열 등록은 가능합니다.');
 }
 $('month').value=nextKst().slice(0,7);
 $('scheduled').value=nextKst()+'T10:00';
