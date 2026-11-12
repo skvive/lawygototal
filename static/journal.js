@@ -97,7 +97,7 @@ async function boot() {
     rail.append(mkt);
     const nl = el("div", "", "journal-rail-card");
     nl.append(el("h4", "Newsletter"));
-    nl.append(el("p", "월 2회 무료 경제·법률 브리핑"));
+    nl.append(el("p", "월 1회 무료 경제·법률 브리핑"));
     const btn = el("a", "구독 신청 →", "wsj-btn wsj-btn-admin");
     btn.href = "/#newsletter";
     btn.style.display = "inline-flex";
