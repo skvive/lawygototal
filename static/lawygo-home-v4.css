@@ -78,3 +78,21 @@
 }
 @media(max-width:380px){.l4-service{min-height:208px}}
 @media(prefers-reduced-motion:reduce){.l4-service,.l4-service img{transition:none!important}}
+
+
+/* V6 / Distinct editorial imagery by product: financial report, legal library, AI desk, case team, media studio. */
+.l4-service {min-height:300px; padding-bottom:26px; border-color:#d8d1c3; box-shadow:0 13px 28px rgba(10,33,50,.12)}
+.l4-service img {filter:contrast(1.04) saturate(1.05) brightness(1.04);object-position:50% 44%}
+.l4-service::after {background:linear-gradient(180deg,rgba(4,17,29,.08) 0%,rgba(4,17,29,.03) 37%,rgba(4,17,29,.63) 68%,rgba(4,17,29,.96) 100%)}
+.l4-service .num {background:rgba(6,27,41,.78);padding:7px 9px;border:1px solid rgba(255,227,179,.25);border-radius:2px;color:#f4d7aa;backdrop-filter:blur(4px)}
+.l4-service .arrow {background:rgba(6,27,41,.65);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.l4-service h3 {font-size:23px;letter-spacing:.015em;margin-bottom:9px}
+.l4-service p {font-size:12px;color:#f1f3f5;max-width:95%}
+.l4-service:nth-child(2) img {object-position:56% 44%}
+.l4-service:nth-child(3) img {object-position:61% 44%}
+.l4-service:nth-child(4) img {object-position:50% 39%}
+.l4-service:nth-child(5) img {object-position:57% 44%}
+.l4-service:hover img,.l4-service:focus-visible img{transform:scale(1.055);filter:contrast(1.04) saturate(1.10) brightness(1.09)}
+@media(max-width:960px){.l4-service{min-height:280px}}
+@media(max-width:720px){.l4-service{min-height:248px;padding-bottom:19px}.l4-service h3{font-size:20px}.l4-service .num{top:12px;left:12px}.l4-service .arrow{top:12px;right:12px}}
+@media(max-width:380px){.l4-service{min-height:222px}}
