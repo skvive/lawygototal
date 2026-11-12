@@ -16,7 +16,7 @@
       <a class="${active('/p/wiki')}" href="/p/wiki">위키</a>
       <a class="${active('/p/pan')}" href="/p/pan">판</a>
       <a class="${active('/p/note')}" href="/p/note">노트</a>
-      <a class="${active('/pro')}" href="/pro">PRO</a>
+      <a class="${active('/pro')}" href="https://lawygo.com" target="_blank" rel="noopener noreferrer">PRO</a>
       <a class="${active('/pricing')}" href="/pricing">구독</a>
     </nav>
     <div class="wsj-actions">
