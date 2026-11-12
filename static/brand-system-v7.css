@@ -1,0 +1,33 @@
+/* LAWYGO unified brand system v7: applied last, scoped overrides preserve existing app and page logic */
+:root{--lawygo-brand-navy:#071c34;--lawygo-brand-blue:#0064d4;--lawygo-brand-red:#e3132f;--lawygo-brand-paper:#f5f8fc;--lawygo-brand-line:#dfe6ef}
+/* Every service uses a consistent accessible focus cue */
+:where(body:not(.lawygo-home-v7)) a:focus-visible,:where(body:not(.lawygo-home-v7)) button:focus-visible{outline:3px solid #0d70d4;outline-offset:3px}
+/* Navigation brand: don't flatten JOURNAL editorial typography */
+.lawygo-switcher{border-color:#dfe6ef;box-shadow:0 5px 18px #0a254312;background:rgba(255,255,255,.96)}
+.lawygo-switcher-link:hover,.lawygo-switcher-link[aria-current="page"]{background:#eaf3ff;border-color:#bcd9ff;color:#062a50!important}
+.lawygo-switcher-link.is-active{background:linear-gradient(135deg,#0c3566,#074991)!important;color:#fff!important}
+/* CMS/CHANNEL, NOTE: consistent brand palette */
+.atlas-page .subhero .eyebrow,.atlas-page .ly-kicker{color:#0b70cf}
+.atlas-page .subhero h1{letter-spacing:-.04em}
+.atlas-page .ly-premiere-panel{border-radius:16px}
+.atlas-page .btn.primary,.atlas-page a.btn.primary{background:#0a58b3;color:#fff}
+/* PAN retains the fixed category navigation and actual content feed */
+body.pan-hub-page .pan-hub-side{background-color:#071c34;border-right:1px solid #15385d}
+body.pan-hub-page .pan-side-brand img{width:46px;height:46px;padding:4px;border-radius:13px;background:#f5f8fc;object-fit:contain}
+body.pan-media-v2 .pan-side-nav a.is-current{background:linear-gradient(90deg,#c51237,#a41432)}
+body.pan-media-v2 .pan-top-crumb strong{font-family:'Noto Sans KR',system-ui,sans-serif;letter-spacing:-.04em}
+/* WIKI: search stays primary, original navigation intact */
+body .wtop .wbrand img{object-fit:contain;border-radius:12px}
+body .wtop{border-bottom-color:#dfe6ef}
+/* JOURNAL: intentionally keep sober editorial serif masthead; only accent and logo harmonization */
+body .mast .brandmark,body .mast img[src*="logo"],body .mast img[src*="favicon"]{object-fit:contain}
+body .topline{border-bottom-color:#dce4eb}
+/* PRO marketing retains its own full-bleed imagery and onboarding links */
+body .pro-logo img{object-fit:contain;background:#f5f8fc;padding:3px}
+body .pro-eyebrow:before{background:#e3132f}
+/* Mobile touch and legibility */
+@media(max-width:720px){
+ .lawygo-switcher-inner{max-width:100%;width:calc(100% - 16px);min-height:58px}
+ .lawygo-switcher-link{min-height:44px;padding:7px 12px}
+ body.pan-hub-page .pan-side-brand img{width:39px;height:39px}
+}
