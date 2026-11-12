@@ -19,6 +19,7 @@ FEEDS = (
     {"source": "위클리뉴스", "region": "kr", "desk": "WEEKLYNEWS · 경제·법률", "url": "https://weeklynews.me/feed.xml"},
     {"source": "연합뉴스", "region": "kr", "desk": "한국 경제·정책", "url": "https://www.yna.co.kr/rss/economy.xml"},
     {"source": "연합뉴스", "region": "kr", "desk": "한국 종합", "url": "https://www.yna.co.kr/rss/news.xml"},
+    {"source": "Federal Reserve", "region": "us", "desk": "미국 통화정책 · 연방준비제도", "url": "https://www.federalreserve.gov/feeds/press_monetary.xml"},
     {"source": "BBC", "region": "us", "desk": "U.S. & Americas", "url": "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml"},
     {"source": "NPR", "region": "us", "desk": "U.S. Business", "url": "https://feeds.npr.org/1019/rss.xml"},
 )
