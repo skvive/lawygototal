@@ -84,6 +84,8 @@ def init_db():
         integrations_v2.ensure_schema(db)
         import growth_v3
         growth_v3.schema(db)
+        import newsletter_monthly_v5
+        newsletter_monthly_v5.ensure_schema(db)
         for product,boards in {
             'channel':[('news','경제·법률 뉴스'),('clips','영상·쇼츠'),('insight','전문가 인사이트')],
             'wiki':[('encyclopedia','온라인 법률백과'),('precedents','판례 해설'),('laws','법령·제도')],
@@ -775,6 +777,10 @@ def partnership_page():return FileResponse(ROOT/'static'/'partnership.html')
 def strategy_page():return FileResponse(ROOT/'static'/'strategy.html')
 @app.get('/')
 def home():return FileResponse(ROOT/'static'/'index.html')
+@app.get('/newsletter/studio')
+def newsletter_studio():
+    return FileResponse(ROOT/'static'/'newsletter-studio.html', headers={'X-Robots-Tag':'noindex, nofollow'})
+
 @app.get('/dashboard')
 def dashboard_page():
     return FileResponse(ROOT/'static'/'dashboard.html', headers={'X-Robots-Tag': 'noindex, nofollow'})
@@ -791,6 +797,8 @@ import growth_v3
 growth_v3.register(app, globals())
 import newsletter_v3
 newsletter_v3.register(app, globals())
+import newsletter_monthly_v5
+newsletter_monthly_v5.register(app, globals())
 
 # First-party search discovery; does not alter auth, billing, or private CRM routes.
 import seo_discovery
