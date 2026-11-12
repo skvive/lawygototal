@@ -30,8 +30,8 @@ def send_confirmation(email,token,unsubscribe):
     link=base.rstrip('/')+'/api/growth/newsletter/confirm?'+urlencode({'token':token})
     unsub=base.rstrip('/')+'/api/growth/newsletter/unsubscribe?'+urlencode({'token':unsubscribe})
     msg=EmailMessage();msg['From']=sender;msg['To']=email
-    msg['Subject']='[LAWYGO] 월 2회 무료 뉴스레터 구독 확인'
-    msg.set_content('LAWYGO 무료 뉴스레터(월 2회)에 신청하셨습니다.\n\n구독 확인: '+link+'\n\n원하지 않으시면 확인하지 않으셔도 됩니다. 수신거부: '+unsub+'\n')
+    msg['Subject']='[LAWYGO] 월 1회 무료 뉴스레터 구독 확인'
+    msg.set_content('LAWYGO 무료 뉴스레터(월 1회)에 신청하셨습니다.\n\n구독 확인: '+link+'\n\n원하지 않으시면 확인하지 않으셔도 됩니다. 수신거부: '+unsub+'\n')
     with (smtplib.SMTP_SSL(host,port,context=ssl.create_default_context(),timeout=12) if port==465 else smtplib.SMTP(host,port,timeout=12)) as client:
         if port==587:client.starttls(context=ssl.create_default_context())
         client.login(user,pw);client.send_message(msg)
@@ -41,7 +41,9 @@ def send_issue_email(email,subject,body,token):
     unsub=base.rstrip('/')+'/api/growth/newsletter/unsubscribe?'+urlencode({'token':token})
     msg=EmailMessage();msg['From']=sender;msg['To']=email;msg['Subject']='[광고] '+subject
     msg['List-Unsubscribe']='<'+unsub+'>'
-    msg.set_content(body+'\n\n---\n이 메일은 사전 수신 동의에 따라 발송되었습니다.\n무료 수신거부: '+unsub+'\nLAWYGO PAN | sk@terrabridge.us\n')
+    from newsletter_monthly_v5 import plain_body, render_html
+    msg.set_content(plain_body(body)+'\n\n---\n이 메일은 사전 수신 동의에 따라 발송되었습니다.\n무료 수신거부: '+unsub+'\nLAWYGO PAN | sk@terrabridge.us\n')
+    msg.add_alternative(render_html(subject,body,unsub,base),subtype='html')
     with (smtplib.SMTP_SSL(host,port,context=ssl.create_default_context(),timeout=12) if port==465 else smtplib.SMTP(host,port,timeout=12)) as client:
         if port==587:client.starttls(context=ssl.create_default_context())
         client.login(user,pw);client.send_message(msg)
@@ -111,7 +113,7 @@ def register(app,g):
         except (RuntimeError,ValueError):err(503,'이메일 서버가 준비되지 않았습니다.')
         month=now()[:7]
         issues=db.execute("SELECT COUNT(*) FROM newsletter_issues WHERE tenant=? AND issue_month=?",(user['tenant'],month)).fetchone()[0]
-        if issues>=2:err(409,'이번 달 발행 한도(2회)에 도달했습니다.')
+        if issues>=1:err(409,'이번 달 발행 한도(1회)에 도달했습니다.')
         recipients=db.execute("SELECT id,email FROM newsletter_subscribers WHERE tenant=? AND status='active' ORDER BY id",(user['tenant'],)).fetchall()
         if not recipients:err(409,'구독 확인을 마친 수신자가 없습니다.')
         if len(recipients)>100:err(409,'1회 발송 대상 100명 제한. 대량 발송은 전문 ESP로 연동하세요.')
