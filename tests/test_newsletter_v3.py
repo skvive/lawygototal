@@ -81,7 +81,7 @@ def test_admin_newsletter_send_with_approval_and_limits(c,monkeypatch):
  sent=[];monkeypatch.setattr(newsletter_v3,'send_issue_email',lambda email,subject,body,token:sent.append(email))
  assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==200
  assert sent==['abc@example.com']
- assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==200
+ assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==409
  assert c.post('/api/growth/newsletter/admin/send',headers=hdr,json=body).status_code==409
 
 def test_newsletter_queue_admin_security_and_confirmation_recovery(c,monkeypatch):
