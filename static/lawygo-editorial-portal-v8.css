@@ -87,3 +87,7 @@ body.lp8-portal .navline{border-top:0}
  body.lp8-portal .pro-hero{min-height:590px}
 }
 @media(prefers-reduced-motion:reduce){.lp8-portal-top *{scroll-behavior:auto!important;transition:none!important}}
+/* PAN alone has a desktop fixed sidebar: preserve it below the unified publisher masthead. */
+@media(min-width:1041px){
+ body.lp8-portal.pan-hub-page .pan-hub-side{top:var(--lp8-top-height,173px);height:calc(100dvh - var(--lp8-top-height,173px));bottom:auto}
+}

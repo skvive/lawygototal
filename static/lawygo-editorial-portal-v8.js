@@ -41,4 +41,6 @@ for(const item of modules){
 }
 const all=document.createElement('a');all.href='/#modules';all.className='lp8-all';all.textContent='전체 서비스 ↗';inner.append(all);ribbon.append(inner);mast.append(ribbon);
 document.body.prepend(mast);document.body.classList.add('lp8-portal');
+const measure=()=>document.documentElement.style.setProperty('--lp8-top-height',Math.ceil(mast.getBoundingClientRect().height)+'px');
+measure();window.addEventListener('resize',measure,{passive:true});
 })();
