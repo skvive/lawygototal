@@ -65,3 +65,25 @@ def test_shared_brand_accessible_name_matches_visible_wordmark():
 
     assert '<a href="/" class="logo">' in shell
 
+
+def test_home_does_not_repeat_header_module_navigation():
+    home = read("static/index.html")
+    assert "v7-fastbar" not in home
+    assert "v7-products" not in home
+    assert "v7-solution-cards" not in home
+    assert 'class="v7-three-col v7-two-col"' in home
+    assert "v7-news-column" in home and "v7-wiki-column" in home
+    assert "/static/lawygo-editorial-portal-v8.js" in home
+
+
+def test_note_compact_welcome_keeps_interactive_engine():
+    note = read("static/note.html")
+    css = read("static/lawygo-editorial-portal-v8.css")
+    assert 'class="lawygo-ai-icon"' not in note
+    assert 'class="lawygo-ai-brand-mark"' not in note
+    assert 'class="lawygo-ai-kicker"' in note
+    for part in ("lnw-chat-new", "lnw-chat-messages", "lnw-chat-form",
+                 "lnw-chat-input", "lnw-chat-sources", "data-lnw-mode="):
+        assert part in note
+    assert "v10 compact editorial layout" in css
+    assert ".lawygo-ai-welcome{margin:0 auto" in css
