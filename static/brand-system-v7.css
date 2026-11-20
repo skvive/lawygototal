@@ -31,3 +31,19 @@ body .pro-eyebrow:before{background:#e3132f}
  .lawygo-switcher-link{min-height:44px;padding:7px 12px}
  body.pan-hub-page .pan-side-brand img{width:39px;height:39px}
 }
+/* LAWYGO cross-page detail refinement 2026-11-21: additive only */
+:where(body:not(.lawygo-home-v7)) :is(input,select,textarea,[role="button"]):focus-visible{outline:3px solid #0d70d4;outline-offset:3px}
+:where(body:not(.lawygo-home-v7)) :is(button,.btn,a.btn){touch-action:manipulation}
+:where(body.atlas-page) :is(.btn,a.btn){min-height:44px;line-height:1.45;white-space:normal;text-wrap:pretty}
+:where(body.atlas-page) :is(.price-card,.billcard) :is(p,li){overflow-wrap:break-word;line-height:1.65}
+:where(body.atlas-page) :is(.ly-premiere-panel,.subhero) :is(h1,h2,p){overflow-wrap:break-word}
+:where(body.pan-hub-page) :is(.pan-featured-card,.pan-shelf-title,.pan-hub-hero) :is(h1,h2,h3,p){overflow-wrap:break-word}
+:where(body:not(.lawygo-home-v7)) img{max-width:100%}
+@media(max-width:720px){
+ .lawygo-switcher-link{min-height:44px;white-space:normal;overflow-wrap:break-word}
+ :where(body.atlas-page) :is(.btn,a.btn,button[type="submit"]){min-height:44px}
+ :where(body.atlas-page) :is(.price-card,.billcard){min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+ :where(body:not(.lawygo-home-v7)) :is(.btn,button,a.btn){transition:none!important;transform:none!important}
+}

@@ -122,3 +122,32 @@ body.lawygo-home-v7 a:focus-visible,body.lawygo-home-v7 button:focus-visible,bod
 @media(max-width:720px){.v7-wrap{width:calc(100% - 30px)}.v7-header{height:60px}.v7-nav{top:60px}.v7-brand img{width:40px;height:40px}.v7-brand strong{font-size:20px}.v7-search,.v7-login{display:none}.v7-join{font-size:11px;min-height:35px;padding:7px 11px}.v7-hero{min-height:0}.v7-hero-grid{display:flex;flex-direction:column;align-items:stretch;gap:0}.v7-hero-copy{padding:29px 0 0}.v7-hero h1{font-size:clamp(31px,8.8vw,46px);margin:9px 0}.v7-hero p{font-size:12px;max-width:400px}.v7-hero-actions{margin-top:17px}.v7-primary,.v7-ghost{min-height:43px;padding:9px 13px;font-size:11px;gap:10px}.v7-hero-art{height:180px;min-height:180px;align-self:stretch;margin-top:-13px}.v7-hero-art img{width:245px;max-height:200px}.v7-hero-statue{font-size:9px;bottom:36px}.v7-fastbar{margin-top:-12px;grid-template-columns:repeat(3,1fr);border-radius:13px}.v7-fastbar a{min-height:77px;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:1px;padding:7px 3px}.v7-fastbar a>span{font-size:23px;line-height:1.2}.v7-fastbar strong{font-size:9px}.v7-fastbar small{font-size:8px}.v7-overview{padding-top:27px}.v7-three-col{display:block}.v7-solution-column,.v7-wiki-column{border:0;padding:0 0 22px}.v7-solution-column{border-bottom:1px solid #e3e9f2;margin-bottom:22px}.v7-solution-cards a{min-height:178px;padding:12px 8px 28px}.v7-solution-cards p{font-size:9px}.v7-solution-cards strong{font-size:11px}.v7-section-heading h2{font-size:19px}.v7-wiki-feature{min-height:170px}.v7-news-column{display:block;border-top:1px solid #e3e9f2;padding-top:21px}.v7-dashboard{grid-template-columns:1fr;padding:24px 20px 16px;gap:8px}.v7-dashboard-image{min-height:110px}.v7-dashboard-image>img{width:95px;height:95px}.v7-dashboard-stats{max-width:190px}.v7-products{flex-wrap:wrap}.v7-products a{flex:0 0 25%;border-bottom:1px solid #e4ebf2;font-size:10px;min-height:45px}.v7-newsletter{padding:36px 0}.v7-newsletter-inner{display:block}.v7-newsletter h2{font-size:23px}.v7-signup{margin-top:24px;padding:18px}.v7-footer-in{display:block}.v7-footer nav{gap:13px;margin-top:16px}}
 @media(max-width:370px){.v7-brand strong{font-size:17px}.v7-brand img{width:34px;height:34px}.v7-join{display:none}.v7-hero h1{font-size:29px}.v7-solution-cards{grid-template-columns:1fr}.v7-solution-cards a{min-height:93px;display:grid;grid-template-columns:60px 1fr;grid-template-rows:auto auto}.v7-solution-cards .v7-tile-icon{grid-row:1/3}.v7-solution-cards p{grid-column:2}.v7-fastbar{grid-template-columns:repeat(2,1fr)}.v7-fastbar a:nth-child(3){border-right:1px solid #edf1f5}.v7-fastbar a:nth-child(2n){border-right:0}}
 @media(prefers-reduced-motion:reduce){.v7-solution-cards a{transition:none}html{scroll-behavior:auto}}
+/* LAWYGO detail refinement 2026-11-21: preserves v7 grid and brand */
+body.lawygo-home-v7 .v7-fastbar small{font-size:11px;color:#536a80;line-height:1.45}
+body.lawygo-home-v7 .v7-fastbar strong{white-space:normal;overflow-wrap:break-word}
+body.lawygo-home-v7 .v7-section-heading p{font-size:12px;line-height:1.65}
+body.lawygo-home-v7 .v7-solution-cards p{font-size:12px;line-height:1.55}
+body.lawygo-home-v7 .v7-editorial-items small{font-size:11px;color:#be1530}
+body.lawygo-home-v7 .v7-editorial-items span{font-size:11px;color:#52677c}
+body.lawygo-home-v7 .v7-disclaimer{font-size:11px;line-height:1.65;color:#52677c}
+body.lawygo-home-v7 .v7-topic-links a{display:inline-flex;align-items:center;min-height:40px;padding:8px 12px}
+body.lawygo-home-v7 .v7-editorial-items a{min-height:48px}
+body.lawygo-home-v7 .v7-footer nav a{display:inline-flex;align-items:center;min-height:44px}
+body.lawygo-home-v7 .v7-signup-fields :is(input,button){min-height:48px}
+body.lawygo-home-v7 .v7-light-button{display:inline-flex;align-items:center;min-height:44px}
+body.lawygo-home-v7 .v7-solution-cards a:focus-visible,body.lawygo-home-v7 .v7-fastbar a:focus-visible{outline:3px solid #0c7ddf;outline-offset:3px}
+@media(max-width:720px){
+ body.lawygo-home-v7 .v7-fastbar a{min-height:90px;padding:10px 6px}
+ body.lawygo-home-v7 .v7-fastbar strong{font-size:11px;line-height:1.45}
+ body.lawygo-home-v7 .v7-fastbar small{font-size:10px;line-height:1.45}
+ body.lawygo-home-v7 .v7-solution-cards p{font-size:11px;line-height:1.5}
+ body.lawygo-home-v7 .v7-solution-cards strong{font-size:12px}
+ body.lawygo-home-v7 .v7-newsletter p{font-size:13px}
+ body.lawygo-home-v7 .v7-consent{font-size:12px;line-height:1.6}
+ body.lawygo-home-v7 .v7-products a{min-height:48px;font-size:11px}
+}
+@media(max-width:420px){
+ body.lawygo-home-v7 .v7-signup-fields{flex-direction:column;align-items:stretch}
+ body.lawygo-home-v7 .v7-signup-fields input,body.lawygo-home-v7 .v7-signup-fields button{width:100%}
+ body.lawygo-home-v7 .v7-fastbar a{min-width:0}
+}

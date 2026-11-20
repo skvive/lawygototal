@@ -28,7 +28,7 @@
   <a href="/" class="footer-logo">LAWYGO<span>®</span></a>
   <p>경제를 읽는 법률, 제도를 해석하는 인텔리전스.<br>뉴스레터에서 전문 법률 정보·실무 도구까지.</p>
 </div><div><span class="eyebrow">THE ECOSYSTEM</span><p>JOURNAL / WIKI / NOTE / PRO / PAN</p>
-  <p>미국 기술 협력 관련 사항: TerraBridge Capital LLC · 확인 필요</p></div></div>
+  <p><a href="/partnership">법률 전문가·기업 파트너십 문의 ↗</a></p></div></div>
 <div class="footer-links">
   <a href="/journal">저널</a><a href="/rss.xml" type="application/rss+xml">RSS 구독</a><a href="/payment">Payment</a><a href="/dashboard">CMS</a>
 </div>
