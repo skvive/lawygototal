@@ -91,3 +91,121 @@ body.lp8-portal .navline{border-top:0}
 @media(min-width:1041px){
  body.lp8-portal.pan-hub-page .pan-hub-side{top:var(--lp8-top-height,173px);height:calc(100dvh - var(--lp8-top-height,173px));bottom:auto}
 }
+
+/* LAWYGO JOURNAL courthouse photography — v9 editorial hero refresh 2026-11-21.
+   Generated architectural illustration, not a photograph of the Korean Supreme Court. */
+body.ly9-court-home.lp8-portal .v7-hero {
+  isolation:isolate;
+  min-height:clamp(480px,43vw,640px);
+  background-color:#0a2136;
+  background-image:
+    linear-gradient(90deg,rgba(4,22,38,.94) 0%,rgba(7,28,46,.85) 26%,rgba(8,30,48,.57) 48%,rgba(7,24,39,.10) 83%),
+    url('/static/img/design/lawygo-journal-courthouse-hero-20261121.webp');
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:cover;
+}
+body.ly9-court-home.lp8-portal .v7-hero::before,
+body.ly9-court-home.lp8-portal .v7-hero::after {display:none}
+body.ly9-court-home.lp8-portal .v7-hero-justice {display:none}
+body.ly9-court-home.lp8-portal .v7-hero-grid {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  align-items:center;
+  min-height:clamp(480px,43vw,640px);
+  position:relative;
+}
+body.ly9-court-home.lp8-portal .v7-hero-copy {
+  width:min(690px,61%);
+  padding:78px 0 97px;
+  z-index:1;
+}
+body.ly9-court-home.lp8-portal .v7-hero h1 {
+  font-size:clamp(37px,3.55vw,57px);
+  line-height:1.29;
+  letter-spacing:-.052em;
+  text-shadow:0 2px 17px rgba(0,8,21,.38);
+}
+body.ly9-court-home.lp8-portal .v7-hero h1 em {color:#e4d2aa}
+body.ly9-court-home.lp8-portal .v7-hero p:not(.ly9-courthouse-photo-note) {
+  color:#eff3f6;
+  max-width:570px;
+  font-size:clamp(13px,1.15vw,15px);
+  line-height:1.85;
+  text-shadow:0 1px 10px rgba(0,8,16,.35);
+}
+body.ly9-court-home.lp8-portal .v7-primary,
+body.ly9-court-home.lp8-portal .v7-ghost {
+  border-radius:5px;
+  min-height:48px;
+}
+body.ly9-court-home.lp8-portal .v7-primary {
+  background:#f6f2e8!important;
+  color:#112b40!important;
+}
+body.ly9-court-home.lp8-portal .v7-ghost {
+  border-color:rgba(250,253,255,.75);
+  background:rgba(9,30,49,.35);
+}
+body.ly9-court-home.lp8-portal .ly9-courthouse-photo-note {
+  position:absolute;
+  right:0;
+  bottom:14px;
+  max-width:340px;
+  margin:0;
+  padding:7px 9px;
+  border-radius:3px;
+  background:rgba(3,16,28,.58);
+  color:#e3e7e8;
+  text-align:right;
+  font:500 10px/1.55 "Noto Sans KR","Malgun Gothic",sans-serif;
+  letter-spacing:0;
+  z-index:1;
+}
+body.ly9-court-home.lp8-portal .v7-fastbar {
+  margin-top:0;
+  border-radius:0 0 12px 12px;
+  box-shadow:0 6px 18px rgba(14,34,50,.06);
+}
+@media(max-width:900px) {
+  body.ly9-court-home.lp8-portal .v7-hero {
+    background-position:62% center;
+    background-image:
+      linear-gradient(90deg,rgba(4,22,38,.95),rgba(7,28,45,.72) 55%,rgba(7,24,39,.25)),
+      url('/static/img/design/lawygo-journal-courthouse-hero-20261121.webp');
+  }
+  body.ly9-court-home.lp8-portal .v7-hero-copy {width:min(580px,83%)}
+}
+@media(max-width:720px) {
+  body.ly9-court-home.lp8-portal .v7-hero {
+    min-height:555px;
+    background-position:68% center;
+    background-image:
+      linear-gradient(180deg,rgba(5,23,39,.93) 0%,rgba(6,25,42,.85) 51%,rgba(5,19,32,.68) 100%),
+      url('/static/img/design/lawygo-journal-courthouse-hero-20261121.webp');
+  }
+  body.ly9-court-home.lp8-portal .v7-hero-grid {
+    min-height:555px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+  }
+  body.ly9-court-home.lp8-portal .v7-hero-copy {
+    width:100%;
+    padding:57px 0 86px;
+  }
+  body.ly9-court-home.lp8-portal .v7-hero h1 {
+    font-size:clamp(33px,7.8vw,42px);
+    line-height:1.31;
+  }
+  body.ly9-court-home.lp8-portal .v7-hero p:not(.ly9-courthouse-photo-note) {
+    font-size:13px;
+    line-height:1.8;
+    max-width:540px;
+  }
+  body.ly9-court-home.lp8-portal .ly9-courthouse-photo-note {
+    left:0;right:auto;bottom:14px;max-width:100%;text-align:left;
+    font-size:10px;
+  }
+  body.ly9-court-home.lp8-portal .v7-fastbar {border-radius:0 0 9px 9px}
+}
