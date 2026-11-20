@@ -64,6 +64,7 @@
     return items.every(item => paths.has(item.path));
   });
   const init=()=>{
+    if(document.querySelector('script[data-lawygo-editorial-v8]')) return; // unified v8 navigation owns public module links
     normalizeProductLinks(document);
     observeProductLinks();
     if(document.getElementById('lawygoPlatformSwitcher'))return;
