@@ -47,7 +47,8 @@ const tasks = [];
       overflow:document.documentElement.scrollWidth>w+3,
       documentWidth:document.documentElement.scrollWidth,
       brokenImages:img.filter(x=>x.complete&&!x.naturalWidth).map(x=>x.getAttribute('src')),
-      journalSearch:!!document.getElementById('reference-search-form'),
+      journalEditorial:!!document.querySelector('.front-grid #journal-lead'),
+      wikiTextIndex:!!document.querySelector('body.wiki-reference-v12 .wref-searchbox'),
       noteComposer:!!document.getElementById('lnw-chat-form'),
       panKorean:!!document.querySelector('body.pan-hub-page .pan-us-disclaimer'),
       proKorean:!!document.querySelector('.pro-ko-guide'),
@@ -69,21 +70,39 @@ const tasks = [];
  const check=(name,pass,details)=>tasks.push({name,pass:!!pass,...(details?{details}: {})});
  try{
   await page.route('**/api/journal/feed',route=>route.fulfill({status:200,contentType:'application/json',
-   body:JSON.stringify({kr:[{id:'qa-korean',title:'한국 지식재산 정책 개정',summary:'지식재산 및 법률 정책 안내',source:'공식 자료',
-    published:'2026-11-21',url:'https://example.com/kr'}],us:[{id:'qa-english',title:'Federal Markets Policy Update',summary:'Markets in 2026',
+   body:JSON.stringify({kr:[{id:'qa-korean',region:'kr',title:'한국 지식재산 정책 개정',summary:'지식재산 및 법률 정책 안내',source:'공식 자료',
+    published:'2026-11-21',url:'https://example.com/kr'}],us:[{id:'qa-english',region:'us',title:'Federal Markets Policy Update',summary:'Markets in 2026',
     source:'U.S. public source',published:'2026-11-20',url:'https://example.com/us'}],editorial:[]})}));
   await page.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
-  await page.locator('#reference-items .reference-item').first().waitFor({timeout:12000});
-  check('library-real-source-list',await page.locator('.reference-item').count()===2);
-  await page.locator('#reference-query').fill('지식재산');
-  check('library-live-search',await page.locator('.reference-item').count()===1);
-  await page.locator('#reference-query').fill('');
-  await page.locator('[data-reference-topic="us"]').click();
-  check('library-category-filter',await page.locator('.reference-item').count()===1);
-  check('library-source-auto-translation-link',await page.locator('.reference-item-actions a[href^="https://translate.google.com/translate?"]').count()===1);
-  check('library-no-decorative-hero',await page.locator('.front-grid,.lead-photo').count()===0);
+  await page.locator('#journal-front-left .side-story').first().waitFor({timeout:12000});
+  check('journal-newspaper-layout',await page.locator('.front-grid,#journal-lead,#journal-front-left,#journal-right').count()===4);
+  check('journal-live-feed-restored',(await page.locator('#journal-front-left').textContent()).includes('한국 지식재산 정책 개정'));
+  await page.locator('#journal-front-left .side-story').first().click();
+  check('journal-editorial-reader',(await page.locator('#journal-issue-overlay').getAttribute('aria-hidden'))==='false');
+  await page.locator('#journal-issue-close').click();
+  check('journal-newsletter-preserved',await page.locator('#newsletterSignupJournal').count()===1);
   await page.unroute('**/api/journal/feed');
- }catch(e){check('library-interactions',false,String(e).slice(0,250))}
+ }catch(e){check('journal-restoration-smoke',false,String(e).slice(0,250))}
+ try{
+  await page.route('**/api/posts?product=wiki&limit=12',route=>route.fulfill({status:200,contentType:'application/json',
+   body:JSON.stringify({total:1,items:[{id:'qa-law',kind:'encyclopedia',title:'임대차 법률 용어',summary:'민법 계약',source:'공개 위키',updated_at:'2026-11-21'}]})}));
+  await page.route('**/api/wiki/search?**',route=>route.fulfill({status:200,contentType:'application/json',
+   body:JSON.stringify({items:[{id:'qa-law',kind:'encyclopedia',title:'임대차 법률 용어',summary:'민법 계약',source:'공개 위키'}]})}));
+  await page.route('**/api/posts/qa-law',route=>route.fulfill({status:200,contentType:'application/json',
+   body:JSON.stringify({id:'qa-law',kind:'encyclopedia',title:'임대차 법률 용어',summary:'민법 임대차',body:'임대차 자료 본문',source:'공개 위키'})}));
+  await page.goto(BASE+'/p/wiki',{waitUntil:'domcontentloaded'});
+  await page.locator('#wikiLatestList .wresult').first().waitFor({timeout:11000});
+  check('wiki-text-first-layout',await page.locator('.wref-searchbox,.wref-topic-index').count()===2);
+  check('wiki-real-public-index',(await page.locator('#wikiLatestList').textContent()).includes('임대차 법률 용어'));
+  await page.locator('#wikiHomeQuery').fill('임대차');
+  await page.locator('#wiki-home-search button[type="submit"]').click();
+  await page.locator('#wikiResults .wresult').first().waitFor({timeout:11000});
+  check('wiki-search-still-functional',await page.locator('#view-search').isVisible());
+  await page.locator('#wikiResults .wresult').first().click();
+  await page.locator('#wikiArticleTitle').getByText('임대차 법률 용어').waitFor({timeout:11000});
+  check('wiki-article-reader-preserved',(await page.locator('#wikiArticleBody').textContent()).includes('임대차 자료 본문'));
+  check('wiki-source-section-preserved',await page.locator('#wikiArticleSourceLabel').count()===1);
+ }catch(e){check('wiki-reference-qa',false,String(e).slice(0,260))}
  try{
   await page.route('**/api/pan/content?**',route=>route.fulfill({status:200,contentType:'application/json',
    body:JSON.stringify({items:[{id:'qa-us-law',content_type:'us_legal',title:'U.S. Workplace Act',
@@ -113,7 +132,8 @@ const tasks = [];
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||
-  (r.route==='/journal'&&!r.journalSearch)||
+  (r.route==='/journal'&&!r.journalEditorial)||
+  (r.route==='/p/wiki'&&!r.wikiTextIndex)||
   (r.route==='/p/note'&&!r.noteComposer)||
   (r.route==='/pro'&&!r.proKorean)||
   (r.route==='/p/pan'&&!r.panKorean)||

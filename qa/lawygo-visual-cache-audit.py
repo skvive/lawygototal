@@ -1,4 +1,4 @@
-"""LAWYGO v11 public page design release and reference search integrity audit."""
+"""LAWYGO v12 journal restoration and text-first wiki integrity audit."""
 import json
 import re
 from pathlib import Path
@@ -17,15 +17,24 @@ for name in pages:
     assert r"\n</head>" not in html, f"Literal escaped newline: {name}"
 journal=(ROOT/"static/journal.html").read_text(encoding="utf-8")
 assert all(f'id="{x}"' in journal for x in
-    ("reference-search-form","reference-query","reference-topics","reference-results","reference-items","reference-count","newsletterSignupJournal"))
-assert 'front-grid' not in journal
-assert 'class="navline"' not in journal
-assert '<h1 id="reference-heading">경제·법률 자료 검색</h1>' in journal
+    ("journal-front-left","journal-lead","journal-right","journal-wire-kr","journal-wire-us",
+     "journal-row-editors","journal-row-law","newsletterSignupJournal","journal-issue-overlay"))
+assert 'front-grid' in journal
+assert 'class="navline"' in journal
+assert "reference-search-form" not in journal
 script=(ROOT/"static/journal-editorial-live.js").read_text(encoding="utf-8")
 assert "/api/journal/feed" in script
-assert "reference-items" in script and "data-reference-topic" in script
-assert "translate.google.com" in script
-assert "textContent" in script
+assert "journal-front-left" in script and "openIssue" in script
+assert "journal-issue-close" in script
+wiki=(ROOT/"static/wiki.html").read_text(encoding="utf-8")
+assert 'class="wiki-reference-v12"' in wiki
+assert all(f'id="{x}"' in wiki for x in
+       ("wikiHomeQuery","wikiLatestList","wikiResults","wikiStatPublished","wikiArticleTitle","wikiArticleBody"))
+assert "wref-topic-index" in wiki
+assert "wstats" not in wiki
+assert 'data-article="lease"' in wiki
+css=(ROOT/"static/lawygo-wiki-restored-20261111.css").read_text(encoding="utf-8")
+assert "body.wiki-reference-v12" in css
 pan=(ROOT/"static/pan-published-v2-20261108.js").read_text(encoding="utf-8")
 assert "summary_ko" in pan and "영문 원문 한국어 자동번역" in pan
 pro=(ROOT/"static/pro.html").read_text(encoding="utf-8")
@@ -41,4 +50,4 @@ static=next(x for x in routes if x["src"]=="/static/(.*)")
 assert "max-age=0" in static["headers"]["Cache-Control"]
 assert static["headers"]["X-Lawygo-Design-Release"]==release
 assert routes[-2:]==[{"src":"/api/(.*)","dest":"app.py"},{"src":"/(.*)","dest":"app.py"}]
-print(f"PASS: {len(pages)} pages, search-first library, PAN/PRO Korean copy, CDN version {release}")
+print(f"PASS: {len(pages)} pages, restored editorial JOURNAL, text-first WIKI, PAN/PRO Korean copy, CDN version {release}")
