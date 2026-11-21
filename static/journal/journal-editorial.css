@@ -78,3 +78,15 @@ body.lawygo-reference-page .reference-topics button:focus-visible,body.lawygo-re
  body.lawygo-reference-page .reference-connections-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  body.lawygo-reference-page .reference-connections-grid a{padding:15px 13px;min-height:96px}
 }
+
+/* Official original-source quick links: compact, explicitly external. */
+body.lawygo-reference-page .reference-authorities{
+ display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap;margin:16px 0 0;
+ font-size:12px;line-height:1.7
+}
+body.lawygo-reference-page .reference-authorities>span{font-weight:750;color:#546a81}
+body.lawygo-reference-page .reference-authorities>a{color:#2e587d;text-decoration:underline;text-underline-offset:3px}
+body.lawygo-reference-page .reference-authorities>a:hover{color:#113552}
+@media(max-width:640px){
+ body.lawygo-reference-page .reference-authorities{gap:7px 14px;font-size:11px}
+}
