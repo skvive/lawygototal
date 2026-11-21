@@ -113,6 +113,8 @@ const tasks = [];
   const card=page.locator('#pan-us-post-cards .pan-us-card').first();
   await card.waitFor({timeout:14000});
   check('pan-korean-editorial-title',(await card.textContent()).includes('미국 근로자 보호 법률'));
+  check('pan-korean-navigation',(await page.locator('.pan-side-nav').first().textContent()).includes('법률 콘텐츠 홈'));
+  check('pan-korean-hero',await page.locator('.pan-video-hero h1').innerText()==='법률 영상·전문가 콘텐츠');
   await card.click();
   const detail=page.locator('#pan-post-detail');
   check('pan-source-translation-action',await detail.locator('a.pan-auto-translation-link').count()===1);
@@ -128,6 +130,13 @@ const tasks = [];
   await page.goto(BASE+'/p/note',{waitUntil:'domcontentloaded'});
   check('note-intact-composer',await page.locator('#lnw-chat-form').count()===1);
   check('note-decorative-mark-removed',await page.locator('.lawygo-ai-icon,.lawygo-ai-brand-mark').count()===0);
+  check('note-korean-text-heading',(await page.locator('#lnw-chat-welcome h1').innerText()).includes('법률자료 검색과 문서 정리'));
+  check('note-visible-korean-send',(await page.locator('#lnw-chat-send').innerText()).trim()==='실행');
+  check('note-editor-order',await page.evaluate(()=>document.getElementById('note-editor').compareDocumentPosition(document.getElementById('ly-note-ai')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  await page.locator('[data-lnw-example]').first().click();
+  check('note-quick-prompt-fills',((await page.locator('#lnw-chat-input').inputValue()).includes('개인정보')));
+  await page.locator('[data-note-template="case"]').click();
+  check('note-case-template-action',(await page.locator('#noteDraftTitle').inputValue())==='사건 검토 메모');
  }catch(e){check('note-smoke',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||

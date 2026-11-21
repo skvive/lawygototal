@@ -35,6 +35,13 @@ assert "wstats" not in wiki
 assert 'data-article="lease"' in wiki
 css=(ROOT/"static/lawygo-wiki-restored-20261111.css").read_text(encoding="utf-8")
 assert "body.wiki-reference-v12" in css
+pan_page=(ROOT/"static/pan.html").read_text(encoding="utf-8")
+note_page=(ROOT/"static/note.html").read_text(encoding="utf-8")
+portal_css=(ROOT/"static/lawygo-editorial-portal-v8.css").read_text(encoding="utf-8")
+assert "법률 영상·전문가 콘텐츠" in pan_page
+assert "법률자료 검색과 문서 정리" in note_page
+assert note_page.index('id="note-editor"') < note_page.index('id="ly-note-ai"')
+assert "Korean-first PAN / text-first NOTE" in portal_css
 pan=(ROOT/"static/pan-published-v2-20261108.js").read_text(encoding="utf-8")
 assert "summary_ko" in pan and "영문 원문 한국어 자동번역" in pan
 pro=(ROOT/"static/pro.html").read_text(encoding="utf-8")
@@ -50,4 +57,4 @@ static=next(x for x in routes if x["src"]=="/static/(.*)")
 assert "max-age=0" in static["headers"]["Cache-Control"]
 assert static["headers"]["X-Lawygo-Design-Release"]==release
 assert routes[-2:]==[{"src":"/api/(.*)","dest":"app.py"},{"src":"/(.*)","dest":"app.py"}]
-print(f"PASS: {len(pages)} pages, restored editorial JOURNAL, text-first WIKI, PAN/PRO Korean copy, CDN version {release}")
+print(f"PASS: {len(pages)} pages, restored editorial JOURNAL, text-first WIKI, Korean-first PAN and NOTE, CDN version {release}")

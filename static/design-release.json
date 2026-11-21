@@ -1,5 +1,5 @@
 {
-  "release": "20261121-reference-v11",
-  "description": "Version all 13 LAWYGO public pages for search-first reference library and Korean PAN/PRO",
+  "release": "20261121-pan-note-ko-v13",
+  "description": "Korean-first PAN and text-first NOTE, retained LAWYGO JOURNAL and WIKI v12",
   "source_branch": "master"
 }
