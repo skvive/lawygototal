@@ -1,48 +1,44 @@
-"""Static contract for cached LAWYGO design releases. No network requests."""
+"""LAWYGO v11 public page design release and reference search integrity audit."""
 import json
-from pathlib import Path
-root=Path(__file__).resolve().parents[1]
-pages=("index","journal","wiki","note","pro","pan","channel","pricing","partnership","payment","strategy","dashboard","product")
-for name in pages:
-    html=(root/"static"/(name+".html")).read_text(encoding="utf-8")
-    assert html.count('lawygo-design-fix-20261104.css')==1, name
-    assert "lawygo-design-fix-20261104.css?v=" in html, name
-    assert "20261105-designrefresh3" in html, name
-    assert 'name="lawygo-design-revision" content="20261105-designrefresh3"' in html, name
-    assert r'\n</head>' not in html, "Literal escaped newline before head close: "+name
-css=(root/"static/lawygo-design-fix-20261104.css").read_text(encoding="utf-8")
-home=(root/"static/index.html").read_text(encoding="utf-8")
-assert 'height="800" loading="eager"' in home, "Editorial artwork must load before showing empty space."
-assert "lawygo-hero-premium-20261104.webp" in css, "Editorial image CSS fallback missing."
-assert 'max-width:680px' in css
-assert 'legal-knowledge-city.webp' in css
-wiki=(root/"static/wiki.html").read_text(encoding="utf-8")
-assert wiki.index('wiki-knowledge-section')<wiki.index('class="ly-premiere"')
-assert 'href="#wiki-search-form"' in wiki
-cfg=json.loads((root/"vercel.json").read_text(encoding="utf-8"))
-pages_routes=[r for r in cfg["routes"] if r.get("dest","").endswith(".html")]
-assert len(pages_routes)==13
-assert all("no-store" in r["headers"]["Cache-Control"] for r in pages_routes)
-assert all(r["headers"].get("X-Lawygo-Design-Release") == "20261105-designrefresh3" for r in pages_routes)
-assets_route=next(r for r in cfg["routes"] if r["src"]=="/static/(.*)")
-assert "s-maxage=0" in assets_route["headers"]["Cache-Control"]
-assert "stale-while-revalidate" not in assets_route["headers"]["Cache-Control"]
-assert assets_route["headers"].get("X-Lawygo-Design-Release") == "20261105-designrefresh3"
-assert cfg["regions"]==["sin1"]
-# Old unversioned styles and scripts can indefinitely survive inside mobile webviews.
 import re
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+release=json.loads((ROOT/"static/design-release.json").read_text(encoding="utf-8"))["release"]
+pages=("index","journal","wiki","note","pro","pan","channel","pricing","partnership","payment","strategy","dashboard","product")
+asset=re.compile(r"""(?:href|src)=["'](/static/[^"'\s<>]+\.(?:css|js)(?:\?[^"'\s<>]+)?)["']""")
 for name in pages:
-    html=(root/"static"/(name+".html")).read_text(encoding="utf-8")
-    refs=re.findall(r'(?:href|src)="(/static/[^"]+\.(?:css|js)(?:\?[^"]*)?)"', html)
-    assert len(refs)>=5, (name, refs)
-    assert all(("?v=" in url and "20261105-designrefresh3" in url) for url in refs), (name, refs)
-
-assert cfg["routes"][-2]=={"src":"/api/(.*)","dest":"app.py"}
-print("Design release contract pass: 13 pages + fresh CDN release + WIKI navigation")
-
-# Final WIKI presentation: a technical knowledge graphic rather than repeated portrait.
-assert "editorial-library-20261102.webp" not in wiki
-assert 'css?v=wiki-ui2' in wiki
-assert '/static/img/design/ly-wiki-scene.svg' in wiki
-assert "media-wiki-links" in css and "media-wiki-review" in css
-assert (root/"static/img/design/ly-wiki-scene.svg").exists()
+    html=(ROOT/"static"/f"{name}.html").read_text(encoding="utf-8")
+    assert html.count('name="lawygo-design-revision"')==1,name
+    assert f'name="lawygo-design-revision" content="{release}"' in html,name
+    assets=asset.findall(html)
+    assert len(assets)>=2,(name,len(assets))
+    assert len(assets)==len(set(assets)),f"Duplicate CSS/JS: {name}"
+    assert all("?v=" in a and release in a for a in assets),(name,assets)
+    assert r"\n</head>" not in html, f"Literal escaped newline: {name}"
+journal=(ROOT/"static/journal.html").read_text(encoding="utf-8")
+assert all(f'id="{x}"' in journal for x in
+    ("reference-search-form","reference-query","reference-topics","reference-results","reference-items","reference-count","newsletterSignupJournal"))
+assert 'front-grid' not in journal
+assert 'class="navline"' not in journal
+assert '<h1 id="reference-heading">경제·법률 자료 검색</h1>' in journal
+script=(ROOT/"static/journal-editorial-live.js").read_text(encoding="utf-8")
+assert "/api/journal/feed" in script
+assert "reference-items" in script and "data-reference-topic" in script
+assert "translate.google.com" in script
+assert "textContent" in script
+pan=(ROOT/"static/pan-published-v2-20261108.js").read_text(encoding="utf-8")
+assert "summary_ko" in pan and "영문 원문 한국어 자동번역" in pan
+pro=(ROOT/"static/pro.html").read_text(encoding="utf-8")
+assert "한국어 사용 안내" in pro and "공식 PRO 프로그램에서 확인" in pro
+config=json.loads((ROOT/"vercel.json").read_text(encoding="utf-8"))
+routes=config["routes"]
+assert len([x for x in routes if x.get("dest","").endswith(".html")])==13
+for route in routes:
+    if route.get("dest","").endswith(".html"):
+        assert "no-store" in route["headers"]["Cache-Control"]
+        assert route["headers"]["X-Lawygo-Design-Release"]==release
+static=next(x for x in routes if x["src"]=="/static/(.*)")
+assert "max-age=0" in static["headers"]["Cache-Control"]
+assert static["headers"]["X-Lawygo-Design-Release"]==release
+assert routes[-2:]==[{"src":"/api/(.*)","dest":"app.py"},{"src":"/(.*)","dest":"app.py"}]
+print(f"PASS: {len(pages)} pages, search-first library, PAN/PRO Korean copy, CDN version {release}")

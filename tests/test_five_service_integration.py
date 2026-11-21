@@ -80,9 +80,9 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertNotIn("innerHTML", script)
         for path in ("journal", "wiki", "pan", "note", "pro"):
             html = read(f"static/{path}.html")
-            self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261105-designrefresh3"', html)
+            self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261121-reference-v11"', html)
         for path in ("wiki", "pan", "note"):
-            self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261105-designrefresh3"', read(f"static/{path}.html"))
+            self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261121-reference-v11"', read(f"static/{path}.html"))
 
 
 if __name__ == "__main__":
