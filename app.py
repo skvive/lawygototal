@@ -738,17 +738,19 @@ def pan_redirect():
 async def journal_feed_api(response: Response, db=Depends(database)):
     # Published editorial records and public RSS only. No user-specific data.
     # Browser revalidates, Vercel CDN serves a warm copy while RSS refreshes.
-    response.headers["Cache-Control"] = "public, max-age=0, s-maxage=300, stale-while-revalidate=1800"
+    response.headers["Cache-Control"] = "public, max-age=0, s-maxage=60, must-revalidate"
     tenant=DEFAULT_TENANT
     rows=db.execute(
         '''SELECT p.id,p.kind,p.title,p.summary,p.updated_at FROM posts p
            JOIN boards b ON p.board_id=b.id
            WHERE p.tenant=? AND b.deleted_at IS NULL AND p.deleted_at IS NULL
            AND p.product='channel' AND p.status='published' AND p.visibility='public'
-           ORDER BY p.updated_at DESC LIMIT 12''',
+           ORDER BY p.updated_at DESC LIMIT 36''',
         (tenant,),
     ).fetchall()
-    editorial=journal_feed.editorial_from_posts([dict(x) for x in rows])
+    # Filter before selecting the first 12 articles so grant notices cannot
+    # crowd relevant economic/legal articles out of the edition.
+    editorial=journal_feed.editorial_from_posts([dict(x) for x in rows])[:12]
     wire=await journal_feed.load_wire_items()
     us=[x for x in wire if x['region']=='us'][:20]
     kr=[x for x in wire if x['region']=='kr'][:20]
@@ -758,7 +760,7 @@ async def journal_feed_api(response: Response, db=Depends(database)):
         'editorial':editorial,
         'us':us,
         'kr':kr,
-        'disclaimer':'위클리뉴스·국제뉴스 등 공개 RSS는 기사 제목·요약·원문 링크를 제공합니다. LAWYGO 자체 편집·검수 기사와 외부 보도는 출처별로 구분합니다. 외부 기사 전문 및 저작권은 원 발행사에서 확인하세요.',
+        'disclaimer':'위클리뉴스·국제뉴스 등 공개 RSS는 기사 제목·요약·원문 링크를 제공합니다. 기업지원·창업 모집공고는 저널 지면에서 제외하며, LAWYGO 자체 편집·검수 기사와 외부 보도는 출처별로 구분합니다. 외부 기사 전문 및 저작권은 원 발행사에서 확인하세요.',
     }
 
 @app.get('/journal')

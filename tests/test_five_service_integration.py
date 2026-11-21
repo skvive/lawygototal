@@ -90,5 +90,52 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn('src="/static/lawygo-wiki-restored-20261111.js?v=20261121-pan-note-ko-v13"', wiki)
 
 
+    def test_journal_excludes_business_announcements_but_keeps_legal_news(self):
+        from journal_feed import is_business_announcement, editorial_from_posts, _parse_rss
+
+        blocked = [
+            "[경기] 화성시 2026년 제4회 중소기업대상 추가모집 공고",
+            "[경남] 함양군 2026년 소규모 사업장 방지시설 설치 지원사업 공고",
+            "2026년 강원연구개발특구육성 R&D사업 창업기업 모집 공고",
+            "서울시 소상공인 지원금 신청 안내",
+            "스타트업 대상 입주기업 선발 공고",
+            "중소기업 창업 바우처 사업 참여 신청 접수",
+        ]
+        kept = [
+            "지원사업 보조금 환수처분 취소소송 대법원 판결",
+            "소상공인 지원금 관련 헌법재판소 위헌 결정",
+            "공정거래법 개정과 기업 준법감시 실무",
+            "연방공개시장위원회 통화정책 회의록 공개",
+            "중소기업 금융환경 분석 및 경제 전망",
+        ]
+        for title in blocked:
+            with self.subTest(blocked=title):
+                self.assertTrue(is_business_announcement({"title": title}))
+        for title in kept:
+            with self.subTest(kept=title):
+                self.assertFalse(is_business_announcement({"title": title}))
+
+        rows = [
+            {"id": str(index), "title": title, "summary": title, "updated_at": "2026-11-21"}
+            for index, title in enumerate(blocked + kept)
+        ]
+        filtered = editorial_from_posts(rows)
+        self.assertEqual(len(filtered), len(kept))
+        self.assertEqual([item["title"] for item in filtered], kept)
+
+        # The first 20 RSS entries are announcements. A valid legal report
+        # further down the feed must still reach the front page.
+        from xml.sax.saxutils import escape
+        xml = "<rss><channel>" + "".join(
+            "<item><title>" + escape(title) + "</title>"
+            "<link>https://example.org/story/" + str(i) + "</link>"
+            "<description>Official publisher summary</description></item>"
+            for i, title in enumerate(blocked * 4 + kept)
+        ) + "</channel></rss>"
+        wire = _parse_rss(xml, {"source": "검증 매체", "region": "kr", "desk": "법률"})
+        self.assertEqual([item["title"] for item in wire], kept)
+        self.assertFalse(any(is_business_announcement(item) for item in wire))
+
+
 if __name__ == "__main__":
     unittest.main()
