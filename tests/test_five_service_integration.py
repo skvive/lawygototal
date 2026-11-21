@@ -31,11 +31,12 @@ class FiveServiceIntegrationTest(unittest.TestCase):
 
     def test_wiki_native_reader_is_in_page(self):
         wiki = read("static/wiki.html")
-        for ident in ("wiki-native-workspace", "lawygoWikiStudioForm", "lawygoWikiStudioResults",
-                      "lawygoWikiStudioBody", "lawygoWikiStudioCopy", "lawygoWikiStudioSend"):
+        for ident in ("view-dashboard", "view-search", "view-article", "wikiResults",
+                      "wikiSearchInput", "wikiArticleBody", "wikiArticleSource", "wikiArticleNotice"):
             self.assertIn(f'id="{ident}"', wiki)
-        self.assertIn('href="#wiki-native-workspace"', wiki)
-        self.assertNotIn('target="_blank" rel="noopener noreferrer">고급 법률백과', wiki)
+        self.assertIn('data-view-link="search"', wiki)
+        self.assertIn('https://law.go.kr/', wiki)
+        self.assertNotIn("wiki-native-workspace", wiki)
 
     def test_note_native_editor_reuses_original_handlers(self):
         note = read("static/note.html")
@@ -58,12 +59,14 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn('id="pan-legal-player"', pan)
         self.assertIn('id="pan-legal-player-close"', pan)
 
-    def test_pro_mirrors_official_product_overview_not_private_app(self):
+    def test_pro_korean_guide_preserves_external_product_link(self):
         pro = read("static/pro.html")
-        for ident in ("pro-source-home", "pro-source-title", "pro-features", "pro-ai", "pro-login"):
+        for ident in ("pro-title", "main-content", "pro-ko-guide-heading"):
             self.assertIn(f'id="{ident}"', pro)
-        self.assertIn("대한민국 법원", pro)
+        self.assertIn("한국어 사용 안내", pro)
+        self.assertIn("송무관리 프로그램", pro)
         self.assertIn("https://www.lawygo.com/", pro)
+        self.assertIn("https://lawygo.com", pro)
         self.assertNotIn("123-45-67890", pro)
 
     def test_shared_static_assets_present_and_no_private_data_sync(self):
@@ -78,11 +81,13 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertIn("/api/pan/content", script)
         self.assertIn("youtube-nocookie.com/embed/", script)
         self.assertNotIn("innerHTML", script)
-        for path in ("journal", "wiki", "pan", "note", "pro"):
+        for path in ("journal", "pan", "note"):
             html = read(f"static/{path}.html")
             self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261121-reference-v11"', html)
-        for path in ("wiki", "pan", "note"):
+        for path in ("pan", "note"):
             self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261121-reference-v11"', read(f"static/{path}.html"))
+        wiki = read("static/wiki.html")
+        self.assertIn('src="/static/lawygo-wiki-restored-20261111.js?v=20261121-reference-v11"', wiki)
 
 
 if __name__ == "__main__":
