@@ -3,7 +3,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   if (!$('pan-featured-cards')) return;
-  const labels = {video:'YOUTUBE',shorts:'SHORTS',blog:'BLOGGER',newswire:'뉴스와이어 · 보도자료',us_legal:'미국 로펌 · 법률 리포트'};
+  const labels = {video:'법률 영상',shorts:'법률 쇼츠',blog:'법률 블로그',newswire:'뉴스와이어 · 보도자료',us_legal:'미국 로펌 · 법률 리포트'};
   const all = [];
   let active = 'all';
   let visibleCount = 16;
@@ -198,7 +198,7 @@
         '아래 내용은 로이고가 독립 작성한 한국어 핵심 요약입니다. 영어 원문 전체 번역이 아닙니다.':
         '영어 원문입니다. 아래 한국어 문장은 주제를 분류한 안내이며 제목 전문의 번역은 아닙니다.'));
     }
-    const description=(item.summary||'').trim();
+    const description=(item.summary_ko||item.summary||'').trim();
     if (description) section.append(node('p',null,description));
     const wrapper=node('div','pan-detail-media');
     wrapper.append(image(item));
@@ -225,12 +225,19 @@
         item.content_type==='blog'?'구글 블로그 원문 보기 ↗':item.content_type==='us_legal'?'미국 로펌 원문 확인 ↗':'원본 영상·게시글 열기 ↗');
       link.href=source;link.target='_blank';link.rel='noopener noreferrer';
       actions.append(link);
+      if (item.content_type==='us_legal' && source.startsWith('https://')) {
+        const translated=node('a','pan-auto-translation-link','영문 원문 한국어 자동번역 ↗');
+        translated.href='https://translate.google.com/translate?sl=auto&tl=ko&u='+encodeURIComponent(source);
+        translated.target='_blank';translated.rel='noopener noreferrer';
+        translated.setAttribute('aria-label','외부 번역 서비스에서 미국 로펌 원문 한국어로 보기');
+        actions.append(translated);
+      }
     }
     const back=node('a',null,'전체 게시물로 돌아가기');
     back.href='#pan-more-posts';back.addEventListener('click',()=>closeDetail());
     actions.append(back);section.append(actions);
     section.append(node('p','pan-detail-disclaimer',
-      '본문 및 영상의 저작권은 각 원 발행자에게 있습니다. LAWYGO는 공개 출처와 요약만 표시하며 법률 상담을 제공하지 않습니다.'));
+      '본문과 영상의 저작권은 원 발행자에게 있습니다. 한글 편집 요약은 전문 번역이 아니며 외부 자동번역은 오역될 수 있습니다. 법률 판단은 원문과 전문가 검토를 기준으로 하세요.'));
     root.append(section);
     if (updateUrl) {
       const u=new URL(location.href);u.searchParams.set('post',item.id);

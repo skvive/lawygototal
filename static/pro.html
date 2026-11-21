@@ -57,6 +57,23 @@ a{color:inherit;text-decoration:none}
 }
 @media(max-width:380px){.pro-copy h1{font-size:34px}}
 @media(prefers-reduced-motion:reduce){.pro-launch{transition:none}}
+
+/* LAWYGO PRO: Korean usage guide. Preserve existing product hero and original link. */
+.pro-ko-guide{background:#f8fafc;color:#1b344c;padding:clamp(36px,5vw,70px) 0}
+.pro-ko-guide-inner{max-width:1150px;width:calc(100% - 48px);margin:0 auto}
+.pro-ko-guide-heading>span{color:#5f7890;font-weight:800;font-size:12px;letter-spacing:.04em}
+.pro-ko-guide-heading h2{font-size:clamp(24px,3vw,36px);line-height:1.4;letter-spacing:-.045em;margin:10px 0}
+.pro-ko-guide-heading p{max-width:780px;font-size:14px;color:#5d7082;line-height:1.85}
+.pro-ko-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:24px}
+.pro-ko-guide-grid>div{border:1px solid #dce5ed;border-radius:10px;background:#fff;padding:23px}
+.pro-ko-guide-grid strong{font-size:16px;color:#203c57}
+.pro-ko-guide-grid p{margin:12px 0 0;font-size:13px;line-height:1.7;color:#607386;word-break:keep-all}
+.pro-ko-guide-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pro-ko-guide-links a{display:inline-flex;align-items:center;padding:11px 17px;min-height:45px;border:1px solid #b9cbd9;border-radius:8px;color:#173c5d;font-weight:800;font-size:13px}
+.pro-ko-guide-links a:first-child{background:#1b3e5c;color:#fff;border-color:#1b3e5c}
+.pro-ko-guide-links a:focus-visible{outline:3px solid #b9945d;outline-offset:3px}
+.pro-ko-guide-note{font-size:11px;color:#6a7c8c;line-height:1.75;margin:16px 0 0}
+@media(max-width:740px){.pro-ko-guide-grid{grid-template-columns:1fr}.pro-ko-guide-inner{width:calc(100% - 32px)}.pro-ko-guide-grid>div{padding:18px}}
 </style>
 
 <!-- LAWYGO unified brand v7: preserve service-specific functional modules -->
@@ -73,17 +90,37 @@ a{color:inherit;text-decoration:none}
   <div class="pro-top">
     <a class="pro-logo" href="/" aria-label="LAWYGO 메인으로 돌아가기">
       <img src="/static/logo.svg" alt="" width="48" height="48">
-      <span>LAWYGO <small>LEGAL INTELLIGENCE · PRO</small></span>
+      <span>LAWYGO <small>송무관리 · PRO</small></span>
     </a>
   </div>
   <main id="main-content" class="pro-main">
     <div class="pro-copy">
-      <div class="pro-eyebrow">LAWYGO PRO · LEGAL INTELLIGENCE</div>
+      <div class="pro-eyebrow">LAWYGO PRO · 송무관리 프로그램</div>
       <h1 id="pro-title">사건 관리부터 기일까지.<br><em>실무의 흐름을</em><br>정리합니다.</h1>
       <p>변호사와 법무팀의 사건·일정·문서 업무를 지원하는 LAWYGO PRO. 구체적인 사용 기능은 공식 프로그램에서 확인할 수 있습니다.</p>
       <a class="pro-launch" href="https://lawygo.com" target="_blank" rel="noopener noreferrer" aria-label="로이고 PRO 공식 사이트 새 탭에서 열기">송무관리 프로그램 살펴보기 <span aria-hidden="true">↗</span></a>
     </div>
   </main>
+
+</section>
+<section class="pro-ko-guide" aria-labelledby="pro-ko-guide-heading" lang="ko">
+  <div class="pro-ko-guide-inner">
+    <div class="pro-ko-guide-heading">
+      <span>한국어 사용 안내</span>
+      <h2 id="pro-ko-guide-heading">LAWYGO PRO에서 할 수 있는 일</h2>
+      <p>송무관리 프로그램이 지원하는 업무 흐름을 한국어로 설명합니다. 개별 기능의 이용 범위는 공식 프로그램에서 직접 확인하세요.</p>
+    </div>
+    <div class="pro-ko-guide-grid">
+      <div><strong>01 · 사건 관리</strong><p>사건별 진행 상태와 관련 정보를 정리하는 송무 업무 흐름</p></div>
+      <div><strong>02 · 기일·일정</strong><p>법원 일정과 업무 기일을 확인하고 관리하는 기능 소개</p></div>
+      <div><strong>03 · 문서·자료</strong><p>서면과 소송 자료를 체계적으로 관리하는 업무 도구</p></div>
+    </div>
+    <div class="pro-ko-guide-links">
+      <a href="https://www.lawygo.com/" target="_blank" rel="noopener noreferrer">공식 PRO 프로그램에서 확인 ↗</a>
+      <a href="/p/wiki">관련 법령·판례 검색 ↗</a>
+    </div>
+    <p class="pro-ko-guide-note">공식 프로그램은 별도 서비스입니다. 본 안내는 한국어 기능 설명이며 외부 서비스 전체의 자동번역을 의미하지 않습니다.</p>
+  </div>
 </section>
 </body>
 </html>
