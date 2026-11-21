@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="LAWYGO WIKI · 법률백과 대시보드, 법령·판례 검색, 근거 출처가 있는 법률백과 상세">
-<title>로이고법률백과 · 대시보드 | LAWYGO WIKI</title>
+<meta name="description" content="LAWYGO WIKI 법률위키. 법령·판례·법률 용어를 목차와 검색으로 탐색하고 공식 원문을 확인합니다.">
+<title>로이고 법률위키 | 법령·판례·법률용어 검색</title>
 
 <link rel="canonical" href="https://lawygo.lexid.site/p/wiki">
 <link rel="stylesheet" href="/static/lawygo-wiki-restored-20261111.css?v=20261121-reference-v11">
@@ -19,75 +19,85 @@
 <script defer src="/static/lawygo-editorial-portal-v8.js?v=20261121-reference-v11" data-lawygo-editorial-v8></script>
 <meta name="lawygo-design-revision" content="20261121-reference-v11">
 </head>
-<body>
+<body class="wiki-reference-v12">
 <header class="wtop">
   <a class="wbrand" href="/" aria-label="LAWYGO 메인 페이지"><img src="/static/logo.svg" width="41" height="41" alt=""><span><strong>LAWYGO WIKI</strong><small>LEGAL ENCYCLOPEDIA</small></span></a>
   <nav aria-label="법률백과 상단 내비게이션"><a href="/p/wiki" data-view-link="dashboard">대시보드</a><a href="/p/wiki?view=search" data-view-link="search">법률백과 검색</a><a class="wtop-pro" href="https://lawygo.com" target="_blank" rel="noopener noreferrer">LAWYGO PRO ↗</a></nav>
 </header>
 <div class="wlayout">
   <aside class="wsidebar" aria-label="법률백과 메뉴">
-    <div class="wside-brand">LAWYGO WIKI<small>지식과 근거를 연결하다</small></div>
-    <button type="button" class="active" data-view="dashboard"><span class="symbol" aria-hidden="true">⌂</span>대시보드</button>
+    <div class="wside-brand">법률위키<small>목차 · 법령 · 판례</small></div>
+    <button type="button" class="active" data-view="dashboard"><span class="symbol" aria-hidden="true">⌂</span>첫 화면</button>
     <button type="button" data-view="search"><span class="symbol" aria-hidden="true">⌕</span>로이고법률백과</button>
     <button type="button" data-view="article" data-article="lease"><span class="symbol" aria-hidden="true">▤</span>법률백과 상세</button>
-    <div class="wside-group">LEGAL RESEARCH</div>
+    <div class="wside-group">분야별 목차</div>
     <button type="button" data-topic="민법"><span class="symbol" aria-hidden="true">§</span>민사·계약</button>
     <button type="button" data-topic="형법"><span class="symbol" aria-hidden="true">⚖</span>형사</button>
     <button type="button" data-topic="행정법"><span class="symbol" aria-hidden="true">▦</span>행정</button>
     <button type="button" data-topic="지식재산"><span class="symbol" aria-hidden="true">◇</span>지식재산</button>
-    <div class="wside-group">ORIGINAL ENGINE</div>
+    <div class="wside-group">원문 자료실</div>
     <a href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer"><span class="symbol" aria-hidden="true">↗</span>원본 로그인</a>
     <div class="wside-foot">공개 자료는 출처 및 최신성을 확인해야 합니다. 비공개 사건·AI 백과 원본 자료는 별도 인증 영역에서 관리됩니다.</div>
   </aside>
   <main id="main-content" class="wmain">
     <section id="view-dashboard" class="wsection" aria-labelledby="dashboard-title">
-      <div class="whead"><div>
-        <div class="weyebrow">LAWYGO TOTAL / ENCYCLOPEDIA</div>
-        <h1 id="dashboard-title">법률백과 대시보드</h1>
-        <p>판례·법령·법률 개념을 탐색하고 관련 근거를 검토하세요.</p>
-      </div><a class="original-link" href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer">원본 법률백과 작업실 ↗</a></div>
-      <div class="wstats" aria-label="법률백과 상태">
-        <div class="wstat"><div class="wstat-ico" aria-hidden="true">▤</div><div><small>공개 백과 자료</small><strong id="wikiStatPublished">—</strong></div></div>
-        <div class="wstat"><div class="wstat-ico" aria-hidden="true">⌕</div><div><small>내 최근 검색(이 브라우저)</small><strong id="wikiStatSearches">0</strong></div></div>
-        <div class="wstat"><div class="wstat-ico" aria-hidden="true">☆</div><div><small>저장한 즐겨찾기(이 브라우저)</small><strong id="wikiStatFavorites">0</strong></div></div>
-        <div class="wstat"><div class="wstat-ico" aria-hidden="true">☷</div><div><small>탐색 법률 분야</small><strong>9</strong></div></div>
-      </div>
-      <div class="wgrid">
-        <div class="wcard">
-          <span class="weyebrow">SEARCH THE LAW</span>
-          <h2>법률자료 통합 검색</h2>
-          <p class="wcontext">공개 승인된 LAWYGO 위키 자료를 검색합니다.</p>
-          <form class="wsearch wiki-search-form" role="search" aria-label="법률백과 통합 검색">
-            <input class="wiki-search-input" type="search" placeholder="판례·법령·법률용어를 검색하세요" minlength="2" maxlength="100" required autocomplete="off">
-            <button type="submit">검색 ↗</button>
-          </form>
-          <div class="wtags" aria-label="법률 분야 바로 검색">
-            <button type="button" data-topic="임대차">임대차</button><button type="button" data-topic="손해배상">손해배상</button><button type="button" data-topic="지식재산">지식재산</button><button type="button" data-topic="근로계약">근로계약</button><button type="button" data-topic="형사소송">형사소송</button>
-          </div>
-          <div style="height:1px;background:#e9edf6;margin:26px 0 21px"></div>
-          <h2>최근 공개 법률자료 <small>실제 위키 게시글</small></h2>
-          <div class="wrowlist" id="wikiLatestList" aria-live="polite"><p class="wstatustext">자료를 확인하는 중입니다.</p></div>
+      <div class="whead wref-heading"><div>
+        <div class="weyebrow">LAWYGO WIKI · 법률 지식과 공식 원문</div>
+        <h1 id="dashboard-title">로이고 법률위키</h1>
+        <p>법령·판례·법률 개념을 목차별로 찾고, 관련 법적 근거를 확인하는 공개 자료실입니다.</p>
+      </div></div>
+      <div class="wref-searchbox" id="wiki-home-search">
+        <h2>법률자료 검색</h2>
+        <form class="wsearch wiki-search-form" role="search" aria-label="법률위키 통합 검색">
+          <label class="wref-sr" for="wikiHomeQuery">법률용어 또는 판례 검색어</label>
+          <input id="wikiHomeQuery" class="wiki-search-input" type="search" placeholder="법률용어·법령·판례 검색 (예: 임대차, 지식재산)" minlength="2" maxlength="100" required autocomplete="off">
+          <button type="submit">검색</button>
+        </form>
+        <div class="wtags wref-suggest" aria-label="자주 찾는 법률 분야">
+          <button type="button" data-topic="임대차">임대차</button><button type="button" data-topic="손해배상">손해배상</button>
+          <button type="button" data-topic="지식재산">지식재산</button><button type="button" data-topic="근로계약">근로계약</button>
+          <button type="button" data-topic="형사소송">형사소송</button>
         </div>
-        <div class="wcard">
-          <span class="weyebrow">LEGAL ENCYCLOPEDIA / VERIFIED LAW</span>
-          <h2>로이고법률백과</h2>
-          <div class="wofficial">
-            <small>공식 법령 참고 · 민법 제618조</small>
-            <b style="display:block;font-size:20px;margin:10px 0 6px">임대차(賃貸借)</b>
-            <p>임대차는 목적물의 사용·수익과 그 대가인 차임 지급을 약정하는 계약입니다. 법률 조문과 상세 설명을 확인하세요.</p>
-          </div>
-          <button type="button" class="wresult" style="margin-top:15px" data-article="lease"><b>임대차(賃貸借) · 법률백과 상세 읽기 ↗</b><small>민사 · 계약법 · 관련 법령 및 출처</small></button>
-          <a class="wsource" href="https://law.go.kr/LSW/lsInfoP.do?lsiSeq=246569" target="_blank" rel="noopener noreferrer">국가법령정보센터 원문 ↗</a>
-          <div class="whelper"><a href="https://www.lawygo.com/ai" target="_blank" rel="noopener noreferrer">법률 AI 엔진 소개 ↗</a><a href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer">기존 작업실 로그인 ↗</a></div>
-        </div>
+        <p class="wref-search-note">공개된 LAWYGO WIKI 자료를 검색합니다. 법령·판례의 현행 여부는 국가법령정보센터 등 공식 자료로 확인하세요.</p>
       </div>
-      <div class="wlower">
-        <div class="wcard"><h2>최근 검색</h2><div class="wrowlist" id="wikiRecentSearches"><div class="wblank">이 브라우저에서 검색한 키워드가 여기에 표시됩니다.</div></div></div>
-        <div class="wcard"><h2>즐겨찾기</h2><div class="wrowlist" id="wikiFavoriteList"><div class="wblank">법률백과 상세 페이지에서 ☆ 버튼을 눌러 저장할 수 있습니다.</div></div></div>
+      <div class="wref-catalog-meta">
+        <span>공개 자료 <strong id="wikiStatPublished">—</strong>건</span>
+        <span>이 브라우저의 최근 검색 <strong id="wikiStatSearches">0</strong>건</span>
+        <span>즐겨찾기 <strong id="wikiStatFavorites">0</strong>건</span>
+      </div>
+      <div class="wref-content-columns">
+        <section class="wref-document-index" aria-labelledby="wref-latest-title">
+          <div class="wref-section-heading"><h2 id="wref-latest-title">최근 공개된 법률자료</h2><span>실제 공개 위키 게시글</span></div>
+          <div class="wrowlist" id="wikiLatestList" aria-live="polite"><p class="wstatustext">공개 자료를 확인하고 있습니다.</p></div>
+          <div class="wref-guidance"><strong>자료 출처 안내</strong><p>LAWYGO 편집 자료와 공식 법령은 구분해 표시합니다. 원문·시행일·개정 여부를 확인해 주세요.</p></div>
+        </section>
+        <aside class="wref-topic-index" aria-label="법률위키 목차와 추천 문서">
+          <h2>법률 분야 목차</h2>
+          <nav class="wref-topic-links" aria-label="법률 분야 바로 검색">
+            <button type="button" data-topic="민법">민사·계약</button>
+            <button type="button" data-topic="형법">형사</button>
+            <button type="button" data-topic="민사소송">소송·절차</button>
+            <button type="button" data-topic="부동산">부동산</button>
+            <button type="button" data-topic="노동">노동·고용</button>
+            <button type="button" data-topic="행정법">행정</button>
+            <button type="button" data-topic="지식재산">지식재산</button>
+          </nav>
+          <h2 class="wref-subtitle">대표 법률 개념</h2>
+          <button type="button" class="wref-feature-article" data-article="lease">
+            <strong>임대차(賃貸借)</strong>
+            <span>민법 제618조 · 목적물의 사용·수익과 차임 약정</span>
+            <small>법률위키 항목 읽기 ›</small>
+          </button>
+          <a class="wref-official-link" href="https://www.law.go.kr/" target="_blank" rel="noopener noreferrer">국가법령정보센터 공식 원문 ↗</a>
+        </aside>
+      </div>
+      <div class="wref-saved">
+        <section aria-labelledby="wiki-recent-heading"><h2 id="wiki-recent-heading">최근 검색</h2><div class="wrowlist" id="wikiRecentSearches"><p class="wblank">이 브라우저에서 검색한 키워드가 표시됩니다.</p></div></section>
+        <section aria-labelledby="wiki-favorites-heading"><h2 id="wiki-favorites-heading">내 즐겨찾기</h2><div class="wrowlist" id="wikiFavoriteList"><p class="wblank">문서 상세에서 ☆ 저장을 누르면 이곳에 표시됩니다.</p></div></section>
       </div>
     </section>
     <section id="view-search" class="wsection" hidden aria-labelledby="search-view-title">
-      <div class="whead"><div><div class="weyebrow">RESEARCH / LEGAL SEARCH</div><h1 id="search-view-title">로이고법률백과 검색</h1><p>검색 결과를 선택하면 실제 공개 자료의 상세 화면으로 이동합니다.</p></div></div>
+      <div class="whead"><div><div class="weyebrow">RESEARCH / LEGAL SEARCH</div><h1 id="search-view-title">법률위키 자료 검색</h1><p>검색 결과를 선택하면 실제 공개 자료의 상세 화면으로 이동합니다.</p></div></div>
       <div class="wcard"><span class="weyebrow">ENCYCLOPEDIA SEARCH</span><h2>법령·판례·쟁점 검색</h2>
         <form class="wsearch wiki-search-form" role="search" aria-label="법률백과 검색 작업실"><input class="wiki-search-input" id="wikiSearchInput" type="search" placeholder="예: 임대차, 지식재산" minlength="2" maxlength="100" required autocomplete="off"><button type="submit">검색 ↗</button></form>
         <div class="wtags"><button type="button" data-topic="민법">민법</button><button type="button" data-topic="형법">형법</button><button type="button" data-topic="민사소송">민사소송</button><button type="button" data-topic="행정법">행정법</button><button type="button" data-topic="부동산">부동산</button><button type="button" data-topic="지식재산">지식재산</button></div>
@@ -111,7 +121,7 @@
           <a href="https://www.lawygo.com/login" target="_blank" rel="noopener noreferrer">↗ 원본 작업실</a>
         </aside>
         <article class="wdetail-article">
-          <div class="warticle-breadcrumb" id="wikiArticleBreadcrumb">로이고법률백과 / 민사 / 계약법</div>
+          <div class="warticle-breadcrumb" id="wikiArticleBreadcrumb">로이고 법률위키 / 민사 / 계약법</div>
           <div class="warticle-top"><h1 id="wikiArticleTitle">법률백과</h1><div class="wtools">
             <button id="wikiArticlePrint" type="button" aria-label="현재 문서 인쇄">인쇄</button>
             <button id="wikiArticleShare" type="button" aria-label="현재 문서 링크 복사">공유</button>

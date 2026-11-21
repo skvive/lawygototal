@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>LAWYGO | 경제·법률 자료 검색</title>
-  <meta name="description" content="LAWYGO 경제·법률 자료실. 국내·국제 경제, 법률·판례, 정책·규제 자료를 검색하고 출처를 확인하세요.">
+  <title>경제를 읽는 법률·독립 저널 | LAWYGO JOURNAL</title>
+  <meta name="description" content="미국 경제·증권 제도와 한국 경제를 법률적 시각으로 읽는 LAWYGO JOURNAL">
   
   <link rel="stylesheet" href="/static/journal/journal-editorial.css?v=20261121-reference-v11">
   <link rel="stylesheet" href="/static/journal/journal-deploy.css?v=20261121-reference-v11">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="/static/lawygo-refined-20261103.css?v=20261121-reference-v11">
 <link rel="stylesheet" href="/static/lawygo-delivery-20261103.css?v=20261121-reference-v11">
   <link rel="canonical" href="https://lawygo.lexid.site/journal">
-  <link rel="alternate" type="application/rss+xml" title="LAWYGO 경제·법률 RSS" href="https://lawygo.lexid.site/rss.xml">
+  <link rel="alternate" type="application/rss+xml" title="LAWYGO JOURNAL RSS" href="https://lawygo.lexid.site/rss.xml">
   <link rel="stylesheet" href="/static/lawygo-design-fix-20261104.css?v=20261121-reference-v11">
   <link rel="stylesheet" href="/static/lawygo-service-integration-20261105.css?v=20261121-reference-v11">
   <meta name="lawygo-design-revision" content="20261121-reference-v11">
@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="/static/lawygo-editorial-portal-v8.css?v=20261121-reference-v11">
 <script defer src="/static/lawygo-editorial-portal-v8.js?v=20261121-reference-v11" data-lawygo-editorial-v8></script>
 </head>
-<body class="lawygo-reference-page">
+<body>
   <div class="reading-progress" aria-hidden="true"></div>
   <div class="topline">
     <div class="page">
@@ -49,68 +49,54 @@
       </div>
     </div>
   </header>
-
-  <main id="main-content">
+  <nav class="navline" aria-label="저널 분야 메뉴">
     <div class="page">
-      <section class="reference-intro" aria-labelledby="reference-heading">
-        <span class="reference-eyebrow">LAWYGO · ECONOMY &amp; LAW</span>
-        <h1 id="reference-heading">경제·법률 자료 검색</h1>
-        <p>경제·정책·법률 자료를 분야별로 살펴보고, 필요한 지식과 공개 기사 원문을 찾아보세요.</p>
-        <form id="reference-search-form" class="reference-search" role="search">
-          <label for="reference-query">통합 검색</label>
-          <div class="reference-search-input">
-            <input id="reference-query" name="q" type="search" placeholder="지식재산, 판례, 금리, 개인정보, 규제" autocomplete="off" enterkeyhint="search">
-            <button type="submit">검색 <span aria-hidden="true">⌕</span></button>
-          </div>
-        </form>
-        <p class="reference-guidance">공개 기사 제목·요약·출처를 검색합니다. 판례·법령 원문은 <a href="/p/wiki?view=search">법률백과에서 검색</a>할 수 있습니다.</p>
-        <nav class="reference-authorities" aria-label="공식 원문 자료 외부 링크">
-          <span>공식 원문 바로가기</span>
-          <a href="https://www.law.go.kr/" target="_blank" rel="noopener noreferrer">국가법령정보센터 ↗</a>
-          <a href="https://www.scourt.go.kr/judiciary/information/public/" target="_blank" rel="noopener noreferrer">대한민국 법원 ↗</a>
-          <a href="https://dart.fss.or.kr/" target="_blank" rel="noopener noreferrer">전자공시 DART ↗</a>
-        </nav>
-      </section>
-      <div class="reference-body-grid">
-        <aside id="reference-topics" class="reference-index" aria-label="분야별 목차">
-          <h2>분야별 목차</h2>
-          <p>관심 분야를 선택하면 관련 공개 자료를 보여줍니다.</p>
-          <div class="reference-topics" role="group" aria-label="자료 분류">
-            <button type="button" data-reference-topic="all" aria-pressed="true">전체 자료 <span>›</span></button>
-            <button type="button" data-reference-topic="kr" aria-pressed="false">한국 경제 <span>›</span></button>
-            <button type="button" data-reference-topic="us" aria-pressed="false">미국·국제 경제 <span>›</span></button>
-            <button type="button" data-reference-topic="law" aria-pressed="false">법률·판례 <span>›</span></button>
-            <button type="button" data-reference-topic="policy" aria-pressed="false">정책·규제 <span>›</span></button>
-          </div>
-          <h3>전문 자료실</h3>
-          <nav class="reference-related" aria-label="연결 자료실">
-            <a href="/p/wiki">법률백과 WIKI ↗</a>
-            <a href="/p/pan">전문가 콘텐츠 PAN ↗</a>
-            <a href="/p/note">문서 작업 NOTE ↗</a>
-            <a href="/pro">송무관리 PRO ↗</a>
-          </nav>
-        </aside>
-        <section id="reference-results" class="reference-results" aria-labelledby="reference-results-title">
-          <header class="reference-results-heading">
-            <div><span class="reference-eyebrow">공개 기사 · 출처 확인</span><h2 id="reference-results-title">최근 경제·법률 자료</h2></div>
-            <span id="reference-count" class="reference-count">불러오는 중</span>
-          </header>
-          <p id="reference-status" role="status" aria-live="polite">공개 자료를 확인하고 있습니다.</p>
-          <div id="reference-items" class="reference-items"></div>
-          <p id="reference-empty" class="reference-empty" hidden>검색 결과가 없습니다. 검색어를 바꾸거나 <a id="reference-wiki-search" href="/p/wiki?view=search">법률백과에서 이어서 검색</a>해 보세요.</p>
-          <p class="reference-source">영어 제목은 원문 그대로 표시합니다. 한국어 자동번역은 외부 번역 서비스로 연결되며 원문과 차이가 있을 수 있습니다. 법률 판단 전 발행일·원문을 확인하세요.</p>
-        </section>
+      <a href="/journal" class="on">저널 홈</a>
+      <a href="#section-us">미국 경제·증권</a>
+      <a href="#section-kr">국내 경제</a>
+      <a href="/channel">경제 인텔리전스</a>
+      <a href="/p/wiki">법률·판례</a>
+      <a href="#newsletter">뉴스레터</a>
+      <a href="/p/wiki">로이고 위키</a>
+      <a href="/pricing">구독 안내</a>
+    </div>
+  </nav>
+  <main>
+  <h1 class="visually-hidden">LAWYGO JOURNAL — 경제와 법률을 읽는 독립 저널</h1>
+    <div class="page">
+
+      <div class="edition">
+        <span><strong>THE INTELLIGENCE EDITION</strong> &nbsp; 법률로 경제를 읽는 독립 저널</span>
+        <span id="journal-edition-meta">LIVE · RSS + CMS</span>
       </div>
-      <section class="reference-connections" aria-labelledby="reference-connections-title">
-        <h2 id="reference-connections-title">분야별 법률 서비스</h2>
-        <div class="reference-connections-grid">
-          <a href="/p/wiki"><strong>법률백과</strong><span>법령·판례·법률 개념 확인</span></a>
-          <a href="/p/pan"><strong>전문가 콘텐츠</strong><span>변호사 영상·로펌 정보</span></a>
-          <a href="/p/note"><strong>법률 문서 작업</strong><span>자료 검토·초안 작성</span></a>
-          <a href="/pro"><strong>송무관리</strong><span>사건·기일·문서 관리</span></a>
-        </div>
-      </section>
-      <div class="subscribe-banner" id="newsletter">
+      <div class="journal-frontline" aria-label="오늘의 뉴스 지면"><strong>LAWYGO / FRONT PAGE</strong><span>법률과 경제의 주요 기사</span><small>최신 기사·발행일·원문 출처 확인</small></div>
+      <div class="rubric">TOP STORIES / ECONOMY MEETS LAW</div>
+      <div class="front-grid">
+        <section id="journal-front-left"></section>
+        <article class="lead" id="journal-lead"></article>
+        <aside class="rightcol" id="journal-right"></aside>
+      </div>
+      <div class="markets">
+        <strong>THE MARKET &amp; POLICY LENS</strong>
+        <p>RSS 헤드라인과 LAWYGO 편집국 글을 실시간으로 불러옵니다. 전문은 각 출처 원문에서 확인하세요.</p>
+        <a href="/channel">경제 인텔리전스 ↗</a>
+      </div>
+      <div class="ed-head"><h2>Live wire</h2><p>공인 통신·글로벌 매체</p></div>
+      <div class="wire-grid">
+        <div class="wire-col" id="section-kr"><h3>KOREA</h3><div id="journal-wire-kr"></div></div>
+        <div class="wire-col" id="section-us"><h3>U.S. &amp; GLOBAL</h3><div id="journal-wire-us"></div></div>
+      </div>
+      <div class="ed-head"><h2>Editor's selection</h2><p>편집국·CMS 발행</p></div>
+      <div class="storyrow" id="journal-row-editors"></div>
+      <div class="ed-head"><h2>Law &amp; Policy Review</h2><p>제도·판례 트래킹</p></div>
+      <div class="storyrow" id="journal-row-law"></div>
+      <!-- 뉴스 지면을 먼저 보여준 뒤 편집 방향을 소개합니다. -->
+<section class="ly-premiere" aria-labelledby="ly-journal-head"><div class="ly-premiere-panel">
+<div><span class="ly-kicker">ABOUT LAWYGO JOURNAL / EDITORIAL MISSION</span><h2 id="ly-journal-head">헤드라인을 넘어 제도의 맥락까지</h2><p>정책과 시장, 규제와 판례를 연결하는 전문 지면. 최신 제목·요약은 원본 출처와 LAWYGO 편집국 자료로 제공하며, 기사 전문은 원문에서 확인합니다.</p>
+<div class="ly-premiere-actions"><a href="#section-kr">한국 정책·경제</a><a href="#section-us">미국·글로벌</a><a href="#newsletter">뉴스레터 구독</a></div><small class="ly-small">검색·콘텐츠 규모를 임의로 표시하지 않습니다.</small></div>
+<img src="/static/img/design/editorial-library-20261102.webp" alt="법률 서적과 판례를 모은 전문 자료실 이미지" width="1200" height="720" loading="eager">
+</div></section>
+<div class="subscribe-banner" id="newsletter">
         <div>
           <div class="rubric">LAWYGO / EDITORIAL BRIEFING</div>
           <h2>경제·법률 주요 변화를 받아보는 브리핑</h2>
@@ -130,8 +116,8 @@
   <footer class="foot">
     <div class="page">
       <div>
-        <strong>LAWYGO</strong>
-        <p>경제·법률 정보와 전문 리서치 도구를 연결합니다.</p>
+        <strong>LAWYGO JOURNAL</strong>
+        <p>경제를 읽는 법률. 제도를 해석하는 인텔리전스.</p>
         <p>© 2026 LAWYGO. 편집·기술 제휴 등 실제 법인 관계는 확인된 법적 표시를 따릅니다.</p>
       </div>
       <div class="footnav">
