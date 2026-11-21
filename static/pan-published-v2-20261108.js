@@ -119,7 +119,7 @@
   };
   const usCard = (item) => {
     const a = cardLink(item);a.className='pan-us-card';
-    a.append(node('span','pan-us-card-overline','U.S. LEGAL INSIGHT · '+(item.category_ko||'미국 법률 동향')));
+    a.append(node('span','pan-us-card-overline','미국 로펌 분석 · '+(item.category_ko||'미국 법률 동향')));
     const h=node('h3',null,item.title_ko||item.title);a.append(h);
     if(item.title_original)a.append(node('span','pan-us-original',item.title_original));
     const abstract=node('p',null,item.summary_ko||item.summary||'원문에서 구체적인 내용을 확인해 주세요.');

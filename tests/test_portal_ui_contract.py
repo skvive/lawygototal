@@ -87,3 +87,21 @@ def test_note_compact_welcome_keeps_interactive_engine():
         assert part in note
     assert "v10 compact editorial layout" in css
     assert ".lawygo-ai-welcome{margin:0 auto" in css
+
+
+def test_pan_note_korean_first_text_layout():
+    pan = read("static/pan.html")
+    note = read("static/note.html")
+    css = read("static/lawygo-editorial-portal-v8.css")
+    script = read("static/pan-published-v2-20261108.js")
+    assert "법률 영상·전문가 콘텐츠" in pan
+    assert "법률 콘텐츠 홈" in pan
+    assert "미국 로펌 분석" in script
+    assert "영문 원문 한국어 자동번역" in script
+    assert "법률자료 검색과 문서 정리" in note
+    assert "문서 서식 선택" in note
+    assert 'id="lnw-chat-form"' in note and 'id="noteDraftContent"' in note
+    assert note.index('id="note-editor"') < note.index('id="ly-note-ai"')
+    assert "wiki-native-workspace" not in note
+    assert 'href="/p/wiki?view=search"' in note
+    assert "Korean-first PAN / text-first NOTE" in css
