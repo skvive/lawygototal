@@ -1,19 +1,25 @@
+/* LAWYGO 2026-11-21 responsive reference and module navigation checks */
 const {chromium}=require('playwright');
 (async()=>{
-const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-try{
- for(const width of [360,390,412,768]){
-  const page=await browser.newPage({viewport:{width,height:850}});
-  for(const route of ['/','/p/wiki']){
-   const r=await page.goto('http://127.0.0.1:8018'+route,{waitUntil:'domcontentloaded'});
-   const v=await page.evaluate(()=>{
-    const cols=(s)=>{const e=document.querySelector(s);return e?getComputedStyle(e).gridTemplateColumns.trim().split(' ').filter(Boolean).length:0};
-    return {cols:cols('.product-grid'),catalog:cols('.ly-catalog'),wikiImage:getComputedStyle(document.querySelector('.hero-bg')).backgroundImage.includes('legal-knowledge-city.webp'), wikiLink:!!document.querySelector('.ly-wiki-hero-actions a[href="#wiki-search-form"]'),rev:document.querySelector('meta[name="lawygo-design-revision"]')?.content,overflow:document.documentElement.scrollWidth>innerWidth+3};
-   });
-   if(r.status()!==200||v.overflow||v.rev!=='20261105-designrefresh3'||(route==='/'&&width<=412&&(v.cols!==1||v.catalog!==1))||(route==='/p/wiki'&&(!v.wikiImage||!v.wikiLink)))throw Error(JSON.stringify({route,width,...v}));
+ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ try{
+  for(const width of [360,390,412,768]){
+   const page=await browser.newPage({viewport:{width,height:850}});
+   for(const route of ['/journal','/p/wiki','/p/pan','/pro']){
+    const response=await page.goto('http://127.0.0.1:8018'+route,{waitUntil:'domcontentloaded',timeout:25000});
+    await page.waitForTimeout(350);
+    const m=await page.evaluate(()=>{
+     return {overflow:document.documentElement.scrollWidth>innerWidth+3,
+      modules:document.querySelectorAll('.lp8-module').length,
+      brand:document.querySelector('.lp8-wordmark')?.textContent?.trim(),
+      reference:!!document.querySelector('#reference-search-form'),
+      hasMain:!!document.querySelector('main')};
+    });
+    if(response.status()!==200||m.overflow||m.modules!==5||!m.hasMain||m.brand!=='LAWYGO'||
+      (route==='/journal'&&!m.reference))throw Error(JSON.stringify({width,route,...m,http:response.status()}));
+   }
+   await page.close();
   }
-  await page.close();
- }
- console.log('Design release viewport checks passed');
-}finally{await browser.close()}
+  console.log('PASS: 360/390/412/768px, portal nav and search-first reference page');
+ }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -49,11 +49,11 @@ jobs:
           done
           cat /tmp/lawygo-uvicorn.log
           exit 1
-      - name: Capture 52 responsive screenshots and test public reader interactions
+      - name: Capture 52 responsive screenshots and test Korean-first reference, PAN and PRO
         run: node qa/lawygo-browser-qa.cjs
       - name: Check versioned CSS and fresh CDN design contract
         run: python qa/lawygo-visual-cache-audit.py
-      - name: Verify mobile card grid and WIKI brand at 360px / 390px / 412px / 768px
+      - name: Verify four mobile breakpoints and modular LAWYGO branding
         run: node qa/lawygo-visual-fix-qa.cjs
       - uses: actions/upload-artifact@v4
         if: always()
