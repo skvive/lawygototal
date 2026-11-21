@@ -5,7 +5,7 @@ const key='lawygo-editorial-portal-v8';
 if(document.getElementById(key))return;
 const path=location.pathname.replace(/\\/g,'/');
 const modules=[
- {slug:'journal',ko:'저널',en:'JOURNAL',url:'/journal',mark:'J',active:path==='/'||path==='/journal'},
+ {slug:'journal',ko:'경제·법률',en:'LIBRARY',url:'/journal',mark:'L',active:path==='/'||path==='/journal'},
  {slug:'wiki',ko:'위키',en:'WIKI',url:'/p/wiki',mark:'W',active:path==='/p/wiki'},
  {slug:'pan',ko:'판',en:'PAN',url:'/p/pan',mark:'P',active:path==='/p/pan'},
  {slug:'pro',ko:'프로',en:'PRO',url:'/pro',mark:'R',active:path==='/pro'},
@@ -18,9 +18,9 @@ mast.id=key;
 mast.className='lp8-portal-top';
 mast.innerHTML='<a class="lp8-skip" href="#'+(target?.id||'lp8-main')+'">본문으로 바로가기</a>'+
  '<header class="lp8-mast"><div class="lp8-mast-inner">'+
- '<a class="lp8-logo" href="/journal" aria-label="LAWYGO JOURNAL 경제·법률 전문지">'+
+ '<a class="lp8-logo" href="/journal" aria-label="LAWYGO 경제·법률 자료실">'+
  '<img src="/static/logo.svg" alt="" width="54" height="54" decoding="async">'+
- '<span class="lp8-wordmark">LAWYGO <em>JOURNAL</em></span></a>'+
+ '<span class="lp8-wordmark">LAWYGO</span></a>'+
  '<div class="lp8-mast-detail"><strong>ECONOMY · LAW · INTELLIGENCE</strong>경제와 법률의 변화를 근거로 읽습니다.</div>'+
  '</div></header>';
 const ribbon=document.createElement('nav');
