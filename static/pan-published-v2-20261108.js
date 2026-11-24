@@ -8,7 +8,6 @@
   let active = 'all';
   let visibleCount = 16;
   let activeDetail = null;
-  const pictureFallback = '/static/img/design/ly-pan-scene.svg';
   const safeUrl = (raw, allowRelative = false) => {
     try {
       const u = new URL(String(raw || ''), location.origin);
@@ -16,15 +15,17 @@
       return u.href;
     } catch (_) { return ''; }
   };
+  // Only source-provided images: never substitute stock art for missing media.
   const safeThumb = (item) => {
-    const u = safeUrl(item.thumb_url, true);
-    if (!u) return pictureFallback;
+    const raw = item.thumb_url || item.image_url || '';
+    const u = safeUrl(raw, true);
+    if (!u) return '';
     const host = new URL(u).hostname.toLowerCase();
     return (u.startsWith(location.origin+'/static/') ||
       host === 'img.youtube.com' || host === 'i.ytimg.com' ||
-      host.endsWith('.googleusercontent.com') || host.endsWith('.blogspot.com') ||
-      host.endsWith('.newswire.co.kr'))
-      ? u : pictureFallback;
+      host === 'blogger.googleusercontent.com' || host.endsWith('.googleusercontent.com') ||
+      host.endsWith('.blogspot.com') || host === 'newswire.co.kr' ||
+      host.endsWith('.newswire.co.kr')) ? u : '';
   };
   const displayDate = str => {
     if (!str) return '발행일 미표기';
@@ -38,15 +39,23 @@
     if (txt != null) el.textContent = String(txt);
     return el;
   };
-  const image = (item) => {
+  const image = (item, parent) => {
+    const url = safeThumb(item);
+    if (!url) {
+      parent?.classList.add('pan-no-real-image');
+      return null;
+    }
     const img = node('img');
-    img.alt = item.title ? item.title + ' 썸네일' : '법률 콘텐츠';
+    img.alt = item.title ? item.title + ' 원문 대표 이미지' : '';
     img.loading = 'lazy';
     img.referrerPolicy = 'no-referrer';
-    img.src = safeThumb(item);
+    img.decoding = 'async';
+    img.src = url;
     img.addEventListener('error', () => {
-      if (img.getAttribute('src') !== pictureFallback) img.src = pictureFallback;
-    });
+      img.remove();
+      // Broken or access-restricted source: clean text-only card, never fake art.
+      parent?.classList.add('pan-no-real-image');
+    }, {once:true});
     return img;
   };
   const cardLink = item => {
@@ -63,7 +72,9 @@
   const mediaCard = item => {
     const a = cardLink(item);
     a.className = 'pan-featured-card';
-    a.append(image(item),playIcon());
+    const photo=image(item,a);
+    if(photo) a.append(photo);
+    a.append(playIcon());
     const bottom = node('div','pan-card-bottom');
     bottom.append(node('span','pan-card-type',labels[item.content_type] || 'PUBLIC POST'),
       node('h3',null,item.title));
@@ -74,8 +85,12 @@
     const a = cardLink(item);
     a.className = 'pan-mini-card';
     const thumb = node('div','pan-mini-card-img');
-    thumb.append(image(item),node('span',null,'▶'));
-    a.append(thumb,node('h3',null,item.title),
+    const photo=image(item,a);
+    if(photo) {
+      thumb.append(photo,node('span',null,'▶'));
+      a.append(thumb);
+    }
+    a.append(node('h3',null,item.title),
       node('small',null,item.source || '공개 법률 콘텐츠'));
     return a;
   };
@@ -89,7 +104,8 @@
   const standardCard = item => {
     const a = cardLink(item);
     a.className = 'pan-post-card';
-    a.append(image(item));
+    const photo=image(item,a);
+    if(photo) a.append(photo);
     const body = node('div','pan-post-card-main');
     body.append(node('small',null,labels[item.content_type] || '법률 게시물'),
       node('h3',null,item.title_ko||item.title),
@@ -201,7 +217,8 @@
     const description=(item.summary_ko||item.summary||'').trim();
     if (description) section.append(node('p',null,description));
     const wrapper=node('div','pan-detail-media');
-    wrapper.append(image(item));
+    const photo=image(item,wrapper);
+    if(photo) wrapper.append(photo);
     const vid=youtubeId(item);
     if (vid) {
       const button=node('button',null,'▶ 원본 YouTube 영상 재생');
@@ -217,7 +234,7 @@
       });
       wrapper.append(button);
     }
-    section.append(wrapper);
+    if(photo || vid) section.append(wrapper);
     const source=safeUrl(item.url,true);
     const actions=node('div','pan-detail-links');
     if (source) {
