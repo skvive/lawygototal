@@ -162,3 +162,37 @@ body.pan-media-v2 #main>.pan-video-hero .pan-source-warning{position:static!impo
 /* Final customer visual QA: remove obsolete background graphic from live sidebar. */
 body.pan-media-v2 .pan-hub-side{background:linear-gradient(180deg,#0c1b30 0%,#0e243b 64%,#08192c 100%)!important}
 body.pan-media-v2 .pan-side-bottom{background:linear-gradient(135deg,#30263c,#172b3d);position:relative;z-index:1}
+
+/* PAN media authenticity: source thumbnails only; image-less posts are editorial text rows. */
+body.pan-media-v2 .pan-real-post-grid>.pan-post-card.pan-no-real-image{
+  grid-column:1/-1;min-height:0;display:block;
+  border-left:3px solid #b38a60;border-radius:8px;
+  background:#fff;box-shadow:none;
+}
+body.pan-media-v2 .pan-post-card.pan-no-real-image .pan-post-card-main{
+  padding:17px 20px 18px;
+}
+body.pan-media-v2 .pan-post-card.pan-no-real-image .pan-post-card-main h3{
+  font-size:15px!important;line-height:1.5;margin:6px 0 7px;
+  -webkit-line-clamp:unset;display:block;
+}
+body.pan-media-v2 .pan-post-card.pan-no-real-image .pan-post-card-main p{
+  font-size:11px;line-height:1.6;
+}
+body.pan-media-v2 .pan-featured-card.pan-no-real-image{
+  aspect-ratio:auto;min-height:154px;background:#f6f4f0;
+  border:1px solid #e4ddd2;
+}
+body.pan-media-v2 .pan-featured-card.pan-no-real-image:before,
+body.pan-media-v2 .pan-featured-card.pan-no-real-image .pan-play-icon{display:none}
+body.pan-media-v2 .pan-featured-card.pan-no-real-image .pan-card-bottom{
+  position:relative;left:auto;right:auto;bottom:auto;padding:20px;color:#17283c;
+}
+body.pan-media-v2 .pan-featured-card.pan-no-real-image .pan-card-bottom h3{color:#17283c}
+body.pan-media-v2 .pan-mini-card.pan-no-real-image{padding:13px;background:#f6f4f0;border:1px solid #e4ddd2;border-radius:8px}
+body.pan-media-v2 .pan-mini-card.pan-no-real-image .pan-mini-card-img{display:none}
+body.pan-media-v2 .pan-detail-media.pan-no-real-image:empty{display:none}
+@media(max-width:760px){
+ body.pan-media-v2 .pan-post-card.pan-no-real-image .pan-post-card-main{padding:14px 15px}
+ body.pan-media-v2 .pan-post-card.pan-no-real-image .pan-post-card-main h3{font-size:13px!important}
+}
