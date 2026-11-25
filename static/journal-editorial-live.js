@@ -22,6 +22,28 @@ function sourceImage(raw) {
   if(/\/thumb\/\.(?:jpe?g|png|webp)$/i.test(u.pathname)) return null;
   return url;
 }
+// Editor-reviewed Korean headings for English-language source releases.
+// Do not present unreviewed machine output as authoritative translation.
+const koReleases={
+  '1037700':{
+    title:'중국 바이오사이토젠, 하버와의 특허 분쟁에서 RenNano 관련 유리한 법원 결정 확보',
+    summary:'바이오사이토젠이 하버와 벌인 RenNano 관련 특허 분쟁에서 자사에 유리한 법원 결정을 발표했다. 구체적인 판단 범위와 법적 효과는 원문을 확인해야 한다.'
+  },
+  '1037558':{
+    title:'베렌베르그, 아스펜 에어로젤스와의 특허 소송에서 승소',
+    summary:'한국 특허법원이 아스펜 에어로젤스의 관련 특허 3건을 무효로 판단했다는 발표다. 판결의 범위와 후속 절차는 원문에서 확인할 수 있다.'
+  }
+};
+function displayKorean(item){
+  const sourceId=new URL(item.url).searchParams.get('no');
+  const ko=koReleases[sourceId];
+  if(ko) return {...item,title:ko.title,summary:ko.summary,title_original:item.title,translation_status:'editorial'};
+  // Existing Korean-language source titles remain unchanged. Newly surfaced
+  // English press releases require reviewed Korean copy before being shown.
+  const hasKorean=/[가-힣]/.test(item.title);
+  if(!hasKorean) return null;
+  return item;
+}
 const issueOverlay=document.getElementById('journal-issue-overlay');
 function openIssue(item) {
   if(!issueOverlay) return;
@@ -51,8 +73,9 @@ function sourcePhoto(item, className) {
     // On unavailable original images, remove the entire photo-card, never
     // swap in generic imagery. Keep heading/section visibility clean.
     const card=img.closest('[data-source-photo-card]');
+    const container=card?.parentElement;
     card?.remove();
-    if(card?.parentElement?.children.length===0) card.parentElement.hidden=true;
+    if(container && container.children.length===0) container.hidden=true;
   },{once:true});
   return img;
 }
@@ -103,7 +126,9 @@ async function boot() {
   const images=(Array.isArray(pan.items)?pan.items:[])
     .filter(x=>x && x.content_type==='newswire' && x.title && safeJournalUrl(x.url))
     .map(x=>({...x,image:sourceImage(x.thumb_url)}))
-    .filter(x=>x.image);
+    .filter(x=>x.image)
+    .map(displayKorean)
+    .filter(Boolean);
   const unique=[];const seen=new Set();
   for(const item of images){if(seen.has(item.url))continue;seen.add(item.url);unique.push(item);}
   // Newswire articles with an actual source-provided image take exclusive
