@@ -102,7 +102,7 @@ def register(app, database, current_user, csrf):
     @app.post("/api/wiki/v2/revisions/{revision_id}/citations")
     def add_citation(revision_id:int,data:CitationIn,user=Depends(csrf),db=Depends(database)):
         guard(user,db)
-        if not data.confirm: raise HTTPException(400,"공식 원문과 인용의 관련성 확인이 필요합니다")
+        if not data.confirm or len(data.pinpoint.strip())<8 or not data.proposition_key.strip(): raise HTTPException(400,"공식 원문과 인용의 관련성 확인이 필요합니다")
         if not db.execute("SELECT 1 FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL FOR SHARE",(user["tenant"],user["id"])).fetchone(): raise HTTPException(403,"검증된 변호사만 인용을 검수할 수 있습니다")
         r=db.execute("SELECT id,author_id,status,legal_as_of FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=? FOR UPDATE",(user["tenant"],revision_id)).fetchone()
         if not r: raise HTTPException(404,"문서 없음")
