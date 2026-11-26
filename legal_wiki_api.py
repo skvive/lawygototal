@@ -61,7 +61,7 @@ def register(app, database, current_user, csrf):
         return {"items":items,"ai_generated":False,"notice":"검증 자료 검색 결과; AI 법률 의견 아님"}
 
     @app.post("/api/wiki/v2/revisions/{revision_id}/review")
-    def review(revision_id:int, decision:str=Query(pattern="^(approve|reject|revise)$"), notes:str=Query("",max_length=1000), user=Depends(csrf), db=Depends(database)):
+    def review(revision_id:int, decision:str=Query(pattern="^(approve|reject|revise)$"), notes:str=Query("",max_length=1000), expected_digest:str|None=Query(None,pattern="^[a-f0-9]{64}$"), user=Depends(csrf), db=Depends(database)):
         guard(user,db)
         lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL FOR SHARE",(user["tenant"],user["id"])).fetchone()
         if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
@@ -70,7 +70,13 @@ def register(app, database, current_user, csrf):
         if not row: raise HTTPException(404,"문서 없음")
         if row["author_id"]==user["id"]: raise HTTPException(403,"자기 작성 문서는 검수할 수 없습니다")
         if decision=="approve":
-            # Keep the beta queue unresolved until the source/citation verification workflow is integrated.
-            raise HTTPException(409,"공식 원문 및 인용 검증 완료 전 승인할 수 없습니다")
+            if expected_digest is None or expected_digest!=row["digest"]: raise HTTPException(409,"검토한 문서 버전을 다시 확인하세요")
+            try:
+                db.execute("SELECT legal_wiki.approve_and_publish(?,?,?,?,?)",(user["tenant"],revision_id,user["id"],expected_digest,notes)).fetchone()
+            except Exception as exc:
+                if getattr(exc,"sqlstate",None) in ("23514","23505","42501"):
+                    raise HTTPException(409,"승인 요건 또는 공식 원문·인용 검증이 충족되지 않았습니다") from None
+                raise
+            return {"revision_id":revision_id,"decision":decision,"published":True}
         db.execute("INSERT INTO legal_wiki.lawyer_reviews(tenant,revision_id,reviewer_id,credential_ref,decision,notes,approval_digest) VALUES(?,?,?,?,?,?,?)",(user["tenant"],revision_id,user["id"],"lawyer-verification:"+user["id"],decision,notes,row["digest"]))
         return {"revision_id":revision_id,"decision":decision,"published":False}
