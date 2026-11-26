@@ -160,6 +160,11 @@ async function boot() {
   showSourceSection('journal-wire-us',unique.slice(6,12),wireItem);
   showSourceSection('journal-row-editors',unique.slice(0,3),(x)=>articleCard(x,'NEWSWIRE · FEATURED'));
   showSourceSection('journal-row-law',unique.slice(3,6),(x)=>articleCard(x,'LAW & POLICY · NEWSWIRE'));
+  if(!unique.length){
+    const root=document.getElementById('journal-lead');
+    if(root){root.hidden=false;root.replaceChildren(el('p','현재 표시할 검증된 대표 이미지가 포함된 뉴스와이어 기사가 없습니다. 원문 연결 상태를 확인해 주세요.','lyd-feed-empty'));}
+    document.getElementById('journal-edition-meta').textContent='원문 확인 대기';
+  }
   // Empty section headings must not create long blank panels.
   ['journal-row-editors','journal-row-law'].forEach(id=>{
     const root=document.getElementById(id);
