@@ -60,6 +60,19 @@ def register(app, database, current_user, csrf):
         items=verified(db,user["tenant"],q.strip(),10) if len(q.strip())>=2 else []
         return {"items":items,"ai_generated":False,"notice":"검증 자료 검색 결과; AI 법률 의견 아님"}
 
+    @app.get("/api/wiki/v2/revisions/{revision_id}/review")
+    def review_document(revision_id:int,user=Depends(current_user),db=Depends(database)):
+        guard(user,db)
+        lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL",(user["tenant"],user["id"])).fetchone()
+        if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
+        row=db.execute("""SELECT id,title,summary,body_markdown,legal_as_of,status,author_id,
+          encode(sha256(convert_to(jsonb_build_array(title,summary,body_markdown,legal_as_of,version)::text,'UTF8')),'hex') AS digest
+          FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=?""",(user["tenant"],revision_id)).fetchone()
+        if not row: raise HTTPException(404,"문서 없음")
+        citations=db.execute("SELECT proposition_key,pinpoint,relation,article_version_id,precedent_id,verified_at FROM legal_wiki.citations WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
+        candidates=db.execute("SELECT reference_label,source_url,verification_status FROM legal_wiki.legal_reference_candidates WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
+        return {"revision":dict(row),"citations":[dict(x) for x in citations],"candidates":[dict(x) for x in candidates],"self_review_blocked":row["author_id"]==user["id"]}
+
     @app.post("/api/wiki/v2/revisions/{revision_id}/review")
     def review(revision_id:int, decision:str=Query(pattern="^(approve|reject|revise)$"), notes:str=Query("",max_length=1000), expected_digest:str|None=Query(None,pattern="^[a-f0-9]{64}$"), user=Depends(csrf), db=Depends(database)):
         guard(user,db)
