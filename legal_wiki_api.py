@@ -60,6 +60,22 @@ def register(app, database, current_user, csrf):
         items=verified(db,user["tenant"],q.strip(),10) if len(q.strip())>=2 else []
         return {"items":items,"ai_generated":False,"notice":"검증 자료 검색 결과; AI 법률 의견 아님"}
 
+    @app.get("/api/wiki/v2/review-queue")
+    def review_queue(limit:int=Query(30,ge=1,le=100),user=Depends(current_user),db=Depends(database)):
+        guard(user,db)
+        if not db.execute("SELECT 1 FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL",(user["tenant"],user["id"])).fetchone(): raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
+        rows=db.execute("""SELECT r.id,r.title,r.status,r.legal_as_of FROM legal_wiki.wiki_revisions r WHERE r.tenant=? AND r.author_id<>? AND (r.status IN ('draft','pending') OR EXISTS(SELECT 1 FROM legal_wiki.review_queue q WHERE q.tenant=r.tenant AND q.revision_id=r.id AND q.status='queued')) ORDER BY r.id LIMIT ?""",(user["tenant"],user["id"],limit)).fetchall()
+        return {"items":[dict(r) for r in rows]}
+
+    @app.get("/api/wiki/v2/official-sources")
+    def official_sources(q:str=Query(min_length=2,max_length=100),user=Depends(current_user),db=Depends(database)):
+        guard(user,db)
+        q=q.strip()
+        if len(q)<2: raise HTTPException(400,"검색어를 확인하세요")
+        laws=db.execute("""SELECT a.id,a.article_key,a.heading,a.body,a.effective_from,a.effective_to,a.source_url,s.title FROM legal_wiki.article_versions a JOIN legal_wiki.statute_versions v ON v.id=a.statute_version_id JOIN legal_wiki.statutes s ON s.id=v.statute_id JOIN legal_wiki.legal_sources src ON src.id=s.source_id WHERE v.verified_at IS NOT NULL AND src.enabled AND src.redistribution_allowed AND src.verified_at IS NOT NULL AND (strpos(s.title,?)>0 OR strpos(coalesce(a.heading,''),?)>0) ORDER BY s.title,a.id LIMIT 30""",(q,q)).fetchall()
+        cases=db.execute("""SELECT p.id,p.case_number,p.court,p.decided_on,p.holding,p.source_url FROM legal_wiki.precedents p JOIN legal_wiki.legal_sources s ON s.id=p.source_id WHERE p.verified_at IS NOT NULL AND s.enabled AND s.redistribution_allowed AND s.verified_at IS NOT NULL AND (strpos(p.case_number,?)>0 OR strpos(coalesce(p.holding,''),?)>0) ORDER BY p.decided_on DESC,p.id LIMIT 30""",(q,q)).fetchall()
+        return {"articles":[dict(r) for r in laws],"precedents":[dict(r) for r in cases]}
+
     @app.get("/api/wiki/v2/revisions/{revision_id}/review")
     def review_document(revision_id:int,user=Depends(current_user),db=Depends(database)):
         guard(user,db)
