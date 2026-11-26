@@ -3,19 +3,19 @@ import os
 from fastapi import Depends, HTTPException, Query
 from db_engine import USE_POSTGRES
 
-def register(app, database, current_user):
+def register(app, database, current_user, csrf):
     def guard(user, db):
         if not USE_POSTGRES or os.getenv("LAWYGO_LEGAL_WIKI_ENABLED") != "1":
             raise HTTPException(503, "전문 법률위키 준비 중")
         # Until professional-verification integration is tested, only staff may preview.
         if user["role"] not in ("admin", "editor"):
             raise HTTPException(403, "내부 검수 전용")
-        if not db.execute("SELECT to_regclass('legal_wiki.verified_revisions') IS NOT NULL AS ready").fetchone()["ready"]:
+        if not db.execute("SELECT to_regclass('legal_wiki.qualified_verified_revisions') IS NOT NULL AS ready").fetchone()["ready"]:
             raise HTTPException(503, "법률 DB 준비 중")
         db.execute("SELECT set_config('app.tenant',?,true)", (user["tenant"],))
     def verified(db, tenant, q, limit):
         return [dict(r) for r in db.execute("""SELECT id,title,summary,legal_as_of
-          FROM legal_wiki.verified_revisions WHERE tenant=? AND
+          FROM legal_wiki.qualified_verified_revisions WHERE tenant=? AND
           (strpos(lower(title),lower(?))>0 OR strpos(lower(summary),lower(?))>0)
           ORDER BY CASE WHEN lower(title)=lower(?) THEN 0 ELSE 1 END,id LIMIT ?""",
           (tenant,q,q,q,limit)).fetchall()]
@@ -47,3 +47,18 @@ def register(app, database, current_user):
         # Only the explicit search query is used; never read or forward NOTE body.
         items=verified(db,user["tenant"],q.strip(),10) if len(q.strip())>=2 else []
         return {"items":items,"ai_generated":False,"notice":"검증 자료 검색 결과; AI 법률 의견 아님"}
+
+    @app.post("/api/wiki/v2/revisions/{revision_id}/review")
+    def review(revision_id:int, decision:str=Query(pattern="^(approve|reject|revise)$"), notes:str=Query("",max_length=1000), user=Depends(csrf), db=Depends(database)):
+        guard(user,db)
+        lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL FOR SHARE",(user["tenant"],user["id"])).fetchone()
+        if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
+        row=db.execute("""SELECT id,author_id,status,encode(sha256(convert_to(jsonb_build_array(title,summary,body_markdown,legal_as_of,version)::text,'UTF8')),'hex') AS digest
+            FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=? FOR UPDATE""",(user["tenant"],revision_id)).fetchone()
+        if not row: raise HTTPException(404,"문서 없음")
+        if row["author_id"]==user["id"]: raise HTTPException(403,"자기 작성 문서는 검수할 수 없습니다")
+        if decision=="approve":
+            # Keep the beta queue unresolved until the source/citation verification workflow is integrated.
+            raise HTTPException(409,"공식 원문 및 인용 검증 완료 전 승인할 수 없습니다")
+        db.execute("INSERT INTO legal_wiki.lawyer_reviews(tenant,revision_id,reviewer_id,credential_ref,decision,notes,approval_digest) VALUES(?,?,?,?,?,?,?)",(user["tenant"],revision_id,user["id"],"lawyer-verification:"+user["id"],decision,notes,row["digest"]))
+        return {"revision_id":revision_id,"decision":decision,"published":False}
