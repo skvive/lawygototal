@@ -73,15 +73,22 @@ const tasks = [];
    body:JSON.stringify({kr:[{id:'qa-korean',region:'kr',title:'한국 지식재산 정책 개정',summary:'지식재산 및 법률 정책 안내',source:'공식 자료',
     published:'2026-11-21',url:'https://example.com/kr'}],us:[{id:'qa-english',region:'us',title:'Federal Markets Policy Update',summary:'Markets in 2026',
     source:'U.S. public source',published:'2026-11-20',url:'https://example.com/us'}],editorial:[]})}));
+  const photo='https://example.com/newswire-photo.jpg';
+  await page.route('**/api/pan/content?**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({items:[
+    {id:'qa-lead',content_type:'newswire',title:'법률 정책 주요 보도자료',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-22',url:'https://example.com/lead',thumb_url:photo},
+    {id:'qa-kr',content_type:'newswire',title:'한국 지식재산 정책 개정',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-21',url:'https://example.com/kr',thumb_url:photo},
+    {id:'qa-no-photo',content_type:'newswire',title:'사진 없는 기사',source:'뉴스와이어',published:'2026-11-23',url:'https://example.com/no-photo'}
+  ]})}));
   await page.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
-  await page.locator('#journal-front-left .side-story').first().waitFor({timeout:12000});
+  const card=page.locator('#journal-front-left .side-story').first();
+  await card.waitFor({timeout:12000});
   check('journal-newspaper-layout',await page.locator('.front-grid,#journal-lead,#journal-front-left,#journal-right').count()===4);
-  check('journal-live-feed-restored',(await page.locator('#journal-front-left').textContent()).includes('한국 지식재산 정책 개정'));
-  await page.locator('#journal-front-left .side-story').first().click();
-  check('journal-editorial-reader',(await page.locator('#journal-issue-overlay').getAttribute('aria-hidden'))==='false');
-  await page.locator('#journal-issue-close').click();
+  check('journal-live-feed-restored',(await card.textContent()).includes('한국 지식재산 정책 개정'));
+  check('journal-original-reader-link',(await card.getAttribute('href'))==='https://example.com/kr'&&(await card.getAttribute('target'))==='_blank'&&(await card.getAttribute('rel')).includes('noopener'));
+  check('journal-no-fabricated-photo',!(await page.locator('.front-grid').textContent()).includes('사진 없는 기사'));
   check('journal-newsletter-preserved',await page.locator('#newsletterSignupJournal').count()===1);
   await page.unroute('**/api/journal/feed');
+  await page.unroute('**/api/pan/content?**');
  }catch(e){check('journal-restoration-smoke',false,String(e).slice(0,250))}
  try{
   await page.route('**/api/posts?product=wiki&limit=12',route=>route.fulfill({status:200,contentType:'application/json',
@@ -132,7 +139,7 @@ const tasks = [];
   check('note-decorative-mark-removed',await page.locator('.lawygo-ai-icon,.lawygo-ai-brand-mark').count()===0);
   check('note-korean-text-heading',(await page.locator('#lnw-chat-welcome h1').innerText()).includes('법률자료 검색과 문서 정리'));
   check('note-visible-korean-send',(await page.locator('#lnw-chat-send').innerText()).trim()==='실행');
-  check('note-editor-order',await page.evaluate(()=>document.getElementById('note-editor').compareDocumentPosition(document.getElementById('ly-note-ai')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  check('note-editor-order',await page.evaluate(()=>document.getElementById('note-chat-workspace').compareDocumentPosition(document.getElementById('note-editor')) & Node.DOCUMENT_POSITION_FOLLOWING));
   await page.locator('[data-lnw-example]').first().click();
   check('note-quick-prompt-fills',((await page.locator('#lnw-chat-input').inputValue()).includes('개인정보')));
   await page.locator('[data-note-template="case"]').click();
