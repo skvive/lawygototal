@@ -92,7 +92,7 @@ def register(app, database, current_user, csrf):
         lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL",(user["tenant"],user["id"])).fetchone()
         if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
         row=db.execute("""SELECT id,title,summary,body_markdown,legal_as_of,status,author_id,
-          encode(sha256(convert_to(jsonb_build_array(title,summary,body_markdown,legal_as_of,version)::text,'UTF8')),'hex') AS digest
+          legal_wiki.review_digest(tenant,id) AS digest
           FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=?""",(user["tenant"],revision_id)).fetchone()
         if not row: raise HTTPException(404,"문서 없음")
         citations=db.execute("SELECT proposition_key,pinpoint,relation,article_version_id,precedent_id,verified_at FROM legal_wiki.citations WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
@@ -128,7 +128,7 @@ def register(app, database, current_user, csrf):
         guard(user,db)
         lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL FOR SHARE",(user["tenant"],user["id"])).fetchone()
         if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
-        row=db.execute("""SELECT id,author_id,status,encode(sha256(convert_to(jsonb_build_array(title,summary,body_markdown,legal_as_of,version)::text,'UTF8')),'hex') AS digest
+        row=db.execute("""SELECT id,author_id,status,legal_wiki.review_digest(tenant,id) AS digest
             FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=? FOR UPDATE""",(user["tenant"],revision_id)).fetchone()
         if not row: raise HTTPException(404,"문서 없음")
         if row["author_id"]==user["id"]: raise HTTPException(403,"자기 작성 문서는 검수할 수 없습니다")
