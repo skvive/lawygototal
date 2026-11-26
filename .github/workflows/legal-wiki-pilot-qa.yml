@@ -7,6 +7,7 @@ on:
       - 'tests/test_legal_wiki_*.py'
       - 'static/legal-wiki-pro.*'
       - 'app.py'
+      - 'integrations_v2.py'
       - '.github/workflows/legal-wiki-pilot-qa.yml'
   push:
     branches: ['feature/legal-wiki-lw05-09']
@@ -20,6 +21,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m py_compile legal_wiki_*.py app.py
+      - run: python -m py_compile legal_wiki_*.py app.py integrations_v2.py
       - run: python -m unittest discover -s tests -p 'test_legal_wiki_*.py' -v
       - run: node --check static/legal-wiki-pro.js
