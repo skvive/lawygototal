@@ -1,6 +1,6 @@
 -- DEV ONLY. All synthetic rows rolled back in a subtransaction.
 DO $test$
-DECLARE s bigint; j bigint; p bigint; v bigint; t bigint; r bigint; d text; h text:=repeat('a',64); approved bigint;
+DECLARE s bigint; j bigint; p bigint; v bigint; t bigint; r bigint; d text; h text:=encode(sha256(convert_to('synthetic only','UTF8')),'hex'); approved bigint;
 BEGIN
  BEGIN
   PERFORM set_config('app.tenant','lw09-synthetic',true);
