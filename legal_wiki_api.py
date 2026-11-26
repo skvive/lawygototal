@@ -90,7 +90,7 @@ def register(app, database, current_user, csrf):
           FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=?""",(user["tenant"],revision_id)).fetchone()
         if not row: raise HTTPException(404,"문서 없음")
         citations=db.execute("SELECT proposition_key,pinpoint,relation,article_version_id,precedent_id,verified_at FROM legal_wiki.citations WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
-        candidates=db.execute("SELECT reference_label,source_url,verification_status FROM legal_wiki.legal_reference_candidates WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
+        candidates=db.execute("SELECT id,reference_label,source_url,verification_status FROM legal_wiki.legal_reference_candidates WHERE tenant=? AND revision_id=? ORDER BY id",(user["tenant"],revision_id)).fetchall()
         return {"revision":dict(row),"citations":[dict(x) for x in citations],"candidates":[dict(x) for x in candidates],"self_review_blocked":row["author_id"]==user["id"]}
 
     @app.post("/api/wiki/v2/revisions/{revision_id}/citations")
