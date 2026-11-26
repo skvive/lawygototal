@@ -2,6 +2,7 @@
 import os
 from fastapi import Depends, HTTPException, Query
 from db_engine import USE_POSTGRES
+from legal_wiki_concepts import expand, rerank
 
 def register(app, database, current_user, csrf):
     def guard(user, db):
@@ -39,6 +40,17 @@ def register(app, database, current_user, csrf):
           OR to_tsvector('simple',coalesce(p.holding,'')||' '||p.case_number) @@ plainto_tsquery('simple',?))
           ORDER BY score DESC,p.decided_on DESC,p.id LIMIT ?""",(q,q,q,q,limit)).fetchall()
         return {"items":[dict(r) for r in rows],"method":"keyword-ranked; not semantic similarity"}
+    @app.get("/api/wiki/v2/precedents/concepts")
+    def concept_precedents(q:str=Query(min_length=2,max_length=100),limit:int=Query(20,ge=1,le=50),user=Depends(current_user),db=Depends(database)):
+        guard(user,db)
+        terms=expand(q)
+        if not terms: raise HTTPException(400,"검색어를 확인하세요")
+        predicates=" OR ".join(["strpos(lower(coalesce(p.holding,'')||' '||p.case_number),lower(?))>0"]*len(terms))
+        rows=db.execute("""SELECT p.id,p.court,p.case_number,p.decided_on,p.holding,p.source_url FROM legal_wiki.precedents p
+            JOIN legal_wiki.legal_sources s ON s.id=p.source_id
+            WHERE p.verified_at IS NOT NULL AND s.verified_at IS NOT NULL AND s.enabled AND s.redistribution_allowed
+            AND ("""+predicates+") ORDER BY p.decided_on DESC,p.id LIMIT 500",tuple(terms)).fetchall()
+        return {"items":rerank(q,[dict(r) for r in rows],limit),"method":"local legal concept expansion; not neural embedding","candidate_cap":500}
     @app.get("/api/wiki/v2/note/{note_id}/evidence")
     def note_evidence(note_id:str,q:str=Query(min_length=2,max_length=100),user=Depends(current_user),db=Depends(database)):
         guard(user,db)
