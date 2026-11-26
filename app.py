@@ -808,7 +808,7 @@ seo_discovery.register(app, database, DEFAULT_TENANT)
 
 # Feature-gated legal wiki preview; existing public wiki routes unchanged.
 import legal_wiki_api
-legal_wiki_api.register(app, database, current_user)
+legal_wiki_api.register(app, database, current_user, csrf)
 
 if __name__=='__main__':
     import uvicorn
