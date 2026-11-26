@@ -379,6 +379,7 @@ class SyncAdd(BaseModel):
 
 class AiConsent(BaseModel):
     consent:bool
+    wiki_query: str | None = None
 
 
 def register(app,g):
@@ -544,6 +545,24 @@ def register(app,g):
                     refs.append({'id':m['id'],'title':m['original_name']})
             except Exception:pass
         if len(source.strip())<15:err(422,'분석 가능한 원문이 부족합니다. 텍스트 PDF 또는 본문을 입력해 주세요.')
+        # Explicit query only; NOTE text is never used to build a shared search query.
+        if data.wiki_query is not None:
+            from db_engine import USE_POSTGRES
+            q=data.wiki_query.strip()
+            if len(q)<2 or len(q)>100:err(400,'법률위키 검색어는 2~100자입니다.')
+            if not USE_POSTGRES or os.getenv('LAWYGO_LEGAL_WIKI_ENABLED')!='1':err(503,'전문 법률위키 준비 중')
+            if user['role'] not in ('admin','editor'):err(403,'전문 위키 AI 연동은 내부 검수 전용입니다.')
+            if not db.execute("SELECT to_regclass('legal_wiki.qualified_verified_revisions') IS NOT NULL AS ready").fetchone()['ready']:err(503,'법률 DB 준비 중')
+            db.execute("SELECT set_config('app.tenant',?,true)",(user['tenant'],))
+            wiki=db.execute("""SELECT id,title,summary,body_markdown,legal_as_of FROM legal_wiki.qualified_verified_revisions
+                WHERE tenant=? AND (strpos(lower(title),lower(?))>0 OR strpos(lower(summary),lower(?))>0)
+                ORDER BY id LIMIT 3""",(user['tenant'],q,q)).fetchall()
+            if not wiki:err(409,'검증된 법률위키 근거가 없습니다. AI 분석은 실행하지 않았습니다.')
+            source=source[:18000]
+            for w in wiki:
+                wid='wiki-'+str(w['id'])
+                refs.append({'id':wid,'title':w['title'],'legal_as_of':str(w['legal_as_of'])})
+                source+='\n\n[SOURCE '+wid+'] '+w['body_markdown'][:3500]
         # No forwarding before explicit user consent, no secret in output, no false case cites.
         obj=_gemini_analyze(source,refs)
         rid=uuid.uuid4().hex
