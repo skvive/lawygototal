@@ -10,6 +10,11 @@ BEGIN
   INSERT INTO legal_wiki.normalized_payloads(payload_id,kind,normalized_json,content_sha256) VALUES(p,'precedent',jsonb_build_object('kind','precedent','external_id','123','court','TEST','case_number','TEST','decided_on','2020-01-01','original_text','TEST','holding','TEST','verified',false,'content_sha256',h),h);
   BEGIN PERFORM legal_wiki.import_normalized(p); RAISE EXCEPTION 'disabled source accepted'; EXCEPTION WHEN raise_exception THEN IF SQLERRM<>'source approval required' THEN RAISE; END IF; END;
   UPDATE legal_wiki.legal_sources SET enabled=true,redistribution_allowed=true,verified_at=now() WHERE id=s;
+  BEGIN
+    UPDATE legal_wiki.raw_ingestion_payloads SET raw_xml='tampered fixture' WHERE id=p;
+    PERFORM legal_wiki.import_normalized(p);
+    RAISE EXCEPTION 'tampered raw accepted';
+  EXCEPTION WHEN raise_exception THEN IF SQLERRM<>'raw content hash mismatch' THEN RAISE; END IF; END;
   v:=legal_wiki.import_normalized(p);
   IF v IS DISTINCT FROM legal_wiki.import_normalized(p) THEN RAISE EXCEPTION 'import not idempotent'; END IF;
   IF EXISTS(SELECT 1 FROM legal_wiki.precedents WHERE id=v AND verified_at IS NOT NULL) THEN RAISE EXCEPTION 'import auto-verified'; END IF;
