@@ -315,18 +315,8 @@ def _gemini_analyze(source_text,refs):
               headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=payload)
             r.raise_for_status();data=r.json()
         raw=data['candidates'][0]['content']['parts'][0]['text'];obj=json.loads(raw)
-        allowed={x['id'] for x in refs}
-        if not isinstance(obj,dict) or not isinstance(obj.get('summary'),str):raise ValueError('invalid summary')
-        issues=obj.get('issues')
-        if not isinstance(issues,list):raise ValueError('issues 배열이 없습니다.')
-        for i in issues:
-            if not isinstance(i,dict) or not isinstance(i.get('issue'),str) or not i['issue'].strip():raise ValueError('invalid issue')
-            ids=i.get('source_ids')
-            if not isinstance(ids,list) or not ids or not all(isinstance(x,str) and x in allowed for x in ids):
-                raise ValueError('유효하지 않은 출처 식별자입니다.')
-        for field in ('evidence_gaps','questions'):
-            if not isinstance(obj.get(field),list) or not all(isinstance(x,str) for x in obj[field]):raise ValueError('invalid list')
-        return {k:obj.get(k,[] if k in ('issues','evidence_gaps','questions') else '') for k in ('summary','issues','evidence_gaps','questions','disclaimer')}
+        from legal_wiki_note_sources import validate_result
+        return validate_result(obj,refs)
     except (httpx.HTTPError,KeyError,IndexError,ValueError,TypeError,json.JSONDecodeError):
         raise HTTPException(502,'AI 분석 결과를 검증할 수 없습니다. 재시도하거나 원문을 확인해 주세요.')
 
@@ -539,7 +529,7 @@ def register(app,g):
         if not data.consent:err(400,'외부 AI 분석을 위한 문서 전송 동의가 필요합니다.')
         p=get_post(db,post_id,user['tenant'])
         if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 비공개 법률 노트가 아닙니다.')
-        source='[SOURCE source-note] '+p['body'][:12000];refs=[{'id':'source-note','title':p['title']}]
+        sources=[({'id':'source-note','title':p['title']},(p['body'] or '')[:12000])]
         for m in db.execute('SELECT * FROM media WHERE post_id=? AND tenant=? AND mime=? ORDER BY created_at LIMIT 3',(
              post_id,user['tenant'],'application/pdf')):
             try:
@@ -547,14 +537,11 @@ def register(app,g):
                 from pypdf import PdfReader
                 doc=PdfReader(BytesIO((FILES/m['safe_name']).read_bytes()))
                 text='\n'.join(page.extract_text() or '' for page in doc.pages[:10])[:15000]
-                if text.strip():
-                    marker='\n\n[SOURCE '+m['id']+'] '
-                    budget=(18000 if data.wiki_query is not None else 30000)-len(source)-len(marker)
-                    if budget>=100:
-                        source+=marker+text[:budget]
-                        refs.append({'id':m['id'],'title':m['original_name']})
+                if text.strip():sources.append(({'id':m['id'],'title':m['original_name']},text))
             except Exception:pass
-        if len(source.removeprefix('[SOURCE source-note] ').strip())<15:err(422,'분석 가능한 원문이 부족합니다. 텍스트 PDF 또는 본문을 입력해 주세요.')
+        from legal_wiki_note_sources import pack_sources
+        source,refs=pack_sources(sources,18000 if data.wiki_query is not None else 30000)
+        if sum(r['included_chars'] for r in refs)<15:err(422,'분석 가능한 원문이 부족합니다. 텍스트 PDF 또는 본문을 입력해 주세요.')
         # Explicit query only; NOTE text is never used to build a shared search query.
         if data.wiki_query is not None:
             from db_engine import USE_POSTGRES
@@ -568,16 +555,15 @@ def register(app,g):
                 WHERE tenant=? AND (strpos(lower(title),lower(?))>0 OR strpos(lower(summary),lower(?))>0)
                 ORDER BY id LIMIT 3""",(user['tenant'],q,q)).fetchall()
             if not wiki:err(409,'검증된 법률위키 근거가 없습니다. AI 분석은 실행하지 않았습니다.')
-            if len(source)>18000:err(500,'출처 예산 검증 실패')
-            for w in wiki:
-                wid='wiki-'+str(w['id'])
-                refs.append({'id':wid,'title':w['title'],'legal_as_of':str(w['legal_as_of'])})
-                source+='\n\n[SOURCE '+wid+'] '+w['body_markdown'][:3500]
+            wiki_sources=[({'id':'wiki-'+str(w['id']),'title':w['title'],'legal_as_of':str(w['legal_as_of'])},w['body_markdown'][:3500]) for w in wiki]
+            wiki_text,wiki_refs=pack_sources(wiki_sources,30000-len(source))
+            if not wiki_refs:err(409,'전송 가능한 검증 위키 본문이 없습니다.')
+            source+=wiki_text;refs+=wiki_refs
         # No forwarding before explicit user consent, no secret in output, no false case cites.
         obj=_gemini_analyze(source,refs)
         rid=uuid.uuid4().hex
         db.execute('INSERT INTO ai_analysis_runs VALUES(?,?,?,?,?,?,?,?)',(
-          rid,post_id,user['id'],'gemini','completed',_now(),json.dumps(obj,ensure_ascii=False),_now()))
+          rid,post_id,user['id'],'gemini','completed',_now(),json.dumps({**obj,'sources':refs},ensure_ascii=False),_now()))
         audit(db,user,'analyze','note',post_id,{'provider':'gemini','source_count':len(refs)})
         return {'id':rid,'result':obj,'sources':refs,'notice':'AI 생성 내용은 법률 자문이 아니며 원문·최신 법령·판례를 전문가가 검증해야 합니다.'}
 
