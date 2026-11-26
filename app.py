@@ -806,6 +806,10 @@ newsletter_monthly_v5.register(app, globals())
 import seo_discovery
 seo_discovery.register(app, database, DEFAULT_TENANT)
 
+# Feature-gated legal wiki preview; existing public wiki routes unchanged.
+import legal_wiki_api
+legal_wiki_api.register(app, database, current_user)
+
 if __name__=='__main__':
     import uvicorn
     uvicorn.run('app:app',host='127.0.0.1',port=8018,reload=False)
