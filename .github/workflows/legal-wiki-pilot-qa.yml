@@ -1,0 +1,25 @@
+name: Legal wiki pilot QA
+on:
+  pull_request:
+    paths:
+      - 'legal_wiki_*.py'
+      - 'migrations/legal_wiki/**'
+      - 'tests/test_legal_wiki_ingest.py'
+      - 'static/legal-wiki-pro.*'
+      - 'app.py'
+      - '.github/workflows/legal-wiki-pilot-qa.yml'
+  push:
+    branches: ['feature/legal-wiki-lw05-09']
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m py_compile legal_wiki_ingest.py legal_wiki_api.py app.py
+      - run: python -m unittest discover -s tests -p test_legal_wiki_ingest.py -v
+      - run: node --check static/legal-wiki-pro.js
