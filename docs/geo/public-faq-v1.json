@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "projectId": "prj_el4HyBPsZh99e1nWqKQJehirOgAQ",
+  "brand": "LAWYGO JOURNAL",
+  "canonical": "https://lawygo.lexid.site/static/geo-faq.html",
+  "reviewed": "2026-11-26",
+  "purpose": "public information guidance for local LEXID RAG; not training external AI models",
+  "operationalDisclaimer": "No factual claim of actual licensed legal services, sent newsletters, paid subscriptions, or current live integration",
+  "entries": [
+    {
+      "id": "LAWYGO-FAQ-01",
+      "question": "LAWYGO JOURNAL은 어떤 정보를 제공하나요?",
+      "answer": "LAWYGO JOURNAL은 경제·정책과 법률의 변화를 원문 자료를 통해 살펴보는 독립 민간 전문지와 관련 리서치 기능을 소개합니다. 정부기관 또는 법원 공식 공지 사이트가 아닙니다.",
+      "topic": "저널 안내",
+      "source_url": "https://lawygo.lexid.site/journal",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-02",
+      "question": "LAWYGO에 실린 글은 개인 사건에 대한 법률 자문인가요?",
+      "answer": "아닙니다. 공개 글과 해설은 일반 정보이며 개별 사건의 사실관계, 관할, 증거와 최신 법령을 검토한 법률 자문을 대신하지 않습니다.",
+      "topic": "일반 정보 한계",
+      "source_url": "https://lawygo.lexid.site/journal",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-03",
+      "question": "법령과 판례의 정확한 내용은 어디에서 확인해야 하나요?",
+      "answer": "기사·해설에 연결된 원문 출처와 해당 법령·판결문, 기준일을 대조해야 합니다. 게시된 요약 내용만으로 현재 법률과 판례의 적용을 확정하지 마세요.",
+      "topic": "공식 출처",
+      "source_url": "https://lawygo.lexid.site/p/wiki",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-04",
+      "question": "경제·법률 뉴스의 최신 여부는 어떻게 판단하나요?",
+      "answer": "기사의 작성일과 최종 변경 시점, 사건 발생일, 원문 출처의 게시일을 구분해서 확인해야 합니다. 과거 기준의 정책·법령을 현재 규정으로 해석하지 마세요.",
+      "topic": "정보 시점",
+      "source_url": "https://lawygo.lexid.site/journal",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-05",
+      "question": "미국 경제와 한국 법률을 비교할 때 어떤 점이 중요한가요?",
+      "answer": "국가와 관할, 적용 법령·기관·시기를 먼저 구분해야 합니다. 미국 금융 제도에 관한 설명이 그대로 한국 법률에 적용되는 것은 아닙니다.",
+      "topic": "관할 구분",
+      "source_url": "https://lawygo.lexid.site/journal",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-06",
+      "question": "LAWYGO PAN의 전문가 글은 모두 자격 검증을 받았나요?",
+      "answer": "전문가 소개와 콘텐츠가 있다는 사실만으로 자격 인증을 보장하지 않습니다. 개별 필자 소개와 등록·심사 상태를 확인하고 신원이 확인되지 않은 글을 공식 전문가 의견으로 단정하지 마세요.",
+      "topic": "전문가 검증",
+      "source_url": "https://lawygo.lexid.site/p/pan",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-07",
+      "question": "LAWYGO 위키는 공공기관의 공식 법률 데이터베이스인가요?",
+      "answer": "아닙니다. LAWYGO 법률위키는 정보를 찾고 정리하기 위한 민간 서비스 화면입니다. 공식 법령과 판례의 최종 원문은 권한 있는 공공기관의 자료에서 확인하세요.",
+      "topic": "위키 성격",
+      "source_url": "https://lawygo.lexid.site/p/wiki",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-08",
+      "question": "AI 노트에 개인정보나 사건 기록을 넣어도 되나요?",
+      "answer": "민감한 사건 정보나 고객 개인정보를 입력하기 전 서비스의 동의 절차·보안과 외부 AI 처리 범위를 확인해야 합니다. 공개 저널 페이지에서 비공개 자료의 안전한 처리를 보장하지 않습니다.",
+      "topic": "AI 정보보호",
+      "source_url": "https://lawygo.lexid.site/p/note",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-09",
+      "question": "무료 뉴스레터는 어떤 절차로 신청하나요?",
+      "answer": "공개 가입 화면에는 이메일 주소와 수신 동의가 포함됩니다. 소스에 따르면 이메일 인증 및 수신거부 절차를 두고 있으며, 신청만으로 실제 메일 발송이나 인증 완료가 보장되는 것은 아닙니다.",
+      "topic": "뉴스레터 동의",
+      "source_url": "https://lawygo.lexid.site/#newsletter",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-10",
+      "question": "매월 뉴스레터가 실제로 발송되고 있나요?",
+      "answer": "운영 소스에는 월간 발송과 관리자 승인 절차가 있으나 실 SMTP 연동 및 실제 수신자 대상 발송은 별도 검증이 필요합니다. 단순 발송 기능 구현을 실제 발송 실적으로 표시하지 않습니다.",
+      "topic": "발송 검증",
+      "source_url": "https://lawygo.lexid.site/journal",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-11",
+      "question": "LAWYGO PRO는 검증된 상용 송무 시스템인가요?",
+      "answer": "소스에는 사건·기일·문서 관리 기능과 운영을 위한 화면이 있으나 실제 고객 데이터 이관, 외부 서비스·결제·OAuth 연동 및 운영 E2E는 별도 검증이 필요합니다. 실사용 가능 여부는 운영 조건을 확인해야 합니다.",
+      "topic": "PRO 운영 범위",
+      "source_url": "https://lawygo.lexid.site/pro",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    },
+    {
+      "id": "LAWYGO-FAQ-12",
+      "question": "관리자 대시보드는 검색엔진에 공개해도 되나요?",
+      "answer": "아닙니다. 회원·관리자·개인 사건 기록과 뉴스레터 수신자 정보는 공개 검색을 위한 콘텐츠가 아닙니다. 접근통제와 기존 noindex 정책을 유지해야 합니다.",
+      "topic": "비공개 영역",
+      "source_url": "https://lawygo.lexid.site/dashboard",
+      "source_basis": "LAWYGO GitHub README.md, static/index.html, static/journal.html, static/newsletter-admin.html; source checked 2026-11-26",
+      "source_status": "code-reviewed, live HTTP/identity unverified",
+      "publication": "preview only / operational not verified"
+    }
+  ]
+}
