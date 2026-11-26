@@ -79,7 +79,8 @@ def test_hero_preload_matches_final_background():
     assert preload, "home hero must preload its real image"
     path=preload.group(1)
     assert path.startswith("/static/")
-    assert html.count(path)>=2,"preload must match actual hero"
+    css=(ROOT/"static/lawygo-editorial-portal-v8.css").read_text(encoding="utf-8")
+    assert path in css,"preload must match actual hero background"
     assert (ROOT/path.lstrip("/")).is_file()
     assert (ROOT/path.lstrip("/")).stat().st_size < 500*1024
 
