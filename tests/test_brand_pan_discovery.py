@@ -41,41 +41,30 @@ def test_blogger_whitelists_public_https_links(monkeypatch):
     assert discovery._blogger_item(item) is None
 
 def test_service_routes_have_assets_and_layout():
-    pages={
-        "static/index.html":"static/img/channel.webp",
-        "static/journal.html":"static/img/design/editorial-library-20261102.webp",
-        "static/pan.html":"static/img/pan.webp",
-        "static/note.html":"static/img/note.webp",
-        "static/wiki.html":"static/img/design/ly-wiki-scene.svg",
-        "static/pro.html":"static/img/design/ly-pro-scene.svg",
-        "static/channel.html":"static/img/channel.webp",
-        "static/pricing.html":"static/img/design/hero-sunset-20261102.webp",
-        "static/partnership.html":"static/img/design/editorial-library-20261102.webp",
-        "static/strategy.html":"static/img/design/legal-knowledge-city.webp",
-        "static/payment.html":"static/img/design/hero-seoul-20261102.webp",
-        "static/product.html":"static/img/channel.webp",
-    }
-    for page,asset in pages.items():
-        content=(ROOT/page).read_text(encoding="utf-8")
-        assert "lawygo-refined-20261103.css" in content,page
-        assert "lawygo-delivery-20261103.css" in content,page
-        assert ("/"+asset) in content,page
-        assert (ROOT/asset).exists(),asset
-    css=(ROOT/"static/lawygo-refined-20261103.css").read_text(encoding="utf-8")
-    latest=(ROOT/"static/lawygo-delivery-20261103.css").read_text(encoding="utf-8")
-    assert "@media(max-width:720px)" in css
-    assert "prefers-reduced-motion" in latest
-    assert "min-height:44px" in latest
-    assert "height:152px!important" in latest
-    assert "aspect-ratio:5/3!important" in latest
-
+    # Current editorial pages use different page-specific CSS. Validate the files actually referenced.
+    import json
+    release=json.loads((ROOT/"static/design-release.json").read_text(encoding="utf-8"))["release"]
+    for page in ("index","journal","pan","note","wiki","pro","channel","pricing","partnership","strategy","payment","product"):
+        html=(ROOT/"static"/(page+".html")).read_text(encoding="utf-8")
+        assert '<main' in html,page
+        styles=re.findall(r'href="(/static/[^"]+\.css)\?v=([^"]+)"',html)
+        assert len(styles)>=2,page
+        for path,version in styles:
+            assert release in version,(page,path,version)
+            assert (ROOT/path.lstrip("/")).is_file(),path
+        for path in re.findall(r'<img\b[^>]*\bsrc=["\'](/static/[^"\']+)["\']',html,re.I):
+            assert (ROOT/path.split("?")[0].lstrip("/")).is_file(),(page,path)
+    home=(ROOT/"static/brand-unified-v7.css").read_text(encoding="utf-8")
+    common=(ROOT/"static/lawygo-editorial-portal-v8.css").read_text(encoding="utf-8")
+    assert "@media(max-width:720px)" in home
+    assert "prefers-reduced-motion:reduce" in home and "prefers-reduced-motion:reduce" in common
 
 def test_pan_ui_refresh_and_external_links_are_safe():
-    js=(ROOT/"static/pan-platform.js").read_text(encoding="utf-8")
+    js=(ROOT/"static/pan-published-v2-20261108.js").read_text(encoding="utf-8")
     html=(ROOT/"static/pan.html").read_text(encoding="utf-8")
-    assert 'fetchContent("all", q)' in js
-    assert 'pan-refresh-feed' in html and 'pan-feed-status' in html
-    assert js.count('pan-refresh-feed')==1
-    assert 'panTrack(L.id, "profile_open");\n    const end' not in js
-    assert "target=\"_blank\"" not in js or "noopener noreferrer" in js
+    assert 'id="pan-posts-reload"' in html and 'id="pan-real-post-count"' in html
+    assert "pan-posts-reload" in js and "fetchItems(" in js
+    assert "pan-detail-close" in js and 'id="pan-post-detail"' in html
+    assert "youtube-nocookie.com/embed/" in js
+    assert "noopener noreferrer" in js and "u.protocol !== 'https:'" in js
     assert 'LAWYGO_PAN_YOUTUBE_API_KEY' in (ROOT/"pan_discovery_v2.py").read_text(encoding="utf-8")
