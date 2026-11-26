@@ -19,7 +19,7 @@
       "dest": "/static/$1",
       "headers": {
         "Cache-Control": "public, max-age=0, s-maxage=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -27,7 +27,7 @@
       "dest": "/static/favicon.ico",
       "headers": {
         "Cache-Control": "public, max-age=0, must-revalidate",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -35,7 +35,7 @@
       "dest": "/static/index.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -43,7 +43,7 @@
       "dest": "/static/journal.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -51,7 +51,7 @@
       "dest": "/static/channel.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -59,7 +59,7 @@
       "dest": "/static/pro.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -67,7 +67,7 @@
       "dest": "/static/pricing.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -75,7 +75,7 @@
       "dest": "/static/payment.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -83,7 +83,7 @@
       "dest": "/static/partnership.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -91,7 +91,7 @@
       "dest": "/static/strategy.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -99,7 +99,7 @@
       "dest": "/static/dashboard.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -107,7 +107,7 @@
       "dest": "/static/wiki.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -115,7 +115,7 @@
       "dest": "/static/pan.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -123,7 +123,7 @@
       "dest": "/static/note.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {
@@ -131,7 +131,7 @@
       "dest": "/static/product.html",
       "headers": {
         "Cache-Control": "private, no-store, max-age=0",
-        "X-Lawygo-Design-Release": "20261121-pan-note-ko-v13"
+        "X-Lawygo-Design-Release": "20261126-legal-wiki-v17"
       }
     },
     {

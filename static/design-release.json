@@ -1,5 +1,5 @@
 {
-  "release": "20261121-pan-note-ko-v13",
-  "description": "Korean-first PAN and text-first NOTE, retained LAWYGO JOURNAL and WIKI v12",
-  "source_branch": "master"
+  "release": "20261126-legal-wiki-v17",
+  "description": "Unified cache revision for existing pages and professional legal wiki review pilot",
+  "source_branch": "feature/legal-wiki-lw05-09"
 }
