@@ -1,0 +1,4 @@
+BEGIN;
+ALTER TABLE legal_wiki.precedent_embeddings ADD COLUMN model_profile text, ADD COLUMN indexed_verified_at timestamptz, ADD CONSTRAINT e5_profile_pair CHECK ((model_profile IS NULL AND indexed_verified_at IS NULL) OR (model_profile IS NOT NULL AND indexed_verified_at IS NOT NULL AND model_profile ~ '^[0-9a-f]{64}$'));
+CREATE OR REPLACE VIEW legal_wiki.searchable_precedent_embeddings WITH (security_invoker=true,security_barrier=true) AS SELECT e.precedent_id,e.model,e.embedding,p.case_number,p.court,p.decided_on,p.holding,p.source_url,e.model_profile FROM legal_wiki.precedent_embeddings e JOIN legal_wiki.precedents p ON p.id=e.precedent_id AND p.content_sha256=e.content_sha256 AND e.indexed_verified_at=p.verified_at JOIN legal_wiki.legal_sources s ON s.id=p.source_id WHERE p.verified_at IS NOT NULL AND e.model_profile IS NOT NULL AND s.enabled AND s.verified_at IS NOT NULL AND s.redistribution_allowed;
+COMMIT;
