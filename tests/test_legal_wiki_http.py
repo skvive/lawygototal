@@ -90,6 +90,25 @@ class CitationHttpTests(unittest.TestCase):
         self.assertEqual(self.client.post(path+"?decision=approve",json=body).status_code,400)
         self.assertEqual(self.client.post(path,json=body).status_code,200)
         self.assertIn("합성 검수 의견",self.db.last_review)
+    def test_source_review_admin_operator_and_consent(self):
+        path="/api/wiki/v2/source-reviews/1"
+        body={"expected_digest":"a"*64,"notes":"합성 원문 검수 의견입니다","confirmed":True}
+        self.assertEqual(self.client.get(path).status_code,403)
+        self.user["role"]="admin"
+        with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"other"}):
+            self.assertEqual(self.client.get(path).status_code,403)
+        with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"fixture"}),patch("legal_wiki_source_review.approve") as approve:
+            body["confirmed"]=False
+            self.assertEqual(self.client.post(path,json=body).status_code,400)
+            approve.assert_not_called()
+            self.db.qualified=False
+            body["confirmed"]=True
+            self.assertEqual(self.client.post(path,json=body).status_code,403)
+            approve.assert_not_called()
+            self.db.qualified=True
+            approve.return_value={"verified":True}
+            self.assertEqual(self.client.post(path,json=body).status_code,200)
+            approve.assert_called_once()
     def test_semantic_requires_model_enablement(self):
         with patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"0"}):
             self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)

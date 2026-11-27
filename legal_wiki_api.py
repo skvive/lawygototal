@@ -103,6 +103,9 @@ def register(app, database, current_user, csrf):
     def source_reviewer(user,db,lock=False):
         guard(user,db)
         if user["role"]!="admin":raise HTTPException(403,"공통 원문 검증은 승인된 관리자 변호사 전용입니다")
+        operator=os.getenv("LAWYGO_SOURCE_REVIEW_TENANT","").strip()
+        if not operator:raise HTTPException(503,"공통 원문 검수 운영 테넌트 설정 필요")
+        if user["tenant"]!=operator:raise HTTPException(403,"공통 원문 검수 운영 조직 전용입니다")
         if not db.execute("SELECT 1 FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL"+(" FOR SHARE" if lock else ""),(user["tenant"],user["id"])).fetchone():raise HTTPException(403,"검증된 변호사 자격이 필요합니다")
         if not db.execute("SELECT to_regclass('legal_wiki.source_text_reviews') IS NOT NULL AS ready").fetchone()["ready"]:raise HTTPException(503,"원문 검수 DB 준비 중")
 
