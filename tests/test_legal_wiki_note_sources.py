@@ -15,3 +15,14 @@ class NoteSourceTests(unittest.TestCase):
     def test_missing_invalid_refs(self):
         for ids in ([],["fake"],"n",None):
             with self.assertRaises(ValueError):validate_result({"summary":"검토","issues":[{"issue":"쟁점","source_ids":ids}],"evidence_gaps":[],"questions":[]},[{"id":"n"}])
+
+    def test_upstream_truncation_not_hidden(self):
+        _,refs=pack_sources([({"id":"n","source_chars":20000,"pre_truncated":True},"a"*12000)],30000)
+        self.assertTrue(refs[0]["truncated"])
+        self.assertEqual(refs[0]["included_chars"],12000)
+        self.assertEqual(refs[0]["source_chars"],20000)
+        self.assertNotIn("pre_truncated",refs[0])
+    def test_pdf_page_limit_disclosed(self):
+        _,refs=pack_sources([({"id":"pdf","pages_total":20,"pages_examined":10,"pre_truncated":True},"합성 원문 테스트")])
+        self.assertTrue(refs[0]["truncated"])
+        self.assertEqual(refs[0]["pages_examined"],10)

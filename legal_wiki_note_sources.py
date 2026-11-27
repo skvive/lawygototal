@@ -15,7 +15,7 @@ def pack_sources(sources,max_chars=30000):
         excerpt=text[:remaining-len(prefix)]
         if not excerpt: continue
         chunks.append(prefix+excerpt);remaining-=len(prefix)+len(excerpt)
-        refs.append({**ref,"included_chars":len(excerpt),"truncated":len(excerpt)<len(text)})
+        refs.append({**{k:v for k,v in ref.items() if k!="pre_truncated"},"included_chars":len(excerpt),"truncated":bool(ref.get("pre_truncated")) or len(excerpt)<len(text)})
     return "".join(chunks),refs
 
 def validate_result(obj,refs):
