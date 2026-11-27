@@ -2,6 +2,7 @@
 import math
 import os
 import json
+from functools import lru_cache
 MODEL="intfloat/multilingual-e5-base"
 DIM=768
 def vector_literal(values):
@@ -15,6 +16,10 @@ def load_model():
     path=os.environ.get("LAWYGO_E5_MODEL_DIR")
     if not path or not os.path.isdir(path): raise RuntimeError("local E5 model directory required")
     return SentenceTransformer(path,local_files_only=True,trust_remote_code=False)
+
+@lru_cache(maxsize=1)
+def cached_model():
+    return load_model()
 
 def encode(model,text,query=False):
     prefix="query: " if query else "passage: "
