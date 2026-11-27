@@ -6,6 +6,16 @@ class IntakeTests(unittest.TestCase):
         with self.assertRaises(IntakeError): params("prec","123","test")
     def test_reject_non_numeric(self):
         with self.assertRaises(IntakeError): params("prec","../123","approved")
+    def test_historical_request(self):
+        p=params("eflaw","12","fixture","166520","2020-02-01")
+        self.assertEqual(p["MST"],"166520");self.assertEqual(p["efYd"],"20200201")
+        self.assertNotIn("ID",p)
+        for args in [("eflaw","12","fixture","166520",None),("prec","12","fixture","1","2020-02-01"),("eflaw","12","fixture","0","2020-02-01")]:
+            with self.assertRaises(IntakeError):params(*args)
+    def test_effective_date_match(self):
+        from test_legal_wiki_normalize import LAW
+        validate(LAW.encode(),"eflaw","12","2020-02-01")
+        with self.assertRaises(IntakeError):validate(LAW.encode(),"eflaw","12","2021-02-01")
     def test_wrong_id(self):
         with self.assertRaises(IntakeError): validate("<r><판례정보일련번호>2</판례정보일련번호></r>".encode(),"prec","1")
     def test_dtd(self):

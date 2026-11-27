@@ -12,6 +12,10 @@ class NormalizationTests(unittest.TestCase):
         self.assertEqual(d["articles"][0]["effective_from"],"2020-02-01")
         self.assertEqual(d["transitional_notes"],["부칙 샘플"])
         self.assertFalse(d["verified"])
+    def test_historical_identity(self):
+        d=normalize(LAW.encode(),"eflaw","12","166520","2020-02-01")
+        self.assertEqual(d["external_version_id"],"mst:166520:2020-02-01")
+        with self.assertRaises(ValueError):normalize(LAW.encode(),"eflaw","12","166520","2021-02-01")
     def test_current_id_has_no_invented_mst(self):
         self.assertTrue(normalize(LAW.encode(),"eflaw","12")["external_version_id"].startswith("sha256:"))
     def test_precedent(self):

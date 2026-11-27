@@ -13,7 +13,7 @@ def date(s): return datetime.strptime(s,"%Y%m%d").date().isoformat()
 def number(s):
     if not re.fullmatch(r"[0-9]{1,20}",s): raise ValueError("invalid ID")
     return str(int(s))
-def normalize(raw,target,external_id,master_id=None):
+def normalize(raw,target,external_id,master_id=None,requested_effective_on=None):
     if not isinstance(raw,bytes) or not raw or len(raw)>8*1024*1024 or b"<!DOCTYPE" in raw.upper() or b"<!ENTITY" in raw.upper(): raise ValueError("invalid XML")
     root=ET.fromstring(raw.decode("utf-8-sig"))
     digest=hashlib.sha256(raw).hexdigest()
@@ -25,8 +25,11 @@ def normalize(raw,target,external_id,master_id=None):
     if info is None: raise ValueError("missing statute metadata")
     if number(value(info,"법령ID"))!=number(external_id): raise ValueError("ID mismatch")
     effective=date(value(info,"시행일자")); promulgated=date(value(info,"공포일자"))
+    if requested_effective_on is not None and (master_id is None or effective!=str(requested_effective_on)):
+        raise ValueError("official effective date mismatch")
     # Explicit MST is required for historical identity. Current-ID responses remain digest-keyed.
     version="mst:"+number(master_id) if master_id else "sha256:"+digest
+    if requested_effective_on is not None: version+=":"+effective
     articles=[]; seen=set()
     for unit in root.iter():
         if local(unit.tag)!="조문단위" or value(unit,"조문여부",False)!="조문": continue
@@ -46,13 +49,13 @@ def stage(payload_id):
     from db_engine import open_db,USE_POSTGRES
     if not USE_POSTGRES: raise RuntimeError("PostgreSQL required")
     with open_db() as db:
-        row=db.execute("SELECT id,target,external_id,raw_xml,content_sha256 FROM legal_wiki.raw_ingestion_payloads WHERE id=?",(payload_id,)).fetchone()
+        row=db.execute("SELECT id,target,external_id,raw_xml,content_sha256,master_id,requested_effective_on FROM legal_wiki.raw_ingestion_payloads WHERE id=?",(payload_id,)).fetchone()
         if not row: raise ValueError("payload not found")
         # Intake hashes bytes including possible BOM; preserve byte-level check on decoded text too.
         raw=row["raw_xml"].encode("utf-8")
         if hashlib.sha256(raw).hexdigest()!=row["content_sha256"]:
             if hashlib.sha256(b"\xef\xbb\xbf"+raw).hexdigest()!=row["content_sha256"]: raise ValueError("raw hash mismatch")
             raw=b"\xef\xbb\xbf"+raw
-        data=normalize(raw,row["target"],row["external_id"])
+        data=normalize(raw,row["target"],row["external_id"],row["master_id"],row["requested_effective_on"])
         db.execute("INSERT INTO legal_wiki.normalized_payloads(payload_id,kind,normalized_json,content_sha256) VALUES(?,?,CAST(? AS jsonb),?) ON CONFLICT(payload_id) DO NOTHING",(payload_id,data["kind"],json.dumps(data,ensure_ascii=False),data["content_sha256"]))
         return {"payload_id":payload_id,"kind":data["kind"],"verified":False}

@@ -1,5 +1,5 @@
 import unittest
-from legal_wiki_drafts import key,validate,body
+from legal_wiki_drafts import key,validate,body,import_rows
 class DraftTests(unittest.TestCase):
     def test_unicode(self): self.assertEqual(key("계약 해제！"),key("계약해제"))
     def test_missing(self):
@@ -7,3 +7,9 @@ class DraftTests(unittest.TestCase):
     def test_draft(self):
         r=dict(category="civil",slug="valid-title",title="계약 검토 요점",issue="계약 체결 및 변경 과정 확인",evidence="계약서 원본과 회신 자료 확보",defense="상대방의 별도 합의 주장 확인",action="실제 이행 여부 시간순으로 정리")
         self.assertIn("미검수",body(validate(r)))
+    def test_tenant_scope(self):
+        from unittest.mock import Mock
+        db=Mock()
+        self.assertEqual(import_rows(db,[],"fixture","2020-01-01"),0)
+        db.execute.assert_called_once_with("SELECT set_config('app.tenant',?,true)",("fixture",))
+        with self.assertRaises(ValueError):import_rows(db,[],"","2020-01-01")

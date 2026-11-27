@@ -15,6 +15,8 @@ def validate(row):
 def body(r):
     return "> AI 연구 초안 · 공식 법령/판례 및 변호사 미검수.\n\n"+"\n\n".join("## "+h+"\n"+r[k] for h,k in (("핵심 쟁점","issue"),("증거 및 입증계획","evidence"),("예상 항변","defense"),("실무 대응","action")))+"\n\n## 검증 대기\n적용 조문·판례 원문·기한·입증책임 확인 필요."
 def import_rows(db,rows,tenant,as_of):
+    if not isinstance(tenant,str) or not tenant.strip(): raise ValueError("tenant required")
+    db.execute("SELECT set_config('app.tenant',?,true)",(tenant,))
     count=0; seen=set()
     for row in rows:
         r=validate(row); k=key(r["title"])

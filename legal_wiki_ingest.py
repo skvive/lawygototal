@@ -18,14 +18,22 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         raise IntakeError("redirect refused")
 
-def params(target, external_id, oc):
+def params(target, external_id, oc, master_id=None, effective_on=None):
     if target not in {"eflaw", "prec"} or not re.fullmatch(r"[0-9]{1,20}", external_id):
         raise IntakeError("explicit official numeric ID required")
-    if not oc or oc == "test":
+    if not oc or oc.strip().lower() == "test":
         raise IntakeError("approved LAW_GO_OC required")
-    return {"OC": oc, "target": target, "type": "XML", "ID": external_id}
+    result={"OC": oc.strip(), "target": target, "type": "XML"}
+    if master_id is not None or effective_on is not None:
+        if target!="eflaw" or not isinstance(master_id,str) or not re.fullmatch(r"[0-9]{1,20}",master_id) or int(master_id)<1:
+            raise IntakeError("explicit statute master ID required")
+        try:
+            day=datetime.strptime(str(effective_on),"%Y-%m-%d").strftime("%Y%m%d")
+        except ValueError: raise IntakeError("valid effective date required") from None
+        return {**result,"MST":master_id,"efYd":day}
+    return {**result,"ID":external_id}
 
-def validate(raw, target, external_id):
+def validate(raw, target, external_id, effective_on=None):
     if not raw or len(raw) > MAX_BYTES or b"<!DOCTYPE" in raw.upper() or b"<!ENTITY" in raw.upper():
         raise IntakeError("invalid XML payload")
     try:
@@ -46,40 +54,45 @@ def validate(raw, target, external_id):
         raise IntakeError("required official fields missing")
     date_key = "시행일자" if target == "eflaw" else "선고일자"
     try:
-        datetime.strptime(fields[date_key][0], "%Y%m%d")
+        actual=datetime.strptime(fields[date_key][0], "%Y%m%d").date().isoformat()
     except ValueError:
         raise IntakeError("invalid official date") from None
+    if effective_on is not None and (target!="eflaw" or actual!=str(effective_on)):
+        raise IntakeError("official effective date mismatch")
     return text, hashlib.sha256(raw).hexdigest()
 
-def collect(target, external_id, oc):
-    query = urllib.parse.urlencode(params(target, external_id, oc))
+def collect(target, external_id, oc, master_id=None, effective_on=None):
+    query = urllib.parse.urlencode(params(target, external_id, oc,master_id,effective_on))
     request = urllib.request.Request(BASE + "?" + query, headers={"Accept": "application/xml", "User-Agent": "LAWYGO-LegalWiki/1.0"})
     try:
         with urllib.request.build_opener(NoRedirect()).open(request, timeout=25) as resp:
             raw = resp.read(MAX_BYTES + 1)
     except Exception:
         raise IntakeError("official API transport failed") from None
-    return validate(raw, target, external_id)
+    return validate(raw, target, external_id,effective_on)
 
-def run(target, external_id):
+def run(target, external_id, master_id=None, effective_on=None):
     from db_engine import open_db, USE_POSTGRES
     if not USE_POSTGRES:
         raise IntakeError("PostgreSQL required")
     oc = os.getenv("LAW_GO_OC", "").strip()
-    params(target, external_id, oc)
+    request_params=params(target, external_id, oc,master_id,effective_on)
     with open_db() as db:
         source = db.execute("SELECT id FROM legal_wiki.legal_sources WHERE code='kr-law-go' AND enabled AND verified_at IS NOT NULL AND redistribution_allowed").fetchone()
         if not source:
             raise IntakeError("official source approval required")
         source_id = source["id"]
-    text, digest = collect(target, external_id, oc)
-    public_url = BASE + "?" + urllib.parse.urlencode({"target": target, "ID": external_id, "type": "HTML"})
+    text, digest = collect(target, external_id, oc,master_id,effective_on)
+    public_params={k:v for k,v in request_params.items() if k!="OC"}
+    public_params["type"]="HTML"
+    public_url = BASE + "?" + urllib.parse.urlencode(public_params)
+    job_key=target+":"+external_id if master_id is None else target+":"+external_id+":mst:"+master_id+":"+str(effective_on)
     with open_db() as db:
         source = db.execute("SELECT id FROM legal_wiki.legal_sources WHERE id=? AND enabled AND verified_at IS NOT NULL AND redistribution_allowed FOR SHARE", (source_id,)).fetchone()
         if not source:
             raise IntakeError("source approval withdrawn")
-        job = db.execute("INSERT INTO legal_wiki.ingestion_jobs(source_id,external_key,status,attempt) VALUES(?,?,'quarantined',1) ON CONFLICT(source_id,external_key) DO UPDATE SET status='quarantined',attempt=legal_wiki.ingestion_jobs.attempt+1 RETURNING id", (source_id, target+":"+external_id)).fetchone()
-        db.execute("INSERT INTO legal_wiki.raw_ingestion_payloads(job_id,target,external_id,content_sha256,source_url,raw_xml) VALUES(?,?,?,?,?,?) ON CONFLICT(job_id,content_sha256) DO NOTHING", (job["id"],target,external_id,digest,public_url,text))
+        job = db.execute("INSERT INTO legal_wiki.ingestion_jobs(source_id,external_key,status,attempt) VALUES(?,?,'quarantined',1) ON CONFLICT(source_id,external_key) DO UPDATE SET status='quarantined',attempt=legal_wiki.ingestion_jobs.attempt+1 RETURNING id", (source_id, job_key)).fetchone()
+        db.execute("INSERT INTO legal_wiki.raw_ingestion_payloads(job_id,target,external_id,content_sha256,source_url,raw_xml,master_id,requested_effective_on) VALUES(?,?,?,?,?,?,?,CAST(? AS date)) ON CONFLICT(job_id,content_sha256) DO NOTHING", (job["id"],target,external_id,digest,public_url,text,master_id,effective_on))
         db.execute("UPDATE legal_wiki.ingestion_jobs SET finished_at=now(),error_message=NULL WHERE id=?", (job["id"],))
     return {"job_id":job["id"],"sha256":digest,"status":"quarantined"}
 
@@ -87,8 +100,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("target", choices=["eflaw","prec"])
     parser.add_argument("external_id")
+    parser.add_argument("--master-id")
+    parser.add_argument("--effective-on")
     args = parser.parse_args()
     try:
-        print(run(args.target,args.external_id))
+        print(run(args.target,args.external_id,args.master_id,args.effective_on))
     except IntakeError as exc:
         parser.exit(1, str(exc)+"\n")

@@ -9,7 +9,7 @@ def batch(limit=10):
     with open_db() as db:
         source=db.execute("SELECT id FROM legal_wiki.legal_sources WHERE code='kr-law-go' AND enabled AND verified_at IS NOT NULL AND redistribution_allowed").fetchone()
         if not source: raise IntakeError("source approval required")
-        rows=db.execute("""SELECT j.id,m.target,m.external_id FROM legal_wiki.ingestion_jobs j JOIN legal_wiki.reference_job_mappings m ON m.job_id=j.id
+        rows=db.execute("""SELECT j.id,m.target,m.external_id,m.master_id,m.requested_effective_on FROM legal_wiki.ingestion_jobs j JOIN legal_wiki.reference_job_mappings m ON m.job_id=j.id
         WHERE j.source_id=? AND j.status='queued' ORDER BY j.id LIMIT ?""",(source["id"],max(1,min(50,int(limit))))).fetchall()
     results=[]
     collected={}
@@ -18,9 +18,9 @@ def batch(limit=10):
             claim=db.execute("UPDATE legal_wiki.ingestion_jobs SET status='running',attempt=attempt+1 WHERE id=? AND status='queued' RETURNING id",(r["id"],)).fetchone()
         if not claim: continue
         try:
-            key=(r["target"],r["external_id"])
+            key=(r["target"],r["external_id"],r.get("master_id"),str(r["requested_effective_on"]) if r.get("requested_effective_on") else None)
             if key not in collected:
-                result=run(*key)
+                result=run(*key) if key[2] is not None else run(*key[:2])
                 with open_db() as db:
                     p=db.execute("SELECT id FROM legal_wiki.raw_ingestion_payloads WHERE job_id=? AND content_sha256=?",(result["job_id"],result["sha256"])).fetchone()
                 if not p: raise IntakeError("raw payload missing")
@@ -30,8 +30,8 @@ def batch(limit=10):
                 collected[key]=p["id"]
             payload_id=collected[key]
             with open_db() as db:
-                mapping=db.execute("SELECT target,external_id FROM legal_wiki.reference_job_mappings WHERE job_id=? FOR SHARE",(r["id"],)).fetchone()
-                if not mapping or (mapping["target"],mapping["external_id"])!=key:
+                mapping=db.execute("SELECT target,external_id,master_id,requested_effective_on FROM legal_wiki.reference_job_mappings WHERE job_id=? FOR SHARE",(r["id"],)).fetchone()
+                if not mapping or (mapping["target"],mapping["external_id"],mapping.get("master_id"),str(mapping["requested_effective_on"]) if mapping.get("requested_effective_on") else None)!=key:
                     raise IntakeError("confirmed mapping changed")
                 source=db.execute("SELECT id FROM legal_wiki.legal_sources WHERE id=? AND enabled AND verified_at IS NOT NULL AND redistribution_allowed FOR SHARE",(source["id"],)).fetchone()
                 if not source: raise IntakeError("source approval withdrawn")
