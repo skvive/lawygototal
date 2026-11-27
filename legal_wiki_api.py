@@ -5,6 +5,10 @@ from db_engine import USE_POSTGRES
 from legal_wiki_concepts import expand, rerank
 from pydantic import BaseModel, Field
 
+class SemanticQuery(BaseModel):
+    query: str = Field(min_length=2,max_length=100)
+    limit: int = Field(default=20,ge=1,le=50)
+
 class CitationIn(BaseModel):
     kind: str = Field(pattern="^(article|precedent)$")
     source_id: int = Field(gt=0)
@@ -61,6 +65,22 @@ def register(app, database, current_user, csrf):
             WHERE p.verified_at IS NOT NULL AND s.verified_at IS NOT NULL AND s.enabled AND s.redistribution_allowed
             AND ("""+predicates+") ORDER BY p.decided_on DESC,p.id LIMIT 500",tuple(terms)).fetchall()
         return {"items":rerank(q,[dict(r) for r in rows],limit),"method":"local legal concept expansion; not neural embedding","candidate_cap":500}
+    @app.post("/api/wiki/v2/precedents/semantic")
+    def semantic_precedents(data:SemanticQuery,user=Depends(csrf),db=Depends(database)):
+        guard(user,db)
+        q=data.query.strip()
+        if not 2<=len(q)<=100: raise HTTPException(400,"검색어를 확인하세요")
+        if os.getenv("LAWYGO_E5_ENABLED")!="1": raise HTTPException(503,"의미 기반 판례검색 모델 준비 중")
+        if not db.execute("SELECT to_regclass('legal_wiki.searchable_precedent_embeddings') IS NOT NULL AS ready").fetchone()["ready"]: raise HTTPException(503,"벡터 DB 준비 중")
+        if not db.execute("SELECT 1 FROM legal_wiki.searchable_precedent_embeddings LIMIT 1").fetchone(): raise HTTPException(503,"검증된 판례 벡터 준비 중")
+        from legal_wiki_embeddings import cached_model,search
+        try:
+            model=cached_model()
+            items=search(db,model,q,data.limit)
+        except (ImportError,OSError,RuntimeError,ValueError):
+            raise HTTPException(503,"의미 기반 판례검색 모델을 사용할 수 없습니다") from None
+        return {"items":items,"method":"multilingual-e5-base cosine distance","notice":"유사도는 법률적 동일성이나 선례 적용 여부를 보장하지 않습니다"}
+
     @app.get("/api/wiki/v2/note/{note_id}/evidence")
     def note_evidence(note_id:str,q:str=Query(min_length=2,max_length=100),user=Depends(current_user),db=Depends(database)):
         guard(user,db)
