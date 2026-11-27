@@ -179,6 +179,22 @@ const tasks = [];
   check('wiki-review-self-approval-disabled',await page.locator('#approve').isDisabled()&&await page.locator('#revise').isDisabled()&&await page.locator('#reject').isDisabled());
   await page.unroute('**/api/wiki/v2/revisions/*/review');
  }catch(e){check('wiki-review-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  let requested=0,payload;
+  await page.route('**/api/me',r=>r.fulfill({json:{id:'fixture-user',role:'editor'}}));
+  await page.route('**/api/posts?product=note&limit=100',r=>r.fulfill({json:{items:[{id:'own',product:'note',visibility:'private',author_id:'fixture-user',title:'합성 개인 노트'},{id:'other',product:'note',visibility:'private',author_id:'other',title:'다른 사용자 노트'}]}}));
+  await page.route('**/api/note/own/ai-analyze',r=>{requested++;payload=r.request().postDataJSON();return r.fulfill({json:{result:{summary:'합성 분석 결과',issues:[{issue:'합성 쟁점',source_ids:['source-note']}],evidence_gaps:[],questions:[]},sources:[{id:'source-note',title:'합성 개인 노트',included_chars:30}]}})});
+  await page.goto(BASE+'/static/legal-wiki-note-analysis.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#panel').waitFor();
+  check('note-ai-owner-list',await page.locator('#notes option').count()===2);
+  await page.locator('#notes').selectOption('own');
+  check('note-ai-consent-gate',await page.locator('#run').isDisabled()&&requested===0);
+  await page.locator('#consent').check();page.once('dialog',d=>d.accept());await page.locator('#run').click();
+  await page.locator('#result').waitFor();
+  check('note-ai-explicit-consent',requested===1&&payload.consent===true&&payload.wiki_query===null);
+  check('note-ai-source-render',(await page.locator('#sources').textContent()).includes('source-note')&&!(await page.locator('#consent').isChecked()));
+  await page.unroute('**/api/me');await page.unroute('**/api/posts?product=note&limit=100');await page.unroute('**/api/note/own/ai-analyze');
+ }catch(e){check('note-ai-browser-fixture',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||

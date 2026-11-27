@@ -528,7 +528,7 @@ def register(app,g):
     def ai_analyze(post_id:str,data:AiConsent,user=Depends(csrf),db=Depends(database)):
         if not data.consent:err(400,'외부 AI 분석을 위한 문서 전송 동의가 필요합니다.')
         p=get_post(db,post_id,user['tenant'])
-        if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 비공개 법률 노트가 아닙니다.')
+        if p['product']!='note' or p['visibility']!='private' or p['author_id']!=user['id'] or p['deleted_at'] or p['status']=='deleted':err(404,'본인의 비공개 법률 노트가 아닙니다.')
         sources=[({'id':'source-note','title':p['title']},(p['body'] or '')[:12000])]
         for m in db.execute('SELECT * FROM media WHERE post_id=? AND tenant=? AND mime=? ORDER BY created_at LIMIT 3',(
              post_id,user['tenant'],'application/pdf')):
@@ -570,7 +570,7 @@ def register(app,g):
     @app.get('/api/note/{post_id}/ai-runs')
     def ai_runs(post_id:str,user=Depends(current_user),db=Depends(database)):
         p=get_post(db,post_id,user['tenant'])
-        if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 노트가 아닙니다.')
+        if p['product']!='note' or p['visibility']!='private' or p['author_id']!=user['id'] or p['deleted_at'] or p['status']=='deleted':err(404,'본인의 노트가 아닙니다.')
         rows=db.execute('SELECT id,provider,status,created_at,result_json FROM ai_analysis_runs WHERE post_id=? AND user_id=? ORDER BY created_at DESC LIMIT 50',(post_id,user['id'])).fetchall()
         items=[]
         for row in rows:
@@ -588,7 +588,7 @@ def register(app,g):
     @app.get('/api/note/{post_id}/ai-runs/{run_id}')
     def ai_run_detail(post_id:str,run_id:str,user=Depends(current_user),db=Depends(database)):
         p=get_post(db,post_id,user['tenant'])
-        if p['product']!='note' or p['author_id']!=user['id'] or p['deleted_at']:err(404,'본인의 노트가 아닙니다.')
+        if p['product']!='note' or p['visibility']!='private' or p['author_id']!=user['id'] or p['deleted_at'] or p['status']=='deleted':err(404,'본인의 노트가 아닙니다.')
         row=db.execute('SELECT id,provider,status,created_at,result_json,consent_at FROM ai_analysis_runs WHERE id=? AND post_id=? AND user_id=?',(run_id,post_id,user['id'])).fetchone()
         if not row:err(404,'분석 기록이 없습니다.')
         result=None
