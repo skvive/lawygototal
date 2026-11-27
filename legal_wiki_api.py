@@ -14,6 +14,11 @@ class ReviewDecision(BaseModel):
     expected_digest: str = Field(pattern="^[a-f0-9]{64}$")
     notes: str = Field(default="",max_length=1000)
 
+class SourceReviewDecision(BaseModel):
+    expected_digest: str = Field(pattern="^[a-f0-9]{64}$")
+    notes: str = Field(min_length=10,max_length=2000)
+    confirmed: bool = False
+
 class CitationIn(BaseModel):
     kind: str = Field(pattern="^(article|precedent)$")
     source_id: int = Field(gt=0)
@@ -94,6 +99,39 @@ def register(app, database, current_user, csrf):
         # Only the explicit search query is used; never read or forward NOTE body.
         items=verified(db,user["tenant"],q.strip(),10) if len(q.strip())>=2 else []
         return {"items":items,"ai_generated":False,"notice":"검증 자료 검색 결과; AI 법률 의견 아님"}
+
+    def source_reviewer(user,db,lock=False):
+        guard(user,db)
+        if user["role"]!="admin":raise HTTPException(403,"공통 원문 검증은 승인된 관리자 변호사 전용입니다")
+        if not db.execute("SELECT 1 FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL"+(" FOR SHARE" if lock else ""),(user["tenant"],user["id"])).fetchone():raise HTTPException(403,"검증된 변호사 자격이 필요합니다")
+        if not db.execute("SELECT to_regclass('legal_wiki.source_text_reviews') IS NOT NULL AS ready").fetchone()["ready"]:raise HTTPException(503,"원문 검수 DB 준비 중")
+
+    @app.get("/api/wiki/v2/source-review-queue")
+    def source_review_queue(limit:int=Query(30,ge=1,le=100),user=Depends(current_user),db=Depends(database)):
+        source_reviewer(user,db)
+        rows=db.execute("""SELECT c.payload_id,n.kind,p.external_id,p.source_url,p.fetched_at FROM legal_wiki.canonical_imports c
+            JOIN legal_wiki.normalized_payloads n ON n.payload_id=c.payload_id JOIN legal_wiki.raw_ingestion_payloads p ON p.id=c.payload_id
+            JOIN legal_wiki.ingestion_jobs j ON j.id=p.job_id JOIN legal_wiki.legal_sources s ON s.id=j.source_id
+            LEFT JOIN legal_wiki.statute_versions v ON v.id=c.statute_version_id LEFT JOIN legal_wiki.precedents t ON t.id=c.precedent_id
+            WHERE s.code='kr-law-go' AND s.enabled AND s.redistribution_allowed AND s.verified_at IS NOT NULL AND COALESCE(v.verified_at,t.verified_at) IS NULL ORDER BY c.payload_id LIMIT ?""",(limit,)).fetchall()
+        return {"items":[dict(r) for r in rows]}
+
+    @app.get("/api/wiki/v2/source-reviews/{payload_id}")
+    def source_review_packet(payload_id:int,user=Depends(current_user),db=Depends(database)):
+        source_reviewer(user,db)
+        from legal_wiki_source_review import packet
+        try:return packet(db,payload_id)
+        except LookupError:raise HTTPException(404,"승인된 수집 원문 없음") from None
+        except (ValueError,KeyError,TypeError):raise HTTPException(409,"원문 및 정규화 데이터 불일치") from None
+
+    @app.post("/api/wiki/v2/source-reviews/{payload_id}")
+    def source_review_confirm(payload_id:int,data:SourceReviewDecision,user=Depends(csrf),db=Depends(database)):
+        source_reviewer(user,db,True)
+        if not data.confirmed:raise HTTPException(400,"실제 원문 대조 확인이 필요합니다")
+        from legal_wiki_source_review import approve
+        try:return approve(db,payload_id,user,data.expected_digest,data.notes,data.confirmed)
+        except LookupError:raise HTTPException(404,"승인된 수집 원문 없음") from None
+        except (ValueError,KeyError,TypeError):raise HTTPException(409,"원문 검증 요건 또는 검수 버전 불일치") from None
 
     @app.get("/api/wiki/v2/review-queue")
     def review_queue(limit:int=Query(30,ge=1,le=100),user=Depends(current_user),db=Depends(database)):
