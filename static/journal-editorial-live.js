@@ -62,6 +62,12 @@ document.getElementById('journal-issue-close')?.addEventListener('click',()=>{
   issueOverlay?.classList.remove('open');
   issueOverlay?.setAttribute('aria-hidden','true');
 });
+function journalUnavailable(message) {
+  const root=document.getElementById('journal-lead');
+  if(root){root.hidden=false;root.replaceChildren(el('p',message,'lyd-feed-empty'));}
+  const meta=document.getElementById('journal-edition-meta');
+  if(meta) meta.textContent='원문 확인 대기';
+}
 function sourcePhoto(item, className) {
   const img=el('img',null,className);
   img.src=item.image;
@@ -75,7 +81,10 @@ function sourcePhoto(item, className) {
     const card=img.closest('[data-source-photo-card]');
     const container=card?.parentElement;
     card?.remove();
-    if(container && container.children.length===0) container.hidden=true;
+    if(container && container.children.length===0){
+      if(container.id==='journal-lead')journalUnavailable('원문 대표 이미지를 불러오지 못했습니다. 원문 연결 상태를 확인해 주세요.');
+      else container.hidden=true;
+    }
   },{once:true});
   return img;
 }
@@ -161,9 +170,7 @@ async function boot() {
   showSourceSection('journal-row-editors',unique.slice(0,3),(x)=>articleCard(x,'NEWSWIRE · FEATURED'));
   showSourceSection('journal-row-law',unique.slice(3,6),(x)=>articleCard(x,'LAW & POLICY · NEWSWIRE'));
   if(!unique.length){
-    const root=document.getElementById('journal-lead');
-    if(root){root.hidden=false;root.replaceChildren(el('p','현재 표시할 검증된 대표 이미지가 포함된 뉴스와이어 기사가 없습니다. 원문 연결 상태를 확인해 주세요.','lyd-feed-empty'));}
-    document.getElementById('journal-edition-meta').textContent='원문 확인 대기';
+    journalUnavailable('현재 표시할 검증된 대표 이미지가 포함된 뉴스와이어 기사가 없습니다. 원문 연결 상태를 확인해 주세요.');
   }
   // Empty section headings must not create long blank panels.
   ['journal-row-editors','journal-row-law'].forEach(id=>{
@@ -199,6 +206,7 @@ nl?.addEventListener("submit", async (e) => {
 
 boot().catch((err) => {
   console.error(err);
+  journalUnavailable('뉴스와이어 원문을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
   document.getElementById("journal-disclaimer").textContent =
     "피드를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.";
 });
