@@ -153,6 +153,32 @@ const tasks = [];
   await page.locator('[data-note-template="case"]').click();
   check('note-case-template-action',(await page.locator('#noteDraftTitle').inputValue())==='사건 검토 메모');
  }catch(e){check('note-smoke',false,String(e).slice(0,250))}
+ try{
+  const fixture=id=>({revision:{id,title:'합성 검수 문서 '+id,status:'draft',legal_as_of:'2026-11-27',body_markdown:'합성 검수 본문',digest:'a'.repeat(64)},citations:[],candidates:[],self_review_blocked:id===2});
+  let release;const gate=new Promise(resolve=>{release=resolve});let submitted=null;
+  await page.route('**/api/wiki/v2/revisions/*/review',async route=>{
+   const id=Number(new URL(route.request().url()).pathname.split('/').at(-2));
+   if(route.request().method()==='POST'){
+    submitted={id,body:route.request().postDataJSON(),url:route.request().url()};
+    await gate;return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({revision_id:id,decision:'revise',published:false})});
+   }
+   return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fixture(id))});
+  });
+  await page.goto(BASE+'/static/legal-wiki-review.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#rid').fill('1');await page.locator('#open').click();await page.locator('#detail').waitFor();
+  await page.locator('#notes').fill('합성 검수 의견');
+  await page.locator('#reviewed').check();
+  page.once('dialog',d=>d.accept());
+  await page.locator('#revise').click();
+  await page.waitForFunction(()=>document.getElementById('open').disabled&&document.getElementById('rid').disabled);
+  check('wiki-review-mutation-lock',await page.locator('#approve').isDisabled()&&await page.locator('#rid').isDisabled());
+  release();
+  await page.locator('#notice').getByText('검수 결정 저장 완료').waitFor();
+  check('wiki-review-private-notes-body',submitted?.id===1&&submitted.body.notes==='합성 검수 의견'&&!new URL(submitted.url).search);
+  await page.locator('#rid').fill('2');await page.locator('#open').click();await page.locator('#title').getByText('합성 검수 문서 2').waitFor();
+  check('wiki-review-self-approval-disabled',await page.locator('#approve').isDisabled()&&await page.locator('#revise').isDisabled()&&await page.locator('#reject').isDisabled());
+  await page.unroute('**/api/wiki/v2/revisions/*/review');
+ }catch(e){check('wiki-review-browser-fixture',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||

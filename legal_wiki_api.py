@@ -9,6 +9,11 @@ class SemanticQuery(BaseModel):
     query: str = Field(min_length=2,max_length=100)
     limit: int = Field(default=20,ge=1,le=50)
 
+class ReviewDecision(BaseModel):
+    decision: str = Field(pattern="^(approve|reject|revise)$")
+    expected_digest: str = Field(pattern="^[a-f0-9]{64}$")
+    notes: str = Field(default="",max_length=1000)
+
 class CitationIn(BaseModel):
     kind: str = Field(pattern="^(article|precedent)$")
     source_id: int = Field(gt=0)
@@ -144,16 +149,21 @@ def register(app, database, current_user, csrf):
         return {"id":citation["id"],"verified":True}
 
     @app.post("/api/wiki/v2/revisions/{revision_id}/review")
-    def review(revision_id:int, decision:str=Query(pattern="^(approve|reject|revise)$"), notes:str=Query("",max_length=1000), expected_digest:str|None=Query(None,pattern="^[a-f0-9]{64}$"), user=Depends(csrf), db=Depends(database)):
+    def review(revision_id:int, data:ReviewDecision|None=None, decision:str|None=Query(None,pattern="^(approve|reject|revise)$"), expected_digest:str|None=Query(None,pattern="^[a-f0-9]{64}$"), user=Depends(csrf), db=Depends(database)):
         guard(user,db)
+        notes=""
+        if data is not None:
+            if decision is not None or expected_digest is not None:raise HTTPException(400,"검수 요청 형식이 중복되었습니다")
+            decision,expected_digest,notes=data.decision,data.expected_digest,data.notes.strip()
+        if decision is None:raise HTTPException(400,"검수 결정이 필요합니다")
         lawyer=db.execute("SELECT user_id FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL FOR SHARE",(user["tenant"],user["id"])).fetchone()
         if not lawyer: raise HTTPException(403,"검증된 변호사만 검수할 수 있습니다")
         row=db.execute("""SELECT id,author_id,status,legal_wiki.review_digest(tenant,id) AS digest
             FROM legal_wiki.wiki_revisions WHERE tenant=? AND id=? FOR UPDATE""",(user["tenant"],revision_id)).fetchone()
         if not row: raise HTTPException(404,"문서 없음")
         if row["author_id"]==user["id"]: raise HTTPException(403,"자기 작성 문서는 검수할 수 없습니다")
+        if expected_digest is None or expected_digest!=row["digest"]: raise HTTPException(409,"검토한 문서 버전을 다시 확인하세요")
         if decision=="approve":
-            if expected_digest is None or expected_digest!=row["digest"]: raise HTTPException(409,"검토한 문서 버전을 다시 확인하세요")
             try:
                 db.execute("SELECT legal_wiki.approve_and_publish(?,?,?,?,?)",(user["tenant"],revision_id,user["id"],expected_digest,notes)).fetchone()
             except Exception as exc:

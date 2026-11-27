@@ -40,6 +40,7 @@ class SyntheticDB:
         if "AS original" in sql: return Row({"original":"합성 테스트 원문 문장입니다","source_url":"https://www.law.go.kr/test"} if self.available else None)
         if "INSERT INTO legal_wiki.citations" in sql: self.writes+=1;return Row({"id":42})
         if "approve_and_publish" in sql: self.writes+=1;return Row({"id":1})
+        if "INSERT INTO legal_wiki.lawyer_reviews" in sql: self.writes+=1;self.last_review=args;return Row()
         if "FROM posts WHERE" in sql: return Row()
         raise AssertionError(sql)
 
@@ -80,6 +81,15 @@ class CitationHttpTests(unittest.TestCase):
         self.assertEqual(self.client.post(path).status_code,409)
         self.assertEqual(self.client.post(path+"&expected_digest="+"b"*64).status_code,409)
         self.assertEqual(self.client.post(path+"&expected_digest="+"a"*64).status_code,200)
+    def test_review_body_and_stale_nonapproval(self):
+        path="/api/wiki/v2/revisions/1/review"
+        body={"decision":"revise","expected_digest":"b"*64,"notes":"합성 검수 의견"}
+        self.assertEqual(self.client.post(path,json=body).status_code,409)
+        self.assertEqual(self.db.writes,0)
+        body["expected_digest"]="a"*64
+        self.assertEqual(self.client.post(path+"?decision=approve",json=body).status_code,400)
+        self.assertEqual(self.client.post(path,json=body).status_code,200)
+        self.assertIn("합성 검수 의견",self.db.last_review)
     def test_semantic_requires_model_enablement(self):
         with patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"0"}):
             self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
