@@ -6,8 +6,8 @@ BEGIN
   INSERT INTO legal_wiki.legal_sources(code,agency,base_url,enabled,redistribution_allowed,verified_at) VALUES('fixture-source-invalidation','TEST ONLY','https://www.law.go.kr/',true,true,now()) RETURNING id INTO s;
   INSERT INTO legal_wiki.precedents(source_id,external_id,court,case_number,decided_on,original_text,holding,source_url,content_sha256,verified_at)
     VALUES(s,'1','TEST','TEST','2020-01-01','TEST ONLY','TEST ONLY','https://www.law.go.kr/test',h,now()) RETURNING id INTO p;
-  INSERT INTO legal_wiki.precedent_embeddings(precedent_id,model,content_sha256,embedding)
-    VALUES(p,'intfloat/multilingual-e5-base',h,('['||'1,'||repeat('0,',766)||'0]')::public.vector);
+  INSERT INTO legal_wiki.precedent_embeddings(precedent_id,model,content_sha256,embedding,model_profile,indexed_verified_at)
+    VALUES(p,'intfloat/multilingual-e5-base',h,('['||'1,'||repeat('0,',766)||'0]')::public.vector,repeat('b',64),(SELECT verified_at FROM legal_wiki.precedents WHERE id=p));
   IF NOT EXISTS(SELECT 1 FROM legal_wiki.searchable_precedent_embeddings WHERE precedent_id=p) THEN RAISE EXCEPTION 'fixture not searchable'; END IF;
   UPDATE legal_wiki.precedents SET fetched_at=now() WHERE id=p;
   IF NOT EXISTS(SELECT 1 FROM legal_wiki.searchable_precedent_embeddings WHERE precedent_id=p) THEN RAISE EXCEPTION 'non-substantive refresh invalidated'; END IF;

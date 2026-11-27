@@ -1,7 +1,7 @@
 """Actual model smoke on synthetic Korean phrases only. No legal corpus or private notes."""
 import os, math
 from sentence_transformers import SentenceTransformer
-from legal_wiki_embeddings import DIM, MODEL
+from legal_wiki_embeddings import DIM, MODEL, encode_long
 def main():
     model=SentenceTransformer(MODEL,revision="5c31b33181f6c6bfbbce758a5900f9407bbcff42",trust_remote_code=False,device="cpu")
     q="query: 임대차 종료 후 보증금을 돌려받는 방법"
@@ -11,5 +11,7 @@ def main():
     assert all(math.isfinite(float(x)) for row in vectors for x in row)
     scores=[float(vectors[0]@v) for v in vectors[1:]]
     assert scores[0]>scores[1],scores
-    print({"model":MODEL,"dimension":DIM,"related":scores[0],"unrelated":scores[1],"synthetic_only":True})
+    long_vector,chunks=encode_long(model,('임대차 계약 및 보증금 반환에 관한 합성 문장입니다. '*160)+'후반부 증거자료 확인')
+    assert chunks>1 and len(long_vector[1:-1].split(','))==DIM
+    print({"model":MODEL,"dimension":DIM,"related":scores[0],"unrelated":scores[1],"synthetic_only":True,"long_passage_chunks":chunks})
 if __name__=="__main__":main()
