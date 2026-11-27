@@ -195,6 +195,21 @@ const tasks = [];
   check('note-ai-source-render',(await page.locator('#sources').textContent()).includes('source-note')&&!(await page.locator('#consent').isChecked()));
   await page.unroute('**/api/me');await page.unroute('**/api/posts?product=note&limit=100');await page.unroute('**/api/note/own/ai-analyze');
  }catch(e){check('note-ai-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  const digest='a'.repeat(64);
+  let sent=0,decision=null;
+  await page.route('**/api/wiki/v2/source-review-queue',r=>r.fulfill({json:{items:[{payload_id:7,kind:'precedent',external_id:'fixture'}]}}));
+  await page.route('**/api/wiki/v2/source-reviews/7',r=>{if(r.request().method()==='POST'){sent++;decision=r.request().postDataJSON();return r.fulfill({json:{verified:true}})}return r.fulfill({json:{payload_id:7,canonical_id:9,digest,verified:false,source_url:'https://www.law.go.kr/fixture',notice:'합성 테스트 자료',data:{kind:'precedent',external_id:'fixture',case_number:'합성 검수 판례',court:'합성 법원',decided_on:'2020-01-01',original_text:'합성 원문입니다'}}})});
+  await page.goto(BASE+'/static/legal-wiki-source-review.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#load').click();await page.locator('#queue button').first().click();await page.locator('#detail').waitFor();
+  check('source-review-confirmation-gate',await page.locator('#approve').isDisabled()&&sent===0);
+  await page.locator('#notes').fill('합성 원문과 날짜를 대조한 검수 기록입니다.');
+  await page.locator('#confirm').check();page.once('dialog',d=>d.accept());await page.locator('#approve').click();
+  await page.locator('#status').getByText('원문 검증 등록 완료.',{exact:false}).waitFor();
+  check('source-review-digest-bound',sent===1&&decision.expected_digest===digest&&decision.confirmed===true);
+  check('source-review-after-verification-lock',await page.locator('#approve').isDisabled());
+  await page.unroute('**/api/wiki/v2/source-review-queue');await page.unroute('**/api/wiki/v2/source-reviews/7');
+ }catch(e){check('source-review-browser-fixture',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||
