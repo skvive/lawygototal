@@ -16,13 +16,17 @@ class FakeDB:
     def execute(self,sql,args=()):
         if "FROM legal_wiki.legal_sources" in sql:return Result([{"id":7}])
         if "JOIN legal_wiki.reference_job_mappings" in sql:return Result(self.rows)
-        if "status='running'" in sql:return Result([{"id":args[0]}])
+        if "SET status='running'" in sql:return Result([{"id":args[1]}])
+        if "SELECT id FROM legal_wiki.ingestion_jobs" in sql:return Result([{"id":args[0]}]) if not getattr(self,"claim_lost",False) else Result()
+        if "SET status='queued'" in sql:return Result([{"id":args[0]}])
         if "FROM legal_wiki.raw_ingestion_payloads" in sql:return Result([{"id":55}])
         if "import_normalized" in sql:return Result([{"imported":1}])
         if "FROM legal_wiki.reference_job_mappings" in sql:return Result([{"target":"eflaw","external_id":"100"}])
         if "INSERT INTO legal_wiki.reference_job_results" in sql:self.links.append(args);return Result()
         if "SET status='success'" in sql:self.status.append((args[0],"success"));return Result()
-        if "SET status='failed'" in sql:self.status.append((args[0],"failed"));return Result()
+        if "SET status='failed'" in sql:
+            if getattr(self,"claim_lost",False):return Result()
+            self.status.append((args[0],"failed"));return Result([{"id":args[0]}])
         raise AssertionError(sql)
 class QueueTests(unittest.TestCase):
     def test_missing_credential(self):
@@ -41,3 +45,19 @@ class QueueTests(unittest.TestCase):
             self.assertEqual(db.links,[(1,55),(2,55)])
             self.assertEqual(db.status,[(1,"success"),(2,"success")])
             self.assertTrue(all(not x["verified"] for x in results))
+
+    def test_expired_worker_cannot_finalize(self):
+        db=FakeDB();db.claim_lost=True
+        @contextmanager
+        def open_db():yield db
+        with patch.object(db_engine,"USE_POSTGRES",True),patch.object(db_engine,"open_db",open_db),patch.dict(os.environ,{"LAW_GO_OC":"fixture-only"}),patch.object(q,"run",return_value={"job_id":9,"sha256":"test"}),patch.object(q,"stage"),patch.object(q,"import_checked"):
+            self.assertEqual(q.batch(),[{"id":1,"status":"claim_lost"}])
+            self.assertEqual(db.links,[])
+            self.assertEqual(db.status,[])
+    def test_requeue_requires_explicit_confirmation(self):
+        db=FakeDB()
+        @contextmanager
+        def open_db():yield db
+        with patch.object(db_engine,"USE_POSTGRES",True),patch.object(db_engine,"open_db",open_db):
+            with self.assertRaises(q.IntakeError):q.requeue(1)
+            self.assertTrue(q.requeue(1,True)["requeued"])
