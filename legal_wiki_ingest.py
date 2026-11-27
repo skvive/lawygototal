@@ -33,6 +33,13 @@ def params(target, external_id, oc, master_id=None, effective_on=None):
         return {**result,"MST":master_id,"efYd":day}
     return {**result,"ID":external_id}
 
+def public_detail_url(target,external_id,master_id=None,effective_on=None):
+    # Reuse the same identity validation and stable ordering as the intake request.
+    p=params(target,external_id,"public-link-only",master_id,effective_on)
+    p.pop("OC")
+    p["type"]="HTML"
+    return BASE+"?"+urllib.parse.urlencode(p)
+
 def validate(raw, target, external_id, effective_on=None):
     if not raw or len(raw) > MAX_BYTES or b"<!DOCTYPE" in raw.upper() or b"<!ENTITY" in raw.upper():
         raise IntakeError("invalid XML payload")
@@ -83,9 +90,7 @@ def run(target, external_id, master_id=None, effective_on=None):
             raise IntakeError("official source approval required")
         source_id = source["id"]
     text, digest = collect(target, external_id, oc,master_id,effective_on)
-    public_params={k:v for k,v in request_params.items() if k!="OC"}
-    public_params["type"]="HTML"
-    public_url = BASE + "?" + urllib.parse.urlencode(public_params)
+    public_url = public_detail_url(target,external_id,master_id,effective_on)
     job_key=target+":"+external_id if master_id is None else target+":"+external_id+":mst:"+master_id+":"+str(effective_on)
     with open_db() as db:
         source = db.execute("SELECT id FROM legal_wiki.legal_sources WHERE id=? AND enabled AND verified_at IS NOT NULL AND redistribution_allowed FOR SHARE", (source_id,)).fetchone()

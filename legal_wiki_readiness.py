@@ -9,6 +9,8 @@ def credential_flags(env):
         "gemini_configured":bool(env.get("GEMINI_API_KEY","").strip()),
         "wiki_enabled":env.get("LAWYGO_LEGAL_WIKI_ENABLED")=="1",
         "e5_enabled":env.get("LAWYGO_E5_ENABLED")=="1",
+        "source_review_operator_configured":bool(env.get("LAWYGO_SOURCE_REVIEW_TENANT","").strip()),
+        "e5_manifest_configured":len(env.get("LAWYGO_E5_MANIFEST_SHA256",""))==64 and all(c in "0123456789abcdef" for c in env.get("LAWYGO_E5_MANIFEST_SHA256","")),
         "e5_local_model_directory":bool(env.get("LAWYGO_E5_MODEL_DIR")) and Path(env["LAWYGO_E5_MODEL_DIR"]).is_dir()
     }
 
@@ -31,7 +33,9 @@ def inspect(db,env):
     blockers=[]
     if not flags["law_go_configured"]:blockers.append("LAW_GO_OC_NOT_CONFIGURED")
     if not counts["approved_sources"]:blockers.append("SOURCE_APPROVAL_REQUIRED")
-    if counts["queued"] and not counts["mapped_queued"]:blockers.append("OFFICIAL_ID_MAPPING_REQUIRED")
+    if counts["queued"]>counts["mapped_queued"]:blockers.append("OFFICIAL_ID_MAPPING_REQUIRED")
+    if not flags["source_review_operator_configured"]:blockers.append("SOURCE_REVIEW_OPERATOR_REQUIRED")
+    if not flags["e5_manifest_configured"]:blockers.append("E5_MANIFEST_REQUIRED")
     if not counts["verified_precedents"]:blockers.append("VERIFIED_PRECEDENTS_REQUIRED")
     if not flags["e5_local_model_directory"]:blockers.append("LOCAL_E5_MODEL_REQUIRED")
     if not counts["searchable_vectors"]:blockers.append("SEARCHABLE_E5_VECTORS_REQUIRED")

@@ -10,6 +10,8 @@ class MappingTests(unittest.TestCase):
         c=candidate("합성법",self.item)
         self.assertIn("MST=2",c["evidence_url"])
         self.assertNotIn("OC=",c["evidence_url"])
+        from legal_wiki_ingest import public_detail_url
+        self.assertEqual(c["evidence_url"],public_detail_url("eflaw","1","2","2020-01-01"))
         self.assertEqual(len(c["candidate_sha256"]),64)
         self.assertIsNone(candidate("다른법",self.item))
         with self.assertRaises(ValueError):candidate("합성법",{**self.item,"external_id":"0"})

@@ -4,9 +4,8 @@ import json
 import os
 import re
 from datetime import date
-from urllib.parse import urlencode
 from legal_wiki_discover import search
-from legal_wiki_ingest import IntakeError
+from legal_wiki_ingest import public_detail_url
 
 def queue(db,limit=100,offset=0):
     return [dict(x) for x in db.execute("""SELECT job_id,reference_label,query,plan_status
@@ -33,7 +32,7 @@ def candidate(query,item):
     result={"query":query,"external_id":ids[0],"master_id":ids[1],"effective_from":effective}
     result["candidate_sha256"]=hashlib.sha256(json.dumps(result,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     # Link contains no OC or other credential. Actual detail response is checked later by intake.
-    result["evidence_url"]="https://www.law.go.kr/DRF/lawService.do?"+urlencode({"target":"eflaw","MST":ids[1],"efYd":effective.replace("-",""),"type":"HTML"})
+    result["evidence_url"]=public_detail_url("eflaw",ids[0],ids[1],effective)
     return result
 
 def candidates(db,job_id,page=1,lock=False):

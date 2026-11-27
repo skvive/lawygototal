@@ -11,7 +11,7 @@ def batch(limit=10):
         source=db.execute("SELECT id FROM legal_wiki.legal_sources WHERE code='kr-law-go' AND enabled AND verified_at IS NOT NULL AND redistribution_allowed").fetchone()
         if not source: raise IntakeError("source approval required")
         rows=db.execute("""SELECT j.id,m.target,m.external_id,m.master_id,m.requested_effective_on FROM legal_wiki.ingestion_jobs j JOIN legal_wiki.reference_job_mappings m ON m.job_id=j.id
-        WHERE j.source_id=? AND j.status='queued' ORDER BY j.id LIMIT ?""",(source["id"],max(1,min(50,int(limit))))).fetchall()
+        WHERE j.source_id=? AND j.status='queued' AND j.attempt<5 ORDER BY j.id LIMIT ?""",(source["id"],max(1,min(50,int(limit))))).fetchall()
     results=[]
     collected={}
     for r in rows:
