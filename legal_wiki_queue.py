@@ -1,7 +1,7 @@
 """Bounded queue execution: confirmed official IDs only, never infer a reference ID."""
 import os
 from legal_wiki_ingest import run,IntakeError
-from legal_wiki_normalize import stage
+from legal_wiki_normalize import stage,import_checked
 def batch(limit=10):
     from db_engine import open_db,USE_POSTGRES
     if not USE_POSTGRES: raise IntakeError("PostgreSQL required")
@@ -26,7 +26,7 @@ def batch(limit=10):
                 if not p: raise IntakeError("raw payload missing")
                 stage(p["id"])
                 with open_db() as db:
-                    db.execute("SELECT legal_wiki.import_normalized(?)",(p["id"],)).fetchone()
+                    import_checked(db,p["id"])
                 collected[key]=p["id"]
             payload_id=collected[key]
             with open_db() as db:

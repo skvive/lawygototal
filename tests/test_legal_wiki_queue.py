@@ -33,10 +33,11 @@ class QueueTests(unittest.TestCase):
         db=FakeDB()
         @contextmanager
         def open_db():yield db
-        with patch.object(db_engine,"USE_POSTGRES",True),patch.object(db_engine,"open_db",open_db),patch.dict(os.environ,{"LAW_GO_OC":"fixture-only"}),patch.object(q,"run",return_value={"job_id":9,"sha256":"test"}) as run,patch.object(q,"stage") as stage:
+        with patch.object(db_engine,"USE_POSTGRES",True),patch.object(db_engine,"open_db",open_db),patch.dict(os.environ,{"LAW_GO_OC":"fixture-only"}),patch.object(q,"run",return_value={"job_id":9,"sha256":"test"}) as run,patch.object(q,"stage") as stage,patch.object(q,"import_checked") as importer:
             results=q.batch()
             run.assert_called_once_with("eflaw","100")
             stage.assert_called_once_with(55)
+            importer.assert_called_once_with(db,55)
             self.assertEqual(db.links,[(1,55),(2,55)])
             self.assertEqual(db.status,[(1,"success"),(2,"success")])
             self.assertTrue(all(not x["verified"] for x in results))

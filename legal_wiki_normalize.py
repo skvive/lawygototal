@@ -44,18 +44,42 @@ def normalize(raw,target,external_id,master_id=None,requested_effective_on=None)
     transitional=[(e.text or "").strip() for e in root.iter() if local(e.tag)=="부칙내용" and (e.text or "").strip()]
     return {"kind":"statute","external_id":number(external_id),"external_version_id":version,"title":value(info,"법령명_한글"),"statute_type":value(info,"법종구분"),"promulgated_on":promulgated,"effective_from":effective,"effective_to":None,"articles":articles,"transitional_notes":transitional,"content_sha256":digest,"verified":False}
 
+def normalize_stored(row):
+    """Reconstruct the exact captured bytes and reparse; never trust staged JSON alone."""
+    raw=row["raw_xml"].encode("utf-8")
+    if hashlib.sha256(raw).hexdigest()!=row["content_sha256"]:
+        if hashlib.sha256(b"\xef\xbb\xbf"+raw).hexdigest()!=row["content_sha256"]: raise ValueError("raw hash mismatch")
+        raw=b"\xef\xbb\xbf"+raw
+    return normalize(raw,row["target"],row["external_id"],row["master_id"],row["requested_effective_on"])
+
+def assert_staged(row,data):
+    """Reject any modified or stale normalization instead of silently importing it."""
+    import json
+    fresh=normalize_stored(row)
+    if isinstance(data,str):data=json.loads(data)
+    if data!=fresh:raise ValueError("normalized payload differs from official XML")
+    return fresh
+
 def stage(payload_id):
     import json
     from db_engine import open_db,USE_POSTGRES
     if not USE_POSTGRES: raise RuntimeError("PostgreSQL required")
     with open_db() as db:
-        row=db.execute("SELECT id,target,external_id,raw_xml,content_sha256,master_id,requested_effective_on FROM legal_wiki.raw_ingestion_payloads WHERE id=?",(payload_id,)).fetchone()
+        row=db.execute("SELECT id,target,external_id,raw_xml,content_sha256,master_id,requested_effective_on FROM legal_wiki.raw_ingestion_payloads WHERE id=? FOR SHARE",(payload_id,)).fetchone()
         if not row: raise ValueError("payload not found")
-        # Intake hashes bytes including possible BOM; preserve byte-level check on decoded text too.
-        raw=row["raw_xml"].encode("utf-8")
-        if hashlib.sha256(raw).hexdigest()!=row["content_sha256"]:
-            if hashlib.sha256(b"\xef\xbb\xbf"+raw).hexdigest()!=row["content_sha256"]: raise ValueError("raw hash mismatch")
-            raw=b"\xef\xbb\xbf"+raw
-        data=normalize(raw,row["target"],row["external_id"],row["master_id"],row["requested_effective_on"])
+        data=normalize_stored(row)
         db.execute("INSERT INTO legal_wiki.normalized_payloads(payload_id,kind,normalized_json,content_sha256) VALUES(?,?,CAST(? AS jsonb),?) ON CONFLICT(payload_id) DO NOTHING",(payload_id,data["kind"],json.dumps(data,ensure_ascii=False),data["content_sha256"]))
+        stored=db.execute("SELECT normalized_json,kind,content_sha256 FROM legal_wiki.normalized_payloads WHERE payload_id=? FOR UPDATE",(payload_id,)).fetchone()
+        if not stored or stored["kind"]!=data["kind"] or stored["content_sha256"]!=data["content_sha256"]:raise ValueError("normalized metadata mismatch")
+        assert_staged(row,stored["normalized_json"])
         return {"payload_id":payload_id,"kind":data["kind"],"verified":False}
+
+def import_checked(db,payload_id):
+    """Validate under the same transaction/locks as canonical import."""
+    row=db.execute("""SELECT p.target,p.external_id,p.raw_xml,p.content_sha256,p.master_id,p.requested_effective_on,n.normalized_json,n.kind,n.content_sha256 AS normalized_hash
+      FROM legal_wiki.raw_ingestion_payloads p JOIN legal_wiki.normalized_payloads n ON n.payload_id=p.id
+      WHERE p.id=? FOR SHARE OF p FOR UPDATE OF n""",(payload_id,)).fetchone()
+    if not row:raise ValueError("normalized payload missing")
+    data=assert_staged(row,row["normalized_json"])
+    if row["kind"]!=data["kind"] or row["normalized_hash"]!=data["content_sha256"]:raise ValueError("normalized metadata mismatch")
+    return db.execute("SELECT legal_wiki.import_normalized(?)",(payload_id,)).fetchone()

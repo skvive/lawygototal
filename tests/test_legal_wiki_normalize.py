@@ -31,3 +31,30 @@ class NormalizationTests(unittest.TestCase):
         with self.assertRaises(ValueError): normalize(LAW.replace("</조문>",fragment+"</조문>").encode(),"eflaw","12")
     def test_dtd(self):
         with self.assertRaises(ValueError): normalize(b"<!DOCTYPE r><r/>","prec","1")
+
+class StoredPayloadTests(unittest.TestCase):
+    def row(self):
+        import hashlib
+        return {"raw_xml":LAW,"target":"eflaw","external_id":"12","content_sha256":hashlib.sha256(LAW.encode()).hexdigest(),"master_id":None,"requested_effective_on":None}
+    def test_reparse_blocks_changed_staged_content(self):
+        from legal_wiki_normalize import normalize_stored,assert_staged
+        row=self.row();data=normalize_stored(row)
+        self.assertEqual(assert_staged(row,data),data)
+        data["articles"][0]["body"]="임의 변경된 내용"
+        with self.assertRaises(ValueError):assert_staged(row,data)
+    def test_original_bytes_mismatch(self):
+        from legal_wiki_normalize import normalize_stored
+        row=self.row();row["raw_xml"]=LAW.replace("본문","변경")
+        with self.assertRaises(ValueError):normalize_stored(row)
+    def test_import_uses_locked_reparse(self):
+        from legal_wiki_normalize import normalize_stored,import_checked
+        from unittest.mock import Mock
+        row=self.row();row["normalized_json"]=normalize_stored(row);row["kind"]="statute";row["normalized_hash"]=row["content_sha256"]
+        db=Mock();db.execute.return_value.fetchone.return_value=row
+        import_checked(db,1)
+        self.assertIn("FOR SHARE OF p FOR UPDATE OF n",db.execute.call_args_list[0].args[0])
+        self.assertEqual(db.execute.call_args_list[-1].args,("SELECT legal_wiki.import_normalized(?)",(1,)))
+        row["normalized_json"]["title"]="임의 변경"
+        db.reset_mock()
+        with self.assertRaises(ValueError):import_checked(db,1)
+        self.assertEqual(db.execute.call_count,1)
