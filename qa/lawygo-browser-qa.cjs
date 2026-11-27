@@ -73,11 +73,15 @@ const tasks = [];
    body:JSON.stringify({kr:[{id:'qa-korean',region:'kr',title:'한국 지식재산 정책 개정',summary:'지식재산 및 법률 정책 안내',source:'공식 자료',
     published:'2026-11-21',url:'https://example.com/kr'}],us:[{id:'qa-english',region:'us',title:'Federal Markets Policy Update',summary:'Markets in 2026',
     source:'U.S. public source',published:'2026-11-20',url:'https://example.com/us'}],editorial:[]})}));
-  const photo='https://example.com/newswire-photo.jpg';
+  const photo='https://www.newswire.co.kr/qa-source-photo.png';
+  // Intercept only the allowed source hostname with a synthetic PNG. No upstream dependency.
+  await page.route(photo,route=>route.fulfill({status:200,contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')}));
+  
   await page.route('**/api/pan/content?**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({items:[
     {id:'qa-lead',content_type:'newswire',title:'법률 정책 주요 보도자료',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-22',url:'https://example.com/lead',thumb_url:photo},
     {id:'qa-kr',content_type:'newswire',title:'한국 지식재산 정책 개정',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-21',url:'https://example.com/kr',thumb_url:photo},
-    {id:'qa-no-photo',content_type:'newswire',title:'사진 없는 기사',source:'뉴스와이어',published:'2026-11-23',url:'https://example.com/no-photo'}
+    {id:'qa-no-photo',content_type:'newswire',title:'사진 없는 기사',source:'뉴스와이어',published:'2026-11-23',url:'https://example.com/no-photo'},
+    {id:'qa-untrusted',content_type:'newswire',title:'허용되지 않은 이미지 기사',source:'뉴스와이어',published:'2026-11-24',url:'https://example.com/untrusted',thumb_url:'https://example.com/untrusted.jpg'}
   ]})}));
   await page.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
   const card=page.locator('#journal-front-left .side-story').first();
@@ -87,9 +91,13 @@ const tasks = [];
   check('journal-original-reader-link',(await card.getAttribute('href'))==='https://example.com/kr'&&(await card.getAttribute('target'))==='_blank'&&(await card.getAttribute('rel')).includes('noopener'));
   check('journal-no-fabricated-photo',!(await page.locator('.front-grid').textContent()).includes('사진 없는 기사'));
   check('journal-newsletter-preserved',await page.locator('#newsletterSignupJournal').count()===1);
+  check('journal-untrusted-photo-rejected',!(await page.locator('.front-grid').textContent()).includes('허용되지 않은 이미지 기사'));
+ }catch(e){check('journal-restoration-smoke',false,String(e).slice(0,250))}
+ finally{
   await page.unroute('**/api/journal/feed');
   await page.unroute('**/api/pan/content?**');
- }catch(e){check('journal-restoration-smoke',false,String(e).slice(0,250))}
+  await page.unroute('https://www.newswire.co.kr/qa-source-photo.png');
+ }
  try{
   await page.route('**/api/posts?product=wiki&limit=12',route=>route.fulfill({status:200,contentType:'application/json',
    body:JSON.stringify({total:1,items:[{id:'qa-law',kind:'encyclopedia',title:'임대차 법률 용어',summary:'민법 계약',source:'공개 위키',updated_at:'2026-11-21'}]})}));
