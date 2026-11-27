@@ -210,6 +210,22 @@ const tasks = [];
   check('source-review-after-verification-lock',await page.locator('#approve').isDisabled());
   await page.unroute('**/api/wiki/v2/source-review-queue');await page.unroute('**/api/wiki/v2/source-reviews/7');
  }catch(e){check('source-review-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  const digest='b'.repeat(64);
+  let sent=0,decision=null;
+  await page.route('**/api/wiki/v2/reference-mapping-queue?*',r=>r.fulfill({json:{items:[{job_id:7,reference_label:'합성법 제1조',query:'합성법',plan_status:'candidate_lookup'},{job_id:8,reference_label:'복합 참조',plan_status:'manual_review'}]}}));
+  await page.route('**/api/wiki/v2/reference-mappings/7/candidates?*',r=>r.fulfill({json:{total:1,items:[{query:'합성법',external_id:'1',master_id:'2',effective_from:'2020-01-01',candidate_sha256:digest,evidence_url:'https://www.law.go.kr/test'}]}}));
+  await page.route('**/api/wiki/v2/reference-mappings/7/confirm',r=>{sent++;decision=r.request().postDataJSON();return r.fulfill({json:{mapped:true,verified:false}})});
+  await page.goto(BASE+'/static/legal-wiki-reference-mapping.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#load').click();await page.locator('#queue button').first().click();
+  check('mapping-manual-reference-not-guessable',await page.locator('#queue button').count()===1);
+  await page.locator('#lookup').click();await page.locator('#candidates button').first().click();
+  check('mapping-explicit-confirmation',await page.locator('#save').isDisabled()&&sent===0);
+  await page.locator('#confirm').check();page.once('dialog',d=>d.accept());await page.locator('#save').click();
+  await page.locator('#status').getByText('매핑 확정 완료.',{exact:false}).waitFor();
+  check('mapping-selected-digest-only',sent===1&&decision.candidate_sha256===digest&&decision.confirmed===true&&!('external_id' in decision));
+  await page.unroute('**/api/wiki/v2/reference-mapping-queue?*');await page.unroute('**/api/wiki/v2/reference-mappings/7/candidates?*');await page.unroute('**/api/wiki/v2/reference-mappings/7/confirm');
+ }catch(e){check('mapping-browser-fixture',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||

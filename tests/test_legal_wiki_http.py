@@ -109,6 +109,32 @@ class CitationHttpTests(unittest.TestCase):
             approve.return_value={"verified":True}
             self.assertEqual(self.client.post(path,json=body).status_code,200)
             approve.assert_called_once()
+    def test_reference_mapping_operator_and_confirmation_gates(self):
+        base="/api/wiki/v2/reference-mappings/1"
+        body={"page":1,"candidate_sha256":"a"*64,"confirmed":True}
+        with patch("legal_wiki_mapping.confirm") as confirm,patch("legal_wiki_mapping.candidates") as candidates:
+            self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,403)
+            self.user["role"]="admin"
+            with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"other"}):
+                self.assertEqual(self.client.post(base+"/candidates").status_code,403)
+            with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"fixture"}):
+                body["confirmed"]=False
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,400)
+                confirm.assert_not_called()
+                body["confirmed"]=True
+                self.db.qualified=False
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,403)
+                candidates.assert_not_called()
+                self.db.qualified=True
+                candidates.side_effect=PermissionError("secret fixture")
+                r=self.client.post(base+"/candidates")
+                self.assertEqual(r.status_code,503)
+                self.assertNotIn("secret fixture",r.text)
+                confirm.side_effect=ValueError("changed")
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,409)
+                confirm.side_effect=None
+                confirm.return_value={"mapped":True,"verified":False}
+                self.assertEqual(self.client.post(base+"/confirm",json=body).json(),{"mapped":True,"verified":False})
     def test_semantic_requires_model_enablement(self):
         with patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"0"}):
             self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
