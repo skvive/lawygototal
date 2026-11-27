@@ -80,6 +80,26 @@ class CitationHttpTests(unittest.TestCase):
         self.assertEqual(self.client.post(path).status_code,409)
         self.assertEqual(self.client.post(path+"&expected_digest="+"b"*64).status_code,409)
         self.assertEqual(self.client.post(path+"&expected_digest="+"a"*64).status_code,200)
+    def test_semantic_requires_model_enablement(self):
+        with patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"0"}):
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
+    def test_semantic_requires_verified_index(self):
+        original=self.db.execute
+        def execute(sql,args=()):
+            if "FROM legal_wiki.searchable_precedent_embeddings LIMIT 1" in sql:return Row()
+            return original(sql,args)
+        with patch.object(self.db,"execute",side_effect=execute), patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"1"}):
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
+    def test_semantic_validated_query_and_mock_local_model(self):
+        original=self.db.execute
+        def execute(sql,args=()):
+            if "FROM legal_wiki.searchable_precedent_embeddings LIMIT 1" in sql:return Row({"ready":1})
+            return original(sql,args)
+        with patch.object(self.db,"execute",side_effect=execute), patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"1"}), patch("legal_wiki_embeddings.cached_model",return_value=object()), patch("legal_wiki_embeddings.search",return_value=[{"precedent_id":1,"distance":0.1}]):
+            res=self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"})
+            self.assertEqual(res.status_code,200)
+            self.assertEqual(res.json()["items"][0]["precedent_id"],1)
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"  "}).status_code,400)
     def test_private_note_missing(self):
         self.assertEqual(self.client.get("/api/wiki/v2/note/private/evidence?q=계약").status_code,404)
 
