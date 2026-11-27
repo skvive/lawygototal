@@ -14,6 +14,11 @@ class ReviewDecision(BaseModel):
     expected_digest: str = Field(pattern="^[a-f0-9]{64}$")
     notes: str = Field(default="",max_length=1000)
 
+class ReferenceMappingDecision(BaseModel):
+    page: int = Field(default=1,ge=1,le=100)
+    candidate_sha256: str = Field(pattern="^[a-f0-9]{64}$")
+    confirmed: bool = False
+
 class SourceReviewDecision(BaseModel):
     expected_digest: str = Field(pattern="^[a-f0-9]{64}$")
     notes: str = Field(min_length=10,max_length=2000)
@@ -108,6 +113,35 @@ def register(app, database, current_user, csrf):
         if user["tenant"]!=operator:raise HTTPException(403,"공통 원문 검수 운영 조직 전용입니다")
         if not db.execute("SELECT 1 FROM lawyer_verifications WHERE tenant=? AND user_id=? AND status='approved' AND checked_at IS NOT NULL AND NULLIF(btrim(checked_by),'') IS NOT NULL"+(" FOR SHARE" if lock else ""),(user["tenant"],user["id"])).fetchone():raise HTTPException(403,"검증된 변호사 자격이 필요합니다")
         if not db.execute("SELECT to_regclass('legal_wiki.source_text_reviews') IS NOT NULL AS ready").fetchone()["ready"]:raise HTTPException(503,"원문 검수 DB 준비 중")
+
+    @app.get("/api/wiki/v2/reference-mapping-queue")
+    def reference_mapping_queue(limit:int=Query(100,ge=1,le=100),offset:int=Query(0,ge=0,le=10000),user=Depends(current_user),db=Depends(database)):
+        source_reviewer(user,db)
+        from legal_wiki_mapping import queue
+        return {"items":queue(db,limit,offset)}
+
+    @app.post("/api/wiki/v2/reference-mappings/{job_id}/candidates")
+    def reference_mapping_candidates(job_id:int,page:int=Query(1,ge=1,le=100),user=Depends(csrf),db=Depends(database)):
+        source_reviewer(user,db)
+        from legal_wiki_mapping import candidates
+        from legal_wiki_ingest import IntakeError
+        try:return candidates(db,job_id,page)
+        except PermissionError:raise HTTPException(503,"법제처 승인 및 API 인증이 필요합니다") from None
+        except LookupError:raise HTTPException(404,"대기 중인 참조 항목 없음") from None
+        except IntakeError:raise HTTPException(502,"공식 검색 응답 확인 실패") from None
+        except (ValueError,KeyError,TypeError):raise HTTPException(409,"수동 검토 또는 공식 검색 결과 재확인 필요") from None
+
+    @app.post("/api/wiki/v2/reference-mappings/{job_id}/confirm")
+    def reference_mapping_confirm(job_id:int,data:ReferenceMappingDecision,user=Depends(csrf),db=Depends(database)):
+        source_reviewer(user,db,True)
+        from legal_wiki_mapping import confirm
+        from legal_wiki_ingest import IntakeError
+        if not data.confirmed:raise HTTPException(400,"시행일과 공식 식별자를 직접 확인해야 합니다")
+        try:return confirm(db,job_id,data.page,data.candidate_sha256,user,data.confirmed)
+        except PermissionError:raise HTTPException(503,"법제처 승인 및 API 인증이 필요합니다") from None
+        except LookupError:raise HTTPException(404,"대기 중인 참조 항목 없음") from None
+        except IntakeError:raise HTTPException(502,"공식 검색 응답 확인 실패") from None
+        except (ValueError,KeyError,TypeError):raise HTTPException(409,"공식 검색 결과가 변경되었거나 이미 매핑되었습니다") from None
 
     @app.get("/api/wiki/v2/source-review-queue")
     def source_review_queue(limit:int=Query(30,ge=1,le=100),user=Depends(current_user),db=Depends(database)):
