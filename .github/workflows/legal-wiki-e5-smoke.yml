@@ -1,0 +1,22 @@
+name: Legal wiki E5 real inference smoke
+on:
+  push:
+    branches: ['feature/legal-wiki-lw05-09']
+    paths: ['.github/workflows/legal-wiki-e5-smoke.yml','scripts/legal_wiki_e5_smoke.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  model-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -r requirements-legal-embedding.txt
+      - run: PYTHONPATH=. python scripts/legal_wiki_e5_smoke.py

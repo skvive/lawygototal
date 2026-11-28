@@ -40,7 +40,8 @@ note_page=(ROOT/"static/note.html").read_text(encoding="utf-8")
 portal_css=(ROOT/"static/lawygo-editorial-portal-v8.css").read_text(encoding="utf-8")
 assert "법률 영상·전문가 콘텐츠" in pan_page
 assert "법률자료 검색과 문서 정리" in note_page
-assert note_page.index('id="note-editor"') < note_page.index('id="ly-note-ai"')
+assert note_page.index('id="lnw-chat-form"') < note_page.index('id="note-editor"')
+assert 'id="lnw-chat-input"' in note_page and 'id="lnw-chat-send"' in note_page
 assert "Korean-first PAN / text-first NOTE" in portal_css
 pan=(ROOT/"static/pan-published-v2-20261108.js").read_text(encoding="utf-8")
 assert "summary_ko" in pan and "영문 원문 한국어 자동번역" in pan

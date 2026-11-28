@@ -1,0 +1,161 @@
+"""HTTP-level checks, using real login/CSRF and isolated synthetic wiki database adapter."""
+import os
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+from fastapi import FastAPI, HTTPException
+from fastapi.testclient import TestClient
+import legal_wiki_api
+
+class RealLoginTests(unittest.TestCase):
+    def test_login_and_csrf_and_disabled_wiki(self):
+        import app as a
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ,{"LAWYGO_BOOTSTRAP_EMAIL":"test-lawyer@example.invalid","LAWYGO_BOOTSTRAP_PASSWORD":"fixture-only-password-2026","LAWYGO_SECURE_COOKIES":"false","LAWYGO_LEGAL_WIKI_ENABLED":"0"}), patch.object(a,"DB_FILE",Path(tmp)/"test.db"), patch.object(a,"FILES",Path(tmp)/"uploads"):
+            with TestClient(a.app) as client:
+                self.assertEqual(client.get("/api/wiki/v2/review-queue").status_code,401)
+                res=client.post("/api/auth/login",json={"email":"test-lawyer@example.invalid","password":"fixture-only-password-2026","tenant":"demo"})
+                self.assertEqual(res.status_code,200,res.text)
+                self.assertEqual(client.get("/api/wiki/v2/review-queue").status_code,503)
+                path="/api/wiki/v2/revisions/1/review?decision=approve"
+                self.assertEqual(client.post(path).status_code,403)
+                token=client.cookies.get(a.CSRF_COOKIE)
+                self.assertEqual(client.post(path,headers={"X-CSRF-Token":token}).status_code,503)
+                self.assertEqual(client.post(path,headers={"X-CSRF-Token":token,"Origin":"https://invalid.example"}).status_code,403)
+
+class Row:
+    def __init__(self,one=None,all=None): self.one=one;self.all=all or []
+    def fetchone(self): return self.one
+    def fetchall(self): return self.all
+
+class SyntheticDB:
+    def __init__(self):
+        self.qualified=True;self.author="writer";self.available=True;self.writes=0
+    def execute(self,sql,args=()):
+        if "to_regclass" in sql: return Row({"ready":True})
+        if "set_config" in sql: return Row()
+        if "lawyer_verifications" in sql: return Row({"user_id":"reviewer"} if self.qualified else None)
+        if "FROM legal_wiki.wiki_revisions" in sql and "FOR UPDATE" in sql: return Row({"id":1,"author_id":self.author,"status":"draft","legal_as_of":"2020-01-01","digest":"a"*64})
+        if "SELECT 1 FROM legal_wiki.qualified_verified_revisions" in sql: return Row()
+        if "AS original" in sql: return Row({"original":"합성 테스트 원문 문장입니다","source_url":"https://www.law.go.kr/test"} if self.available else None)
+        if "INSERT INTO legal_wiki.citations" in sql: self.writes+=1;return Row({"id":42})
+        if "approve_and_publish" in sql: self.writes+=1;return Row({"id":1})
+        if "INSERT INTO legal_wiki.lawyer_reviews" in sql: self.writes+=1;self.last_review=args;return Row()
+        if "FROM posts WHERE" in sql: return Row()
+        raise AssertionError(sql)
+
+class CitationHttpTests(unittest.TestCase):
+    def setUp(self):
+        self.db=SyntheticDB()
+        self.user={"tenant":"fixture","id":"reviewer","role":"editor"}
+        a=FastAPI()
+        def database(): return self.db
+        def user(): return self.user
+        legal_wiki_api.register(a,database,user,user)
+        self.client=TestClient(a)
+        self.env=patch.dict(os.environ,{"LAWYGO_LEGAL_WIKI_ENABLED":"1"})
+        self.flag=patch.object(legal_wiki_api,"USE_POSTGRES",True)
+        self.env.start();self.flag.start()
+        self.addCleanup(self.env.stop);self.addCleanup(self.flag.stop)
+    def request(self,**kwargs):
+        body=dict(kind="precedent",source_id=1,proposition_key="쟁점",pinpoint="합성 테스트 원문 문장",relation="supports",confirm=True)
+        body.update(kwargs)
+        return self.client.post("/api/wiki/v2/revisions/1/citations",json=body)
+    def test_exact_quote(self):
+        self.assertEqual(self.request().status_code,200)
+        self.assertEqual(self.db.writes,1)
+    def test_no_consent(self):
+        self.assertEqual(self.request(confirm=False).status_code,400);self.assertEqual(self.db.writes,0)
+    def test_whitespace(self):
+        self.assertEqual(self.request(pinpoint=" "*10).status_code,400);self.assertEqual(self.db.writes,0)
+    def test_mismatch(self):
+        self.assertEqual(self.request(pinpoint="존재하지 않는 원문입니다").status_code,409)
+    def test_wrong_date_or_unverified_source(self):
+        self.db.available=False;self.assertEqual(self.request().status_code,409)
+    def test_unqualified(self):
+        self.db.qualified=False;self.assertEqual(self.request().status_code,403)
+    def test_self_review(self):
+        self.db.author="reviewer";self.assertEqual(self.request().status_code,403)
+    def test_approval_digest(self):
+        path="/api/wiki/v2/revisions/1/review?decision=approve"
+        self.assertEqual(self.client.post(path).status_code,409)
+        self.assertEqual(self.client.post(path+"&expected_digest="+"b"*64).status_code,409)
+        self.assertEqual(self.client.post(path+"&expected_digest="+"a"*64).status_code,200)
+    def test_review_body_and_stale_nonapproval(self):
+        path="/api/wiki/v2/revisions/1/review"
+        body={"decision":"revise","expected_digest":"b"*64,"notes":"합성 검수 의견"}
+        self.assertEqual(self.client.post(path,json=body).status_code,409)
+        self.assertEqual(self.db.writes,0)
+        body["expected_digest"]="a"*64
+        self.assertEqual(self.client.post(path+"?decision=approve",json=body).status_code,400)
+        self.assertEqual(self.client.post(path,json=body).status_code,200)
+        self.assertIn("합성 검수 의견",self.db.last_review)
+    def test_source_review_admin_operator_and_consent(self):
+        path="/api/wiki/v2/source-reviews/1"
+        body={"expected_digest":"a"*64,"notes":"합성 원문 검수 의견입니다","confirmed":True}
+        self.assertEqual(self.client.get(path).status_code,403)
+        self.user["role"]="admin"
+        with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"other"}):
+            self.assertEqual(self.client.get(path).status_code,403)
+        with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"fixture"}),patch("legal_wiki_source_review.approve") as approve:
+            body["confirmed"]=False
+            self.assertEqual(self.client.post(path,json=body).status_code,400)
+            approve.assert_not_called()
+            self.db.qualified=False
+            body["confirmed"]=True
+            self.assertEqual(self.client.post(path,json=body).status_code,403)
+            approve.assert_not_called()
+            self.db.qualified=True
+            approve.return_value={"verified":True}
+            self.assertEqual(self.client.post(path,json=body).status_code,200)
+            approve.assert_called_once()
+    def test_reference_mapping_operator_and_confirmation_gates(self):
+        base="/api/wiki/v2/reference-mappings/1"
+        body={"page":1,"candidate_sha256":"a"*64,"confirmed":True}
+        with patch("legal_wiki_mapping.confirm") as confirm,patch("legal_wiki_mapping.candidates") as candidates:
+            self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,403)
+            self.user["role"]="admin"
+            with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"other"}):
+                self.assertEqual(self.client.post(base+"/candidates").status_code,403)
+            with patch.dict(os.environ,{"LAWYGO_SOURCE_REVIEW_TENANT":"fixture"}):
+                body["confirmed"]=False
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,400)
+                confirm.assert_not_called()
+                body["confirmed"]=True
+                self.db.qualified=False
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,403)
+                candidates.assert_not_called()
+                self.db.qualified=True
+                candidates.side_effect=PermissionError("secret fixture")
+                r=self.client.post(base+"/candidates")
+                self.assertEqual(r.status_code,503)
+                self.assertNotIn("secret fixture",r.text)
+                confirm.side_effect=ValueError("changed")
+                self.assertEqual(self.client.post(base+"/confirm",json=body).status_code,409)
+                confirm.side_effect=None
+                confirm.return_value={"mapped":True,"verified":False}
+                self.assertEqual(self.client.post(base+"/confirm",json=body).json(),{"mapped":True,"verified":False})
+    def test_semantic_requires_model_enablement(self):
+        with patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"0"}):
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
+    def test_semantic_requires_verified_index(self):
+        original=self.db.execute
+        def execute(sql,args=()):
+            if "FROM legal_wiki.searchable_precedent_embeddings LIMIT 1" in sql:return Row()
+            return original(sql,args)
+        with patch.object(self.db,"execute",side_effect=execute), patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"1"}):
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"}).status_code,503)
+    def test_semantic_validated_query_and_mock_local_model(self):
+        original=self.db.execute
+        def execute(sql,args=()):
+            if "FROM legal_wiki.searchable_precedent_embeddings LIMIT 1" in sql:return Row({"ready":1})
+            return original(sql,args)
+        with patch.object(self.db,"execute",side_effect=execute), patch.dict(os.environ,{"LAWYGO_E5_ENABLED":"1"}), patch("legal_wiki_embeddings.cached_model",return_value=object()), patch("legal_wiki_embeddings.search",return_value=[{"precedent_id":1,"distance":0.1}]):
+            res=self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"임대차 계약"})
+            self.assertEqual(res.status_code,200)
+            self.assertEqual(res.json()["items"][0]["precedent_id"],1)
+            self.assertEqual(self.client.post("/api/wiki/v2/precedents/semantic",json={"query":"  "}).status_code,400)
+    def test_private_note_missing(self):
+        self.assertEqual(self.client.get("/api/wiki/v2/note/private/evidence?q=계약").status_code,404)
+
+if __name__=="__main__":unittest.main()

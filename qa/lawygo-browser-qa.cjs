@@ -73,16 +73,31 @@ const tasks = [];
    body:JSON.stringify({kr:[{id:'qa-korean',region:'kr',title:'한국 지식재산 정책 개정',summary:'지식재산 및 법률 정책 안내',source:'공식 자료',
     published:'2026-11-21',url:'https://example.com/kr'}],us:[{id:'qa-english',region:'us',title:'Federal Markets Policy Update',summary:'Markets in 2026',
     source:'U.S. public source',published:'2026-11-20',url:'https://example.com/us'}],editorial:[]})}));
+  const photo='https://www.newswire.co.kr/qa-source-photo.png';
+  // Intercept only the allowed source hostname with a synthetic PNG. No upstream dependency.
+  await page.route(photo,route=>route.fulfill({status:200,contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')}));
+  
+  await page.route('**/api/pan/content?**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({items:[
+    {id:'qa-lead',content_type:'newswire',title:'법률 정책 주요 보도자료',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-22',url:'https://example.com/lead',thumb_url:photo},
+    {id:'qa-kr',content_type:'newswire',title:'한국 지식재산 정책 개정',summary:'테스트 원문',source:'뉴스와이어',published:'2026-11-21',url:'https://example.com/kr',thumb_url:photo},
+    {id:'qa-no-photo',content_type:'newswire',title:'사진 없는 기사',source:'뉴스와이어',published:'2026-11-23',url:'https://example.com/no-photo'},
+    {id:'qa-untrusted',content_type:'newswire',title:'허용되지 않은 이미지 기사',source:'뉴스와이어',published:'2026-11-24',url:'https://example.com/untrusted',thumb_url:'https://example.com/untrusted.jpg'}
+  ]})}));
   await page.goto(BASE+'/journal',{waitUntil:'domcontentloaded'});
-  await page.locator('#journal-front-left .side-story').first().waitFor({timeout:12000});
+  const card=page.locator('#journal-front-left .side-story').first();
+  await card.waitFor({timeout:12000});
   check('journal-newspaper-layout',await page.locator('.front-grid,#journal-lead,#journal-front-left,#journal-right').count()===4);
-  check('journal-live-feed-restored',(await page.locator('#journal-front-left').textContent()).includes('한국 지식재산 정책 개정'));
-  await page.locator('#journal-front-left .side-story').first().click();
-  check('journal-editorial-reader',(await page.locator('#journal-issue-overlay').getAttribute('aria-hidden'))==='false');
-  await page.locator('#journal-issue-close').click();
+  check('journal-live-feed-restored',(await card.textContent()).includes('한국 지식재산 정책 개정'));
+  check('journal-original-reader-link',(await card.getAttribute('href'))==='https://example.com/kr'&&(await card.getAttribute('target'))==='_blank'&&(await card.getAttribute('rel')).includes('noopener'));
+  check('journal-no-fabricated-photo',!(await page.locator('.front-grid').textContent()).includes('사진 없는 기사'));
   check('journal-newsletter-preserved',await page.locator('#newsletterSignupJournal').count()===1);
-  await page.unroute('**/api/journal/feed');
+  check('journal-untrusted-photo-rejected',!(await page.locator('.front-grid').textContent()).includes('허용되지 않은 이미지 기사'));
  }catch(e){check('journal-restoration-smoke',false,String(e).slice(0,250))}
+ finally{
+  await page.unroute('**/api/journal/feed');
+  await page.unroute('**/api/pan/content?**');
+  await page.unroute('https://www.newswire.co.kr/qa-source-photo.png');
+ }
  try{
   await page.route('**/api/posts?product=wiki&limit=12',route=>route.fulfill({status:200,contentType:'application/json',
    body:JSON.stringify({total:1,items:[{id:'qa-law',kind:'encyclopedia',title:'임대차 법률 용어',summary:'민법 계약',source:'공개 위키',updated_at:'2026-11-21'}]})}));
@@ -132,12 +147,85 @@ const tasks = [];
   check('note-decorative-mark-removed',await page.locator('.lawygo-ai-icon,.lawygo-ai-brand-mark').count()===0);
   check('note-korean-text-heading',(await page.locator('#lnw-chat-welcome h1').innerText()).includes('법률자료 검색과 문서 정리'));
   check('note-visible-korean-send',(await page.locator('#lnw-chat-send').innerText()).trim()==='실행');
-  check('note-editor-order',await page.evaluate(()=>document.getElementById('note-editor').compareDocumentPosition(document.getElementById('ly-note-ai')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  check('note-editor-order',await page.evaluate(()=>document.getElementById('note-chat-workspace').compareDocumentPosition(document.getElementById('note-editor')) & Node.DOCUMENT_POSITION_FOLLOWING));
   await page.locator('[data-lnw-example]').first().click();
   check('note-quick-prompt-fills',((await page.locator('#lnw-chat-input').inputValue()).includes('개인정보')));
   await page.locator('[data-note-template="case"]').click();
   check('note-case-template-action',(await page.locator('#noteDraftTitle').inputValue())==='사건 검토 메모');
  }catch(e){check('note-smoke',false,String(e).slice(0,250))}
+ try{
+  const fixture=id=>({revision:{id,title:'합성 검수 문서 '+id,status:'draft',legal_as_of:'2026-11-27',body_markdown:'합성 검수 본문',digest:'a'.repeat(64)},citations:[],candidates:[],self_review_blocked:id===2});
+  let release;const gate=new Promise(resolve=>{release=resolve});let submitted=null;
+  await page.route('**/api/wiki/v2/revisions/*/review',async route=>{
+   const id=Number(new URL(route.request().url()).pathname.split('/').at(-2));
+   if(route.request().method()==='POST'){
+    submitted={id,body:route.request().postDataJSON(),url:route.request().url()};
+    await gate;return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({revision_id:id,decision:'revise',published:false})});
+   }
+   return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fixture(id))});
+  });
+  await page.goto(BASE+'/static/legal-wiki-review.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#rid').fill('1');await page.locator('#open').click();await page.locator('#detail').waitFor();
+  await page.locator('#notes').fill('합성 검수 의견');
+  await page.locator('#reviewed').check();
+  page.once('dialog',d=>d.accept());
+  await page.locator('#revise').click();
+  await page.waitForFunction(()=>document.getElementById('open').disabled&&document.getElementById('rid').disabled);
+  check('wiki-review-mutation-lock',await page.locator('#approve').isDisabled()&&await page.locator('#rid').isDisabled());
+  release();
+  await page.locator('#notice').getByText('검수 결정 저장 완료').waitFor();
+  check('wiki-review-private-notes-body',submitted?.id===1&&submitted.body.notes==='합성 검수 의견'&&!new URL(submitted.url).search);
+  await page.locator('#rid').fill('2');await page.locator('#open').click();await page.locator('#title').getByText('합성 검수 문서 2').waitFor();
+  check('wiki-review-self-approval-disabled',await page.locator('#approve').isDisabled()&&await page.locator('#revise').isDisabled()&&await page.locator('#reject').isDisabled());
+  await page.unroute('**/api/wiki/v2/revisions/*/review');
+ }catch(e){check('wiki-review-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  let requested=0,payload;
+  await page.route('**/api/me',r=>r.fulfill({json:{id:'fixture-user',role:'editor'}}));
+  await page.route('**/api/posts?product=note&limit=100',r=>r.fulfill({json:{items:[{id:'own',product:'note',visibility:'private',author_id:'fixture-user',title:'합성 개인 노트'},{id:'other',product:'note',visibility:'private',author_id:'other',title:'다른 사용자 노트'}]}}));
+  await page.route('**/api/note/own/ai-analyze',r=>{requested++;payload=r.request().postDataJSON();return r.fulfill({json:{result:{summary:'합성 분석 결과',issues:[{issue:'합성 쟁점',source_ids:['source-note']}],evidence_gaps:[],questions:[]},sources:[{id:'source-note',title:'합성 개인 노트',included_chars:30}]}})});
+  await page.goto(BASE+'/static/legal-wiki-note-analysis.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#panel').waitFor();
+  check('note-ai-owner-list',await page.locator('#notes option').count()===2);
+  await page.locator('#notes').selectOption('own');
+  check('note-ai-consent-gate',await page.locator('#run').isDisabled()&&requested===0);
+  await page.locator('#consent').check();page.once('dialog',d=>d.accept());await page.locator('#run').click();
+  await page.locator('#result').waitFor();
+  check('note-ai-explicit-consent',requested===1&&payload.consent===true&&payload.wiki_query===null);
+  check('note-ai-source-render',(await page.locator('#sources').textContent()).includes('source-note')&&!(await page.locator('#consent').isChecked()));
+  await page.unroute('**/api/me');await page.unroute('**/api/posts?product=note&limit=100');await page.unroute('**/api/note/own/ai-analyze');
+ }catch(e){check('note-ai-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  const digest='a'.repeat(64);
+  let sent=0,decision=null;
+  await page.route('**/api/wiki/v2/source-review-queue',r=>r.fulfill({json:{items:[{payload_id:7,kind:'precedent',external_id:'fixture'}]}}));
+  await page.route('**/api/wiki/v2/source-reviews/7',r=>{if(r.request().method()==='POST'){sent++;decision=r.request().postDataJSON();return r.fulfill({json:{verified:true}})}return r.fulfill({json:{payload_id:7,canonical_id:9,digest,verified:false,source_url:'https://www.law.go.kr/fixture',notice:'합성 테스트 자료',data:{kind:'precedent',external_id:'fixture',case_number:'합성 검수 판례',court:'합성 법원',decided_on:'2020-01-01',original_text:'합성 원문입니다'}}})});
+  await page.goto(BASE+'/static/legal-wiki-source-review.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#load').click();await page.locator('#queue button').first().click();await page.locator('#detail').waitFor();
+  check('source-review-confirmation-gate',await page.locator('#approve').isDisabled()&&sent===0);
+  await page.locator('#notes').fill('합성 원문과 날짜를 대조한 검수 기록입니다.');
+  await page.locator('#confirm').check();page.once('dialog',d=>d.accept());await page.locator('#approve').click();
+  await page.locator('#status').getByText('원문 검증 등록 완료.',{exact:false}).waitFor();
+  check('source-review-digest-bound',sent===1&&decision.expected_digest===digest&&decision.confirmed===true);
+  check('source-review-after-verification-lock',await page.locator('#approve').isDisabled());
+  await page.unroute('**/api/wiki/v2/source-review-queue');await page.unroute('**/api/wiki/v2/source-reviews/7');
+ }catch(e){check('source-review-browser-fixture',false,String(e).slice(0,250))}
+ try{
+  const digest='b'.repeat(64);
+  let sent=0,decision=null;
+  await page.route('**/api/wiki/v2/reference-mapping-queue?*',r=>r.fulfill({json:{items:[{job_id:7,reference_label:'합성법 제1조',query:'합성법',plan_status:'candidate_lookup'},{job_id:8,reference_label:'복합 참조',plan_status:'manual_review'}]}}));
+  await page.route('**/api/wiki/v2/reference-mappings/7/candidates?*',r=>r.fulfill({json:{total:1,items:[{query:'합성법',external_id:'1',master_id:'2',effective_from:'2020-01-01',candidate_sha256:digest,evidence_url:'https://www.law.go.kr/test'}]}}));
+  await page.route('**/api/wiki/v2/reference-mappings/7/confirm',r=>{sent++;decision=r.request().postDataJSON();return r.fulfill({json:{mapped:true,verified:false}})});
+  await page.goto(BASE+'/static/legal-wiki-reference-mapping.html',{waitUntil:'domcontentloaded'});
+  await page.locator('#load').click();await page.locator('#queue button').first().click();
+  check('mapping-manual-reference-not-guessable',await page.locator('#queue button').count()===1);
+  await page.locator('#lookup').click();await page.locator('#candidates button').first().click();
+  check('mapping-explicit-confirmation',await page.locator('#save').isDisabled()&&sent===0);
+  await page.locator('#confirm').check();page.once('dialog',d=>d.accept());await page.locator('#save').click();
+  await page.locator('#status').getByText('매핑 확정 완료.',{exact:false}).waitFor();
+  check('mapping-selected-digest-only',sent===1&&decision.candidate_sha256===digest&&decision.confirmed===true&&!('external_id' in decision));
+  await page.unroute('**/api/wiki/v2/reference-mapping-queue?*');await page.unroute('**/api/wiki/v2/reference-mappings/7/candidates?*');await page.unroute('**/api/wiki/v2/reference-mappings/7/confirm');
+ }catch(e){check('mapping-browser-fixture',false,String(e).slice(0,250))}
  await testContext.close();await browser.close();
  const critical=results.filter(r=>r.error||r.http!==200||r.pageErrors.length||r.overflow||r.brokenImages?.length||
   !r.main||!r.headerVisible||r.moduleCount!==5||

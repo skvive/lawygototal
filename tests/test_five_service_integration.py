@@ -5,8 +5,10 @@ Real API auth, AI providers, and publication rights must be checked independentl
 """
 from pathlib import Path
 import unittest
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
+RELEASE = json.loads((ROOT / "static/design-release.json").read_text(encoding="utf-8"))["release"]
 
 
 def read(path: str) -> str:
@@ -54,10 +56,13 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertFalse(_is_legal_topic({"title": "패션 룩북과 쇼핑 신상품", "summary": "생활용품 할인과 이벤트"}))
         self.assertFalse(_is_legal_topic({"title": "", "summary": ""}))
         pan = read("static/pan.html")
-        self.assertIn('id="pan-legal-live"', pan)
-        self.assertIn('id="pan-legal-live-feed"', pan)
-        self.assertIn('id="pan-legal-player"', pan)
-        self.assertIn('id="pan-legal-player-close"', pan)
+        for ident in ("pan-more-posts","pan-real-post-grid","pan-post-detail","pan-detail-close","pan-posts-reload","pan-real-post-count"):
+            self.assertIn(f'id="{ident}"', pan)
+        js=read("static/pan-published-v2-20261108.js")
+        self.assertIn("pan-posts-reload",js)
+        self.assertIn("pan-detail-close",js)
+        self.assertIn("youtube-nocookie.com/embed/",js)
+        self.assertIn("noopener noreferrer",js)
 
     def test_pro_korean_guide_preserves_external_product_link(self):
         pro = read("static/pro.html")
@@ -83,11 +88,11 @@ class FiveServiceIntegrationTest(unittest.TestCase):
         self.assertNotIn("innerHTML", script)
         for path in ("journal", "pan", "note"):
             html = read(f"static/{path}.html")
-            self.assertIn('href="/static/lawygo-service-integration-20261105.css?v=20261121-pan-note-ko-v13"', html)
+            self.assertIn(f'href="/static/lawygo-service-integration-20261105.css?v={RELEASE}"', html)
         for path in ("pan", "note"):
-            self.assertIn('src="/static/lawygo-service-integration-20261105.js?v=20261121-pan-note-ko-v13"', read(f"static/{path}.html"))
+            self.assertIn(f'src="/static/lawygo-service-integration-20261105.js?v={RELEASE}"', read(f"static/{path}.html"))
         wiki = read("static/wiki.html")
-        self.assertIn('src="/static/lawygo-wiki-restored-20261111.js?v=20261121-pan-note-ko-v13"', wiki)
+        self.assertIn(f'src="/static/lawygo-wiki-restored-20261111.js?v={RELEASE}"', wiki)
 
 
     def test_journal_excludes_business_announcements_but_keeps_legal_news(self):

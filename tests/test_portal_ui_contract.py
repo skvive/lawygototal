@@ -42,21 +42,26 @@ def test_wiki_reader_is_a_standalone_research_detail_view():
     assert "'/p/note'" in script or '"/p/note"' in script
 
 
-def test_generated_legal_visual_is_used_by_wiki():
+def test_wiki_text_first_index_and_brand_asset_are_present():
     wiki = read("static/wiki.html")
-    stylesheet = read("static/portal-workspaces.css")
-    asset = ROOT / "static/img/design/legal-knowledge-city.webp"
-
-    assert asset.exists()
-    assert "portal-wiki-image" in wiki
-    assert "/static/img/design/legal-knowledge-city.webp" in stylesheet
+    stylesheet = read("static/lawygo-wiki-restored-20261111.css")
+    assert (ROOT / "static/logo.svg").exists()
+    assert 'src="/static/logo.svg"' in wiki
+    assert "wref-topic-index" in wiki and "wref-topic-index" in stylesheet
+    assert 'id="wikiLatestList"' in wiki
+    assert 'id="wikiArticleSource"' in wiki
 
 
 def test_wiki_and_note_keep_shared_platform_navigation():
-    for page in ("static/wiki.html", "static/note.html"):
-        html = read(page)
-        assert "/static/platform-switcher.css" in html
-        assert "/static/platform-switcher.js" in html
+    wiki = read("static/wiki.html")
+    note = read("static/note.html")
+    assert 'aria-label="법률백과 상단 내비게이션"' in wiki
+    assert 'href="/p/wiki?view=search"' in wiki
+    assert 'href="https://lawygo.com"' in wiki
+    assert "/static/platform-switcher.css" in note
+    assert "/static/platform-switcher.js" in note
+    assert 'href="/p/wiki?view=search"' in note
+    for html in (wiki,note):
         assert '<meta name="description"' in html
 
 
@@ -101,7 +106,7 @@ def test_pan_note_korean_first_text_layout():
     assert "법률자료 검색과 문서 정리" in note
     assert "문서 서식 선택" in note
     assert 'id="lnw-chat-form"' in note and 'id="noteDraftContent"' in note
-    assert note.index('id="note-editor"') < note.index('id="ly-note-ai"')
+    assert note.index('id="note-chat-workspace"') < note.index('id="note-editor"')
     assert "wiki-native-workspace" not in note
     assert 'href="/p/wiki?view=search"' in note
     assert "Korean-first PAN / text-first NOTE" in css
